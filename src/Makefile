@@ -212,10 +212,10 @@ FICHIERS_OBJ_CLIENT = \
 
 # == SERVEUR ==
 FICHIERS_OBJ_SERVEUR = \
-	$(REPERTOIRE)/serveur/Structure.o \
-	$(REPERTOIRE)/serveur/TechnologieStructure.o \
-	$(REPERTOIRE)/serveur/TechnologieVaisseau.o \
-	$(REPERTOIRE)/serveur/Vaisseau.o \
+	$(REPERTOIRE)/serveur/structures/Structure.o \
+	$(REPERTOIRE)/serveur/structures/TechnologieStructure.o \
+	$(REPERTOIRE)/serveur/structures/vaisseaux/TechnologieVaisseau.o \
+	$(REPERTOIRE)/serveur/structures/vaisseaux/Vaisseau.o \
 	$(REPERTOIRE)/serveur/sv_joueur.o \
 	$(REPERTOIRE)/serveur/sv_main.o \
 	$(REPERTOIRE)/serveur/main.o \
