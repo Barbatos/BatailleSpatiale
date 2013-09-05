@@ -16,6 +16,8 @@
 	#define closesocket(s) close(s) // la fonction closesocket() est pour windows, close() pour linux
 #endif
 
+#include <boost/lexical_cast.hpp>
+
 // Longueur maximale d'un paquet reçu par le serveur
 #define MAX_LONGUEUR_PAQUET 1515
 

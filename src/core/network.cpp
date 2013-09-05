@@ -1,6 +1,5 @@
 #include "../global.hpp"
 
-
 // Initialisation de la socket
 void Network::InitSocket(){
 	int port = 1337; // @TODO: remplacer ça par une cvar
@@ -114,20 +113,6 @@ void Network::getIP(char *ip){
     strcpy(ip, inet_ntoa(*addr_list[0]));
 }
 
-//@Charles - c'est super moche, à changer
-requete_s to_enum(const string &req){
-	if(req == "1")
-		return CTS_CONNEXION;
-	else if(req == "2")
-		return CTS_DECONNEXION;
-	else if(req == "1000")
-		return STC_CONNEXION;
-	else if(req == "1001")
-		return STC_DECONNEXION;
-	else
-		return STC_CTS_NOTHING;
-}
-
 void Network::ParserRequete(char *from, char *requete){
 	vector<string> req;
 	requete_s cmd;
@@ -138,7 +123,7 @@ void Network::ParserRequete(char *from, char *requete){
 	// sont les données
 	boost::iter_split(req, requete, boost::first_finder("^C"));
 
-	cmd = to_enum(req[0]);
+	cmd = static_cast<requete_s>(boost::lexical_cast<int>(req[0]));
 
 	// Paquets venant du client et étant destinés au serveur
 	switch(cmd){
