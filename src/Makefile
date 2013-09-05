@@ -201,6 +201,8 @@ makedirs:
 	@if [ ! -d $(REP_COMPILATION) ]; then $(MKDIR) $(REP_COMPILATION); fi
 	@if [ ! -d $(REPERTOIRE)/client ]; then $(MKDIR) $(REPERTOIRE)/client; fi
 	@if [ ! -d $(REPERTOIRE)/serveur ]; then $(MKDIR) $(REPERTOIRE)/serveur; fi
+	@if [ ! -d $(REPERTOIRE)/serveur/structures ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures; fi
+	@if [ ! -d $(REPERTOIRE)/serveur/structures/vaisseaux ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures/vaisseaux; fi
 
 
 # Liste des fichiers .o qui seront générés
