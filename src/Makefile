@@ -44,12 +44,12 @@ endif
 
 # Doit-on compiler le client ?
 ifndef COMPILER_CLIENT
-COMPILER_CLIENT=1
+COMPILER_CLIENT=0
 endif
 
 # Doit-on compiler le serveur ?
 ifndef COMPILER_SERVER 
-COMPILER_SERVEUR=0
+COMPILER_SERVEUR=1
 endif
 
 # Activation de l'optimisation
