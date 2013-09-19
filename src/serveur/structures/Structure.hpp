@@ -2,12 +2,11 @@
 #define STRUCTURE_HPP
 #include "TechnologieStructure.hpp"
 #include <memory>
-#include <SFML/Graphics.hpp>
 
 /*
- * Classe qui définit les differents attributs
- * que possèdent les batiments et les vaisseaux.
- * Les classes Vaisseau et Batiment en héritent
+ * Classe qui dÃ©finit les differents attributs
+ * que possÃ¨dent les batiments et les vaisseaux.
+ * Les classes Vaisseau et Batiment en hÃ©ritent
  */
 
 class Structure{
@@ -39,10 +38,6 @@ class Structure{
         void modifierVie(int const valeur);
         static Structure cloner(Structure const& modele, TechnologieStructure techS);
 
-        void afficher(std::ostream& fluxSortant) const;
-		const void afficherGraphiquement(sf::RenderWindow& fenetre, int i, int j);
-		static void chargerGraphismes(int _taille);
-
 
     protected:
 		static int taille;
@@ -53,7 +48,6 @@ class Structure{
         float bouclierTaux;
         int visibilite;
         int attaque;
-		static sf::CircleShape cercleVie;
 	
 	private:
 		friend std::ostream& operator<< (std::ostream& fluxSortant, Structure const& Structure);

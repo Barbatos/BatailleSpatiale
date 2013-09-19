@@ -121,7 +121,7 @@ void Structure::modifierVie(int const valeur){
 }
 
 
-/* Cette methode sert à faire baisser la vie de la
+/* Cette methode sert Ã  faire baisser la vie de la
  * structure en utilisant l'attaque de l'attaquant
  * repartie entre la vie et le bouclier.
  * Si le bouclier casse alors ce qu'il n'a pas
@@ -135,23 +135,13 @@ void Structure::subir(Structure const& attaquant){
     /* Le total des degats est compose des degats
     * qui sont attribues a la vie selon le taux
     * d'absorbsion du bouclier + ce que le
-    * bouclier n'a pas absorbé                 */
+    * bouclier n'a pas absorbÃ©                 */
     this->modifierVie( - (attaquant.getAttaque() * (1-bouclierTaux) + ( this->setBouclier( bouclier - (attaquant.getAttaque() * bouclierTaux ) ) ) ) ) ;
 }
 
 /* Meme methode en mode ciblage                */
 void Structure::attaquer(Structure& cible) const {
     cible.subir(*this);
-}
-
-void Structure::afficher(std::ostream& fluxSortant) const {
-
-    fluxSortant << "Vie : " << vie << "/" << vieMax << std::endl <<
-				   "Bouclier : " << bouclier << "/" << bouclierMax << std::endl <<
-				   "% degats absorbes : " << (bouclierTaux*100) << "%" << std::endl <<
-				   "Visibilite : " << visibilite << std::endl <<
-				   "Attaque : " << attaque << std::endl << std::endl;
-
 }
 
 Structure Structure::cloner(Structure const& modele, TechnologieStructure techS){
@@ -165,20 +155,10 @@ Structure Structure::cloner(Structure const& modele, TechnologieStructure techS)
 
 }
 
-const void Structure::afficherGraphiquement(sf::RenderWindow& fenetre, int i , int j){
-	Structure::cercleVie.setPosition(i, j);
-	Structure::cercleVie.setRadius((double) Structure::taille * 3 / 5.0f * vie / vieMax);
-	fenetre.draw(Structure::cercleVie);
-}
 
 std::ostream& operator<<(std::ostream& fluxSortant, Structure const& Structure) {
 
     Structure.afficher(fluxSortant) ;
     return fluxSortant;
 
-}
-
-void Structure::chargerGraphismes(int _taille){
-	Structure::cercleVie.setFillColor(sf::Color::Red);
-	Structure::taille = _taille;
 }

@@ -1,8 +1,5 @@
 #include "Vaisseau.hpp"
 
-sf::Texture Vaisseau::textureVaisseau[VaisseauNbrTotal];
-sf::CircleShape Vaisseau::spriteVaisseau[VaisseauNbrTotal];
-
 Vaisseau::Vaisseau() : Structure() {
 
     energie = 2;
@@ -103,31 +100,6 @@ Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS, Te
                     modele.getEnergieMax() + (modele.getEnergieMax() * 0.5 * techV.getNiveauEnergie()),
                     modele.getConsommationMax() - (modele.getConsommationMax() * 0.1 * techV.getNiveauConsommation()));
 
-}
-
-void Vaisseau::chargerGraphismes(int taille){
-		
-	if (!Vaisseau::textureVaisseau[VaisseauSimple].loadFromFile("ressources/vaisseauSimple.png")){
-		std::cout << "Erreur au chargement de la texture du vaisseau Simple" << std::endl;
-	}
-	if (!Vaisseau::textureVaisseau[VaisseauVide].loadFromFile("ressources/manque.jpg")){
-		std::cout << "Erreur au chargement de la texture du vaisseau inconnu" << std::endl;
-	}
-	if (!Vaisseau::textureVaisseau[VaisseauConstructeur].loadFromFile("ressources/vaisseauConstructeur.png")){
-		std::cout << "Erreur au chargement de la texture du vaisseau constructeur" << std::endl;
-	}
-	for(int i = 0 ; i < VaisseauNbrTotal; i++)
-		Vaisseau::spriteVaisseau[i] = sf::CircleShape(taille*3/5, 6);
-		
-	Vaisseau::spriteVaisseau[VaisseauVide].setTexture(&(Vaisseau::textureVaisseau[VaisseauVide]));
-	Vaisseau::spriteVaisseau[VaisseauSimple].setTexture(&(Vaisseau::textureVaisseau[VaisseauSimple]));
-	Vaisseau::spriteVaisseau[VaisseauConstructeur].setTexture(&(Vaisseau::textureVaisseau[VaisseauConstructeur]));
-}
-
-const void Vaisseau::afficherGraphiquement(sf::RenderWindow& fenetre, int i , int j){
-	Structure::afficherGraphiquement(fenetre, i, j);
-	Vaisseau::spriteVaisseau[type].setPosition(i, j);
-	fenetre.draw(Vaisseau::spriteVaisseau[type]);
 }
 
 const int Vaisseau::distanceMaximale(){

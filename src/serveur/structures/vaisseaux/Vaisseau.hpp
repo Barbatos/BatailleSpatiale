@@ -3,12 +3,11 @@
 #include "../Structure.hpp"
 #include "TechnologieVaisseau.hpp"
 #include "TypeVaisseau.hpp"
-#include <SFML/Graphics.hpp>
 #include <memory>
 
 /*
- * Classe qui définit les differents attributs
- * que possèdent les vaisseaux.
+ * Classe qui dÃ©finit les differents attributs
+ * que possÃ¨dent les vaisseaux.
  */
 class Vaisseau : public Structure {
 
@@ -31,13 +30,9 @@ class Vaisseau : public Structure {
         static Vaisseau cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
 
         void afficher(std::ostream& fluxSortant) const;
-		const void afficherGraphiquement(sf::RenderWindow& fenetre, int i, int j);
-		static void chargerGraphismes(int taille);
-	
+		
 	protected:
 		TypeVaisseau type;
-		static sf::Texture textureVaisseau[VaisseauNbrTotal];
-		static sf::CircleShape spriteVaisseau[VaisseauNbrTotal];
 
     private:
         int energie;

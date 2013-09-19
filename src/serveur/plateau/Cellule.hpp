@@ -6,7 +6,6 @@
 #include "../structures/batiments/Batiment.hpp"
 #include "../structures/vaisseaux/Vaisseau.hpp"
 #include "../structures/Structure.hpp"
-#include <SFML/Graphics.hpp>
 
 /**
  * Cette classe est une case elementaire du plateau
@@ -21,7 +20,6 @@ class Cellule{
 		const bool possedeEmplacement(TypeCellule _type);
 		const TypeCellule statutEmplacement();
 		const int getCoutDeplacement();
-		const void afficher(sf::RenderWindow& window, int i , int j);
 		void subir(Structure const& attaquant);
 		Structure getAttaquant();
 		const TypeBatiment typeBatiment();
