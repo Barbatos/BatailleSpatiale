@@ -11,3 +11,6 @@
 *.lai
 *.la
 *.a
+
+# Project files
+bataille2.*
