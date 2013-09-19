@@ -1,8 +1,7 @@
 #ifndef ENTREPOT_HPP
 #define ENTREPOT_HPP
 
-
-#include "Batiment.hpp"
+#include "../Batiment.hpp"
 /*
  * Classe qui définit les differents attributs
  * que possèdent les batiments.
@@ -24,7 +23,6 @@ class Entrepot : public Batiment {
     private:
     int energie;
     int energieMax;
-
 
 };
 

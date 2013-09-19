@@ -54,14 +54,14 @@ bool TechnologieVaisseau::augmenterNiveauConsommation(unsigned int const& gainNi
 }
 
 
-void TechnologieVaisseau::changerFlux(ostream& fluxSortant) const {
+void TechnologieVaisseau::changerFlux(std::ostream& fluxSortant) const {
 	// On retourne dans [fluxSortant] les attributs
-    fluxSortant << "Niveau Materiaux : " << niveauMateriaux << endl <<
-				   "Niveau Energie : " << niveauEnergie << endl <<
-				   "Niveau Consommation : " << niveauConsommation << endl;
+    fluxSortant << "Niveau Materiaux : " << niveauMateriaux << std::endl <<
+				   "Niveau Energie : " << niveauEnergie << std::endl <<
+				   "Niveau Consommation : " << niveauConsommation << std::endl;
 }
 
-ostream& operator<<(ostream& fluxSortant, TechnologieVaisseau const& technologieVaisseau) {
+std::ostream& operator<<(std::ostream& fluxSortant, TechnologieVaisseau const& technologieVaisseau) {
 	// On modifie [fluxSortant]
     technologieVaisseau.changerFlux(fluxSortant) ;
     // Et on le retourne

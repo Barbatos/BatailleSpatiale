@@ -1,7 +1,7 @@
 #ifndef TECHNOLOGIE_STRUCTURE_HPP
 #define TECHNOLOGIE_STRUCTURE_HPP
 
-#include "../../global.hpp"
+#include <iostream>
 
 /*
  * Classe qui définit les technologies sur les structures

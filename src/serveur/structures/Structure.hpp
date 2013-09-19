@@ -1,7 +1,8 @@
 #ifndef STRUCTURE_HPP
 #define STRUCTURE_HPP
-
 #include "TechnologieStructure.hpp"
+#include <memory>
+#include <SFML/Graphics.hpp>
 
 /*
  * Classe qui définit les differents attributs
@@ -12,7 +13,8 @@
 class Structure{
 
     public:
-        Structure(int _vieMax = 0, int _bouclierMax = 0, float _bouclierTaux = 0, int _visibilite = 0, int _attaque = 0);
+
+        Structure(int _vieMax = 100, int _bouclierMax = 0, float _bouclierTaux = 0, int _visibilite = 0, int _attaque = 10);
 
         // Getter
         int getVie() const;
@@ -38,9 +40,12 @@ class Structure{
         static Structure cloner(Structure const& modele, TechnologieStructure techS);
 
         void afficher(std::ostream& fluxSortant) const;
+		const void afficherGraphiquement(sf::RenderWindow& fenetre, int i, int j);
+		static void chargerGraphismes(int _taille);
 
 
     protected:
+		static int taille;
         int vie;
         int vieMax;
         int bouclier;
@@ -48,9 +53,13 @@ class Structure{
         float bouclierTaux;
         int visibilite;
         int attaque;
+		static sf::CircleShape cercleVie;
+	
+	private:
+		friend std::ostream& operator<< (std::ostream& fluxSortant, Structure const& Structure);
 
 };
 
-std::ostream& operator<<(std::ostream& fluxSortant, Structure const& Structure);
+typedef std::shared_ptr<Structure> StructurePtr;
 
 #endif // STRUCTURE_HPP

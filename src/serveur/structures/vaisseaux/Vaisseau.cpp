@@ -1,18 +1,23 @@
 #include "Vaisseau.hpp"
 
+sf::Texture Vaisseau::textureVaisseau[VaisseauNbrTotal];
+sf::CircleShape Vaisseau::spriteVaisseau[VaisseauNbrTotal];
+
 Vaisseau::Vaisseau() : Structure() {
 
-    energie = 0;
-    energieMax = 0;
-    consommationMax = 0;
+    energie = 2;
+    energieMax = 2;
+    consommationMax = 1;
+    type = VaisseauVide;
 
 }
 
-Vaisseau::Vaisseau(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax):
+Vaisseau::Vaisseau(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int _energieMax, int consommationMax, TypeVaisseau _type):
     Structure(vieMax, bouclierMax, bouclierTaux, visibilite, attaque){
 
-    energie = this->energieMax = energieMax;
+    energie = energieMax = _energieMax;
     this->consommationMax = consommationMax;
+    type = _type;
 
 }
 
@@ -55,29 +60,29 @@ void Vaisseau::setConsommationMax(int const consommationMax){
 void Vaisseau::modifierEnergie(int const valeur){
 
     if(energie + valeur < energieMax){
-        this->setVie(energie + valeur);
-        if(valeur > 0) cout << valeur << " points d' energie ont ete rendus au vaisseau" << endl << endl;
-        if(valeur < 0) cout << "Le vaisseau a perdu " << -valeur << " points d'energie" << endl << endl;
+		setEnergie(energie + valeur);
+        if(valeur > 0) std::cout << valeur << " points d' energie ont ete rendus au vaisseau" << std::endl << std::endl;
+        if(valeur < 0) std::cout << "Le vaisseau a perdu " << -valeur << " points d'energie" << std::endl << std::endl;
     }
-    else this->setVie(energieMax);
+    else this->setEnergie(energieMax);
 
 }
 
 
-void Vaisseau::afficher(ostream& fluxSortant) const {
+void Vaisseau::afficher(std::ostream& fluxSortant) const {
 
-    fluxSortant << "Vie : " << vie << "/" << vieMax << endl <<
-				   "Bouclier : " << bouclier << "/" << bouclierMax << endl <<
-				   "% degats absorbes : " << (bouclierTaux*100) << "%" << endl <<
-				   "Visibilite : " << visibilite << endl <<
-				   "Attaque : " << attaque << endl <<
-				   "Energie : " << energie << "/" << energieMax << endl <<
-				   "Consommation : " << consommationMax << endl << endl;
+    fluxSortant << "Vie : " << vie << "/" << vieMax << std::endl <<
+				   "Bouclier : " << bouclier << "/" << bouclierMax << std::endl <<
+				   "% degats absorbes : " << (bouclierTaux*100) << "%" << std::endl <<
+				   "Visibilite : " << visibilite << std::endl <<
+				   "Attaque : " << attaque << std::endl <<
+				   "Energie : " << energie << "/" << energieMax << std::endl <<
+				   "Consommation : " << consommationMax << std::endl << std::endl;
 
 
 }
 
-ostream& operator<<(ostream& fluxSortant, Vaisseau const& Vaisseau) {
+std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau) {
 
     Vaisseau.afficher(fluxSortant) ;
     return fluxSortant;
@@ -100,7 +105,32 @@ Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS, Te
 
 }
 
+void Vaisseau::chargerGraphismes(int taille){
+		
+	if (!Vaisseau::textureVaisseau[VaisseauSimple].loadFromFile("ressources/vaisseauSimple.png")){
+		std::cout << "Erreur au chargement de la texture du vaisseau Simple" << std::endl;
+	}
+	if (!Vaisseau::textureVaisseau[VaisseauVide].loadFromFile("ressources/manque.jpg")){
+		std::cout << "Erreur au chargement de la texture du vaisseau inconnu" << std::endl;
+	}
+	if (!Vaisseau::textureVaisseau[VaisseauConstructeur].loadFromFile("ressources/vaisseauConstructeur.png")){
+		std::cout << "Erreur au chargement de la texture du vaisseau constructeur" << std::endl;
+	}
+	for(int i = 0 ; i < VaisseauNbrTotal; i++)
+		Vaisseau::spriteVaisseau[i] = sf::CircleShape(taille*3/5, 6);
+		
+	Vaisseau::spriteVaisseau[VaisseauVide].setTexture(&(Vaisseau::textureVaisseau[VaisseauVide]));
+	Vaisseau::spriteVaisseau[VaisseauSimple].setTexture(&(Vaisseau::textureVaisseau[VaisseauSimple]));
+	Vaisseau::spriteVaisseau[VaisseauConstructeur].setTexture(&(Vaisseau::textureVaisseau[VaisseauConstructeur]));
+}
 
+const void Vaisseau::afficherGraphiquement(sf::RenderWindow& fenetre, int i , int j){
+	Structure::afficherGraphiquement(fenetre, i, j);
+	Vaisseau::spriteVaisseau[type].setPosition(i, j);
+	fenetre.draw(Vaisseau::spriteVaisseau[type]);
+}
 
-
-
+const int Vaisseau::distanceMaximale(){
+	//A modifier plus tard avec la consommation max
+	return energie;
+}

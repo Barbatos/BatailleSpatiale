@@ -4,7 +4,6 @@
 
 #include "../Batiment.hpp"
 #include "../entrepots/Entrepot.hpp"
-#include "../../../../global.hpp"
 
 /*
  * Classe qui définit les differents attributs

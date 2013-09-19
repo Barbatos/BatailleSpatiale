@@ -1,7 +1,6 @@
 #ifndef TECHNOLOGIE_VAISSEAU_HPP
 #define TECHNOLOGIE_VAISSEAU_HPP
-
-#include "../../../global.hpp"
+#include <iostream>
 
 /*
  * Classe qui définit les technologies sur les vaisseaux

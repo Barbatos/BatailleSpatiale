@@ -1,8 +1,7 @@
 #include "Entrepot.hpp"
 
-Entrepot::Entrepot(int _energie, int _energieMax) : 
-	Batiment(), energie(_energie), energieMax(_energieMax) {
-		
+Entrepot::Entrepot(int _energie, int _energieMax):
+	Batiment::Batiment(), energie(_energie), energieMax(_energieMax) {
 }
 
 /*Entrepot::Entrepot(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int niveau, int energieMax) :
@@ -22,7 +21,7 @@ int Entrepot::ajouterEnergie(int ajout){
 	if(energieMax - energie >= ajout){
 		energie += ajout;
 		return 0;
-	} else
+	} else {
 		ajout = energieMax - energie;
 		energie = energieMax;
 		return ajout;
@@ -34,7 +33,7 @@ int Entrepot::retirerEnergie(int retrait){
 	if(energie >= retrait){
 		energie -= retrait;
 		return 0;
-	} else
+	} else {
 		retrait = energie;
 		energie = 0;
 		return retrait;

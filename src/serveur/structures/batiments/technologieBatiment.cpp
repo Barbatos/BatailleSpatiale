@@ -1,5 +1,3 @@
-
-
 #include "TechnologieBatiment.hpp"
 
 /*
@@ -55,14 +53,14 @@ bool TechnologieBatiment::augmenterNiveauCoutMateriaux(unsigned int const& gainN
 }
 
 
-void TechnologieBatiment::changerFlux(ostream& fluxSortant) const {
+void TechnologieBatiment::changerFlux(std::ostream& fluxSortant) const {
 	// On retourne dans [fluxSortant] les attributs
-    fluxSortant << "Niveau Achat : " << niveauAchat << endl <<
-				   "Niveau Cout Energie : " << niveauCoutEnergie << endl <<
-				   "Niveau Cout Materiaux : " << niveauCoutMateriaux << endl;
+    fluxSortant << "Niveau Achat : " << niveauAchat << std::endl <<
+				   "Niveau Cout Energie : " << niveauCoutEnergie << std::endl <<
+				   "Niveau Cout Materiaux : " << niveauCoutMateriaux << std::endl;
 }
 
-ostream& operator<<(ostream& fluxSortant, TechnologieBatiment const& technologieBatiment) {
+std::ostream& operator<<(std::ostream& fluxSortant, TechnologieBatiment const& technologieBatiment) {
 	// On modifie [fluxSortant]
     technologieBatiment.changerFlux(fluxSortant) ;
     // Et on le retourne

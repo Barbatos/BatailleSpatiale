@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Structure.hpp"
 
+sf::CircleShape Structure::cercleVie(0, 6);
+int Structure::taille = 100;
+
 // Constructeur
 Structure::Structure(int _vieMax, int _bouclierMax, float _bouclierTaux, int _visibilite, int _attaque){
 
@@ -134,7 +137,6 @@ void Structure::subir(Structure const& attaquant){
     * d'absorbsion du bouclier + ce que le
     * bouclier n'a pas absorbé                 */
     this->modifierVie( - (attaquant.getAttaque() * (1-bouclierTaux) + ( this->setBouclier( bouclier - (attaquant.getAttaque() * bouclierTaux ) ) ) ) ) ;
-
 }
 
 /* Meme methode en mode ciblage                */
@@ -152,13 +154,6 @@ void Structure::afficher(std::ostream& fluxSortant) const {
 
 }
 
-std::ostream& operator<<(std::ostream& fluxSortant, Structure const& Structure) {
-
-    Structure.afficher(fluxSortant) ;
-    return fluxSortant;
-
-}
-
 Structure Structure::cloner(Structure const& modele, TechnologieStructure techS){
     Structure copie(modele.getVieMax() + (modele.getVieMax() * 0.5 * techS.getNiveauVie()),
                     modele.getBouclierMax() + (modele.getBouclierMax() * 0.5 * techS.getNiveauBouclier()),
@@ -168,4 +163,22 @@ Structure Structure::cloner(Structure const& modele, TechnologieStructure techS)
 
     return copie;
 
+}
+
+const void Structure::afficherGraphiquement(sf::RenderWindow& fenetre, int i , int j){
+	Structure::cercleVie.setPosition(i, j);
+	Structure::cercleVie.setRadius((double) Structure::taille * 3 / 5.0f * vie / vieMax);
+	fenetre.draw(Structure::cercleVie);
+}
+
+std::ostream& operator<<(std::ostream& fluxSortant, Structure const& Structure) {
+
+    Structure.afficher(fluxSortant) ;
+    return fluxSortant;
+
+}
+
+void Structure::chargerGraphismes(int _taille){
+	Structure::cercleVie.setFillColor(sf::Color::Red);
+	Structure::taille = _taille;
 }
