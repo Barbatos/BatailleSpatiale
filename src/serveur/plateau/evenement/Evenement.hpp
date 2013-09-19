@@ -12,17 +12,28 @@
 
 class Evenement {
 	public:
-		Evenement(int _coutDeplacement = 1);
+		Evenement(bool destrucible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
 		virtual void activer(Batiment* batiment) {}
 		virtual void desactiver(Batiment* batiment) {}
 		virtual void activer(Vaisseau* vaisseau) {}
 		virtual void desactiver(Vaisseau* vaisseau) {}
+		bool destrucible();
 		bool accessible();
+		bool tirPossible();
+		bool ciblePossible();
 		int getCoutDeplacement();
-	
+		int getMultiplicateurDommage();
+		int getMultiplicateurDegat();
+		
 	private:
+		// l'évenement est destructible, on remonte une structure qui prend sa place.
+		bool destrucible;
 		// nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible
 		int coutDeplacement;
+		// paramètre à prendre en compte lors du calcul des dommages infligés par la structure présente.
+		int multiplicateurDommage;
+		// paramètre à prendre en compte lors du calcul des dommages subits par la structure présente.
+		int multiplicateurDegat;
 };
 
 typedef std::shared_ptr<Evenement> EvenementPtr;
