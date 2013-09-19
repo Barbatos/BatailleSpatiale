@@ -157,8 +157,5 @@ Structure Structure::cloner(Structure const& modele, TechnologieStructure techS)
 
 
 std::ostream& operator<<(std::ostream& fluxSortant, Structure const& Structure) {
-
-    Structure.afficher(fluxSortant) ;
     return fluxSortant;
-
 }

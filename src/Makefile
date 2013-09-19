@@ -135,7 +135,7 @@ endif
 # Commande de compilation serveur
 define COMPILATION_SERVEUR       
 	@echo "CC $<"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $< -DSERVEUR=1
+	$(Q)$(CC) $(CFLAGS) -std=c++11 -o $@ -c $< -DSERVEUR=1
 endef
 
 # Commande de compilation client
