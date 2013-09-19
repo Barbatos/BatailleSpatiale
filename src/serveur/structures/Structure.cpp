@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Structure.hpp"
 
-sf::CircleShape Structure::cercleVie(0, 6);
 int Structure::taille = 100;
 
 // Constructeur
