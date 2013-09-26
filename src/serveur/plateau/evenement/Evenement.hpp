@@ -12,11 +12,12 @@
 
 class Evenement {
 	public:
-		Evenement(bool destrucible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
+		Evenement(bool destrucible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1, TypeEvenement typeEvenement);
 		virtual void activer(Batiment* batiment) {}
 		virtual void desactiver(Batiment* batiment) {}
 		virtual void activer(Vaisseau* vaisseau) {}
 		virtual void desactiver(Vaisseau* vaisseau) {}
+		TypeEvenement quelType();
 		bool destrucible();
 		bool accessible();
 		bool tirPossible();
@@ -26,6 +27,8 @@ class Evenement {
 		int getMultiplicateurDegat();
 		
 	private:
+		// Nature de l'évènements.
+		TypeEvenement TypeEvenement;
 		// l'évenement est destructible, on remonte une structure qui prend sa place.
 		bool destrucible;
 		// nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible
