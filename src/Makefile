@@ -203,7 +203,11 @@ makedirs:
 	@if [ ! -d $(REPERTOIRE)/serveur ]; then $(MKDIR) $(REPERTOIRE)/serveur; fi
 	@if [ ! -d $(REPERTOIRE)/serveur/structures ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures; fi
 	@if [ ! -d $(REPERTOIRE)/serveur/structures/vaisseaux ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures/vaisseaux; fi
-
+	@if [ ! -d $(REPERTOIRE)/serveur/structures/batiments ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures/batiments; fi
+	@if [ ! -d $(REPERTOIRE)/serveur/structures/batiments/mines ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures/batiments/mines; fi
+	@if [ ! -d $(REPERTOIRE)/serveur/structures/batiments/entrepots ]; then $(MKDIR) $(REPERTOIRE)/serveur/structures/batiments/entrepots; fi
+	@if [ ! -d $(REPERTOIRE)/serveur/plateau ]; then $(MKDIR) $(REPERTOIRE)/serveur/plateau; fi
+	@if [ ! -d $(REPERTOIRE)/serveur/plateau/evenement ]; then $(MKDIR) $(REPERTOIRE)/serveur/plateau/evenement; fi
 
 # Liste des fichiers .o qui seront générés
 
@@ -214,10 +218,18 @@ FICHIERS_OBJ_CLIENT = \
 
 # == SERVEUR ==
 FICHIERS_OBJ_SERVEUR = \
+	$(REPERTOIRE)/serveur/plateau/evenement/Evenement.o \
+	$(REPERTOIRE)/serveur/plateau/Point.o \
+	$(REPERTOIRE)/serveur/plateau/Noeud.o \
+	$(REPERTOIRE)/serveur/plateau/Cellule.o \
 	$(REPERTOIRE)/serveur/structures/Structure.o \
 	$(REPERTOIRE)/serveur/structures/TechnologieStructure.o \
 	$(REPERTOIRE)/serveur/structures/vaisseaux/TechnologieVaisseau.o \
 	$(REPERTOIRE)/serveur/structures/vaisseaux/Vaisseau.o \
+	$(REPERTOIRE)/serveur/structures/batiments/Batiment.o \
+	$(REPERTOIRE)/serveur/structures/batiments/mines/Mines.o \
+	$(REPERTOIRE)/serveur/structures/batiments/entrepots/Entrepots.o \
+	$(REPERTOIRE)/serveur/structures/batiments/technologieBatiment.o \
 	$(REPERTOIRE)/serveur/sv_joueur.o \
 	$(REPERTOIRE)/serveur/sv_main.o \
 	$(REPERTOIRE)/serveur/main.o \
