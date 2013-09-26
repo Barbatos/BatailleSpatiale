@@ -48,7 +48,7 @@ const TypeCellule Cellule::statutEmplacement(){
 }
 
 const int Cellule::getCoutDeplacement() {
-	if(evenement->getCoutDeplacement != -1) {
+	if((evenment) && (evenement->getCoutDeplacement != -1)) {
 		if(type == CelluleMinerais)
 			if(evenement)
 				return evenement->getCoutDeplacement() + 1;
@@ -62,7 +62,7 @@ const int Cellule::getCoutDeplacement() {
 	}
 
 	else
-		return -1;
+		return 10000;
 		
 }
 

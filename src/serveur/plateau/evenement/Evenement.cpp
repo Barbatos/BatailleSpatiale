@@ -16,8 +16,8 @@ TypeEvenement Evenement::quelType() {
 	return typeEvenement;
 }
 
-bool Evenement::destrucible() {
-	return destrucible;
+bool Evenement::destructible() {
+	return destructible;
 }
 
 bool Evenement::accessible(){
