@@ -24,7 +24,8 @@ class Cellule{
 		Structure getAttaquant();
 		const TypeBatiment typeBatiment();
 		const int distanceMaximale();
-		const bool accessible();void retirerVaisseau();
+		const bool accessible();
+		void retirerVaisseau();
 		VaisseauPtr getVaisseau();
 		void setVaisseau(VaisseauPtr _vaisseau);
 		
