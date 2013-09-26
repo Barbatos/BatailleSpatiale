@@ -1,12 +1,12 @@
 #include <iostream>
 #include "Evenement.hpp"
 
-Evenement::Evenement(bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat, TypeEvenement _typeEvenement){
+Evenement::Evenement(TypeEvenement _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
 	typeEvenement = _typeEvenement;
 	destrucible = _destructible;
 	coutDeplacement = _coutDeplacement;
 	multiplicateurDommage = _multiplicateurDommage;
-	multiplicateurDegat = _multiplicateurDegat
+	multiplicateurDegat = _multiplicateurDegat;
 
 	if((destrucible == true) != (coutDeplacement == -1))
 		cout << "Erreur ! un évenement destrucible est traversable !!";
@@ -16,11 +16,11 @@ TypeEvenement Evenement::quelType() {
 	return typeEvenement;
 }
 
-bool Evenement::destructible() {
+bool Evenement::estDestructible() {
 	return destructible;
 }
 
-bool Evenement::accessible(){
+bool Evenement::estAccessible(){
 	return coutDeplacement != -1;
 }
 
