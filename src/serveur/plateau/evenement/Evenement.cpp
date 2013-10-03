@@ -1,19 +1,27 @@
 #include <iostream>
 #include "Evenement.hpp"
 
-Evenement::Evenement(TypeEvenement _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
-	typeEvenement = _typeEvenement;
-	destrucible = _destructible;
+Evenement::Evenement() {
+	name = "insert event name";
+	destructible = -1;
+	coutDeplacement = -1;
+	multiplicateurDommage = -1;
+	multiplicateurDegat = -1;
+}
+
+Evenement::Evenement(char* _name, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
+	name = _name;
+	destructible = _destructible;
 	coutDeplacement = _coutDeplacement;
 	multiplicateurDommage = _multiplicateurDommage;
 	multiplicateurDegat = _multiplicateurDegat;
 
-	if((destrucible == true) != (coutDeplacement == -1))
-		cout << "Erreur ! un évenement destrucible est traversable !!";
+	//if((destructible == true) != (coutDeplacement == -1))
+		//cout << "Erreur ! un évenement destructible est traversable !!";
 }
 
-TypeEvenement Evenement::quelType() {
-	return typeEvenement;
+char* Evenement::quelNom() {
+	return name;
 }
 
 bool Evenement::estDestructible() {
