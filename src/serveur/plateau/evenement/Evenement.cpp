@@ -15,9 +15,6 @@ Evenement::Evenement(char* _name, bool _destructible, int _coutDeplacement, int 
 	coutDeplacement = _coutDeplacement;
 	multiplicateurDommage = _multiplicateurDommage;
 	multiplicateurDegat = _multiplicateurDegat;
-
-	//if((destructible == true) != (coutDeplacement == -1))
-		//cout << "Erreur ! un évenement destructible est traversable !!";
 }
 
 char* Evenement::quelNom() {
