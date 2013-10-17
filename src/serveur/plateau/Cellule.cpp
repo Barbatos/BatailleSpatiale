@@ -22,7 +22,7 @@ const bool Cellule::possedeEvenement() {
 const bool Cellule::possedeEmplacement(TypeCellule _type) {
 	if(_type == type)
 		if(evenement)
-			return evenement->accessible() && !batiment && !vaisseau;
+			return evenement->estAccessible() && !batiment && !vaisseau;
 		else
 			return !batiment && !vaisseau;
 	else
@@ -32,7 +32,7 @@ const bool Cellule::possedeEmplacement(TypeCellule _type) {
 const TypeCellule Cellule::statutEmplacement(){
 	if(!vaisseau && !batiment)
 		if(evenement)
-			if(evenement->accessible())
+			if(evenement->estAccessible())
 				// Si il n'y a pas de structure et que l'evenement laisse construire
 				return type;
 			else 
@@ -48,7 +48,7 @@ const TypeCellule Cellule::statutEmplacement(){
 }
 
 const int Cellule::getCoutDeplacement() {
-	if((evenment) && (evenement->getCoutDeplacement != -1)) {
+	if((evenement) && (evenement->getCoutDeplacement() != -1)) {
 		if(type == CelluleMinerais)
 			if(evenement)
 				return evenement->getCoutDeplacement() + 1;
@@ -64,13 +64,6 @@ const int Cellule::getCoutDeplacement() {
 	else
 		return 10000;
 		
-}
-
-const void Cellule::afficher(sf::RenderWindow& fenetre, int i, int j){
-	if(vaisseau)
-		vaisseau->afficherGraphiquement(fenetre, i, j);
-	if(batiment)
-		batiment->afficherGraphiquement(fenetre, i, j);
 }
 
 const TypeBatiment Cellule::typeBatiment(){
@@ -113,9 +106,9 @@ const int Cellule::distanceMaximale() {
 		return 0;
 }
 
-const bool Cellule::accessible() {
+const bool Cellule::estAccessible() {
 	if(evenement)
-		return (evenement->accessible() && !vaisseau && !batiment);
+		return (evenement->estAccessible() && !vaisseau && !batiment);
 	else
 		return (!vaisseau && !batiment);
 }

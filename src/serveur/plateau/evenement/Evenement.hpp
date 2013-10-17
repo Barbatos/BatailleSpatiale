@@ -2,7 +2,7 @@
 #define EVENEMENT_HPP
 #include <iostream>
 #include <memory>
-#include "TypeEvenement.hpp"
+#include "TypesEvenement.hpp"
 #include "../../structures/batiments/Batiment.hpp"
 #include "../../structures/vaisseaux/Vaisseau.hpp"
 
@@ -13,12 +13,12 @@
 
 class Evenement {
 	public:
-		Evenement(TypeEvenement typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
+		Evenement(TypeEvenement::type typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
 		virtual void activer(Batiment* batiment) {}
 		virtual void desactiver(Batiment* batiment) {}
 		virtual void activer(Vaisseau* vaisseau) {}
 		virtual void desactiver(Vaisseau* vaisseau) {}
-		TypeEvenement quelType();
+		TypeEvenement::type quelType();
 		bool estDestructible();
 		bool estAccessible();
 		bool tirPossible();
@@ -29,7 +29,7 @@ class Evenement {
 		
 	private:
 		// Nature de l'évènements.
-		TypeEvenement typeEvenement;
+		TypeEvenement::type typeEvenement;
 		// l'évenement est destructible, on remonte une structure qui prend sa place.
 		bool destructible;
 		// nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible
@@ -42,44 +42,44 @@ class Evenement {
 
 typedef std::shared_ptr<Evenement> EvenementPtr;
 
-const Evenement NuageGaz = {
-	NuageGaz,
+const Evenement EvenementNuageGaz = Evenement(
+	TypeEvenement::NuageGaz,
 	false,
 	1,
 	2,
 	1
-};
+);
 
-const Evenement ChampMeteor ={
-	ChampMeteor,
+const Evenement EvenementChampMeteor = Evenement(
+	TypeEvenement::ChampMeteor,
 	true,
 	-1,
 	1,
 	1
-};
+);
 
-const Evenement Epave ={
-	Epave,
+const Evenement EvenementEpave = Evenement(
+	TypeEvenement::Epave,
 	true,
 	-1,
 	1,
 	1
-};
+);
 
-const Evenement InfluenceTrouNoir ={
-	InfluenceTrouNoir,
+const Evenement EvenementInfluenceTrouNoir = Evenement(
+	TypeEvenement::InfluenceTrouNoir,
 	false,
 	3,
 	2,
 	2
-};
+);
 
-const Evenement StationSpatialeAbandonnee ={
-	StationSpatialeAbandonnee,
+const Evenement EvenementStationSpatialeAbandonnee = Evenement(
+	TypeEvenement::StationSpatialeAbandonnee,
 	true,
 	-1,
 	1,
 	1
-};
+);
 
 #endif // EVENEMENT_HPP
