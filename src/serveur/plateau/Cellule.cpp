@@ -66,13 +66,6 @@ const int Cellule::getCoutDeplacement() {
 		
 }
 
-const void Cellule::afficher(sf::RenderWindow& fenetre, int i, int j){
-	if(vaisseau)
-		vaisseau->afficherGraphiquement(fenetre, i, j);
-	if(batiment)
-		batiment->afficherGraphiquement(fenetre, i, j);
-}
-
 const TypeBatiment Cellule::typeBatiment(){
 	if(batiment)
 		return batiment->getType();

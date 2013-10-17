@@ -2,6 +2,7 @@
 #define EVENEMENT_HPP
 #include <iostream>
 #include <memory>
+#include "TypesEvenement.hpp"
 #include "../../structures/batiments/Batiment.hpp"
 #include "../../structures/vaisseaux/Vaisseau.hpp"
 
@@ -13,6 +14,8 @@
 class Evenement {
 	
 	public:
+		Evenement(TypeEvenement::type typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
+
 		//Constructeurs
 		Evenement();
 		Evenement(
@@ -28,6 +31,7 @@ class Evenement {
 		virtual void desactiver(Batiment* batiment) {}
 		virtual void activer(Vaisseau* vaisseau) {}
 		virtual void desactiver(Vaisseau* vaisseau) {}
+		TypeEvenement::type quelType();
 		
 		//Getters
 		char* quelNom();
@@ -40,6 +44,8 @@ class Evenement {
 		int getMultiplicateurDegat();
 		
 	private:
+		// Nature de l'évènements.
+		TypeEvenement::type typeEvenement;
 		// Nom de l'évènements.
 		char* name;
 		// l'évenement est destructible, on remonte une structure qui prend sa place.
@@ -53,5 +59,45 @@ class Evenement {
 };
 
 typedef std::shared_ptr<Evenement> EvenementPtr;
+
+const Evenement EvenementNuageGaz = Evenement(
+	TypeEvenement::NuageGaz,
+	false,
+	1,
+	2,
+	1
+);
+
+const Evenement EvenementChampMeteor = Evenement(
+	TypeEvenement::ChampMeteor,
+	true,
+	-1,
+	1,
+	1
+);
+
+const Evenement EvenementEpave = Evenement(
+	TypeEvenement::Epave,
+	true,
+	-1,
+	1,
+	1
+);
+
+const Evenement EvenementInfluenceTrouNoir = Evenement(
+	TypeEvenement::InfluenceTrouNoir,
+	false,
+	3,
+	2,
+	2
+);
+
+const Evenement EvenementStationSpatialeAbandonnee = Evenement(
+	TypeEvenement::StationSpatialeAbandonnee,
+	true,
+	-1,
+	1,
+	1
+);
 
 #endif // EVENEMENT_HPP

@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Evenement.hpp"
 
+Evenement::Evenement(TypeEvenement::type _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
+	typeEvenement = _typeEvenement;
+    
 Evenement::Evenement() {
 	name = "insert event name";
 	destructible = -1;
@@ -15,6 +18,15 @@ Evenement::Evenement(char* _name, bool _destructible, int _coutDeplacement, int 
 	coutDeplacement = _coutDeplacement;
 	multiplicateurDommage = _multiplicateurDommage;
 	multiplicateurDegat = _multiplicateurDegat;
+
+	if((destructible == true) != (coutDeplacement == -1))
+		std::cout << "Erreur ! un évenement destructible est traversable !!";
+}
+
+TypeEvenement::type Evenement::quelType() {
+	return typeEvenement;
+	//if((destructible == true) != (coutDeplacement == -1))
+		//cout << "Erreur ! un évenement destructible est traversable !!";
 }
 
 char* Evenement::quelNom() {

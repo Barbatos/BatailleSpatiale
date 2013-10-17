@@ -37,10 +37,9 @@ class TechnologieStructure {
 		unsigned int niveauVisibilite;
 		
 		// Deux méthodes pour afficher notre structure
-		void changerFlux(std::ostream &fluxSortant) const;	
-		friend std::ostream& operator<< (std::ostream& fluxSortant, TechnologieStructure const& technologieStructure);
+		void changerFlux(std::ostream &fluxSortant) const;
+		friend std::ostream& operator<<(std::ostream& fluxSortant, TechnologieStructure const& technologieStructure);
 };
-
 
 #endif // TECHNOLOGIE_STRUCTURE_HPP
 
