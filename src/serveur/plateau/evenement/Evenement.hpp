@@ -2,7 +2,10 @@
 #define EVENEMENT_HPP
 #include <iostream>
 #include <memory>
+<<<<<<< HEAD
 #include "TypesEvenement.hpp"
+=======
+>>>>>>> e4b2b7a4a6a167874da7545d84df7b53f5ebf917
 #include "../../structures/batiments/Batiment.hpp"
 #include "../../structures/vaisseaux/Vaisseau.hpp"
 
@@ -12,13 +15,34 @@
  */
 
 class Evenement {
+	
 	public:
+<<<<<<< HEAD
 		Evenement(TypeEvenement::type typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
+=======
+		//Constructeurs
+		Evenement();
+		Evenement(
+			char* name, 
+			bool destructible, 
+			int _coutDeplacement, 
+			int _multiplicateurDommage, 
+			int _multiplicateurDegat
+		);
+		
+		//Setters
+>>>>>>> e4b2b7a4a6a167874da7545d84df7b53f5ebf917
 		virtual void activer(Batiment* batiment) {}
 		virtual void desactiver(Batiment* batiment) {}
 		virtual void activer(Vaisseau* vaisseau) {}
 		virtual void desactiver(Vaisseau* vaisseau) {}
+<<<<<<< HEAD
 		TypeEvenement::type quelType();
+=======
+		
+		//Getters
+		char* quelNom();
+>>>>>>> e4b2b7a4a6a167874da7545d84df7b53f5ebf917
 		bool estDestructible();
 		bool estAccessible();
 		bool tirPossible();
@@ -28,8 +52,13 @@ class Evenement {
 		int getMultiplicateurDegat();
 		
 	private:
+<<<<<<< HEAD
 		// Nature de l'évènements.
 		TypeEvenement::type typeEvenement;
+=======
+		// Nom de l'évènements.
+		char* name;
+>>>>>>> e4b2b7a4a6a167874da7545d84df7b53f5ebf917
 		// l'évenement est destructible, on remonte une structure qui prend sa place.
 		bool destructible;
 		// nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible
@@ -42,6 +71,7 @@ class Evenement {
 
 typedef std::shared_ptr<Evenement> EvenementPtr;
 
+<<<<<<< HEAD
 const Evenement EvenementNuageGaz = Evenement(
 	TypeEvenement::NuageGaz,
 	false,
@@ -83,3 +113,6 @@ const Evenement EvenementStationSpatialeAbandonnee = Evenement(
 );
 
 #endif // EVENEMENT_HPP
+=======
+#endif // EVENEMENT_HPP
+>>>>>>> e4b2b7a4a6a167874da7545d84df7b53f5ebf917

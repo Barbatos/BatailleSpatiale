@@ -13,6 +13,6 @@ void SV_Frame(){
 	memset(buffer, 0, sizeof(buffer));
 
 
-	Network::Instance().RecevoirPaquet(from, buffer);
-	Network::Instance().ParserRequete(from, buffer);
+	//Network::Instance().RecevoirPaquet(from, buffer);
+	//Network::Instance().ParserRequete(from, buffer);
 }

@@ -44,7 +44,7 @@ endif
 
 # Doit-on compiler le client ?
 ifndef COMPILER_CLIENT
-COMPILER_CLIENT=0
+COMPILER_CLIENT=1
 endif
 
 # Doit-on compiler le serveur ?
@@ -209,12 +209,14 @@ makedirs:
 	@if [ ! -d $(REPERTOIRE)/serveur/plateau ]; then $(MKDIR) $(REPERTOIRE)/serveur/plateau; fi
 	@if [ ! -d $(REPERTOIRE)/serveur/plateau/evenement ]; then $(MKDIR) $(REPERTOIRE)/serveur/plateau/evenement; fi
 
+
 # Liste des fichiers .o qui seront générés
 
 # == CLIENT ==
 FICHIERS_OBJ_CLIENT = \
 	$(REPERTOIRE)/client/main.o \
-	$(REPERTOIRE)/client/network.o
+	$(REPERTOIRE)/client/NetworkGlobal.o \
+	$(REPERTOIRE)/client/NetworkClient.o
 
 # == SERVEUR ==
 FICHIERS_OBJ_SERVEUR = \
@@ -233,7 +235,8 @@ FICHIERS_OBJ_SERVEUR = \
 	$(REPERTOIRE)/serveur/sv_joueur.o \
 	$(REPERTOIRE)/serveur/sv_main.o \
 	$(REPERTOIRE)/serveur/main.o \
-	$(REPERTOIRE)/serveur/network.o
+	$(REPERTOIRE)/serveur/NetworkGlobal.o \
+	$(REPERTOIRE)/serveur/NetworkServer.o
 
 
 # Compilation du client
@@ -252,8 +255,8 @@ $(REPERTOIRE)/$(EXECUTABLE_SERVEUR).$(ARCHITECTURE_COMPILATION)$(EXTENSION): $(F
 
 
 # Fichiers à compiler pour le client
-$(REPERTOIRE)/client/%.o: $(REP_SRC_CLIENT)/%.cpp
-	$(COMPILATION_CLIENT)
+#$(REPERTOIRE)/client/%.o: $(REP_SRC_CLIENT)/%.cpp
+#	$(COMPILATION_CLIENT)
 
 $(REPERTOIRE)/client/%.o: $(REP_SRC_CORE)/%.cpp
 	$(COMPILATION_CLIENT)
