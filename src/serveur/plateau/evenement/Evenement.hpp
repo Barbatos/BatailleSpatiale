@@ -15,16 +15,6 @@ class Evenement {
 	
 	public:
 		Evenement(TypeEvenement::type typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
-
-		//Constructeurs
-		Evenement();
-		Evenement(
-			char* name, 
-			bool destructible, 
-			int _coutDeplacement, 
-			int _multiplicateurDommage, 
-			int _multiplicateurDegat
-		);
 		
 		//Setters
 		virtual void activer(Batiment* batiment) {}
@@ -34,7 +24,6 @@ class Evenement {
 		TypeEvenement::type quelType();
 		
 		//Getters
-		char* quelNom();
 		bool estDestructible();
 		bool estAccessible();
 		bool tirPossible();
@@ -46,8 +35,6 @@ class Evenement {
 	private:
 		// Nature de l'évènements.
 		TypeEvenement::type typeEvenement;
-		// Nom de l'évènements.
-		char* name;
 		// l'évenement est destructible, on remonte une structure qui prend sa place.
 		bool destructible;
 		// nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible

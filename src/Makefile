@@ -229,8 +229,8 @@ FICHIERS_OBJ_SERVEUR = \
 	$(REPERTOIRE)/serveur/structures/vaisseaux/TechnologieVaisseau.o \
 	$(REPERTOIRE)/serveur/structures/vaisseaux/Vaisseau.o \
 	$(REPERTOIRE)/serveur/structures/batiments/Batiment.o \
-	$(REPERTOIRE)/serveur/structures/batiments/mines/Mines.o \
-	$(REPERTOIRE)/serveur/structures/batiments/entrepots/Entrepots.o \
+	$(REPERTOIRE)/serveur/structures/batiments/mines/Mine.o \
+	$(REPERTOIRE)/serveur/structures/batiments/entrepots/Entrepot.o \
 	$(REPERTOIRE)/serveur/structures/batiments/technologieBatiment.o \
 	$(REPERTOIRE)/serveur/sv_joueur.o \
 	$(REPERTOIRE)/serveur/sv_main.o \

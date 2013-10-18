@@ -3,34 +3,12 @@
 
 Evenement::Evenement(TypeEvenement::type _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
 	typeEvenement = _typeEvenement;
-    
-Evenement::Evenement() {
-	name = "insert event name";
-	destructible = -1;
-	coutDeplacement = -1;
-	multiplicateurDommage = -1;
-	multiplicateurDegat = -1;
-}
-
-Evenement::Evenement(char* _name, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
-	name = _name;
-	destructible = _destructible;
-	coutDeplacement = _coutDeplacement;
-	multiplicateurDommage = _multiplicateurDommage;
-	multiplicateurDegat = _multiplicateurDegat;
-
-	if((destructible == true) != (coutDeplacement == -1))
-		std::cout << "Erreur ! un évenement destructible est traversable !!";
 }
 
 TypeEvenement::type Evenement::quelType() {
 	return typeEvenement;
 	//if((destructible == true) != (coutDeplacement == -1))
 		//cout << "Erreur ! un évenement destructible est traversable !!";
-}
-
-char* Evenement::quelNom() {
-	return name;
 }
 
 bool Evenement::estDestructible() {
