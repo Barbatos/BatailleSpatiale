@@ -1,6 +1,6 @@
 #ifndef MINE_HPP
 #define MINE_HPP
-
+#include <vector>
 
 #include "../Batiment.hpp"
 #include "../entrepots/Entrepot.hpp"
