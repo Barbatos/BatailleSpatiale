@@ -1,10 +1,16 @@
 #ifndef TYPESEVENEMENT_HPP
 #define TYPESEVENEMENT_HPP
 
-enum TypeEvenement{
-	ChampMeteor,
-	Epave,
-	InfluenceTrouNoir,
-	NuageGaz,
-	StationSpatialeAbandonnee,
-}
+class TypeEvenement{
+public:
+	enum type {
+		ChampMeteor,
+		Epave,
+		InfluenceTrouNoir,
+		NuageGaz,
+		StationSpatialeAbandonnee,
+		Nombre
+	};
+};
+
+#endif

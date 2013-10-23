@@ -13,8 +13,17 @@ class Vaisseau : public Structure {
 
     public:
         Vaisseau();
-        Vaisseau(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque,
-			int _energieMax, int consommationMax , TypeVaisseau _type = VaisseauVide);
+        Vaisseau(
+            int vieMax, 
+            int bouclierMax, 
+            float bouclierTaux, 
+            int visibilite, 
+            int attaque,
+			int _energieMax, 
+            int consommationMax , 
+            TypeVaisseau _type = VaisseauVide
+        );
+        
         // Getters
         int getEnergie() const;
         int getEnergieMax() const;

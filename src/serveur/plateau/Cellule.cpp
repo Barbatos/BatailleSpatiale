@@ -64,6 +64,22 @@ const int Cellule::getCoutDeplacement() {
     else
         return 10000;
         
+	if((evenement) && (evenement->getCoutDeplacement() != -1)) {
+		if(type == CelluleMinerais)
+			if(evenement)
+				return evenement->getCoutDeplacement() + 1;
+			else
+				return 2;
+		else
+			if(evenement)
+				return evenement->getCoutDeplacement();
+			else
+				return 1;
+	}
+
+	else
+		return 10000;
+		
 }
 
 const TypeBatiment Cellule::typeBatiment(){

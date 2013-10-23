@@ -6,8 +6,8 @@
 #include "../entrepots/Entrepot.hpp"
 
 /*
- * Classe qui définit les differents attributs
- * que possèdent les batiments.
+ * Classe qui dÃ©finit les differents attributs
+ * que possÃ¨dent les batiments.
  */
 class Mine : public Batiment {
 
