@@ -35,22 +35,7 @@ file(GLOB CLIENT_SRC
 )
 source_group("client" FILES  ${CLIENT_SRC})
 
-file(GLOB SERVER_SRC
-	"src/serveur/*.cpp"
-	"src/serveur/*.hpp"
-	"src/serveur/plateau/*.cpp"
-	"src/serveur/plateau/*.hpp"
-	"src/serveur/structures/*.cpp"
-	"src/serveur/structures/*.hpp"
-	"src/serveur/structures/vaisseaux/*.cpp"
-	"src/serveur/structures/vaisseaux/*.hpp"
-	"src/serveur/structures/batiments/*.cpp"
-	"src/serveur/structures/batiments/*.hpp"
-	"src/serveur/structures/batiments/mines/*.cpp"
-	"src/serveur/structures/batiments/mines/*.hpp"
-	"src/serveur/structures/batiments/entrepots/*.cpp"
-	"src/serveur/structures/batiments/entrepots/*.hpp"
-)
+file(GLOB_RECURSE SERVER_SRC "src/serveur/*.[ch]pp")
 source_group("server" FILES  ${SERVER_SRC})
 
 find_package(Boost REQUIRED)
