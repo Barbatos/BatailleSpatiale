@@ -22,18 +22,6 @@ void Frame()
 	cin >> temp;
 	choix = atoi(temp);
 
-	/*switch(choix){
-		case 1:
-			sprintf(temp, "%d^CHELLO", CTS_CONNEXION);
-			Network::Instance().EnvoyerPaquet("87.98.135.190", temp, strlen(temp));
-			break;
-
-		case 2:
-			sprintf(temp, "%d^CBYE", CTS_DECONNEXION);
-			Network::Instance().EnvoyerPaquet("87.98.135.190", temp, strlen(temp));
-			break;
-	}*/
-
 #endif
 
 	usleep(900000);
@@ -41,32 +29,5 @@ void Frame()
 
 int main()
 {
-	#ifndef SERVEUR
-	NetworkClient* client;
-
-	client = new NetworkClient();
-	#else
-	unsigned int clientId;
-	NetworkServer* server;
-	server = new NetworkServer();
-
-	while(1){
-		if(server->acceptNewClient(clientId)){
-			cout << "New client! " << clientId << endl;
-		}
-		usleep(500);
-	}
-	#endif
-	/*Network::Instance().InitSocket();
-
-	while (1)
-    {
-    	Frame();
-
-        usleep(500);
-    }
-
-	Network::Instance().FermerSocket();
-	*/
 	return 0;
 }
