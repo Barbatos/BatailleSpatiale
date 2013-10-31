@@ -1,6 +1,7 @@
 #ifndef CONSTRUCTEUR_HPP
 #define CONSTRUCTEUR_HPP
 
+#include "../../../../global.hpp"
 #include "../../batiments/Batiment.hpp"
 
 
