@@ -1,6 +1,6 @@
 #include "../global.hpp"
 
-void NetworkGlobal::getMessage(sf::TcpSocket socket){
+void NetworkGlobal::getMessage(sf::TcpSocket& socket){
 	char message[1024];
 	size_t taille;
 
@@ -15,7 +15,7 @@ void NetworkGlobal::getMessage(sf::TcpSocket socket){
 	// TODO: traitement du message ici
 }
 
-void NetworkGlobal::sendMessage(sf::TcpSocket socket, char *message){
+void NetworkGlobal::sendMessage(sf::TcpSocket& socket, char *message){
 	if (socket.send(message, sizeof(message)) != sf::Socket::Done){
 		cout << "[NETWORK] Erreur lors de l'envoi du message: " << message << endl;
 		return;
