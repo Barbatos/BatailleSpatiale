@@ -1,9 +1,7 @@
 #include "../global.hpp"
 
-NetworkClient::NetworkClient(void){
-	sf::IpAddress server("127.0.0.1");
-	
-	const unsigned short port = 1337;
+NetworkClient::NetworkClient(string ip, unsigned short port){
+	sf::IpAddress server(ip);
 
 	// On se connecte au serveur
 	if (socket.connect(server, port) != sf::Socket::Done){

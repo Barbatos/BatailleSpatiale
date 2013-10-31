@@ -5,7 +5,7 @@ class NetworkClient
 {
 
 	public:
-		NetworkClient(void);
+		NetworkClient(string ip, unsigned short port);
 		~NetworkClient(void);
 
 		sf::TcpSocket socket;
