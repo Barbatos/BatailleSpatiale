@@ -14,7 +14,7 @@
 
 #pragma comment(lib, "sfml-network.lib")
 
-// You need SFML > 2.0
+// You need SFML >= 2.0
 // http://en.sfml-dev.org/forums/index.php?topic=11338.0
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
