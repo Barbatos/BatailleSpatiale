@@ -1,11 +1,11 @@
 #include "../global.hpp"
 
-void NetworkGlobal::getMessage(sf::SocketTCP socket){
+void NetworkGlobal::getMessage(sf::TcpSocket socket){
 	char message[1024];
 	size_t taille;
 
 	// On teste si la réception a échoué
-	if (socket.Receive(message, sizeof(message), taille) != sf::Socket::Done){
+	if (socket.receive(message, sizeof(message), taille) != sf::Socket::Done){
 		return;
 	}
 
@@ -15,8 +15,8 @@ void NetworkGlobal::getMessage(sf::SocketTCP socket){
 	// TODO: traitement du message ici
 }
 
-void NetworkGlobal::sendMessage(sf::SocketTCP socket, const char *message){
-	if (socket.Send(message, sizeof(message)) != sf::Socket::Done){
+void NetworkGlobal::sendMessage(sf::TcpSocket socket, char *message){
+	if (socket.send(message, sizeof(message)) != sf::Socket::Done){
 		cout << "[NETWORK] Erreur lors de l'envoi du message: " << message << endl;
 		return;
 	}

@@ -14,19 +14,16 @@
 
 #pragma comment(lib, "sfml-network.lib")
 
+// You need SFML > 2.0
+// http://en.sfml-dev.org/forums/index.php?topic=11338.0
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 
 using namespace std;
 
 #include "core/NetworkGlobal.hpp"
-
-#ifdef SERVEUR
-	#include "core/NetworkServer.hpp"
-	//#include "serveur/sv_joueur.hpp"
-#else
-	#include "core/NetworkClient.hpp"
-#endif
+#include "core/NetworkServer.hpp"
+#include "core/NetworkClient.hpp"
 
 // Version du jeu
 #define VERSION 	0.1.1

@@ -40,8 +40,8 @@ class NetworkGlobal
 {
 
 	public:
-		static void sendMessage(sf::SocketTCP socket, const char *message);
-		static void getMessage(sf::SocketTCP socket);
+		static void sendMessage(sf::TcpSocket socket, char *message);
+		static void getMessage(sf::TcpSocket socket);
 };
 
 

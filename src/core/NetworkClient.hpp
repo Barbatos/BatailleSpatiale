@@ -5,11 +5,10 @@ class NetworkClient
 {
 
 	public:
-		void CloseSocket();
 		NetworkClient(void);
 		~NetworkClient(void);
 
-		sf::SocketTCP socket;
+		sf::TcpSocket socket;
 };
 
 #endif
