@@ -9,16 +9,7 @@ class NetworkClient
 		NetworkClient(void);
 		~NetworkClient(void);
 
-		#ifdef _WIN32
-		SOCKET 			ConnectSocket;
-		#else
-		int 			ConnectSocket;
-		#endif
-		
-
-	protected:
-		sockaddr_in 	adresse; // Paramètres de la connexion
-
+		sf::SocketTCP socket;
 };
 
 #endif

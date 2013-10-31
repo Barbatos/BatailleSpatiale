@@ -1,46 +1,25 @@
 #include "../global.hpp"
 
-int NetworkGlobal::sendMessage(SOCKET curSocket, char * message, int messageSize)
-{
-    return send(curSocket, message, messageSize, 0);
-}
+void NetworkGlobal::getMessage(sf::SocketTCP socket){
+	char message[1024];
+	size_t taille;
 
-int NetworkGlobal::receiveMessage(SOCKET curSocket, char * buffer, int bufSize)
-{
-    return recv(curSocket, buffer, bufSize, 0);
-}
-
-void NetworkGlobal::getIP(char *ip){
-	char hostname[256];
-	struct hostent *hostInfo;
-	struct in_addr **addr_list;
-
-	if ( gethostname( hostname, 256 ) == -1 ) {
+	// On teste si la réception a échoué
+	if (socket.Receive(message, sizeof(message), taille) != sf::Socket::Done){
 		return;
 	}
 
-	// on récupère les informations du host
-	if (!(hostInfo = gethostbyname( hostname ))) {
+	// On affiche le message
+	cout << "[NETWORK] message: " << message << endl;
+
+	// TODO: traitement du message ici
+}
+
+void NetworkGlobal::sendMessage(sf::SocketTCP socket, const char *message){
+	if (socket.Send(message, sizeof(message)) != sf::Socket::Done){
+		cout << "[NETWORK] Erreur lors de l'envoi du message: " << message << endl;
 		return;
 	}
 
-	addr_list = (struct in_addr **)hostInfo->h_addr_list;
-
-	strcpy(ip, inet_ntoa(*addr_list[0]));
-}
-
-// Fermeture d'une socket
-void NetworkGlobal::CloseSocket(SOCKET sock){
-
-	// On ferme la socket
-	closesocket(sock);
-
-	// On quitte Winsock (windows seulement)
-#ifdef _WIN32
-	WSACleanup();
-#endif
-
-	cout << "[NETWORK] Fermeture de la socket reussie !" << endl;
-
-	return;
+	cout << "[NETWORK] Message envoyé: " << message << endl;
 }

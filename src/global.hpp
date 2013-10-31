@@ -10,6 +10,12 @@
 #include <map>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/iter_find.hpp>
+#include <boost/lexical_cast.hpp>
+
+#pragma comment(lib, "sfml-network.lib")
+
+#include <SFML/System.hpp>
+#include <SFML/Network.hpp>
 
 using namespace std;
 
@@ -17,7 +23,7 @@ using namespace std;
 
 #ifdef SERVEUR
 	#include "core/NetworkServer.hpp"
-	#include "serveur/sv_joueur.hpp"
+	//#include "serveur/sv_joueur.hpp"
 #else
 	#include "core/NetworkClient.hpp"
 #endif

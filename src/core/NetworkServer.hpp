@@ -7,20 +7,10 @@ class NetworkServer
 	public:
 		NetworkServer(void);
 		~NetworkServer(void);
-		bool acceptNewClient(unsigned int & id);
-		int receiveData(unsigned int client_id, char * recvbuf);
-		void receiveFromClients();
+		void acceptNewClient(void);
 
-		SOCKET ListenSocket;
-		SOCKET ClientSocket;
+		sf::TcpListener listener;
 
-		std::map<unsigned int, SOCKET> sessions;
-
-	protected:
-		sockaddr_in adresse; 
-
-	private:
-		char network_data[MAX_LONGUEUR_PAQUET];
 };
 
 #endif

@@ -1,25 +1,8 @@
 #ifndef _NETWORK_GLOBAL_H_
 #define _NETWORK_GLOBAL_H_
 
-// Inclusion des librairies permettant l'utilisation des sockets
-// Les librairies sont différentes pour Windows et Linux
-#ifdef _WIN32
-	#include <winsock2.h> 
-	#include <ws2tcpip.h>
-	#include <iphlpapi.h>
-	//#pragma comment(lib, "Ws2_32.lib") // Inclusion de la libraire winsock2
-#else
-	#include <sys/socket.h>
-	#include <netinet/in.h>
-	#include <netinet/tcp.h>
-	#include <netdb.h>
-	#include <arpa/inet.h> // pour utiliser inet_ntoa()
-	#include <fcntl.h>
-	#define closesocket(s) close(s) // la fonction closesocket() est pour windows, close() pour linux
-	#define SOCKET int
-#endif
-
-#include <boost/lexical_cast.hpp>
+#include "../global.hpp"
+#include <SFML/Network.hpp>
 
 // Longueur maximale d'un paquet reçu par le serveur
 #define MAX_LONGUEUR_PAQUET 1515
@@ -57,10 +40,8 @@ class NetworkGlobal
 {
 
 	public:
-		static int sendMessage(SOCKET curSocket, char * message, int messageSize);
-		static int receiveMessage(SOCKET curSocket, char * buffer, int bufSize);
-		static void getIP(char *ip);
-		static void CloseSocket(SOCKET sock);
+		static void sendMessage(sf::SocketTCP socket, const char *message);
+		static void getMessage(sf::SocketTCP socket);
 };
 
 
