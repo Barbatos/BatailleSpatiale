@@ -42,7 +42,7 @@ void NetworkServer::acceptNewClient(void)
 				// On envoie un paquet de bienvenue au client
 				client->send(send);
 
-				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << endl;
+				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 			}
 
 			// Le nouveau client a été refusé
@@ -80,7 +80,11 @@ void NetworkServer::acceptNewClient(void)
 							return;
 						}
 
-						cout << "[NETWORK] Message du client " << client.getRemoteAddress() << ": " << msg << endl;
+						cout << "[NETWORK] Message du client " 
+							 << client.getRemoteAddress() 
+							 << ":" 
+							 << client.getRemotePort() 
+							 << " : " << msg << endl;
 					}
 
 					else {
