@@ -1,25 +1,29 @@
 #include "../global.hpp"
 
-void NetworkGlobal::getMessage(sf::TcpSocket& socket){
-	char message[1024];
-	size_t taille;
+bool NetworkGlobal::getMessage(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout = 0){
+	sf::SocketSelector selector;
 
-	// On teste si la réception a échoué
-	if (socket.receive(message, sizeof(message), taille) != sf::Socket::Done){
-		return;
+	// On crée un sélecteur dans lequel on place notre socket
+	// Cela nous permet d'utiliser la fonction timeout du SocketSelector
+	selector.add(socket);
+
+	// Si on reçoit le message avant la fin du timeout
+	if(selector.wait(timeout) > 0){
+		socket.receive(packet);
+		return true;
 	}
 
-	// On affiche le message
-	cout << "[NETWORK] message: " << message << endl;
-
-	// TODO: traitement du message ici
+	// La réception a échoué
+	else {
+		return false;
+	}
 }
 
-void NetworkGlobal::sendMessage(sf::TcpSocket& socket, char *message){
-	if (socket.send(message, sizeof(message)) != sf::Socket::Done){
-		cout << "[NETWORK] Erreur lors de l'envoi du message: " << message << endl;
+void NetworkGlobal::sendMessage(sf::TcpSocket& socket, sf::Packet& packet){
+	if (socket.send(packet) != sf::Socket::Done){
+		cout << "[NETWORK] Erreur lors de l'envoi d'un paquet" << endl;
 		return;
 	}
 
-	cout << "[NETWORK] Message envoyé: " << message << endl;
+	//cout << "[NETWORK] Message envoyé: " << message << endl;
 }
