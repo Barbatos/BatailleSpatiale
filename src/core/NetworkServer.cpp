@@ -1,4 +1,4 @@
-#include "../global.hpp"
+#include "NetworkServer.hpp"
 
 NetworkServer::NetworkServer(unsigned short port){
 

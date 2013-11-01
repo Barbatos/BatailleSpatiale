@@ -1,4 +1,4 @@
-#include "../global.hpp"
+#include "NetworkClient.hpp"
 
 NetworkClient::NetworkClient(string ip, unsigned short port){
 	sf::IpAddress server(ip);

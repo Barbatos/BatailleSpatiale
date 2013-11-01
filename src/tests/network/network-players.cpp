@@ -1,4 +1,8 @@
 #include "../../global.hpp"
+#include "../../serveur/joueurs/Joueur.hpp"
+#include "../../core/NetworkGlobal.hpp"
+#include "../../core/NetworkClient.hpp"
+#include "../../core/NetworkServer.hpp"
 
 NetworkClient* client;
 NetworkServer* server;
@@ -32,7 +36,7 @@ void RunClient(string ip, unsigned short port){
 	client = new NetworkClient(ip, port);
 
 	for(;;){
-		NetworkGlobal::getMessage(client->socket, packet, sf::Time::Zero);
+		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
 		packet >> message;
 		if(!message.empty()){
 			cout << "[NETWORK] Message du serveur: " << message << endl;

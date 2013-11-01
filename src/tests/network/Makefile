@@ -5,7 +5,7 @@ CFLAGS =-Wall
 
 all: $(EXEC)
 
-network-players: network-players.o ../../core/NetworkGlobal.o ../../core/NetworkClient.o ../../core/NetworkServer.o 
+network-players: network-players.o ../../core/NetworkGlobal.o ../../core/NetworkClient.o ../../serveur/joueurs/Joueur.o ../../core/NetworkServer.o 
 	$(CC) $^ $(LDFLAGS) -o $(CHEMIN_EXE)$@
 	
 %.o: %.c

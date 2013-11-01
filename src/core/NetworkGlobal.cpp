@@ -1,4 +1,4 @@
-#include "../global.hpp"
+#include "NetworkGlobal.hpp"
 
 bool NetworkGlobal::getMessage(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout = 0){
 	sf::SocketSelector selector;

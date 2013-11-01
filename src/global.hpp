@@ -23,10 +23,6 @@
 
 using namespace std;
 
-#include "core/NetworkGlobal.hpp"
-#include "core/NetworkServer.hpp"
-#include "core/NetworkClient.hpp"
-
 // Version du jeu
 #define VERSION 	0.1.1
 

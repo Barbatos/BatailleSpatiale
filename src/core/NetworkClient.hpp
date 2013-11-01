@@ -1,6 +1,8 @@
 #ifndef _NETWORK_CLIENT_H_
 #define _NETWORK_CLIENT_H_
 
+#include "../global.hpp"
+
 class NetworkClient
 {
 
