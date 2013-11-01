@@ -17,8 +17,7 @@ class NetworkServer
 		sf::TcpListener listener;
 		sf::SocketSelector selector;
 
-		list<sf::TcpSocket*> clients;
-		std::list<Joueur> joueurs;
+		list<Joueur> joueurs;
 
 };
 

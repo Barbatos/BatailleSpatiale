@@ -32,8 +32,14 @@ void NetworkServer::acceptNewClient(void)
 
 			// Le nouveau client a été accepté
 			if (listener.accept(*client) == sf::Socket::Done){
-				// On ajoute le client à la liste des clients connectés
-				clients.push_back(client);
+				Joueur* j = new Joueur();
+
+				j->setPseudo("blabla");
+				j->setSocket(client);
+				j->setId(1);
+
+				// On ajoute le client à la liste des joueurs connectés
+				joueurs.push_back(*j);
 
 				// On ajoute également le client au selecteur afin qu'il puisse
 				// recevoir ses messages
@@ -58,16 +64,17 @@ void NetworkServer::acceptNewClient(void)
 		// d'un des clients
 		else {
 			// On parcours la liste de tous les clients
-			for (list<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
+			for (list<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 				// On récupère les infos du client dans la liste
-				sf::TcpSocket& client = **it;
+				Joueur j = *it;
+				sf::TcpSocket* client = j.getSocket();
 
 				// Si le client a envoyé un message
-				if (selector.isReady(client)){
+				if (selector.isReady(*client)){
 					sf::Packet packet;
 					sf::Socket::Status status;
 
-					status = client.receive(packet);
+					status = client->receive(packet);
 
 					// Le message s'est envoyé correctement
 					if (status == sf::Socket::Done){
@@ -81,9 +88,11 @@ void NetworkServer::acceptNewClient(void)
 						}
 
 						cout << "[NETWORK] Message du client " 
-							 << client.getRemoteAddress() 
+							 << j.getPseudo()
+							 << " "
+							 << client->getRemoteAddress() 
 							 << ":" 
-							 << client.getRemotePort() 
+							 << client->getRemotePort() 
 							 << " : " << msg << endl;
 					}
 
@@ -91,16 +100,19 @@ void NetworkServer::acceptNewClient(void)
 						
 						// Si c'est une déconnexion, on le fait savoir au serveur
 						if(status == sf::Socket::Disconnected){
-							cout << "[NETWORK] Le client " << client.getRemoteAddress() << " s'est deconnecte !" << endl;
+							cout << "[NETWORK] Le client " << client->getRemoteAddress() << " s'est deconnecte !" << endl;
 						}
 
 						// S'il y a eu une erreur lors de la réception du paquet
 						if(status == sf::Socket::Error){
-							cout << "[NETWORK] Erreur lors de la reception d'un paquet du client " << client.getRemoteAddress() << endl;
+							cout << "[NETWORK] Erreur lors de la reception d'un paquet du client " << client->getRemoteAddress() << endl;
 						}
 
 						// On supprime le client du sélecteur
-						selector.remove(client);
+						selector.remove(*client);
+
+						// On supprime le joueur de la liste
+						joueurs.erase(it);
 					}
 				}
 			}
