@@ -1,44 +1,50 @@
 #include "../../global.hpp"
 
+NetworkClient* client;
+NetworkServer* server;
+
 void WaitForInput(void){
 	string s;
+	sf::Packet packet;
 
 	cout << "Please write something to send..." << endl;
 	cin >> s;
+	packet << s;
 
-	//NetworkGlobal::sendMessage()
+	NetworkGlobal::sendMessage(client->socket, packet);
 
 }
 
 void RunServer(unsigned short port){
-	NetworkServer* server;
 
 	server = new NetworkServer(port);
 
 	for(;;){
 		server->acceptNewClient();
-		//WaitForInput();
 		usleep(1000*100); // 100ms
 	}
 }
 
 void RunClient(string ip, unsigned short port){
-	NetworkClient* client;
 	client = new NetworkClient(ip, port);
+
+	for(;;){
+		WaitForInput();
+	}
 }
 
 int main(){
-	unsigned short port;
+	unsigned short port = 1337;
 	char selection;
-	string ip;
+	string ip = "localhost";
 
 	cout << "NETWORK TEST - CLIENT-SERVER" << endl;
 
 	cout << "Wanna launch a client (c) or a server (s) ?" << endl;
 	cin >> selection;
 
-	cout << "Which port ?" << endl;
-	cin >> port;
+	//cout << "Which port ?" << endl;
+	//cin >> port;
 
 	if(selection == 's'){
 
@@ -46,8 +52,9 @@ int main(){
 	}
 
 	else {
-		cout << "Which IP?" << endl;
-		cin >> ip;
+		//cout << "Which IP?" << endl;
+		//cin >> ip;
+		cout << "Connecting to " << ip << ":" << port << endl;
 
 		RunClient(ip, port);
 	}

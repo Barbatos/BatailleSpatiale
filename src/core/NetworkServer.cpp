@@ -19,8 +19,6 @@ NetworkServer::NetworkServer(unsigned short port){
 
 void NetworkServer::acceptNewClient(void)
 {
-	char welcomeMessage[] = "Bienvenue cher client !";
-
 	// On attend qu'il se passe quelque chose sur le réseau
 	if (selector.wait()){
 
@@ -28,6 +26,9 @@ void NetworkServer::acceptNewClient(void)
 		if (selector.isReady(listener)){
 			// Nouveau client
 			sf::TcpSocket* client = new sf::TcpSocket;
+			sf::Packet send;
+			string s = "Hello there!";
+			send << s;
 
 			// Le nouveau client a été accepté
 			if (listener.accept(*client) == sf::Socket::Done){
@@ -37,6 +38,9 @@ void NetworkServer::acceptNewClient(void)
 				// On ajoute également le client au selecteur afin qu'il puisse
 				// recevoir ses messages
 				selector.add(*client);
+
+				// On envoie un paquet de bienvenue au client
+				client->send(send);
 
 				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << endl;
 			}
@@ -60,30 +64,42 @@ void NetworkServer::acceptNewClient(void)
 
 				// Si le client a envoyé un message
 				if (selector.isReady(client)){
-					cout << "[NETWORK] Message recu du client: " << client.getRemoteAddress() << endl;
+					sf::Packet packet;
+					sf::Socket::Status status;
+
+					status = client.receive(packet);
+
+					// Le message s'est envoyé correctement
+					if (status == sf::Socket::Done){
+						string msg;
+
+						// On copie dans une variable le message reçu
+						packet >> msg;
+
+						if(msg.empty()){
+							return;
+						}
+
+						cout << "[NETWORK] Message du client " << client.getRemoteAddress() << ": " << msg << endl;
+					}
+
+					else {
+						
+						// Si c'est une déconnexion, on le fait savoir au serveur
+						if(status == sf::Socket::Disconnected){
+							cout << "[NETWORK] Le client " << client.getRemoteAddress() << " s'est deconnecte !" << endl;
+						}
+
+						// S'il y a eu une erreur lors de la réception du paquet
+						if(status == sf::Socket::Error){
+							cout << "[NETWORK] Erreur lors de la reception d'un paquet du client " << client.getRemoteAddress() << endl;
+						}
+
+						// On supprime le client du sélecteur
+						selector.remove(client);
+					}
 				}
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-	// On attend une connexion
-	/*if (listener.accept(socket) != sf::Socket::Done){
-		return;
-	}
-
-	// Un client s'est connecté
-	cout << "[NETWORK] Nouveau client: " << socket.getRemoteAddress() << endl;
-
-	// On lui dit bonjour
-	NetworkGlobal::sendMessage(socket, welcomeMessage);*/
 }
