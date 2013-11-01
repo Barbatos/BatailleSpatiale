@@ -43,8 +43,8 @@ int main(){
 	cout << "Wanna launch a client (c) or a server (s) ?" << endl;
 	cin >> selection;
 
-	//cout << "Which port ?" << endl;
-	//cin >> port;
+	cout << "Which port ?" << endl;
+	cin >> port;
 
 	if(selection == 's'){
 
@@ -52,8 +52,8 @@ int main(){
 	}
 
 	else {
-		//cout << "Which IP?" << endl;
-		//cin >> ip;
+		cout << "Which IP?" << endl;
+		cin >> ip;
 		cout << "Connecting to " << ip << ":" << port << endl;
 
 		RunClient(ip, port);
