@@ -40,7 +40,7 @@ void NetworkServer::acceptNewClient(void)
 				selector.add(*client);
 
 				// On envoie un paquet de bienvenue au client
-				client->send(send);
+				NetworkGlobal::sendMessage(*client, send);
 
 				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 			}

@@ -1,11 +1,11 @@
 CC=g++
-EXEC=network-test
+EXEC=network-players
 LDFLAGS=-lsfml-system -lsfml-network
 CFLAGS =-Wall 
 
 all: $(EXEC)
 
-network-test: network-test.o ../../core/NetworkGlobal.o ../../core/NetworkClient.o ../../core/NetworkServer.o
+network-players: network-players.o ../../core/NetworkGlobal.o ../../core/NetworkClient.o ../../core/NetworkServer.o 
 	$(CC) $^ $(LDFLAGS) -o $(CHEMIN_EXE)$@
 	
 %.o: %.c
