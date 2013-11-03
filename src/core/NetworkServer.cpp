@@ -17,6 +17,52 @@ NetworkServer::NetworkServer(unsigned short port){
 	cout << "[NETWORK] Ecoute sur le port " << port << " en cours..." << endl;
 }
 
+void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
+	sf::TcpSocket* client = joueur.getSocket();
+
+	// On récupère la commande exécutée
+	string cmd = command.substr(0, command.find_first_of(' '));
+
+	// Si c'est une commande pour changer de nom
+	if((cmd == "/nick") || (cmd == "/name") || (cmd == "/pseudo")){
+
+		if(command.size() < cmd.size() + 1){
+			sf::Packet packet;
+			string msg = "Vous devez entrer un nouveau pseudo !";
+			packet << msg;
+			NetworkGlobal::sendMessage(*client, packet);
+			return;
+		}
+
+		// On récupère l'argument de la commande, à savoir le nouveau pseudo
+		string newNick = command.substr(command.find_first_of(' ') + 1);
+
+		// On remplace l'ancien pseudo par le nouveau et on avertit tout le monde
+		if(!newNick.empty()){
+			joueur.setPseudo(newNick);
+			// TODO: avertir tlm
+		}
+	}
+}
+
+void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& msg){
+
+	// Si le joueur a écrit du texte
+	if(packetType == PACKETTYPE_CLIENT_SAY){
+		
+		// Si c'est une commande
+		if(msg.at(0) == '/'){
+			ParseClientCommand(joueur, msg);
+		}
+	}
+
+	else {
+		return;
+	}
+}
+
+//void NetworkServer::SendToAll(){}
+
 void NetworkServer::acceptNewClient(void)
 {
 	// On attend qu'il se passe quelque chose sur le réseau
@@ -34,7 +80,7 @@ void NetworkServer::acceptNewClient(void)
 			if (listener.accept(*client) == sf::Socket::Done){
 				Joueur* j = new Joueur();
 
-				j->setPseudo("blabla");
+				j->setPseudo("Anonymous");
 				j->setSocket(client);
 				j->setId(1);
 
@@ -64,9 +110,9 @@ void NetworkServer::acceptNewClient(void)
 		// d'un des clients
 		else {
 			// On parcours la liste de tous les clients
-			for (list<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+			for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 				// On récupère les infos du client dans la liste
-				Joueur j = *it;
+				Joueur& j = *it;
 				sf::TcpSocket* client = j.getSocket();
 
 				// Si le client a envoyé un message
@@ -79,13 +125,16 @@ void NetworkServer::acceptNewClient(void)
 					// Le message s'est envoyé correctement
 					if (status == sf::Socket::Done){
 						string msg;
+						int packetType;
 
 						// On copie dans une variable le message reçu
-						packet >> msg;
+						packet >> packetType >> msg;
 
 						if(msg.empty()){
 							return;
 						}
+
+						ParseClientPacket(j, packetType, msg);
 
 						cout << "[NETWORK] Message du client " 
 							 << j.getPseudo()
@@ -93,7 +142,9 @@ void NetworkServer::acceptNewClient(void)
 							 << client->getRemoteAddress() 
 							 << ":" 
 							 << client->getRemotePort() 
-							 << " : " << msg << endl;
+							 << " : " << packetType << " : " << msg << endl;
+
+						return;
 					}
 
 					else {
@@ -119,3 +170,4 @@ void NetworkServer::acceptNewClient(void)
 		}
 	}
 }
+

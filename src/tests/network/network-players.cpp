@@ -10,10 +10,12 @@ NetworkServer* server;
 void WaitForInput(void){
 	string s;
 	sf::Packet packet;
+	int packetType = (int)PACKETTYPE_CLIENT_SAY;
 
 	cout << "Please write something to send..." << endl;
-	cin >> s;
-	packet << s;
+	getline(cin, s);
+	
+	packet << packetType << s;
 
 	NetworkGlobal::sendMessage(client->socket, packet);
 
@@ -32,8 +34,15 @@ void RunServer(unsigned short port){
 void RunClient(string ip, unsigned short port){
 	sf::Packet packet;
 	string message;
+	int packetType = (int)PACKETTYPE_CLIENT_SAY;
 
 	client = new NetworkClient(ip, port);
+
+	cout << "Entrez votre pseudo!" << endl;
+	getline(cin, message);
+
+	packet << packetType << message;
+	NetworkGlobal::sendMessage(client->socket, packet);
 
 	for(;;){
 		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
@@ -47,25 +56,27 @@ void RunClient(string ip, unsigned short port){
 
 int main(){
 	unsigned short port = 1337;
-	char selection;
+	string selection;
+	string p;
 	string ip = "localhost";
 
 	cout << "NETWORK TEST - CLIENT-SERVER" << endl;
 
 	cout << "Wanna launch a client (c) or a server (s) ?" << endl;
-	cin >> selection;
+	getline(cin, selection);
 
 	cout << "Which port ?" << endl;
-	cin >> port;
+	getline(cin, p);
+	port = atoi(p.c_str());
 
-	if(selection == 's'){
+	if(selection == "s"){
 
 		RunServer(port);
 	}
 
 	else {
 		cout << "Which IP?" << endl;
-		cin >> ip;
+		getline(cin, ip);
 		cout << "Connecting to " << ip << ":" << port << endl;
 
 		RunClient(ip, port);

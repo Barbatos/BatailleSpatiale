@@ -1,7 +1,7 @@
 CC=g++
 EXEC=network-players
 LDFLAGS=-lsfml-system -lsfml-network
-CFLAGS =-Wall 
+CFLAGS =-Wall -std=c++11 
 
 all: $(EXEC)
 

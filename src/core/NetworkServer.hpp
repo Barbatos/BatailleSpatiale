@@ -12,14 +12,17 @@ class NetworkServer
 		NetworkServer(unsigned short port);
 		~NetworkServer(void);
 		void acceptNewClient(void);
+		void ParseClientPacket(Joueur& joueur, int packetType, string& msg);
+		void ParseClientCommand(Joueur& joueur, string& command);
 
 	private:
 		sf::TcpListener listener;
 		sf::SocketSelector selector;
 
-		list<Joueur> joueurs;
+		vector<Joueur> joueurs;
 
 };
+
 
 #endif
 
