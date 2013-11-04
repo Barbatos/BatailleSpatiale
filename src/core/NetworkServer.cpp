@@ -53,7 +53,6 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 
 		for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 			Joueur& j = *it;
-			sf::TcpSocket* client = j.getSocket();
 			ostringstream id;
 
 			id << j.getId();
