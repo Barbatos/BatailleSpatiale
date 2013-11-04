@@ -26,7 +26,7 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 	// Si c'est une commande pour changer de nom
 	if((cmd == "/nick") || (cmd == "/name") || (cmd == "/pseudo")){
 
-		if(command.size() < cmd.size() + 1){
+		if(command.size() < cmd.size() + 2){
 			sf::Packet packet;
 			string msg = "Vous devez entrer un nouveau pseudo !";
 			packet << msg;
@@ -39,10 +39,18 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 
 		// On remplace l'ancien pseudo par le nouveau et on avertit tout le monde
 		if(!newNick.empty()){
+			string msg = "Le joueur " + joueur.getPseudo() + " a change son pseudo en " + newNick;
+
 			joueur.setPseudo(newNick);
-			// TODO: avertir tlm
+			SendToAll(msg);
 		}
 	}
+
+	// Retourne au client la liste des clients connectés
+	else if((cmd == "/list") || (cmd == "/clients") || (cmd == "/players") || (cmd == "/joueurs")){
+
+	}
+
 }
 
 void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& msg){
@@ -54,6 +62,11 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& ms
 		if(msg.at(0) == '/'){
 			ParseClientCommand(joueur, msg);
 		}
+
+		// TEMP: sinon, on dit que c'est un message à envoyer à tout le monde
+		else {
+			SendToAll(msg);
+		}
 	}
 
 	else {
@@ -61,7 +74,18 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& ms
 	}
 }
 
-//void NetworkServer::SendToAll(){}
+void NetworkServer::SendToAll(string& message){
+	sf::Packet packet;
+
+	packet << message;
+
+	for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+		// On récupère les infos du client dans la liste
+		Joueur& j = *it;
+		sf::TcpSocket* client = j.getSocket();
+		NetworkGlobal::sendMessage(*client, packet);
+	}
+}
 
 void NetworkServer::acceptNewClient(void)
 {
@@ -82,7 +106,7 @@ void NetworkServer::acceptNewClient(void)
 
 				j->setPseudo("Anonymous");
 				j->setSocket(client);
-				j->setId(1);
+				j->setId(joueurs.size()+1);
 
 				// On ajoute le client à la liste des joueurs connectés
 				joueurs.push_back(*j);

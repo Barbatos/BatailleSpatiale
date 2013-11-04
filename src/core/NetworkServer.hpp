@@ -14,6 +14,7 @@ class NetworkServer
 		void acceptNewClient(void);
 		void ParseClientPacket(Joueur& joueur, int packetType, string& msg);
 		void ParseClientCommand(Joueur& joueur, string& command);
+		void SendToAll(string& message);
 
 	private:
 		sf::TcpListener listener;
