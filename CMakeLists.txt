@@ -38,7 +38,6 @@ source_group("client" FILES  ${CLIENT_SRC})
 file(GLOB_RECURSE SERVER_SRC "src/serveur/*.[ch]pp")
 source_group("server" FILES  ${SERVER_SRC})
 
-find_package(Boost REQUIRED)
 find_package(SFML 2 REQUIRED network system)
 
 include_directories(${SFML_INCLUDE_DIR})
