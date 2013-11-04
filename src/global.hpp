@@ -10,9 +10,6 @@
 #include <map>
 #include <list>
 #include <memory>
-#include <boost/algorithm/string.hpp>
-#include <boost/algorithm/string/iter_find.hpp>
-#include <boost/lexical_cast.hpp>
 
 #ifdef WIN32
 #pragma comment(lib, "sfml-network.lib")
