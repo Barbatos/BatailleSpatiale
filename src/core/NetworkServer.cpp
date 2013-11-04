@@ -48,7 +48,21 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 
 	// Retourne au client la liste des clients connectés
 	else if((cmd == "/list") || (cmd == "/clients") || (cmd == "/players") || (cmd == "/joueurs")){
+		string listeJoueurs = "Liste des joueurs connectés:\n";
+		sf::Packet packet;
 
+		for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+			Joueur& j = *it;
+			sf::TcpSocket* client = j.getSocket();
+			ostringstream id;
+
+			id << j.getId();
+
+			listeJoueurs.append(j.getPseudo() + " (#" + id.str() + ")\n");
+		}
+
+		packet << listeJoueurs;
+		NetworkGlobal::sendMessage(*client, packet);
 	}
 
 }
