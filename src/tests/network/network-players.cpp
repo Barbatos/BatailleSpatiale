@@ -4,20 +4,26 @@
 #include "../../core/NetworkClient.hpp"
 #include "../../core/NetworkServer.hpp"
 
-NetworkClient* client;
-NetworkServer* server;
+NetworkClient* 	client;
+NetworkServer* 	server;
+sf::Mutex 		mutex;
 
 void WaitForInput(void){
-	string s;
-	sf::Packet packet;
-	int packetType = (int)PACKETTYPE_CLIENT_SAY;
 
-	cout << "Please write something to send..." << endl;
-	getline(cin, s);
-	
-	packet << packetType << s;
+	for(;;){
+		string s;
+		sf::Packet packet;
+		int packetType = (int)PACKETTYPE_CLIENT_SAY;
 
-	NetworkGlobal::sendMessage(client->socket, packet);
+		//cout << endl << "Write something..." << endl;
+		getline(cin, s);
+		
+		packet << packetType << s;
+
+		NetworkGlobal::sendMessage(client->socket, packet);
+
+		sf::sleep(sf::milliseconds(50));
+	}
 
 }
 
@@ -27,31 +33,36 @@ void RunServer(unsigned short port){
 
 	for(;;){
 		server->acceptNewClient();
-		usleep(1000*100); // 100ms
+		sf::sleep(sf::milliseconds(50));
+	}
+}
+
+void GetMessageFromServer(){
+	for(;;){
+		sf::Packet packet;
+		string message;
+
+		mutex.lock();
+		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
+		packet >> message;
+		if(!message.empty()){
+			cout << "serveur: " << message << endl;
+		}
+		mutex.unlock();
+		sf::sleep(sf::milliseconds(50));
 	}
 }
 
 void RunClient(string ip, unsigned short port){
-	sf::Packet packet;
-	string message;
-	int packetType = (int)PACKETTYPE_CLIENT_SAY;
+
+	sf::Thread clientCinThread(&WaitForInput);
+	sf::Thread fromServerThread(&GetMessageFromServer);
 
 	client = new NetworkClient(ip, port);
 
-	cout << "Entrez votre pseudo!" << endl;
-	getline(cin, message);
+	fromServerThread.launch();
+	clientCinThread.launch();
 
-	packet << packetType << message;
-	NetworkGlobal::sendMessage(client->socket, packet);
-
-	for(;;){
-		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
-		packet >> message;
-		if(!message.empty()){
-			cout << "[NETWORK] Message du serveur: " << message << endl;
-		}
-		WaitForInput();
-	}
 }
 
 int main(){

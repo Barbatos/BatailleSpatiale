@@ -65,7 +65,11 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& ms
 
 		// TEMP: sinon, on dit que c'est un message à envoyer à tout le monde
 		else {
-			SendToAll(msg);
+			string msgFinal;
+
+			msgFinal = "<" + joueur.getPseudo() + "> " + msg;
+
+			SendToAll(msgFinal);
 		}
 	}
 
@@ -97,12 +101,14 @@ void NetworkServer::acceptNewClient(void)
 			// Nouveau client
 			sf::TcpSocket* client = new sf::TcpSocket;
 			sf::Packet send;
-			string s = "Hello there!";
+			string s = "Salut ! Merci de changer ton pseudo avec la commande /nick <tonpseudo>";
 			send << s;
 
 			// Le nouveau client a été accepté
 			if (listener.accept(*client) == sf::Socket::Done){
 				Joueur* j = new Joueur();
+				string msgGlobal;
+				ostringstream c;
 
 				j->setPseudo("Anonymous");
 				j->setSocket(client);
@@ -119,6 +125,11 @@ void NetworkServer::acceptNewClient(void)
 				NetworkGlobal::sendMessage(*client, send);
 
 				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
+				
+				c << j->getId();
+
+				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
+				SendToAll(msgGlobal);
 			}
 
 			// Le nouveau client a été refusé
@@ -175,7 +186,15 @@ void NetworkServer::acceptNewClient(void)
 						
 						// Si c'est une déconnexion, on le fait savoir au serveur
 						if(status == sf::Socket::Disconnected){
+							string msgGlobal;
+							ostringstream c;
+
 							cout << "[NETWORK] Le client " << client->getRemoteAddress() << " s'est deconnecte !" << endl;
+
+							c << j.getId();
+
+							msgGlobal = j.getPseudo() + " (#"  + c.str() + ") s'est déconnecté du serveur";
+							SendToAll(msgGlobal);
 						}
 
 						// S'il y a eu une erreur lors de la réception du paquet
