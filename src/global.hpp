@@ -14,7 +14,9 @@
 #include <boost/algorithm/string/iter_find.hpp>
 #include <boost/lexical_cast.hpp>
 
+#ifdef WIN32
 #pragma comment(lib, "sfml-network.lib")
+#endif
 
 // You need SFML >= 2.0
 // http://en.sfml-dev.org/forums/index.php?topic=11338.0
