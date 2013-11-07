@@ -143,6 +143,8 @@ void NetworkServer::acceptNewClient(void)
 
 				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
 				SendToAll(msgGlobal);
+
+				delete j;
 			}
 
 			// Le nouveau client a été refusé
@@ -205,8 +207,15 @@ void NetworkServer::acceptNewClient(void)
 							cout << "[NETWORK] Le client " << client->getRemoteAddress() << " s'est deconnecte !" << endl;
 
 							c << j.getId();
-
 							msgGlobal = j.getPseudo() + " (#"  + c.str() + ") s'est déconnecté du serveur";
+
+							// On supprime le client du sélecteur
+							selector.remove(*client);
+
+							// On supprime le joueur de la liste
+							joueurs.erase(it);
+
+							// On envoie le message de déconnexion à tous les autres joueurs
 							SendToAll(msgGlobal);
 						}
 
@@ -214,12 +223,6 @@ void NetworkServer::acceptNewClient(void)
 						if(status == sf::Socket::Error){
 							cout << "[NETWORK] Erreur lors de la reception d'un paquet du client " << client->getRemoteAddress() << endl;
 						}
-
-						// On supprime le client du sélecteur
-						selector.remove(*client);
-
-						// On supprime le joueur de la liste
-						joueurs.erase(it);
 					}
 				}
 			}
