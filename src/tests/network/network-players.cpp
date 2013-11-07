@@ -6,14 +6,13 @@
 
 NetworkClient* 	client;
 NetworkServer* 	server;
-sf::Mutex 		mutex;
 
 void WaitForInput(void){
 
 	for(;;){
 		string s;
 		sf::Packet packet;
-		int packetType = (int)PACKETTYPE_CLIENT_SAY;
+		sf::Int16 packetType = (sf::Int16)PACKETTYPE_CLIENT_SAY;
 
 		//cout << endl << "Write something..." << endl;
 		getline(cin, s);
@@ -41,14 +40,13 @@ void GetMessageFromServer(){
 	for(;;){
 		sf::Packet packet;
 		string message;
+		sf::Int16 packetType;
 
-		mutex.lock();
 		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
-		packet >> message;
+		packet >> packetType >> message;
 		if(!message.empty()){
 			cout << "serveur: " << message << endl;
 		}
-		mutex.unlock();
 		sf::sleep(sf::milliseconds(50));
 	}
 }

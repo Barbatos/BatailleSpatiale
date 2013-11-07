@@ -27,10 +27,8 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 	if((cmd == "/nick") || (cmd == "/name") || (cmd == "/pseudo")){
 
 		if(command.size() < cmd.size() + 2){
-			sf::Packet packet;
 			string msg = "Vous devez entrer un nouveau pseudo !";
-			packet << msg;
-			NetworkGlobal::sendMessage(*client, packet);
+			SendToOne(*client, msg);
 			return;
 		}
 
@@ -49,7 +47,6 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 	// Retourne au client la liste des clients connectés
 	else if((cmd == "/list") || (cmd == "/clients") || (cmd == "/players") || (cmd == "/joueurs")){
 		string listeJoueurs = "Liste des joueurs connectés:\n";
-		sf::Packet packet;
 
 		for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 			Joueur& j = *it;
@@ -60,13 +57,12 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 			listeJoueurs.append(j.getPseudo() + " (#" + id.str() + ")\n");
 		}
 
-		packet << listeJoueurs;
-		NetworkGlobal::sendMessage(*client, packet);
+		SendToOne(*client, listeJoueurs);
 	}
 
 }
 
-void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& msg){
+void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Int16 packetType, string& msg){
 
 	// Si le joueur a écrit du texte
 	if(packetType == PACKETTYPE_CLIENT_SAY){
@@ -93,8 +89,9 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, int packetType, string& ms
 
 void NetworkServer::SendToAll(string& message){
 	sf::Packet packet;
+	sf::Int16 packetType = (sf::Int16)PACKETTYPE_SERVER_SAY;
 
-	packet << message;
+	packet << packetType << message;
 
 	for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 		// On récupère les infos du client dans la liste
@@ -102,6 +99,14 @@ void NetworkServer::SendToAll(string& message){
 		sf::TcpSocket* client = j.getSocket();
 		NetworkGlobal::sendMessage(*client, packet);
 	}
+}
+
+void NetworkServer::SendToOne(sf::TcpSocket& client, string& message){
+	sf::Packet packet;
+	sf::Int16 packetType = (sf::Int16)PACKETTYPE_SERVER_SAY;
+
+	packet << packetType << message;
+	NetworkGlobal::sendMessage(client, packet);
 }
 
 void NetworkServer::acceptNewClient(void)
@@ -113,9 +118,7 @@ void NetworkServer::acceptNewClient(void)
 		if (selector.isReady(listener)){
 			// Nouveau client
 			sf::TcpSocket* client = new sf::TcpSocket;
-			sf::Packet send;
 			string s = "Salut ! Merci de changer ton pseudo avec la commande /nick <tonpseudo>";
-			send << s;
 
 			// Le nouveau client a été accepté
 			if (listener.accept(*client) == sf::Socket::Done){
@@ -135,7 +138,7 @@ void NetworkServer::acceptNewClient(void)
 				selector.add(*client);
 
 				// On envoie un paquet de bienvenue au client
-				NetworkGlobal::sendMessage(*client, send);
+				SendToOne(*client, s);
 
 				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 				
@@ -175,7 +178,7 @@ void NetworkServer::acceptNewClient(void)
 					// Le message s'est envoyé correctement
 					if (status == sf::Socket::Done){
 						string msg;
-						int packetType;
+						sf::Int16 packetType;
 
 						// On copie dans une variable le message reçu
 						packet >> packetType >> msg;

@@ -12,9 +12,10 @@ class NetworkServer
 		NetworkServer(unsigned short port);
 		~NetworkServer(void);
 		void acceptNewClient(void);
-		void ParseClientPacket(Joueur& joueur, int packetType, string& msg);
+		void ParseClientPacket(Joueur& joueur, sf::Int16 packetType, string& msg);
 		void ParseClientCommand(Joueur& joueur, string& command);
 		void SendToAll(string& message);
+		void SendToOne(sf::TcpSocket& client, string& message);
 
 	private:
 		sf::TcpListener listener;
