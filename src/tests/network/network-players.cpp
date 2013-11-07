@@ -43,10 +43,8 @@ void GetMessageFromServer(){
 		sf::Int16 packetType;
 
 		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
-		packet >> packetType >> message;
-		if(!message.empty()){
-			cout << "serveur: " << message << endl;
-		}
+		client->ParseServerPacket(packet);
+		
 		sf::sleep(sf::milliseconds(50));
 	}
 }

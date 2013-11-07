@@ -9,6 +9,8 @@ class NetworkClient
 	public:
 		NetworkClient(string ip, unsigned short port);
 		~NetworkClient(void);
+		
+		void ParseServerPacket(sf::Packet& packet);
 
 		sf::TcpSocket socket;
 };

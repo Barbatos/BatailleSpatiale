@@ -14,3 +14,16 @@ NetworkClient::NetworkClient(string ip, unsigned short port){
 
 	cout << "[NETWORK] Connecté au serveur " << server << endl;
 }
+
+void NetworkClient::ParseServerPacket(sf::Packet& packet){
+	sf::Int16 	packetType;
+	string 		message;
+
+	if(packet.getDataSize() <= 0){
+		return;
+	}
+	
+	packet >> packetType >> message;
+
+	cout << "server: " << message << endl;
+}
