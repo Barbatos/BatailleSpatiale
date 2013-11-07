@@ -8,7 +8,7 @@ class NetworkGlobal
 
 	public:
 		static void sendMessage(sf::TcpSocket& socket, sf::Packet& packet);
-		static bool getMessage(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout);
+		static bool getMessage(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout = sf::seconds(0.0f));
 };
 
 typedef enum {
