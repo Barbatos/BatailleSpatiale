@@ -45,10 +45,10 @@ link_directories(${SFML_LIBRARY_DIRS})
 
 if(BUILD_CLIENT)
 	add_executable(${EXE_CLIENT} ${CORE_SRC} ${CLIENT_SRC})
-	target_link_libraries(${EXE_CLIENT} ${SFML_LIBRARIES} ${BOOST_LIBRARIES})
+	target_link_libraries(${EXE_CLIENT} ${SFML_LIBRARIES})
 endif()
 
 if(BUILD_SERVER)
 	add_executable(${EXE_SERVER} ${CORE_SRC} ${SERVER_SRC})
-	target_link_libraries(${EXE_SERVER} ${SFML_LIBRARIES} ${BOOST_LIBRARIES})
+	target_link_libraries(${EXE_SERVER} ${SFML_LIBRARIES})
 endif()
