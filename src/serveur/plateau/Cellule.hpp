@@ -11,36 +11,36 @@
  * Cette classe est une case elementaire du plateau
  */
 class Cellule{
-	
-	public:
-		Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
-		const TypeCellule getType();
-		void setType(TypeCellule _type);
-		const bool possedeEvenement();
-		const bool possedeEmplacement(TypeCellule _type);
-		const TypeCellule statutEmplacement();
-		const int getCoutDeplacement();
-		void subir(Structure const& attaquant);
-		Structure getAttaquant();
-		const TypeBatiment typeBatiment();
-		const int distanceMaximale();
-		const bool estAccessible();
-		void retirerVaisseau();
-		VaisseauPtr getVaisseau();
-		void setVaisseau(VaisseauPtr _vaisseau);
-		
-		//Multiple fonctions de test
-		void creerVaisseauTest();
-		void creerVaisseauConstructeurTest();
-		void creerBatimentBaseTest();
-		
-	protected:
-		
-	private:
-		EvenementPtr evenement;
-		BatimentPtr batiment;
-		VaisseauPtr vaisseau;
-		TypeCellule type;
+    
+    public:
+        Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
+        const TypeCellule getType();
+        void setType(TypeCellule _type);
+        const bool possedeEvenement();
+        const bool possedeEmplacement(TypeCellule _type);
+        const TypeCellule statutEmplacement();
+        const int getCoutDeplacement();
+        //void subir(Structure const& attaquant);
+        Structure getAttaquant();
+        const TypeBatiment typeBatiment();
+        const int distanceMaximale();
+        const bool estAccessible();
+        void retirerVaisseau();
+        VaisseauPtr getVaisseau();
+        void setVaisseau(VaisseauPtr _vaisseau);
+        
+        //Multiple fonctions de test
+        void creerVaisseauTest();
+        void creerVaisseauConstructeurTest();
+        void creerBatimentBaseTest();
+        
+    protected:
+        
+    private:
+        EvenementPtr evenement;
+        BatimentPtr batiment;
+        VaisseauPtr vaisseau;
+        TypeCellule type;
 
 };
 

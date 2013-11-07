@@ -1,6 +1,4 @@
 #include "Batiment.hpp"
-#include "Vaisseau.hpp"
-#include "TypeBatiment.hpp"
 
 Batiment::Batiment() : Structure(){
     niveau = 0;
@@ -27,7 +25,7 @@ void Batiment::setNiveau(int niveau){
 const TypeBatiment Batiment::getType(){
         return type;
 }
-/*
+
 void Batiment::subir(Vaisseau const& attaquant){
     Vaisseau cAttaquant(attaquant);
     switch(cAttaquant.getType()){
@@ -40,7 +38,6 @@ void Batiment::subir(Vaisseau const& attaquant){
 
     Structure::subir(cAttaquant);
 }
-*/
 
 void Batiment::subir(Batiment const& attaquant){
     Batiment cAttaquant(attaquant);

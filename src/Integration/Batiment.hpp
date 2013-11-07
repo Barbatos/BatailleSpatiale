@@ -1,8 +1,10 @@
 #ifndef BATIMENT_HPP
 #define BATIMENT_HPP
-#include "Vaisseau.hpp"
+#include "../Vaisseau/Vaisseau.hpp"
 #include "TypeBatiment.hpp"
 #include <memory>
+
+class Vaisseau;
 
 /*
 * Classe qui définit les differents attributs
@@ -17,7 +19,7 @@ class Batiment : public Structure {
                 const TypeBatiment getType();
                 int getNiveau();
                 void setNiveau(int niveau);
-             //   void subir(Vaisseau const& attaquant);
+                void subir(Vaisseau const& attaquant);
                 void subir(Batiment const& attaquant);
 
         protected:

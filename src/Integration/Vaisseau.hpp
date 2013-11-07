@@ -1,7 +1,7 @@
 #ifndef VAISSEAU_HPP
 #define VAISSEAU_HPP
 #include "Structure.hpp"
-#include "Batiment.hpp"
+#include "../Batiment/Batiment.hpp"
 #include "TechnologieVaisseau.hpp"
 #include "TypeVaisseau.hpp"
 #include <memory>

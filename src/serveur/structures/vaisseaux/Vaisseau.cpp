@@ -57,7 +57,7 @@ void Vaisseau::setConsommationMax(int const consommationMax){
 void Vaisseau::modifierEnergie(int const valeur){
 
     if(energie + valeur < energieMax){
-		setEnergie(energie + valeur);
+                setEnergie(energie + valeur);
         if(valeur > 0) std::cout << valeur << " points d' energie ont ete rendus au vaisseau" << std::endl << std::endl;
         if(valeur < 0) std::cout << "Le vaisseau a perdu " << -valeur << " points d'energie" << std::endl << std::endl;
     }
@@ -69,12 +69,12 @@ void Vaisseau::modifierEnergie(int const valeur){
 void Vaisseau::afficher(std::ostream& fluxSortant) const {
 
     fluxSortant << "Vie : " << vie << "/" << vieMax << std::endl <<
-				   "Bouclier : " << bouclier << "/" << bouclierMax << std::endl <<
-				   "% degats absorbes : " << (bouclierTaux*100) << "%" << std::endl <<
-				   "Visibilite : " << visibilite << std::endl <<
-				   "Attaque : " << attaque << std::endl <<
-				   "Energie : " << energie << "/" << energieMax << std::endl <<
-				   "Consommation : " << consommationMax << std::endl << std::endl;
+                                 "Bouclier : " << bouclier << "/" << bouclierMax << std::endl <<
+                                 "% degats absorbes : " << (bouclierTaux*100) << "%" << std::endl <<
+                                 "Visibilite : " << visibilite << std::endl <<
+                                 "Attaque : " << attaque << std::endl <<
+                                 "Energie : " << energie << "/" << energieMax << std::endl <<
+                                 "Consommation : " << consommationMax << std::endl << std::endl;
 
 
 }
@@ -86,6 +86,77 @@ std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau) {
 
 }
 
+void Vaisseau::subir(Vaisseau const& attaquant){
+
+    Vaisseau cAttaquant(attaquant);
+
+    switch(cAttaquant.getType()){
+
+        case VaisseauChasseur :
+            switch(_type){
+                case VaisseauBombardier :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.75); break;
+                case VaisseauCroiseur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 2); break;
+                case VaisseauDestructeur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 4); break;
+                default : break;
+
+            }
+        break;
+
+        case VaisseauChasseurLourd :
+            switch(_type){
+                case VaisseauBombardier :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 2.5); break;
+                case VaisseauDestructeur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 3); break;
+                default : break;
+
+            }
+        break;
+
+
+        case VaisseauCroiseur :
+            switch(_type){
+                case VaisseauChasseur :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 3); break;
+                case VaisseauDestructeur : cAttaquant.setAttaque(cAttaquant.getAttaque() / 2); break;
+                default : break;
+            }
+
+        break;
+
+
+        case VaisseauTraqueur :
+            switch(_type){
+                case VaisseauLeger :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 3); break;
+                case VaisseauChasseurLourd :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f); break;
+                case VaisseauCroiseur :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f); break;
+                case VaisseauBombardier :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f); break;
+                case VaisseauDestructeur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 1.5f); break;
+                default : break;
+
+            }
+        break;
+
+
+        case VaisseauDestructeur :
+            switch(_type){
+                case VaisseauLeger :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 4); break;
+                case VaisseauTraqueur :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 2); break;
+                default : break;
+
+            }
+        break;
+
+    default : break;
+    }
+
+    Structure::subir(cAttaquant);
+
+}
+
+/*
+void Vaisseau::subir(Batiment const& attaquant){
+    Structure::subir(attaquant);
+
+}
+*/
 
 
 Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV){
@@ -103,6 +174,11 @@ Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS, Te
 }
 
 const int Vaisseau::distanceMaximale(){
-	//A modifier plus tard avec la consommation max
-	return energie;
+        //A modifier plus tard avec la consommation max
+        return energie;
+}
+
+const TypeVaisseau Vaisseau::getType(){
+    return type;
+
 }

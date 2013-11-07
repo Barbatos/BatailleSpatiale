@@ -2,10 +2,17 @@
 #define TYPE_VAISSEAU_HPP
 
 enum TypeVaisseau{
-	VaisseauVide,
-	VaisseauConstructeur,
-	VaisseauSimple,
-	VaisseauNbrTotal
+        VaisseauVide,
+        VaisseauConstructeur,
+        VaisseauSimple,
+        VaisseauLeger,
+        VaisseauChasseur,
+        VaisseauChasseurLourd,
+        VaisseauBombardier,
+        VaisseauCroiseur,
+        VaisseauTraqueur,
+        VaisseauDestructeur,
+        VaisseauNbrTotal
 };
 
 #endif

@@ -64,22 +64,22 @@ const int Cellule::getCoutDeplacement() {
     else
         return 10000;
         
-	if((evenement) && (evenement->getCoutDeplacement() != -1)) {
-		if(type == CelluleMinerais)
-			if(evenement)
-				return evenement->getCoutDeplacement() + 1;
-			else
-				return 2;
-		else
-			if(evenement)
-				return evenement->getCoutDeplacement();
-			else
-				return 1;
-	}
+    if((evenement) && (evenement->getCoutDeplacement() != -1)) {
+        if(type == CelluleMinerais)
+            if(evenement)
+                return evenement->getCoutDeplacement() + 1;
+            else
+                return 2;
+        else
+            if(evenement)
+                return evenement->getCoutDeplacement();
+            else
+                return 1;
+    }
 
-	else
-		return 10000;
-		
+    else
+        return 10000;
+        
 }
 
 const TypeBatiment Cellule::typeBatiment(){
@@ -101,12 +101,13 @@ void Cellule::creerBatimentBaseTest() {
     batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, BatimentBase));
 }
 
+/*
 void Cellule::subir(Structure const& attaquant) {
     if(vaisseau)
         vaisseau->subir(attaquant);
     if(batiment)
         batiment->subir(attaquant);
-}
+}*/
 
 Structure Cellule::getAttaquant(){
     if(vaisseau)
