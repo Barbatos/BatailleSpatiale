@@ -18,6 +18,7 @@ class ReseauGlobal
 		 * \param socket la socket de la machine réceptrice du paquet
 		 * \param paquet le paquet reçu
 		 * \param timeout temps maximal de récupération du paquet, par défaut 0 secondes
+        * \return si la reception a reussi ou non
 		 */
 		static bool ReceptionPaquet(sf::TcpSocket& socket, sf::Packet& paquet, sf::Time timeout = sf::seconds(0.0f));
 
