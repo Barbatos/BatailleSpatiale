@@ -1,25 +1,25 @@
 #include "../../global.hpp"
 #include "../../serveur/joueurs/Joueur.hpp"
-#include "../../core/NetworkGlobal.hpp"
-#include "../../core/NetworkClient.hpp"
-#include "../../core/NetworkServer.hpp"
+#include "../../core/ReseauGlobal.hpp"
+#include "../../core/ReseauClient.hpp"
+#include "../../core/ReseauServeur.hpp"
+#include "../../core/enum/TypePaquet.hpp"
 
-NetworkClient* 	client;
-NetworkServer* 	server;
+ReseauClient* 	client;
+ReseauServeur* 	serveur;
 
 void WaitForInput(void){
 
 	for(;;){
 		string s;
-		sf::Packet packet;
-		sf::Int16 packetType = (sf::Int16)PACKETTYPE_CLIENT_SAY;
+		sf::Packet paquet;
+		sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEcho);
 
-		//cout << endl << "Write something..." << endl;
 		getline(cin, s);
 		
-		packet << packetType << s;
+		paquet << typePaquet << s;
 
-		NetworkGlobal::sendMessage(client->socket, packet);
+		ReseauGlobal::EnvoiMessage(client->socket, paquet);
 
 		sf::sleep(sf::milliseconds(50));
 	}
@@ -28,22 +28,22 @@ void WaitForInput(void){
 
 void RunServer(unsigned short port){
 
-	server = new NetworkServer(port);
+	serveur = new ReseauServeur(port);
 
 	for(;;){
-		server->acceptNewClient();
+		serveur->AccepterNouveauClient();
 		sf::sleep(sf::milliseconds(50));
 	}
 }
 
 void GetMessageFromServer(){
 	for(;;){
-		sf::Packet packet;
+		sf::Packet paquet;
 		string message;
 		sf::Int16 packetType;
 
-		NetworkGlobal::getMessage(client->socket, packet, sf::seconds(0.01f));
-		client->ParseServerPacket(packet);
+		ReseauGlobal::ReceptionMessage(client->socket, paquet, sf::seconds(0.01f));
+		client->TraiterPaquetServeur(paquet);
 		
 		sf::sleep(sf::milliseconds(50));
 	}
@@ -54,7 +54,7 @@ void RunClient(string ip, unsigned short port){
 	sf::Thread clientCinThread(&WaitForInput);
 	sf::Thread fromServerThread(&GetMessageFromServer);
 
-	client = new NetworkClient(ip, port);
+	client = new ReseauClient(ip, port);
 
 	fromServerThread.launch();
 	clientCinThread.launch();

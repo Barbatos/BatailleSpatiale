@@ -1,11 +1,11 @@
 CC=g++
 EXEC=network-players
 LDFLAGS=-lsfml-system -lsfml-network
-CFLAGS =-Wall -std=c++11 
+CFLAGS =-Wall -std=c++11 -std=gnu++11
 
 all: $(EXEC)
 
-network-players: network-players.o ../../core/NetworkGlobal.o ../../core/NetworkClient.o ../../serveur/joueurs/Joueur.o ../../core/NetworkServer.o 
+network-players: network-players.o ../../core/ReseauGlobal.o ../../core/ReseauClient.o ../../serveur/joueurs/Joueur.o ../../core/ReseauServer.o 
 	$(CC) $^ $(LDFLAGS) -o $(CHEMIN_EXE)$@
 	
 %.o: %.c
