@@ -9,7 +9,7 @@ set(EXE_OUTPUT_PATH ${CMAKE_BUILD_PATH}/${CMAKE_BUILD_TYPE})
 set(EXE_CLIENT "BatailleSpatiale")
 set(EXE_SERVER "Serveur")
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
 if(WIN32)
 	# Le répertoire où est installée la sfml (windows uniquement)
 	set(SFML_DIR "C:/SFML/")

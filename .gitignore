@@ -14,5 +14,5 @@
 
 # Project files
 bataille2.*
-src/build/*
+build/*
 .codelite/*
