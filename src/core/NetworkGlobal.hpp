@@ -11,12 +11,4 @@ class NetworkGlobal
 		static bool getMessage(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout = sf::seconds(0.0f));
 };
 
-typedef enum {
-	PACKETTYPE_NONE,
-	PACKETTYPE_CLIENT_NICK,
-	PACKETTYPE_CLIENT_SAY,
-
-	PACKETTYPE_SERVER_SAY,
-} packetType_t;
-
 #endif

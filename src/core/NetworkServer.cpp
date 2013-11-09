@@ -62,36 +62,39 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 
 }
 
-void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Int16 packetType, string& msg){
+void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Uint16 typePaquet, string& msg){
 
-	// Si le joueur a écrit du texte
-	if(packetType == PACKETTYPE_CLIENT_SAY){
-		
-		// Si c'est une commande
-		if(msg.at(0) == '/'){
-			ParseClientCommand(joueur, msg);
-		}
+	switch(static_cast<TypePaquet>(typePaquet)){
 
-		// TEMP: sinon, on dit que c'est un message à envoyer à tout le monde
-		else {
-			string msgFinal;
+		case TypePaquet::MessageEcho:
 
-			msgFinal = "<" + joueur.getPseudo() + "> " + msg;
+			// Si c'est une commande
+			if(msg.at(0) == '/'){
+				ParseClientCommand(joueur, msg);
+			}
 
-			SendToAll(msgFinal);
-		}
-	}
+			// TEMP: sinon, on dit que c'est un message à envoyer à tout le monde
+			else {
+				string msgFinal;
 
-	else {
-		return;
+				msgFinal = "<" + joueur.getPseudo() + "> " + msg;
+
+				SendToAll(msgFinal);
+			}
+
+			break;
+
+		default:
+			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
+			break;
 	}
 }
 
 void NetworkServer::SendToAll(string& message){
 	sf::Packet packet;
-	sf::Int16 packetType = (sf::Int16)PACKETTYPE_SERVER_SAY;
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
-	packet << packetType << message;
+	packet << typePaquet << message;
 
 	for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 		// On récupère les infos du client dans la liste
@@ -103,9 +106,9 @@ void NetworkServer::SendToAll(string& message){
 
 void NetworkServer::SendToOne(sf::TcpSocket& client, string& message){
 	sf::Packet packet;
-	sf::Int16 packetType = (sf::Int16)PACKETTYPE_SERVER_SAY;
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
-	packet << packetType << message;
+	packet << typePaquet << message;
 	NetworkGlobal::sendMessage(client, packet);
 }
 
@@ -178,16 +181,16 @@ void NetworkServer::acceptNewClient(void)
 					// Le message s'est envoyé correctement
 					if (status == sf::Socket::Done){
 						string msg;
-						sf::Int16 packetType;
+						sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 
 						// On copie dans une variable le message reçu
-						packet >> packetType >> msg;
+						packet >> typePaquet >> msg;
 
 						if(msg.empty()){
 							return;
 						}
 
-						ParseClientPacket(j, packetType, msg);
+						ParseClientPacket(j, typePaquet, msg);
 
 						cout << "[NETWORK] Message du client " 
 							 << j.getPseudo()
@@ -195,7 +198,7 @@ void NetworkServer::acceptNewClient(void)
 							 << client->getRemoteAddress() 
 							 << ":" 
 							 << client->getRemotePort() 
-							 << " : " << packetType << " : " << msg << endl;
+							 << " : " << typePaquet << " : " << msg << endl;
 
 						return;
 					}

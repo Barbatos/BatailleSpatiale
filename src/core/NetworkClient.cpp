@@ -16,14 +16,14 @@ NetworkClient::NetworkClient(string ip, unsigned short port){
 }
 
 void NetworkClient::ParseServerPacket(sf::Packet& packet){
-	sf::Int16 	packetType;
+	sf::Uint16 	typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 	string 		message;
 
 	if(packet.getDataSize() <= 0){
 		return;
 	}
 	
-	packet >> packetType >> message;
+	packet >> typePaquet >> message;
 
 	cout << "server: " << message << endl;
 }
