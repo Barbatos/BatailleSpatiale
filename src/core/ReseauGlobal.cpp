@@ -1,6 +1,6 @@
 #include "ReseauGlobal.hpp"
 
-bool ReseauGlobal::ReceptionMessage(sf::TcpSocket& socket, sf::Packet& paquet, sf::Time timeout){
+bool ReseauGlobal::ReceptionPaquet(sf::TcpSocket& socket, sf::Packet& paquet, sf::Time timeout){
 	sf::SocketSelector selecteur;
 
 	// On crée un sélecteur dans lequel on place notre socket
@@ -19,7 +19,7 @@ bool ReseauGlobal::ReceptionMessage(sf::TcpSocket& socket, sf::Packet& paquet, s
 	}
 }
 
-void ReseauGlobal::EnvoiMessage(sf::TcpSocket& socket, sf::Packet& paquet){
+void ReseauGlobal::EnvoiPaquet(sf::TcpSocket& socket, sf::Packet& paquet){
 	if (socket.send(paquet) != sf::Socket::Done){
 		cout << "[RESEAU] Erreur lors de l'envoi d'un paquet" << endl;
 		return;
