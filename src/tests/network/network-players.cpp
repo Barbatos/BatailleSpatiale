@@ -19,7 +19,7 @@ void WaitForInput(void){
 		
 		paquet << typePaquet << s;
 
-		ReseauGlobal::EnvoiMessage(client->socket, paquet);
+		ReseauGlobal::EnvoiPaquet(client->socket, paquet);
 
 		sf::sleep(sf::milliseconds(50));
 	}
@@ -42,7 +42,7 @@ void GetMessageFromServer(){
 		string message;
 		sf::Int16 packetType;
 
-		ReseauGlobal::ReceptionMessage(client->socket, paquet, sf::seconds(0.01f));
+		ReseauGlobal::ReceptionPaquet(client->socket, paquet, sf::seconds(0.01f));
 		client->TraiterPaquetServeur(paquet);
 		
 		sf::sleep(sf::milliseconds(50));
