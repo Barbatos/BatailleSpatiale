@@ -1,10 +1,10 @@
 #include "../global.hpp"
-#include "../core/NetworkGlobal.hpp"
-#include "../core/NetworkServer.hpp"
+#include "../core/ReseauGlobal.hpp"
+#include "../core/ReseauServeur.hpp"
 
 int main()
 {
-	NetworkServer* serveur;
+	ReseauServeur* serveur;
 	unsigned int port = 1337;
 	string msg = "";
 
@@ -17,10 +17,10 @@ int main()
 		port = atoi(msg.c_str());
 	}
 
-	serveur = new NetworkServer(port);
+	serveur = new ReseauServeur(port);
 
 	while(true){
-		serveur->acceptNewClient();
+		serveur->AccepterNouveauClient();
 		sf::sleep(sf::milliseconds(50));
 	}
 

@@ -1,10 +1,10 @@
-#include "NetworkServer.hpp"
+#include "ReseauServeur.hpp"
 
-NetworkServer::NetworkServer(unsigned short port){
+ReseauServeur::ReseauServeur(unsigned short port){
 
 	// On écoute sur le port défini plus haut
 	if (listener.listen(port) != sf::Socket::Done){
-		cout << "[NETWORK] Impossible d'écouter sur le port " << port << endl;
+		cout << "[RESEAU] Impossible d'écouter sur le port " << port << endl;
 		return;
 	}
 
@@ -14,33 +14,33 @@ NetworkServer::NetworkServer(unsigned short port){
 	// On ajoute la socket au selecteur
 	selector.add(listener);
 
-	cout << "[NETWORK] Ecoute sur le port " << port << " en cours..." << endl;
+	cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
 
-void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
+void ReseauServeur::TraiterCommandeClient(Joueur& joueur, string& commande){
 	sf::TcpSocket* client = joueur.getSocket();
 
 	// On récupère la commande exécutée
-	string cmd = command.substr(0, command.find_first_of(' '));
+	string cmd = commande.substr(0, commande.find_first_of(' '));
 
 	// Si c'est une commande pour changer de nom
 	if((cmd == "/nick") || (cmd == "/name") || (cmd == "/pseudo")){
 
-		if(command.size() < cmd.size() + 2){
+		if(commande.size() < cmd.size() + 2){
 			string msg = "Vous devez entrer un nouveau pseudo !";
-			SendToOne(*client, msg);
+			EnvoiUnique(*client, msg);
 			return;
 		}
 
 		// On récupère l'argument de la commande, à savoir le nouveau pseudo
-		string newNick = command.substr(command.find_first_of(' ') + 1);
+		string newNick = commande.substr(commande.find_first_of(' ') + 1);
 
 		// On remplace l'ancien pseudo par le nouveau et on avertit tout le monde
 		if(!newNick.empty()){
 			string msg = "Le joueur " + joueur.getPseudo() + " a change son pseudo en " + newNick;
 
 			joueur.setPseudo(newNick);
-			SendToAll(msg);
+			EnvoiATous(msg);
 		}
 	}
 
@@ -57,12 +57,12 @@ void NetworkServer::ParseClientCommand(Joueur& joueur, string& command){
 			listeJoueurs.append(j.getPseudo() + " (#" + id.str() + ")\n");
 		}
 
-		SendToOne(*client, listeJoueurs);
+		EnvoiUnique(*client, listeJoueurs);
 	}
 
 }
 
-void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Uint16 typePaquet, string& msg){
+void ReseauServeur::TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, string& msg){
 
 	switch(static_cast<TypePaquet>(typePaquet)){
 
@@ -70,7 +70,7 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Uint16 typePaquet, str
 
 			// Si c'est une commande
 			if(msg.at(0) == '/'){
-				ParseClientCommand(joueur, msg);
+				TraiterCommandeClient(joueur, msg);
 			}
 
 			// TEMP: sinon, on dit que c'est un message à envoyer à tout le monde
@@ -79,7 +79,7 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Uint16 typePaquet, str
 
 				msgFinal = "<" + joueur.getPseudo() + "> " + msg;
 
-				SendToAll(msgFinal);
+				EnvoiATous(msgFinal);
 			}
 
 			break;
@@ -90,7 +90,7 @@ void NetworkServer::ParseClientPacket(Joueur& joueur, sf::Uint16 typePaquet, str
 	}
 }
 
-void NetworkServer::SendToAll(string& message){
+void ReseauServeur::EnvoiATous(string& message){
 	sf::Packet packet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
@@ -100,19 +100,19 @@ void NetworkServer::SendToAll(string& message){
 		// On récupère les infos du client dans la liste
 		Joueur& j = *it;
 		sf::TcpSocket* client = j.getSocket();
-		NetworkGlobal::sendMessage(*client, packet);
+		ReseauGlobal::EnvoiMessage(*client, packet);
 	}
 }
 
-void NetworkServer::SendToOne(sf::TcpSocket& client, string& message){
+void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
 	sf::Packet packet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
 	packet << typePaquet << message;
-	NetworkGlobal::sendMessage(client, packet);
+	ReseauGlobal::EnvoiMessage(client, packet);
 }
 
-void NetworkServer::acceptNewClient(void)
+void ReseauServeur::AccepterNouveauClient(void)
 {
 	// On attend qu'il se passe quelque chose sur le réseau
 	if (selector.wait()){
@@ -141,14 +141,14 @@ void NetworkServer::acceptNewClient(void)
 				selector.add(*client);
 
 				// On envoie un paquet de bienvenue au client
-				SendToOne(*client, s);
+				EnvoiUnique(*client, s);
 
-				cout << "[NETWORK] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
+				cout << "[RESEAU] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 				
 				c << j->getId();
 
 				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
-				SendToAll(msgGlobal);
+				EnvoiATous(msgGlobal);
 
 				delete j;
 			}
@@ -158,7 +158,7 @@ void NetworkServer::acceptNewClient(void)
 				// On supprime la socket du client
 				delete client;
 
-				cout << "[NETWORK] Un nouveau client a tente de se connecter mais a ete rejete: " << client->getRemoteAddress() << endl;
+				cout << "[RESEAU] Un nouveau client a tente de se connecter mais a ete rejete: " << client->getRemoteAddress() << endl;
 			}
 		}
 
@@ -190,9 +190,9 @@ void NetworkServer::acceptNewClient(void)
 							return;
 						}
 
-						ParseClientPacket(j, typePaquet, msg);
+						TraiterPaquetClient(j, typePaquet, msg);
 
-						cout << "[NETWORK] Message du client " 
+						cout << "[RESEAU] Message du client " 
 							 << j.getPseudo()
 							 << " "
 							 << client->getRemoteAddress() 
@@ -210,7 +210,7 @@ void NetworkServer::acceptNewClient(void)
 							string msgGlobal;
 							ostringstream c;
 
-							cout << "[NETWORK] Le client " << client->getRemoteAddress() << " s'est deconnecte !" << endl;
+							cout << "[RESEAU] Le client " << client->getRemoteAddress() << " s'est deconnecte !" << endl;
 
 							c << j.getId();
 							msgGlobal = j.getPseudo() + " (#"  + c.str() + ") s'est déconnecté du serveur";
@@ -222,12 +222,12 @@ void NetworkServer::acceptNewClient(void)
 							joueurs.erase(it);
 
 							// On envoie le message de déconnexion à tous les autres joueurs
-							SendToAll(msgGlobal);
+							EnvoiATous(msgGlobal);
 						}
 
 						// S'il y a eu une erreur lors de la réception du paquet
 						if(status == sf::Socket::Error){
-							cout << "[NETWORK] Erreur lors de la reception d'un paquet du client " << client->getRemoteAddress() << endl;
+							cout << "[RESEAU] Erreur lors de la reception d'un paquet du client " << client->getRemoteAddress() << endl;
 						}
 					}
 				}

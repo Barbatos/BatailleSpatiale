@@ -26,8 +26,8 @@ endif()
 file(GLOB CORE_SRC
 	"src/main.cpp"
 	"src/global.hpp"
-	"src/core/NetworkGlobal.cpp"
-	"src/core/NetworkGlobal.hpp"
+	"src/core/ReseauGlobal.cpp"
+	"src/core/ReseauGlobal.hpp"
 )
 source_group("core" FILES  ${CORE_SRC})
 
@@ -38,8 +38,8 @@ source_group("client" FILES  ${CLIENT_SRC})
 
 file(GLOB_RECURSE SERVER_SRC
     "src/serveur/*.[ch]pp"
-    "src/core/NetworkServer.cpp"
-    "src/core/NetworkServer.hpp"
+    "src/core/ReseauServeur.cpp"
+    "src/core/ReseauServeur.hpp"
 )
 source_group("server" FILES  ${SERVER_SRC})
 
