@@ -31,13 +31,14 @@ file(GLOB CORE_SRC
 )
 source_group("core" FILES  ${CORE_SRC})
 
-file(GLOB CLIENT_SRC
-    "src/core/NetworkClient.cpp"
-    "src/core/NetworkClient.hpp"
+file(GLOB_RECURSE CLIENT_SRC
+    "src/client/*.[ch]pp"
 )
 source_group("client" FILES  ${CLIENT_SRC})
 
-file(GLOB_RECURSE SERVER_SRC "src/serveur/*.[ch]pp")
+file(GLOB_RECURSE SERVER_SRC
+    "src/serveur/*.[ch]pp"
+)
 source_group("server" FILES  ${SERVER_SRC})
 
 find_package(SFML 2 REQUIRED network system)

@@ -9,10 +9,15 @@
  */
 class Position {
     public:
-        /// Constructeur par défaut
+        /**
+         * \brief Constructeur par défaut
+         * 
+         * \param _x la position en x
+         * \param _y la position en y
+         */
         Position(int _x=0, int _y=0);
-        int x;
-        int y;
+        int x;///< La position en x
+        int y;///< La position en y
 };
 
 #endif // POSITION_HPP

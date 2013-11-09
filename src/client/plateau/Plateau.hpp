@@ -37,6 +37,7 @@ public:
     sf::Socket::Status envoyerMessageServeur(std::string message);
     sf::Socket::Status envoyerMessagePourTous(std::string message);
     const std::string& getNomJoueur() const;
+    const std::list<Joueur*>& getJoueurs();
     void renommerJoueur(std::string nouveauNom);
 
 private:
@@ -49,6 +50,7 @@ private:
     void gererServeur();
     void traiterPaquet(sf::Packet& paquet);
     void actualiserJoueur(sf::Packet& paquet);
+    void supprimerJoueur(sf::Packet& paquet);
     /// Les cellules du plateau
     std::vector<std::vector<Cellule>> cellule;
     sf::Int32 tailleX;///< Taille du plateau en X

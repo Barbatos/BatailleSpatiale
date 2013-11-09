@@ -149,6 +149,10 @@ void Plateau::traiterPaquet(sf::Packet& paquet) {
             actualiserJoueur(paquet);
             break;
 
+        case TypePaquet::SupprimerJoueur:
+            supprimerJoueur(paquet);
+            break;
+
         default:
             std::cout << "[ERREUR] Paquet de type : " << typePaquet
                       << " non géré par le client" << std::endl;
@@ -162,10 +166,22 @@ void Plateau::actualiserJoueur(sf::Packet& paquet) {
     sf::Int32 id = -1;
     paquet >> id;
 
-    for(std::list<Joueur*>::const_iterator joueur(listeJoueur.begin());
+    for(Joueur* joueur : listeJoueur) {
+        if(joueur->getId() == id) {
+            paquet >> *joueur;
+            return;
+        }
+    }
+}
+
+void Plateau::supprimerJoueur(sf::Packet& paquet) {
+    sf::Int32 id = -1;
+    paquet >> id;
+
+    for(std::list<Joueur*>::iterator joueur(listeJoueur.begin());
             joueur != listeJoueur.end(); ++joueur) {
         if((*joueur)->getId() == id) {
-            paquet >> **joueur;
+            listeJoueur.erase(joueur);
             return;
         }
     }
@@ -198,11 +214,14 @@ sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
     return paquet;
 }
 
+const std::list<Joueur*>& Plateau::getJoueurs() {
+    return listeJoueur;
+}
+
 const Joueur& Plateau::getJoueur(sf::Int16 id) {
-    for(std::list<Joueur*>::iterator joueurCherche(listeJoueur.begin());
-            joueurCherche != listeJoueur.end(); ++joueurCherche) {
-        if((*joueurCherche)->getId() == id)
-            return **joueurCherche;
+    for(Joueur* joueurCherche : listeJoueur) {
+        if(joueurCherche->getId() == id)
+            return *joueurCherche;
     }
     return JoueurNull;
 }
