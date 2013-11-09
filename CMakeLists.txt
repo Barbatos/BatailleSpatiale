@@ -7,13 +7,13 @@ set(CMAKE_BUILD_PATH ${CMAKE_SOURCE_DIR}/build)
 set(EXE_OUTPUT_PATH ${CMAKE_BUILD_PATH}/${CMAKE_BUILD_TYPE})
 
 set(EXE_CLIENT "BatailleSpatiale")
-set(EXE_SERVER "Serveur")
+set(EXE_SERVER "ServeurBatailleSpatiale")
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "-std=c++11 -std=gnu++11 -Wall")
 if(WIN32)
 	# Le répertoire où est installée la sfml (windows uniquement)
 	set(SFML_DIR "C:/SFML/")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mconsole -lwsock32")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwindows -mconsole -lwsock32")
 endif()
 
 option(BUILD_CLIENT "Build the client executable" ON)
@@ -24,7 +24,6 @@ if(NOT BUILD_CLIENT AND NOT BUILD_SERVER)
 endif()
 
 file(GLOB CORE_SRC
-	"src/main.cpp"
 	"src/global.hpp"
 	"src/core/ReseauGlobal.cpp"
 	"src/core/ReseauGlobal.hpp"
