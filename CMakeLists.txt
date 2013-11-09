@@ -38,6 +38,8 @@ source_group("client" FILES  ${CLIENT_SRC})
 
 file(GLOB_RECURSE SERVER_SRC
     "src/serveur/*.[ch]pp"
+    "src/core/NetworkServer.cpp"
+    "src/core/NetworkServer.hpp"
 )
 source_group("server" FILES  ${SERVER_SRC})
 
