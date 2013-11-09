@@ -29,7 +29,4 @@ using namespace std;
 // Mode débug
 #define DEBUG 		1
 
-
-void SV_Frame();
-
 #endif 
