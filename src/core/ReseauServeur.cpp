@@ -91,25 +91,25 @@ void ReseauServeur::TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, s
 }
 
 void ReseauServeur::EnvoiATous(string& message){
-	sf::Packet packet;
+	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
-	packet << typePaquet << message;
+	paquet << typePaquet << message;
 
 	for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 		// On récupère les infos du client dans la liste
 		Joueur& j = *it;
 		sf::TcpSocket* client = j.getSocket();
-		ReseauGlobal::EnvoiMessage(*client, packet);
+		ReseauGlobal::EnvoiPaquet(*client, paquet);
 	}
 }
 
 void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
-	sf::Packet packet;
+	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
-	packet << typePaquet << message;
-	ReseauGlobal::EnvoiMessage(client, packet);
+	paquet << typePaquet << message;
+	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
 void ReseauServeur::AccepterNouveauClient(void)
