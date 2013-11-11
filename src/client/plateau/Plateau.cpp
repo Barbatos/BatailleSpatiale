@@ -14,7 +14,7 @@ Plateau::Plateau(std::string adresseServeur, int port) :
     //si on arrive pas a se connecter on quitte
     if (socket.connect(serveur, port) != sf::Socket::Done)
         throw "Impossible de se connecter au serveur";
-        
+
     sf::Socket::Status codeRetour;
     sf::Packet paquet;
     if ((codeRetour = socket.receive(paquet)) == sf::Socket::Done) {
@@ -228,4 +228,12 @@ const Joueur& Plateau::getJoueur(sf::Int16 id) {
 
 bool operator==(const Joueur& j1, const Joueur& j2) {
     return j1.id == j2.id;
+}
+
+const sf::Int32& Plateau::getTailleX() const {
+    return tailleX;
+}
+
+const sf::Int32& Plateau::getTailleY() const {
+    return tailleY;
 }

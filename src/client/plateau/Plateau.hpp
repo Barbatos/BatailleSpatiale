@@ -39,11 +39,13 @@ public:
     const std::string& getNomJoueur() const;
     const std::list<Joueur*>& getJoueurs();
     void renommerJoueur(std::string nouveauNom);
+    const sf::Int32& getTailleX() const;
+    const sf::Int32& getTailleY() const;
 
 private:
     /**
      * \brief recupere le joueur qui possede cet id
-     * 
+     *
      * \param id l'id du joueur
      */
     const Joueur& getJoueur(sf::Int16 id);
