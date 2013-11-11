@@ -55,11 +55,13 @@ void Cellule::retirerVaisseau() {
 }
 
 void Cellule::echangerVaisseau(Cellule cellule){
-    vaisseau.swap(cellule.getPointeurVaisseau());
+    Vaisseau* temp = cellule.getPointeurVaisseau();
+    cellule.vaisseau.reset(vaisseau.get());
+    vaisseau.reset(temp);
 }
 
-VaisseauPtr& Cellule::getPointeurVaisseau(){
-    return vaisseau;
+Vaisseau* Cellule::getPointeurVaisseau(){
+    return vaisseau.get();
 }
 
 void Cellule::setType(TypeCellule _type) {

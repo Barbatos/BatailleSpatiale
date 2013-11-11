@@ -38,7 +38,7 @@ private:
     void retirerBatiment();
     void retirerVaisseau();
 
-    VaisseauPtr& getPointeurVaisseau();
+    Vaisseau* getPointeurVaisseau();
     EvenementPtr evenement;
     BatimentPtr batiment;
     VaisseauPtr vaisseau;
