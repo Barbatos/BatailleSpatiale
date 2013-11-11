@@ -1,6 +1,6 @@
 #include "Plateau.hpp"
 #include <iostream>
-#include "../../core/enum/TypePaquet.hpp"
+#include "../core/enum/TypePaquet.hpp"
 
 extern Joueur JoueurNull;
 

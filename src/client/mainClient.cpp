@@ -1,5 +1,5 @@
 #include <iostream>
-#include "plateau/Plateau.hpp"
+#include "Plateau.hpp"
 
 int main() {
 

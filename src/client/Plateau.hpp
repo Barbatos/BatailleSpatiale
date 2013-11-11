@@ -5,9 +5,9 @@
 #include <vector>
 #include <list>
 #include <string>
-#include "Cellule.hpp"
-#include "../Position.hpp"
-#include "../Joueur.hpp"
+#include "plateau/Cellule.hpp"
+#include "Position.hpp"
+#include "Joueur.hpp"
 
 /**
  * \brief Le plateau coté client
