@@ -1,7 +1,7 @@
 #ifndef DETAIL_VAISSEAU_HPP
 #define DETAIL_VAISSEAU_HPP
 #include <SFML/System.hpp>
-#include "../../core/enum/TypeVaisseau.hpp"
+#include "../../commun/enum/TypeVaisseau.hpp"
 
 /**
  * \brief Défini les différents attributs du vaisseau

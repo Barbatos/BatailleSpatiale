@@ -5,7 +5,7 @@ CFLAGS =-Wall -std=c++11 -std=gnu++11
 
 all: $(EXEC)
 
-network-players: network-players.o ../../core/ReseauGlobal.o ../../core/ReseauClient.o ../../serveur/joueurs/Joueur.o ../../core/ReseauServer.o 
+network-players: network-players.o ../../commun/ReseauGlobal.o ../../commun/ReseauClient.o ../../serveur/joueurs/Joueur.o ../../commun/ReseauServer.o 
 	$(CC) $^ $(LDFLAGS) -o $(CHEMIN_EXE)$@
 	
 %.o: %.c

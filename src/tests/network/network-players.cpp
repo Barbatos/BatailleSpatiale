@@ -1,9 +1,9 @@
 #include "../../global.hpp"
 #include "../../serveur/joueurs/Joueur.hpp"
-#include "../../core/ReseauGlobal.hpp"
-#include "../../core/ReseauClient.hpp"
-#include "../../core/ReseauServeur.hpp"
-#include "../../core/enum/TypePaquet.hpp"
+#include "../../commun/ReseauGlobal.hpp"
+#include "../../commun/ReseauClient.hpp"
+#include "../../commun/ReseauServeur.hpp"
+#include "../../commun/enum/TypePaquet.hpp"
 
 ReseauClient* 	client;
 ReseauServeur* 	serveur;

@@ -1,6 +1,6 @@
 #include "../global.hpp"
-#include "../core/ReseauGlobal.hpp"
-#include "../core/ReseauServeur.hpp"
+#include "../commun/ReseauGlobal.hpp"
+#include "../commun/ReseauServeur.hpp"
 
 int main()
 {

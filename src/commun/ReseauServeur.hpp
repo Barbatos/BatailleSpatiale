@@ -3,8 +3,8 @@
 
 #include "../global.hpp"
 #include "../serveur/joueurs/Joueur.hpp"
-#include "../core/ReseauGlobal.hpp"
-#include "../core/enum/TypePaquet.hpp"
+#include "../commun/ReseauGlobal.hpp"
+#include "../commun/enum/TypePaquet.hpp"
 
 /**
  * Classe permettant de démarrer un serveur de jeu 

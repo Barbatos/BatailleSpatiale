@@ -3,7 +3,7 @@
 #include "Evenement.hpp"
 #include "../structure/Batiment.hpp"
 #include "../structure/Vaisseau.hpp"
-#include "../../core/enum/TypeCellule.hpp"
+#include "../../commun/enum/TypeCellule.hpp"
 
 /**
  * \brief Défini une case du plateau
