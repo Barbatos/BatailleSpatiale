@@ -2,6 +2,7 @@
 #define _RESEAU_CLIENT_H_
 
 #include "../global.hpp"
+#include "enum/TypePaquet.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à

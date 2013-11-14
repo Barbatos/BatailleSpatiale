@@ -1,0 +1,22 @@
+##################################################################
+##
+##  Fichier TOC du projet BattleStar
+##      Contient les chemins vers toutes les ressources du projet
+##
+##################################################################
+
+## Images
+Interface/Bouton/bouton.png
+Interface/Bouton/bouton_dessus.png
+Interface/Bouton/bouton_clic.png
+fond.jpg
+
+## Polices
+grand9k.ttf
+
+## Sons
+menuclick.wav
+menuhit.wav
+
+## Musiques
+Clearness.ogg

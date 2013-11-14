@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>520</x>
+      <y>224</y>
+      <w>224</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Jeu
+--
+-affichage : Affichage
+-plateau : Plateau
+-controleur : Controleur
+-ressources : Ressources
+-scene : Scene*
+--
++Jeu()
++~Jeu()
++changer(Scene::Type) : void
++lancer() : void
++quitter() : void
++lireAffichage() : Affichage&amp;
++lirePlateau() : Plateau&amp;
++lireControleur() : Controleur&amp;
++lireRessources() : Ressources&amp;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>520</x>
+      <y>520</y>
+      <w>224</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Scene
+--
+-jeu : Jeu&amp;
+-elements : vector&lt;Element*&gt;
+-souris : vector&lt;ElementSouris*&gt;
+-clavier : vector&lt;ElementClavier*&gt;
+--
++Scene(Jeu&amp;)
++~Scene()
++ajouterElement(Element*) : void
++ajouterSouris(ElementSouris*) : void
++ajouterClavier(ElementClavier*) : void
++actualiser(float) : void
++afficher() : void
++traiter(Event&amp;) : void
++surMessage(int, Scene::Message) : void
++lireJeu() : Jeu&amp;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>232</x>
+      <y>208</y>
+      <w>240</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>Ressources
+--
+-textures : map&lt;string, Texture&gt;
+-sons : map&lt;string, pair&lt;SoundBuffer, Sound&gt;&gt;
+-musiques : map&lt;string, Music&gt;
+-polices : map&lt;string, Font&gt;
+-volumeSons : int
+-volumeMusiques : int
+--
++Ressources()
++~Ressources()
++lireImage(string) : Sprite
++lireMusique(string) : Music*
++lirePolice(string) : Police&amp;
++jouerSon(string) : void
++changerVolumeSons(int) : void
++changerVolumeMusiques(int) : void
++changerVolumeGlobal(int) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>784</x>
+      <y>248</y>
+      <w>128</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Plateau
+--
+--
++Plateau()
++~Plateau()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>264</x>
+      <y>32</y>
+      <w>176</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Archive
+--
+-images : vector&lt;string&gt;
+-polices : vector&lt;string&gt;
+-musiques : vector&lt;string&gt;
+-sons : vector&lt;string&gt;
+--
++Archive(string)
++~Archive()
++lireImages() : vector&lt;string&gt;
++lirePolices() : vector&lt;string&gt;
++lireMusiques() : vector&lt;string&gt;
++lireSons() : vector&lt;string&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>448</x>
+      <y>304</y>
+      <w>88</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1..1</panel_attributes>
+    <additional_attributes>72;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>720</x>
+      <y>256</y>
+      <w>80</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1..1</panel_attributes>
+    <additional_attributes>24;24;64;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>608</x>
+      <y>416</y>
+      <w>40</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=0..1
+m2=1..1</panel_attributes>
+    <additional_attributes>24;24;24;104</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>328</x>
+      <y>168</y>
+      <w>40</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>592</x>
+      <y>112</y>
+      <w>80</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>Affichage
+--
+--
++Affichage()
++~Affichage()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>608</x>
+      <y>152</y>
+      <w>40</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1..1</panel_attributes>
+    <additional_attributes>24;72;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>584</x>
+      <y>48</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>RenderWindow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>608</x>
+      <y>48</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;64</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>784</x>
+      <y>376</y>
+      <w>128</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Controleur
+--
+-plateau : Plateau
+--
++Controleur(Plateau)
++~Controleur()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>720</x>
+      <y>360</y>
+      <w>80</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1..1</panel_attributes>
+    <additional_attributes>24;24;64;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>288</x>
+      <y>448</y>
+      <w>120</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+Scene::Type
+--
+SceneMenuPrincipal
+SceneMenuSolo
+SceneMenuMulti
+SceneJeu
+SceneJeuMenu
+SceneJeuOptions</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>288</x>
+      <y>568</y>
+      <w>120</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enumeration&gt;&gt;
+Scene::Message
+--
+Clic
+Entre
+Sort</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>384</x>
+      <y>512</y>
+      <w>152</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>136;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>384</x>
+      <y>576</y>
+      <w>152</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>136;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>944</x>
+      <y>120</y>
+      <w>152</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Log
+--
+-fichier : osstream
+/-instance : Log/
+--
+-Log()
++~Log()
++ajouterLigne(string) : void
+/+lireInstance() : Log&amp;/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>912</x>
+      <y>0</y>
+      <w>224</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Utile
+--
+--
++erreur(string, string) : void
++nomFichier(string) : string
++extension(string) : string
++dateActuelle() : string
++redimensionnerImage(Sprite&amp;, int, int) : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>248</x>
+      <y>784</y>
+      <w>232</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>Element
+--
+-nom : int
+-zone : FloatRect
+-parent : Scene*
+--
++Element(int, int, int, int, int)
++Element(int, FloatRect)
++~Element()
++initialiser() : void
++actualiser(float) : void
++afficher(Affichage&amp;) : void
++changerParent(Scene*) : void
++envoyerMessage(Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>344</x>
+      <y>712</y>
+      <w>216</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>200;24;200;56;24;56;24;72</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>800</x>
+      <y>784</y>
+      <w>304</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>ElementSouris
+--
+--
++ElementSouris()
++~ElementSouris()
++surMouvementSouris(MouseMoveEvent) : void
++surPressionBoutonSouris(MouseButtonEvent) : void
++surRelachementBoutonSouris(MouseButtonEvent) : void
++surMoletteSouris(MouseWheelEvent) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>488</x>
+      <y>784</y>
+      <w>304</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>ElementClavier
+--
+--
++ElementClavier()
++~ElementClavier()
++surPressionToucheClavier(KeyEvent) : void
++surRelachementToucheClavier(KeyEvent) : void
++surTexteClavier(TextEvent) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>8</x>
+      <y>696</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>SceneMenuPrincipal
+--
+-musique : Music*
+--
++SceneMenuPrincipal(Jeu&amp;)
++~SceneMenuPrincipal()
++surMessage(int, Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>208</x>
+      <y>688</y>
+      <w>328</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>312;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>0</x>
+      <y>672</y>
+      <w>232</w>
+      <h>584</h>
+    </coordinates>
+    <panel_attributes>Scenes</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>8</x>
+      <y>808</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>SceneMenuSolo
+--
+--
++SceneMenuSolo(Jeu&amp;)
++~SceneMenuSolo()
++surMessage(int, Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>8</x>
+      <y>920</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>SceneJeu
+--
+-plateau : AffichagePlateau
+--
++SceneJeu(Jeu&amp;)
++~SceneJeu()
++surMessage(int, Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>8</x>
+      <y>1032</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>SceneJeuMenu
+--
+--
++SceneJeuMenu(Jeu&amp;)
++~SceneJeuMenu()
++surMessage(int, Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>8</x>
+      <y>1144</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>SceneJeuOptions
+--
+--
++SceneJeuOptions(Jeu&amp;)
++~SceneJeuOptions()
++surMessage(int, Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>648</x>
+      <y>1008</y>
+      <w>296</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>AffichagePlateau
+--
+-cases : vector&lt;AffichageCases&gt;
+-details : AffichageDetails*
+--
++AffichagePlateau(int, int, int, int, int)
++~AffichagePlateau()
++surMouvementSouris(MouseMoveEvent) : void
++surPressionBoutonSouris(MouseButtonEvent) : void
++surRelachementBoutonSouris(MouseButtonEvent) : void
++surMoletteSouris(MouseWheelEvent) : void
++changerParent(Scene*) : void
++initialiser() : void
++actualiser(float) : void
++afficher(Affichage&amp;) : void
++surMessage(int, Scene::Message) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>264</x>
+      <y>1008</y>
+      <w>192</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>AffichageDetails
+--
+-fond : RectangleShape
+-label : Label
+-position : Position
+--
++AffichageDetails(int, int, int, int, int)
++~AffichageDetails()
++estSelectionne() : bool
++lirePosition() : Position
++selectionner(int, int) : void
++selectionner(Position) : void
++selectionner() : void
++initialiser() : void
++actualiser(float) : void
++afficher(Affichage&amp;) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>344</x>
+      <y>936</y>
+      <w>40</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;72</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>952</x>
+      <y>1008</y>
+      <w>208</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Bouton
+--
+-label : Label
+-normal : Sprite
+-survol : Sprite
+-appui : Sprite
+--
++Bouton(int, string, float, float, float, float)
++~Bouton()
++initialiser() : void
++actualiser(float) : void
++afficher(Affichage&amp;) : void
++surClic() : void
++surEntrer() : void
++surQuitter() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>976</x>
+      <y>872</y>
+      <w>40</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;144</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>880</x>
+      <y>656</y>
+      <w>184</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Label
+--
+--
++Label()
++Label(string, float, float)
++Label(string, float, float, Font)
++~Label()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>952</x>
+      <y>576</y>
+      <w>40</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>936</x>
+      <y>576</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Text</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>696</x>
+      <y>712</y>
+      <w>280</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>24;24;24;56;264;56;264;72</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>608</x>
+      <y>712</y>
+      <w>40</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>24;24;24;72</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>464</x>
+      <y>1008</y>
+      <w>176</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Image
+--
+-sprite : Sprite
+--
++Image(int, int, int, int, int)
++Image(int, int, int, int, int, Sprite)
++~Image()
++lireSprite() : Sprite
++ecrireSprite(Sprite) : void
++initialiser() : void
++actualiser(float) : void
++afficher(Affichage&amp;) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>872</y>
+      <w>40</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;136</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>888</y>
+      <w>256</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;240;24;240;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>920</y>
+      <w>112</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;96;24;96;88</additional_attributes>
+  </element>
+</diagram>
