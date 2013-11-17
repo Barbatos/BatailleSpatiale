@@ -3,6 +3,10 @@
 
 Evenement::Evenement(TypeEvenement::type _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
 	typeEvenement = _typeEvenement;
+	destructible = _destructible;
+	coutDeplacement = _coutDeplacement;
+	multiplicateurDommage = _multiplicateurDommage;
+	multiplicateurDegat = _multiplicateurDegat;
 }
 
 TypeEvenement::type Evenement::quelType() {

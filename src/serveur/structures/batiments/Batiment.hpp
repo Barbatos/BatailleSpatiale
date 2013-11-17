@@ -16,7 +16,7 @@ class Batiment : public Structure {
     public:
                 Batiment();
                 Batiment(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int niveau, TypeBatiment _type = BatimentVide);
-                const TypeBatiment getType();
+                TypeBatiment getType() const;
                 int getNiveau();
                 void setNiveau(int niveau);
                 void subir(Vaisseau const& attaquant);

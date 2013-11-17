@@ -22,7 +22,7 @@ void Batiment::setNiveau(int niveau){
 
 }
 
-const TypeBatiment Batiment::getType(){
+TypeBatiment Batiment::getType() const {
         return type;
 }
 

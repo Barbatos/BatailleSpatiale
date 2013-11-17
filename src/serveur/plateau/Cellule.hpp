@@ -14,17 +14,17 @@ class Cellule{
     
     public:
         Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
-        const TypeCellule getType();
+        TypeCellule getType() const;
         void setType(TypeCellule _type);
-        const bool possedeEvenement();
-        const bool possedeEmplacement(TypeCellule _type);
-        const TypeCellule statutEmplacement();
-        const int getCoutDeplacement();
+        bool possedeEvenement() const;
+        bool possedeEmplacement(TypeCellule _type) const;
+        TypeCellule statutEmplacement() const;
+        int getCoutDeplacement() const;
         //void subir(Structure const& attaquant);
         Structure getAttaquant();
-        const TypeBatiment typeBatiment();
-        const int distanceMaximale();
-        const bool estAccessible();
+        TypeBatiment typeBatiment() const;
+        int distanceMaximale() const;
+        bool estAccessible() const;
         void retirerVaisseau();
         VaisseauPtr getVaisseau();
         void setVaisseau(VaisseauPtr _vaisseau);

@@ -17,10 +17,10 @@ class Evenement {
 		Evenement(TypeEvenement::type typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
 		
 		//Setters
-		virtual void activer(Batiment* batiment) {}
-		virtual void desactiver(Batiment* batiment) {}
-		virtual void activer(Vaisseau* vaisseau) {}
-		virtual void desactiver(Vaisseau* vaisseau) {}
+		virtual void activer(Batiment*) {}
+		virtual void desactiver(Batiment*) {}
+		virtual void activer(Vaisseau*) {}
+		virtual void desactiver(Vaisseau*) {}
 		TypeEvenement::type quelType();
 		
 		//Getters

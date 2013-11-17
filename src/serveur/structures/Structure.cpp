@@ -155,6 +155,6 @@ Structure Structure::cloner(Structure const& modele, TechnologieStructure techS)
 }
 
 
-std::ostream& operator<<(std::ostream& fluxSortant, Structure const& Structure) {
+std::ostream& operator<<(std::ostream& fluxSortant, Structure const&) {
     return fluxSortant;
 }

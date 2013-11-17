@@ -31,8 +31,8 @@ class Vaisseau : public Structure {
         int getEnergie() const;
         int getEnergieMax() const;
         int getConsommationMax() const;
-        const int distanceMaximale();
-        const TypeVaisseau getType();
+        int distanceMaximale() const;
+        TypeVaisseau getType() const;
 
         // Setters
         void setEnergie(int const energie);

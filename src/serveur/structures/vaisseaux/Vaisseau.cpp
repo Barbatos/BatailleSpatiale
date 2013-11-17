@@ -173,12 +173,11 @@ Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS, Te
 
 }
 
-const int Vaisseau::distanceMaximale(){
-        //A modifier plus tard avec la consommation max
-        return energie;
+int Vaisseau::distanceMaximale() const {
+    //A modifier plus tard avec la consommation max
+    return energie;
 }
 
-const TypeVaisseau Vaisseau::getType(){
+TypeVaisseau Vaisseau::getType() const {
     return type;
-
 }

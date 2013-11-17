@@ -7,7 +7,7 @@ Cellule::Cellule(EvenementPtr _evenement, TypeCellule _type) :
     evenement(_evenement), type(_type) {
 }
 
-const TypeCellule Cellule::getType() {
+TypeCellule Cellule::getType() const {
     return type;
 }
 
@@ -15,11 +15,11 @@ void Cellule::setType(TypeCellule _type) {
     type = _type;
 }
 
-const bool Cellule::possedeEvenement() {
+bool Cellule::possedeEvenement() const {
     return evenement != 0;
 }
 
-const bool Cellule::possedeEmplacement(TypeCellule _type) {
+bool Cellule::possedeEmplacement(TypeCellule _type) const {
     if(_type == type)
         if(evenement)
             return evenement->estAccessible() && !batiment && !vaisseau;
@@ -29,7 +29,7 @@ const bool Cellule::possedeEmplacement(TypeCellule _type) {
         return false;
 }
 
-const TypeCellule Cellule::statutEmplacement(){
+TypeCellule Cellule::statutEmplacement() const {
     if(!vaisseau && !batiment)
         if(evenement)
             if(evenement->estAccessible())
@@ -47,7 +47,7 @@ const TypeCellule Cellule::statutEmplacement(){
         return CelluleBatiment;
 }
 
-const int Cellule::getCoutDeplacement() {
+int Cellule::getCoutDeplacement() const {
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
         if(type == CelluleMinerais)
             if(evenement)
@@ -82,7 +82,7 @@ const int Cellule::getCoutDeplacement() {
         
 }
 
-const TypeBatiment Cellule::typeBatiment(){
+TypeBatiment Cellule::typeBatiment() const {
     if(batiment)
         return batiment->getType();
     else
@@ -116,14 +116,14 @@ Structure Cellule::getAttaquant(){
         return *batiment;
 }
 
-const int Cellule::distanceMaximale() {
+int Cellule::distanceMaximale() const {
     if(vaisseau)
         return vaisseau->distanceMaximale();
     else 
         return 0;
 }
 
-const bool Cellule::estAccessible() {
+bool Cellule::estAccessible() const {
     if(evenement)
         return (evenement->estAccessible() && !vaisseau && !batiment);
     else
