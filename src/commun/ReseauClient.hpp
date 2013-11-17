@@ -1,8 +1,9 @@
 #ifndef _RESEAU_CLIENT_H_
 #define _RESEAU_CLIENT_H_
 
-#include "../global.hpp"
-#include "enum/TypePaquet.hpp"
+#include <global.hpp>
+#include <commun/ReseauGlobal.hpp>
+#include <commun/enum/TypePaquet.hpp>
 
 /**
  * Classe qui permet à un client de se connecter à
@@ -34,9 +35,8 @@ class ReseauClient
 		/**
 		 * \brief Traite un paquet reçu de la part du serveur
 		 *
-		 * \param paquet le paquet reçu
 		 */
-		void TraiterPaquetServeur(sf::Packet& paquet);
+		void TraiterPaquetServeur(void);
 
 		/**
 		 * \brief Récupère l'état d'activité du client sur le réseau

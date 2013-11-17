@@ -18,6 +18,7 @@ Jeu::Jeu() :
 		affichage(), modele(), controleur(modele), scene(nullptr), ressources(), horloge()
 {
 	changer(Scene::SceneMenuPrincipal);
+	reseau = new ReseauClient();
 }
 
 Jeu::~Jeu()
@@ -66,6 +67,8 @@ void Jeu::lancer()
 	{
 		sf::Time nouveau = horloge.getElapsedTime();
 
+		reseau->TraiterPaquetServeur();
+		
 		delta = (nouveau - precedent).asMilliseconds();
 
 		precedent = nouveau;

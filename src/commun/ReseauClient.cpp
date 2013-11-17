@@ -27,13 +27,16 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 	cout << "[RESEAU] Connecté au serveur " << server << endl;
 }
 
-void ReseauClient::TraiterPaquetServeur(sf::Packet& paquet){
+void ReseauClient::TraiterPaquetServeur(void){
 	sf::Uint16 	typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 	string 		message;
+	sf::Packet 	paquet;
 
 	if(!getActif()){
 		return;
 	}
+
+	ReseauGlobal::ReceptionPaquet(socket, paquet, sf::seconds(0.00f));
 
 	if(paquet.getDataSize() <= 0){
 		return;

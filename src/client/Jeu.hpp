@@ -12,6 +12,7 @@
 #include <client/controleur/Controleur.hpp>
 #include <client/vue/Scenes.hpp>
 #include <client/ressources/Ressources.hpp>
+#include <commun/ReseauClient.hpp>
 #include <memory>
 
 typedef std::unique_ptr<Scene> ScenePtr;
@@ -77,6 +78,15 @@ class Jeu
 		 * \see sf::Clock
 		 */
 		sf::Clock horloge;
+
+		/**
+		 * \brief Réseau
+		 *
+		 * La connexion réseau à un serveur 
+		 *
+		 * \see ReseauClient
+		 */
+		ReseauClient* reseau;
 
 	public:
 		/**
