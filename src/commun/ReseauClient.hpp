@@ -15,10 +15,8 @@ class ReseauClient
 		/**
 		 * \brief Constructeur par défaut
 		 * 
-		 * \param ip l'ip du serveur sur lequel on veut se connecter
-		 * \param port le port du serveur
 		 */
-		ReseauClient(string ip, unsigned short port);
+		ReseauClient(void);
 
 		/**
 		 * \brief Destructeur par défaut
@@ -26,16 +24,41 @@ class ReseauClient
 		~ReseauClient(void);
 		
 		/**
+		 * \brief Connexion à un serveur
+		 * 
+		 * \param ip l'ip du serveur sur lequel on veut se connecter
+		 * \param port le port du serveur
+		 */
+		void ConnexionServeur(string ip, unsigned short port);
+
+		/**
 		 * \brief Traite un paquet reçu de la part du serveur
 		 *
 		 * \param paquet le paquet reçu
 		 */
 		void TraiterPaquetServeur(sf::Packet& paquet);
 
+		/**
+		 * \brief Récupère l'état d'activité du client sur le réseau
+		 *
+		 * \return si le client est actif ou non
+		 */
+		bool getActif(void);
+
+		/**
+		 * \brief Définit l'état d'activité du client sur le réseau
+		 *
+		 * \param _actif l'état d'activité
+		 */
+		void setActif(bool _actif);
+
 	private:
 
 		/// La socket du client
 		sf::TcpSocket socket;
+
+		/// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
+		bool actif;
 };
 
 #endif
