@@ -15,3 +15,5 @@ bin/*
 
 # Documentation
 doc/client/html/*
+
+.o
