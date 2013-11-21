@@ -73,6 +73,9 @@ void SceneJeuMenu::surMessage(int nom, Message message)
 				case QuitterPartie:
 					jeu.changer(Scene::SceneMenuPrincipal);
 					break;
+				case Options:
+					jeu.changer(Scene::SceneJeuOptions);
+					break;
 				default:
 					break;
 			}

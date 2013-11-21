@@ -67,6 +67,7 @@ void SceneMenuPrincipal::surMessage(int nom, Scene::Message message)
 					jeu.changer(Scene::SceneMenuSolo);
 					break;
 				case Multi:
+					jeu.changer(Scene::SceneMenuMultijoueur);
 					break;
 				case Quitter:
 					jeu.quitter();
