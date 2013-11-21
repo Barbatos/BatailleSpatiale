@@ -16,8 +16,8 @@
 class Plateau
 {
 	private:
-		int xVaisseau;
-		int yVaisseau;
+		sf::Int16 xVaisseau;
+		sf::Int16 yVaisseau;
 
 	public:
 		Plateau();
@@ -31,8 +31,8 @@ class Plateau
 		DetailBatiment getBatiment(Position p);
 		DetailEvenement getEvenement(Position p);
 
-		int getTailleX();
-		int getTailleY();
+		sf::Int16 getTailleX();
+		sf::Int16 getTailleY();
 
 		void deplacerVaisseau(Position ancienne, Position nouvelle);
 };

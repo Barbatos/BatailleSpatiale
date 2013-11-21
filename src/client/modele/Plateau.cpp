@@ -72,11 +72,11 @@ DetailEvenement Plateau::getEvenement(Position p)
 	return evenement;
 }
 
-int Plateau::getTailleX()
+sf::Int16 Plateau::getTailleX()
 {
 	return 10;
 }
-int Plateau::getTailleY()
+sf::Int16 Plateau::getTailleY()
 {
 	return 10;
 }
