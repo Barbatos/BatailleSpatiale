@@ -96,6 +96,7 @@ class Scene
 			SceneJeu, //!< Scène du Jeu
 			SceneJeuMenu, //!< Scène du Menu en Jeu
 			SceneJeuOptions, //!< Scène des Options en Jeu
+			SceneOptionsMenu,
 		};
 
 		/**
