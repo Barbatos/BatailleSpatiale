@@ -55,6 +55,6 @@ bool ReseauClient::getActif(void){
 	return actif;
 }
 
-sf::TcpSocket& getSocket(void){
+sf::TcpSocket& ReseauClient::getSocket(void){
 	return socket;
 }

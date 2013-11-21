@@ -49,6 +49,9 @@ void Jeu::changer(Scene::Type nouvelleScene)
 		case Scene::SceneMenuSolo:
 			scene = ScenePtr(new SceneMenuSolo(*this));
 			break;
+		case Scene::SceneOptionsMenu:
+			scene = ScenePtr(new SceneOptionsMenu(*this));
+			break;
 		default:
 			scene = ScenePtr(new SceneMenuPrincipal(*this));
 			break;

@@ -78,7 +78,7 @@ void SceneMenuPrincipal::surMessage(int nom, Scene::Message message)
 						musique->play();
 					break;
 				case Options:
-					//Ajouter
+					jeu.changer(Scene::SceneOptionsMenu);
 					break;
 				default:
 					break;
