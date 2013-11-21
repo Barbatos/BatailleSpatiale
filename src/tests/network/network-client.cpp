@@ -6,7 +6,6 @@
 #include "../../commun/enum/TypePaquet.hpp"
 
 ReseauClient* 	client;
-ReseauServeur* 	serveur;
 
 void WaitForInput(void){
 
@@ -56,12 +55,21 @@ int main(){
 
 	cout << "NETWORK TEST - CLIENT" << endl;
 
-	cout << "Which IP?" << endl;
-	getline(cin, ip);
+	cout << "Which IP? (" << ip << ")" << endl;
+	getline(cin, selection);
 
-	cout << "Which port ?" << endl;
-	getline(cin, p);
-	port = atoi(p.c_str());
+	if(!selection.empty()){
+		ip = selection;
+	}
+
+	selection = "";
+
+	cout << "Which port ? (" << port << ")" << endl;
+	getline(cin, selection);
+
+	if(!selection.empty()){
+		port = atoi(p.c_str());
+	}
 
 	cout << "Connecting to " << ip << ":" << port << endl;
 	RunClient(ip, port);
