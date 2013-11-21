@@ -1,9 +1,9 @@
 #ifndef _RESEAU_CLIENT_H_
 #define _RESEAU_CLIENT_H_
 
-#include <global.hpp>
-#include <commun/ReseauGlobal.hpp>
-#include <commun/enum/TypePaquet.hpp>
+#include "../global.hpp"
+#include "ReseauGlobal.hpp"
+#include "enum/TypePaquet.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à
@@ -51,6 +51,8 @@ class ReseauClient
 		 * \param _actif l'état d'activité
 		 */
 		void setActif(bool _actif);
+
+		sf::TcpSocket& getSocket(void);
 
 	private:
 
