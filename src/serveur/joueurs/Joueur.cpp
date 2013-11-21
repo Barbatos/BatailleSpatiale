@@ -16,7 +16,7 @@ string Joueur::getIp(void){
 	return this->ip;
 }
 
-int Joueur::getId(void){
+sf::Uint16 Joueur::getId(void){
 	return this->id;
 }
 
@@ -32,6 +32,6 @@ void Joueur::setIp(string _ip){
 	this->ip = _ip;
 }
 
-void Joueur::setId(int _id){
+void Joueur::setId(sf::Uint16 _id){
 	this->id = _id;
 }
