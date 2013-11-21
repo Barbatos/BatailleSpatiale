@@ -3,7 +3,7 @@
 #include <vector>
 #include <list>
 #include "Cellule.hpp"
-#include "../Joueur.hpp"
+#include "../joueurs/Joueur.hpp"
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 
@@ -25,6 +25,9 @@ public:
 private:
     /// Les cellules du plateau
     std::vector<std::vector<Cellule>> cellule;
+
+    sf::Int32 tailleX;
+    sf::Int32 tailleY;
 };
 
 #endif // PLATEAU_HPP
