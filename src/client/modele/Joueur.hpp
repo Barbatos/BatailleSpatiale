@@ -16,8 +16,12 @@ class Joueur {
 		 * \param _pseudo le pseudo du joueur
 		 * \param _ip l'adresse IP du joueur
 		 * \param _id l'identifiant du joueur sur le serveur
+		 * \param _commandement
+		 * \param _requisition
+		 * \param _energie
+		 * \param _materiaux
 		 */
-		Joueur(string _pseudo = "Anonymous", string _ip = "", sf::Uint16 _id = -1);
+		Joueur(string _pseudo = "Anonymous", string _ip = "", sf::Uint16 _id = -1, sf::Int16 _commandement = 0, sf::Int16 _requisition = 0, sf::Int32 _energie = 0, sf::Int32 _materiaux = 0);
 
 		/**
 		 * \brief Récupération du pseudo du joueur
@@ -40,6 +44,11 @@ class Joueur {
 		 */
 		sf::Uint16 getId(void);
 
+		sf::Int16 getCommandement(void);
+		sf::Int16 getRequisition(void);
+		sf::Int32 getEnergie(void);
+		sf::Int32 getMateriaux(void);
+
 	protected:
 
 	private:
@@ -51,6 +60,14 @@ class Joueur {
 
 		/// L'identifiant (nombre positif) du joueur sur le serveur
 		sf::Uint16 id;
+
+		sf::Int16 commandement;
+
+		sf::Int16 requisition;
+
+		sf::Int32 energie;
+
+		sf::Int32 materiaux;
 };
 
 #endif

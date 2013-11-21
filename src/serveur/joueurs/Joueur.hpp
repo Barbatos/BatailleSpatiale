@@ -42,12 +42,24 @@ class Joueur {
 		 */
 		sf::Uint16 getId(void);
 
+		/**
+		 * \brief 
+		 * 
+		 */
+		sf::Int16 getCommandement(void);
+		sf::Int16 getRequisition(void);
+		sf::Int32 getEnergie(void);
+		sf::Int32 getMateriaux(void);
+
 		/// Setters
 		void setSocket(sf::TcpSocket* _socket);
 		void setPseudo(string _pseudo);
 		void setIp(string _ip);
 		void setId(sf::Uint16 _id);
-		
+		void setCommandement(sf::Int16 _commandement);
+		void setRequisition(sf::Int16 _requisition);
+		void setEnergie(sf::Int32 _energie);
+		void setMateriaux(sf::Int32 _materiaux);
 	protected:
 
 	private:
@@ -62,6 +74,14 @@ class Joueur {
 
 		/// L'identifiant (nombre positif) du joueur sur le serveur
 		sf::Uint16 id;
+
+		sf::Int16 commandement;
+
+		sf::Int16 requisition;
+
+		sf::Int32 energie;
+
+		sf::Int32 materiaux;
 };
 
 #endif
