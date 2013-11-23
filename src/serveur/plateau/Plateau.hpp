@@ -3,6 +3,7 @@
 #include <vector>
 #include <list>
 #include "Cellule.hpp"
+#include "Noeud.hpp"
 #include "../joueurs/Joueur.hpp"
 #include "../../commun/utile/Position.hpp"
 #include <SFML/Network.hpp>
@@ -80,6 +81,14 @@ public:
     int getCoutDeplacement(Position p);
 
     /**
+     * \brief Retourne le deplacement max que peut faire un vaisseau
+     *
+     * \param p La position du vaisseau
+     * \return Le déplacement max
+     */
+    int getDeplacementMax(Position p);
+
+    /**
      * \brief Retourne si la cellule est accessible a la position p
      *
      * \param p La position de la cellule
@@ -89,11 +98,19 @@ public:
 
     /**
      * \brief Retourne les cellules accessibles autour d'une cellule
-     * 
+     *
      * \param p La position de la cellule
      * \return La liste des cellules accessibles
      */
     std::list<Position> celluleAutour(Position p);
+
+    /**
+     * \brief Retourne la zone parcourable depuis une case contenant un vaisseau
+     *
+     * \param positionVaisseau La position contenant le vaisseau
+     * \return La zone parcourable
+     */
+    std::list<Noeud> getZoneParcourable(Position positionVaisseau);
 
     /**
      * \brief Getter tailleX

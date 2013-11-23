@@ -18,36 +18,36 @@ public:
     Position(int _x=0, int _y=0);
     int x;///< La position en x
     int y;///< La position en y
-    
+
     /**
      * \brief Retourne si la position actuelle est egale a la position p
      *
      * \param p La position à comparer
      * \return Egalité entre position actuelle et position p
      */
-    bool operator==(Position& p);
-    
+    bool operator==(Position p) const;
+
     /**
      * \brief Ajoute a la position actuelle une seconde position
      *
      * \param p La position à ajouter
      */
     void operator+=(Position& p);
-    
+
     /**
      * \brief Soustrait a la position actuelle une seconde position
      *
      * \param p La position à soustraire
      */
     void operator-=(Position& p);
-    
+
     /**
      * \brief Affecte les attributs d'une autre position à cette position
      *
      * \param p La position à soustraire
      */
     void operator=(Position p);
-    
+
     /**
      * \brief Affecte les attributs d'une autre position à cette position
      *

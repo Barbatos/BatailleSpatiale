@@ -5,9 +5,10 @@ Position::Position(int _x, int _y) :
 
 }
 
-bool Position::operator==(Position& p) {
+bool Position::operator==(Position p) const {
     return x == p.x && y == p.y;
 }
+
 
 void Position::operator+=(Position& p) {
     x += p.x;

@@ -126,7 +126,7 @@ Structure Cellule::getAttaquant(){
 
 int Cellule::distanceMaximale() const {
     if(vaisseau)
-        return vaisseau->distanceMaximale();
+        return vaisseau->getDistanceMax();
     else 
         return 0;
 }
