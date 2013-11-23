@@ -30,3 +30,12 @@ Position operator-(Position& p1, Position& p2) {
     p -= p2;
     return p;
 }
+
+void Position::operator=(Position p) {
+    set(p.x, p.y);
+}
+
+void Position::set(int _x, int _y) {
+    x = _x;
+    y = _y;
+}

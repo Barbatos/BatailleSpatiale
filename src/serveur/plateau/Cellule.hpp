@@ -24,6 +24,13 @@ public:
     TypeCellule statutEmplacement() const;
     void setType(TypeCellule _type);
     
+    /**
+     * \brief Retourne le cout de déplacement dans la cellule
+     * Si un vaisseau veut passer a travers cette cellule quel est 
+     * le facteur du cout de deplacement ici?
+     * 
+     *  \return Le cout de deplacement
+     */
     int getCoutDeplacement() const;
     
     //void subir(Structure const& attaquant);
