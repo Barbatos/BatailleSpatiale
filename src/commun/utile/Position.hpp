@@ -28,6 +28,13 @@ public:
     bool operator==(Position p) const;
 
     /**
+     * \brief Retourne si la position actuelle est NULL
+     *
+     * \return Vrai si la position est NULL
+     */
+    bool isNull() const;
+
+    /**
      * \brief Ajoute a la position actuelle une seconde position
      *
      * \param p La position à ajouter
@@ -49,11 +56,17 @@ public:
     void operator=(Position p);
 
     /**
-     * \brief Affecte les attributs d'une autre position à cette position
+     * \brief Affecte un nouveau x et un nouveau y a la position
      *
-     * \param p La position à soustraire
+     * \param _x Le nouveau x
+     * \param _y Le nouveau y
      */
     void set(int _x, int _y);
+
+    /**
+     * \brief Met la position a NULL
+     */
+    void setNull();
 
     friend Position operator+(Position& p1, Position& p2);
     friend Position operator-(Position& p1, Position& p2);

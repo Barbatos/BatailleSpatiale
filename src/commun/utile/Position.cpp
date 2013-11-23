@@ -9,6 +9,9 @@ bool Position::operator==(Position p) const {
     return x == p.x && y == p.y;
 }
 
+bool Position::isNull() const {
+    return x == -32768 && y == -32768;
+}
 
 void Position::operator+=(Position& p) {
     x += p.x;
@@ -39,4 +42,9 @@ void Position::operator=(Position p) {
 void Position::set(int _x, int _y) {
     x = _x;
     y = _y;
+}
+
+void Position::setNull() {
+    x = -32768;
+    y = -32768;
 }

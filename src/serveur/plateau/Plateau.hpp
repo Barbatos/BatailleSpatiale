@@ -113,6 +113,15 @@ public:
     std::list<Noeud> getZoneParcourable(Position positionVaisseau);
 
     /**
+     * \brief Retourne le chemin jusqu'à la position p
+     * 
+     * \param p La position à atteindre
+     * \param zoneParcourable la zone recherché par le pathfinding
+     * \return Le chemin à effectuer de la première à la dernière case
+     */
+    static std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable);
+
+    /**
      * \brief Getter tailleX
      *
      * \return la taille du plateau à l'horizontal
