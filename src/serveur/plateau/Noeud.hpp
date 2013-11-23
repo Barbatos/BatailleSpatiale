@@ -1,20 +1,20 @@
 #ifndef NOEUD_HPP
 #define NOEUD_HPP
-#include "Point.hpp"
+#include "../../commun/utile/Position.hpp"
 
-class Noeud{
+class Noeud {
 	public:
-		Noeud(Point _point);
-		Noeud(Point& _point, int g, Point _parentPoint);
+		Noeud(Position _position);
+		Noeud(Position& _position, int g, Position _parentPosition);
 		bool lowerG(const Noeud& noeud);
 		bool equal(const Noeud& noeud);
-		Point getPoint();
-		Point getParentPoint();
+		Position getPosition();
+		Position getParentPosition();
 		int getG();
 	
 	private:
-		Point point;
-		Point parentPoint;
+		Position position;
+		Position parentPosition;
 		int distanceG;
 };
 

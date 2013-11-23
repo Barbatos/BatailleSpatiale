@@ -11,7 +11,7 @@
 #include "DetailBatiment.hpp"
 #include "DetailVaisseau.hpp"
 #include "DetailEvenement.hpp"
-#include "Position.hpp"
+#include "../../commun/utile/Position.hpp"
 
 class Plateau
 {

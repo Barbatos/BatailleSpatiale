@@ -1,15 +1,15 @@
 #include "Noeud.hpp"
 
-Noeud::Noeud(Point _point) {
-	point = _point;
+Noeud::Noeud(Position _position) {
+	position = _position;
 	distanceG = 0;
-	parentPoint = Point(-1, -1);
+	parentPosition = Position(-1, -1);
 }
 
-Noeud::Noeud(Point& _point, int g, Point _parentPoint) {
-	point = _point;
+Noeud::Noeud(Position& _position, int g, Position _parentPosition) {
+	position = _position;
 	distanceG = g;
-	parentPoint = _parentPoint;
+	parentPosition = _parentPosition;
 }
 
 bool Noeud::lowerG(const Noeud& noeud){
@@ -21,13 +21,13 @@ int Noeud::getG(){
 }
 
 bool Noeud::equal(const Noeud& noeud){
-	return noeud.point.x == point.x && point.y == noeud.point.y;
+	return noeud.position.x == position.x && position.y == noeud.position.y;
 }
 
-Point Noeud::getPoint(){
-	return point;
+Position Noeud::getPosition(){
+	return position;
 }
 
-Point Noeud::getParentPoint(){
-	return parentPoint;
+Position Noeud::getParentPosition(){
+	return parentPosition;
 }
