@@ -10,37 +10,48 @@
 /**
  * Cette classe est une case elementaire du plateau
  */
-class Cellule{
+class Cellule {
+
+public:
+    Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
+    TypeCellule getType() const;
     
-    public:
-        Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
-        TypeCellule getType() const;
-        void setType(TypeCellule _type);
-        bool possedeEvenement() const;
-        bool possedeEmplacement(TypeCellule _type) const;
-        TypeCellule statutEmplacement() const;
-        int getCoutDeplacement() const;
-        //void subir(Structure const& attaquant);
-        Structure getAttaquant();
-        TypeBatiment typeBatiment() const;
-        int distanceMaximale() const;
-        bool estAccessible() const;
-        void retirerVaisseau();
-        VaisseauPtr getVaisseau();
-        void setVaisseau(VaisseauPtr _vaisseau);
-        
-        //Multiple fonctions de test
-        void creerVaisseauTest();
-        void creerVaisseauConstructeurTest();
-        void creerBatimentBaseTest();
-        
-    protected:
-        
-    private:
-        EvenementPtr evenement;
-        BatimentPtr batiment;
-        VaisseauPtr vaisseau;
-        TypeCellule type;
+    bool possedeEvenement() const;
+    bool possedeBatiment() const;
+    bool possedeVaisseau() const;
+    bool possedeEmplacement(TypeCellule _type) const;
+    
+    TypeCellule statutEmplacement() const;
+    void setType(TypeCellule _type);
+    
+    int getCoutDeplacement() const;
+    
+    //void subir(Structure const& attaquant);
+    Structure getAttaquant();
+    TypeBatiment typeBatiment() const;
+    bool estAccessible() const;
+    
+    BatimentPtr getBatiment();
+    
+    EvenementPtr getEvenement();
+    
+    void retirerVaisseau();
+    void setVaisseau(VaisseauPtr _vaisseau);
+    VaisseauPtr getVaisseau();
+    int distanceMaximale() const;
+
+    //Multiple fonctions de test
+    void creerVaisseauTest();
+    void creerVaisseauConstructeurTest();
+    void creerBatimentBaseTest();
+
+protected:
+
+private:
+    EvenementPtr evenement;
+    BatimentPtr batiment;
+    VaisseauPtr vaisseau;
+    TypeCellule type;
 
 };
 
