@@ -10,6 +10,8 @@ Interface/Bouton/bouton.png
 Interface/Bouton/bouton_dessus.png
 Interface/Bouton/bouton_clic.png
 fond.jpg
+fond.png
+test.png
 
 ## Polices
 grand9k.ttf
