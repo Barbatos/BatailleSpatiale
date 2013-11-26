@@ -61,5 +61,5 @@ void Animation::actualiser(__attribute__((unused)) float delta)
 
 void Animation::afficher(Affichage& affichage)
 {
-	affichage.draw(sprite);
+	affichage.draw(sprite, sf::BlendAdd);
 }
