@@ -24,7 +24,7 @@ SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
 
 	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
 						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.jpg")));
+						jeu.lireRessources().lireImage("fond.png")));
 
 	ip = new ZoneTexte(Ip, x, y, largeur, hauteur);
 

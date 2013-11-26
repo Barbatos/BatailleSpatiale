@@ -8,7 +8,6 @@
 #include "SceneMenuPrincipal.hpp"
 
 #include <client/vue/gui/Image.hpp>
-#include <client/vue/gui/Animation.hpp>
 #include <client/vue/gui/Bouton.hpp>
 #include <client/Jeu.hpp>
 
@@ -50,8 +49,6 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 	jeu.lireRessources().changerVolumeGlobal(10);
 
 	musique = jeu.lireRessources().lireMusique("Clearness.ogg");
-
-	ajouter(new Animation(999, 10, 100, 240, 240, 23, jeu.lireRessources().lireImage("test.png")));
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()

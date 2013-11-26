@@ -47,7 +47,6 @@ protected:
 private:
     int distanceMax;
     int consommation;
-    TypeVaisseau _type;
     friend std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau);
 
 };
