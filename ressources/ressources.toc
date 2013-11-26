@@ -10,8 +10,6 @@ Interface/Bouton/bouton.png
 Interface/Bouton/bouton_dessus.png
 Interface/Bouton/bouton_clic.png
 fond.png
-test.png
-Environnement/comete2.png
 
 ## Polices
 grand9k.ttf
