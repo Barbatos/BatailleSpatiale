@@ -46,11 +46,13 @@ void Animation::actualiser(__attribute__((unused)) float delta)
 	time += delta;
 
 	if(time > 1000/24){
-		if((posx * 480) < 8160 - 480){
+//		if((posx * 480) < 8160 - 480){
+		if((posx * 480) < sprite.getGlobalBounds().width - 480){
 			posx++;
 		}
 		else{
-			if((posy * 480) < 3360 - 480){
+//			if((posy * 480) < 3360 - 480){
+			if((posx * 480) < sprite.getGlobalBounds().height - 480){
 				posy++;
 			}
 			else{
