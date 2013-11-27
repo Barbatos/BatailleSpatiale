@@ -32,6 +32,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 
 	enregistrerSouris(btnpause);
 	enregistrerSouris(&plateau);
+	enregistrerClavier(&plateau);
 }
 
 SceneJeu::~SceneJeu()

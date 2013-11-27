@@ -62,7 +62,11 @@ void SceneMenuSolo::surMessage(int nom, Scene::Message message)
 			switch (nom)
 			{
 				case Solo:
-					jeu.changer(Scene::SceneJeu);
+					//jeu.lireReseau()->ConnexionServeur(
+						//	ip->lireTexte(), atoi(port->lireTexte().c_str()));
+
+					//if (jeu.lireReseau()->getActif())
+						jeu.changer(Scene::SceneJeu);
 					break;
 				default:
 					break;

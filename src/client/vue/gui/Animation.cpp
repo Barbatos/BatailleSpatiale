@@ -7,10 +7,13 @@
 
 #include "Animation.hpp"
 
+#include <iostream>
+
 #include <client/utile/Utile.hpp>
 #include <client/vue/Affichage.hpp>
 
-Animation::Animation(int nom, int x, int y, int largeur, int hauteur, int add, sf::Sprite sprite) :
+Animation::Animation(int nom, int x, int y, int largeur, int hauteur, bool add,
+	sf::Sprite sprite) :
 		Element(nom, x, y, largeur, hauteur),
 		sprite(sprite),
 		posx(0),
@@ -41,21 +44,24 @@ void Animation::initialiser()
 	Utile::redimensionnerImage(sprite, zone.width, zone.height, false);
 }
 
-void Animation::actualiser(__attribute__((unused)) float delta)
+void Animation::actualiser(float delta)
 {
 	time += delta;
 
-	if(time > 1000/24){
-//		if((posx * 480) < 8160 - 480){
-		if((posx * 480) < sprite.getGlobalBounds().width - 480){
+	if (time > 1000 / 24)
+	{
+		if ((posx * 480) < sprite.getTexture()->getSize().x - 480)
+		{
 			posx++;
 		}
-		else{
-//			if((posy * 480) < 3360 - 480){
-			if((posx * 480) < sprite.getGlobalBounds().height - 480){
+		else
+		{
+			if ((posy * 480) < sprite.getTexture()->getSize().y - 480)
+			{
 				posy++;
 			}
-			else{
+			else
+			{
 				posy = 0;
 			}
 			posx = 0;
@@ -69,10 +75,12 @@ void Animation::actualiser(__attribute__((unused)) float delta)
 
 void Animation::afficher(Affichage& affichage)
 {
-	if(add == 1){
+	if (add)
+	{
 		affichage.draw(sprite, sf::BlendAdd);
 	}
-	else{
+	else
+	{
 		affichage.draw(sprite);
 	}
 }

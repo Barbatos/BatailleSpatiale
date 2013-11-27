@@ -51,7 +51,7 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 
 	musique = jeu.lireRessources().lireMusique("Clearness.ogg");
 
-	ajouter(new Animation(999, 100, 100, 240, 240, 1, jeu.lireRessources().lireImage("Environnement/comete2.png")));
+	ajouter(new Animation(999, 100, 100, 240, 240, true, jeu.lireRessources().lireImage("Environnement/comete2.png")));
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()

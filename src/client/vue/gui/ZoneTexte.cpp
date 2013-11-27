@@ -61,7 +61,7 @@ void ZoneTexte::initialiser()
 	label.setFont(parent->lireJeu().lireRessources().lirePolice("grand9k.ttf"));
 }
 
-void ZoneTexte::actualiser(__attribute__((unused)) float delta)
+void ZoneTexte::actualiser(float)
 {
 	// On change la couleur de la bordure selon que la zone soit selectionnée,
 	// survolée, ou rien du tout
@@ -100,12 +100,13 @@ void ZoneTexte::surMouvementSouris(sf::Event::MouseMoveEvent evenement)
 	}
 }
 
-void ZoneTexte::surPressionBoutonSouris(__attribute__((unused)) sf::Event::MouseButtonEvent evenement)
+void ZoneTexte::surPressionBoutonSouris(sf::Event::MouseButtonEvent)
 {
 
 }
 
-void ZoneTexte::surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement)
+void ZoneTexte::surRelachementBoutonSouris(
+	sf::Event::MouseButtonEvent evenement)
 {
 	// Si la zone est survole et que le bouton est le bouton gauche
 	if (survole && evenement.button == sf::Mouse::Left)
@@ -121,16 +122,16 @@ void ZoneTexte::surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement
 	}
 }
 
-void ZoneTexte::surMoletteSouris(__attribute__((unused)) sf::Event::MouseWheelEvent evenement)
+void ZoneTexte::surMoletteSouris(sf::Event::MouseWheelEvent)
 {
 
 }
 
-void ZoneTexte::surPressionToucheClavier(__attribute__((unused)) sf::Event::KeyEvent evenement)
+void ZoneTexte::surPressionToucheClavier(sf::Event::KeyEvent)
 {
 }
 
-void ZoneTexte::surRelachementToucheClavier(__attribute__((unused)) sf::Event::KeyEvent evenement)
+void ZoneTexte::surRelachementToucheClavier(sf::Event::KeyEvent)
 {
 
 }
@@ -139,10 +140,10 @@ bool ZoneTexte::estAutorise(int unicode)
 {
 	// Caractères autorisés : caractères alphanumériques, espaces et points
 	return (unicode >= 65 && unicode <= 90) // A - Z
-		|| (unicode >= 97 && unicode <= 122) // a - z
-		|| (unicode >= 48 && unicode <= 57) // 0 - 9
-		|| unicode == 46 // .
-		|| unicode == 32; // Espace
+	|| (unicode >= 97 && unicode <= 122) // a - z
+	|| (unicode >= 48 && unicode <= 57) // 0 - 9
+	|| unicode == 46 // .
+	|| unicode == 32; // Espace
 }
 
 void ZoneTexte::surTexteClavier(sf::Event::TextEvent evenement)
