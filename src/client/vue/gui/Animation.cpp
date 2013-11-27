@@ -10,12 +10,13 @@
 #include <client/utile/Utile.hpp>
 #include <client/vue/Affichage.hpp>
 
-Animation::Animation(int nom, int x, int y, int largeur, int hauteur, int nbImages, sf::Sprite sprite) :
+Animation::Animation(int nom, int x, int y, int largeur, int hauteur, int add, sf::Sprite sprite) :
 		Element(nom, x, y, largeur, hauteur),
 		sprite(sprite),
-		pos(0),
+		posx(0),
+		posy(0),
 		time(0),
-		nbImages(nbImages)
+		add(add)
 {
 }
 
@@ -36,7 +37,6 @@ sf::Sprite& Animation::lireSprite()
 void Animation::initialiser()
 {
 	sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
-	sprite.setTextureRect(sf::IntRect(480, 0, 480, 480));
 	sprite.setPosition(zone.left, zone.top);
 	Utile::redimensionnerImage(sprite, zone.width, zone.height, false);
 }
@@ -46,14 +46,20 @@ void Animation::actualiser(__attribute__((unused)) float delta)
 	time += delta;
 
 	if(time > 1000/24){
-		if((pos * 480) < (nbImages-1)*480){
-			pos++;
+		if((posx * 480) < 8160 - 480){
+			posx++;
 		}
 		else{
-			pos = 0;
+			if((posy * 480) < 3360 - 480){
+				posy++;
+			}
+			else{
+				posy = 0;
+			}
+			posx = 0;
 		}
 
-		sprite.setTextureRect(sf::IntRect(pos * 480, 0, 480, 480));
+		sprite.setTextureRect(sf::IntRect(posx * 480, posy * 480, 480, 480));
 
 		time = 0;
 	}
@@ -61,5 +67,10 @@ void Animation::actualiser(__attribute__((unused)) float delta)
 
 void Animation::afficher(Affichage& affichage)
 {
-	affichage.draw(sprite, sf::BlendAdd);
+	if(add == 1){
+		affichage.draw(sprite, sf::BlendAdd);
+	}
+	else{
+		affichage.draw(sprite);
+	}
 }

@@ -17,12 +17,13 @@ class Animation :
 {
 	private:
 		sf::Sprite sprite;
-		int pos;
+		int posx;
+		int posy;
 		int time;
-		int nbImages;
+		int add;
 
 	public:
-		Animation(int nom, int x, int y, int largeur, int hauteur, int nbImages, sf::Sprite sprite);
+		Animation(int nom, int x, int y, int largeur, int hauteur, int add, sf::Sprite sprite);
 
 		virtual ~Animation();
 
