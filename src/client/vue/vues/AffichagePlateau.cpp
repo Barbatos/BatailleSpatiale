@@ -43,6 +43,7 @@ void AffichagePlateau::initialiser()
 	details->changerParent(parent.get());
 
 	vuePlateau.setSize(2000, 1000);
+	vuePlateau.move(200, -50);
 	vueInterface.setSize(parent->lireJeu().lireAffichage().getSize().x,
 							parent->lireJeu().lireAffichage().getSize().y);
 
@@ -119,6 +120,11 @@ void AffichagePlateau::actualiser(float delta)
 		else
 			cases[i].fond.setOutlineColor(sf::Color(255, 255, 255));
 	}
+}
+
+void AffichagePlateau::bougerPlateau(float x, float y)
+{
+	vuePlateau.move(x, y);
 }
 
 void AffichagePlateau::afficher(Affichage& affichage)

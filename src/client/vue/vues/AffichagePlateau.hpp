@@ -140,6 +140,8 @@ class AffichagePlateau :
 		void dessinerCase(Affichage& affichage, Case c, bool survol,
 			bool selectionne);
 
+		void bougerPlateau(float x, float y);
+
 		// Héritées d'ElementSouris
 		void surMouvementSouris(sf::Event::MouseMoveEvent evenement);
 		void surPressionBoutonSouris(sf::Event::MouseButtonEvent evenement);

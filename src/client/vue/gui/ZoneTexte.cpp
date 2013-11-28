@@ -16,7 +16,8 @@
 #include <client/vue/Affichage.hpp>
 #include <client/Jeu.hpp>
 
-ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur) :
+ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
+	std::string placeholder) :
 		Element(nom, x, y, largeur, hauteur),
 		ElementSouris(),
 		ElementClavier(),
@@ -43,6 +44,9 @@ ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur) :
 	// On configure le label
 	label.setPosition(x + 5, y + (hauteur - label.getCharacterSize()) / 2);
 	label.setColor(sf::Color(255, 255, 255));
+
+	if (placeholder != "")
+		label.setString(placeholder);
 }
 
 ZoneTexte::~ZoneTexte()

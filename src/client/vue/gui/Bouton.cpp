@@ -38,11 +38,11 @@ void Bouton::initialiser()
 	appui = parent->lireJeu().lireRessources().lireImage(
 			"Interface/Bouton/bouton_clic.png");
 
-	Utile::redimensionnerImage(normal, zone.width, zone.height, true);
+	Utile::redimensionnerImage(normal, zone.width, zone.height, false);
 	normal.setPosition(zone.left, zone.top);
-	Utile::redimensionnerImage(survol, zone.width, zone.height, true);
+	Utile::redimensionnerImage(survol, zone.width, zone.height, false);
 	survol.setPosition(zone.left, zone.top);
-	Utile::redimensionnerImage(appui, zone.width, zone.height, true);
+	Utile::redimensionnerImage(appui, zone.width, zone.height, false);
 	appui.setPosition(zone.left, zone.top);
 
 	zone = normal.getGlobalBounds();
@@ -71,7 +71,7 @@ void Bouton::afficher(Affichage& affichage)
 }
 
 void Bouton::surMoletteSouris(
-	__attribute__((unused))     sf::Event::MouseWheelEvent evenement)
+	__attribute__((unused))      sf::Event::MouseWheelEvent evenement)
 {
 	// Ne rien faire
 }

@@ -27,6 +27,10 @@ class SceneJeu : public Scene
 		{
 			Pause = 0,
 			Plateau,
+			Droite,
+			Gauche,
+			Haut,
+			Bas
 		};
 
 		AffichagePlateau plateau;

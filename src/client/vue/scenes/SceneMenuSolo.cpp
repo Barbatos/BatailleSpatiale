@@ -26,9 +26,9 @@ SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
 						jeu.lireAffichage().getSize().y,
 						jeu.lireRessources().lireImage("fond.png")));
 
-	ip = new ZoneTexte(Ip, x, y, largeur, hauteur);
+	ip = new ZoneTexte(Ip, x, y, largeur, hauteur, "IP");
 
-	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur);
+	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur, "Port");
 
 	Bouton* btnsolo = new Bouton(Solo, "Lancer partie", x, 3 * y, largeur,
 									hauteur);
