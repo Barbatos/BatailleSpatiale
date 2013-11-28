@@ -26,7 +26,7 @@ class Vaisseau : public Structure {
             int consommationMax ,
             TypeVaisseau _type = VaisseauVide
         );
-
+        
         // Getters
         int getEnergie() const;
         int getEnergieMax() const;
@@ -41,8 +41,6 @@ class Vaisseau : public Structure {
 
         void modifierEnergie(int const valeur);
         static Vaisseau cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
-        void subir(Vaisseau const& attaquant);
-        void subir(Batiment const& attaquant);
         void afficher(std::ostream& fluxSortant) const;
 
         protected:

@@ -13,27 +13,38 @@
 class Cellule{
     
     public:
+        // constructeur
         Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
+        
+        // getters
         TypeCellule getType() const;
+        int getCoutDeplacement() const;
+        Structure getAttaquant();
+        VaisseauPtr getVaisseau();
+        BatimentPtr getBatiment();
+        int getAttaqueCellule();
+    
+        // Setters
         void setType(TypeCellule _type);
+        void setVaisseau(VaisseauPtr _vaisseau);
         bool possedeEvenement() const;
+    
+        // autres
         bool possedeEmplacement(TypeCellule _type) const;
         TypeCellule statutEmplacement() const;
-        int getCoutDeplacement() const;
-        //void subir(Structure const& attaquant);
-        Structure getAttaquant();
         TypeBatiment typeBatiment() const;
         int distanceMaximale() const;
         bool estAccessible() const;
         void retirerVaisseau();
-        VaisseauPtr getVaisseau();
-        void setVaisseau(VaisseauPtr _vaisseau);
-        
-        //Multiple fonctions de test
+        void attaquer(Cellule& cible) const;
+        void subirDegat(Cellule cAttaquant);
+        int degatTriangleVaisseauVaisseau(VaisseauPtr vAttaquant);
+    
+        // méthodes "tests"
         void creerVaisseauTest();
         void creerVaisseauConstructeurTest();
-        void creerBatimentBaseTest();
-        
+        void creerBatimentBaseTest();        
+    
     protected:
         
     private:

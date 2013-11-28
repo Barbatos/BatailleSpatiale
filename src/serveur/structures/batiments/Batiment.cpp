@@ -25,22 +25,3 @@ void Batiment::setNiveau(int niveau){
 TypeBatiment Batiment::getType() const {
         return type;
 }
-
-void Batiment::subir(Vaisseau const& attaquant){
-    Vaisseau cAttaquant(attaquant);
-    switch(cAttaquant.getType()){
-        case VaisseauBombardier :
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 2);
-        break;
-
-        default : break;
-    }
-
-    Structure::subir(cAttaquant);
-}
-
-void Batiment::subir(Batiment const& attaquant){
-    Batiment cAttaquant(attaquant);
-/* ... */
-    Structure::subir(cAttaquant);
-}

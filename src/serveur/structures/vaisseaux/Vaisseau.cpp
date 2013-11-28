@@ -65,7 +65,6 @@ void Vaisseau::modifierEnergie(int const valeur){
 
 }
 
-
 void Vaisseau::afficher(std::ostream& fluxSortant) const {
 
     fluxSortant << "Vie : " << vie << "/" << vieMax << std::endl <<
@@ -85,79 +84,6 @@ std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau) {
     return fluxSortant;
 
 }
-
-void Vaisseau::subir(Vaisseau const& attaquant){
-
-    Vaisseau cAttaquant(attaquant);
-
-    switch(cAttaquant.getType()){
-
-        case VaisseauChasseur :
-            switch(_type){
-                case VaisseauBombardier :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.75); break;
-                case VaisseauCroiseur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 2); break;
-                case VaisseauDestructeur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 4); break;
-                default : break;
-
-            }
-        break;
-
-        case VaisseauChasseurLourd :
-            switch(_type){
-                case VaisseauBombardier :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 2.5); break;
-                case VaisseauDestructeur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 3); break;
-                default : break;
-
-            }
-        break;
-
-
-        case VaisseauCroiseur :
-            switch(_type){
-                case VaisseauChasseur :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 3); break;
-                case VaisseauDestructeur : cAttaquant.setAttaque(cAttaquant.getAttaque() / 2); break;
-                default : break;
-            }
-
-        break;
-
-
-        case VaisseauTraqueur :
-            switch(_type){
-                case VaisseauLeger :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 3); break;
-                case VaisseauChasseurLourd :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f); break;
-                case VaisseauCroiseur :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f); break;
-                case VaisseauBombardier :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f); break;
-                case VaisseauDestructeur :  cAttaquant.setAttaque(cAttaquant.getAttaque() / 1.5f); break;
-                default : break;
-
-            }
-        break;
-
-
-        case VaisseauDestructeur :
-            switch(_type){
-                case VaisseauLeger :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 4); break;
-                case VaisseauTraqueur :  cAttaquant.setAttaque(cAttaquant.getAttaque() * 2); break;
-                default : break;
-
-            }
-        break;
-
-    default : break;
-    }
-
-    Structure::subir(cAttaquant);
-
-}
-
-/*
-void Vaisseau::subir(Batiment const& attaquant){
-    Structure::subir(attaquant);
-
-}
-*/
-
 
 Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV){
 

@@ -120,29 +120,6 @@ void Structure::modifierVie(int const valeur){
 }
 
 
-/* Cette methode sert à faire baisser la vie de la
- * structure en utilisant l'attaque de l'attaquant
- * repartie entre la vie et le bouclier.
- * Si le bouclier casse alors ce qu'il n'a pas
- * absorbe est envoye a la vie                  */
-void Structure::subir(Structure const& attaquant){
-
-    std::cout << "L'attaquant a une attaque de " << attaquant.getAttaque() << std::endl << std::endl;
-    std::cout << (bouclierTaux*100) << "% des degats sont recus par le bouclier et " << (100-(bouclierTaux*100)) << "% sont recus par la sante" << std::endl << std::endl;;
-    std::cout << "Soit " << (attaquant.getAttaque() * bouclierTaux ) << " degats recus par le bouclier et " <<  (attaquant.getAttaque() * (1-bouclierTaux)) << " recus par la sante" << std::endl << std::endl;
-
-    /* Le total des degats est compose des degats
-    * qui sont attribues a la vie selon le taux
-    * d'absorbsion du bouclier + ce que le
-    * bouclier n'a pas absorbé                 */
-    this->modifierVie( - (attaquant.getAttaque() * (1-bouclierTaux) + ( this->setBouclier( bouclier - (attaquant.getAttaque() * bouclierTaux ) ) ) ) ) ;
-}
-
-/* Meme methode en mode ciblage                */
-void Structure::attaquer(Structure& cible) const {
-    cible.subir(*this);
-}
-
 Structure Structure::cloner(Structure const& modele, TechnologieStructure techS){
     Structure copie(modele.getVieMax() + (modele.getVieMax() * 0.5 * techS.getNiveauVie()),
                     modele.getBouclierMax() + (modele.getBouclierMax() * 0.5 * techS.getNiveauBouclier()),

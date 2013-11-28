@@ -19,8 +19,6 @@ class Batiment : public Structure {
                 TypeBatiment getType() const;
                 int getNiveau();
                 void setNiveau(int niveau);
-                void subir(Vaisseau const& attaquant);
-                void subir(Batiment const& attaquant);
 
         protected:
                 TypeBatiment type;
