@@ -38,48 +38,6 @@ public:
     TypeBatiment typeBatiment() const;
     bool estAccessible() const;
     
-<<<<<<< HEAD
-    public:
-        // constructeur
-        Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
-        
-        // getters
-        TypeCellule getType() const;
-        int getCoutDeplacement() const;
-        Structure getAttaquant();
-        VaisseauPtr getVaisseau();
-        BatimentPtr getBatiment();
-        int getAttaqueCellule();
-    
-        // Setters
-        void setType(TypeCellule _type);
-        void setVaisseau(VaisseauPtr _vaisseau);
-        bool possedeEvenement() const;
-    
-        // autres
-        bool possedeEmplacement(TypeCellule _type) const;
-        TypeCellule statutEmplacement() const;
-        TypeBatiment typeBatiment() const;
-        int distanceMaximale() const;
-        bool estAccessible() const;
-        void retirerVaisseau();
-        void attaquer(Cellule& cible) const;
-        void subirDegat(Cellule cAttaquant);
-        int degatTriangleVaisseauVaisseau(VaisseauPtr vAttaquant);
-    
-        // méthodes "tests"
-        void creerVaisseauTest();
-        void creerVaisseauConstructeurTest();
-        void creerBatimentBaseTest();        
-    
-    protected:
-        
-    private:
-        EvenementPtr evenement;
-        BatimentPtr batiment;
-        VaisseauPtr vaisseau;
-        TypeCellule type;
-=======
     BatimentPtr getBatiment();
     
     EvenementPtr getEvenement();
@@ -101,7 +59,6 @@ private:
     BatimentPtr batiment;
     VaisseauPtr vaisseau;
     TypeCellule type;
->>>>>>> f79f653a7cdf2d095db26e60df27f240ca54497f
 
 };
 

@@ -15,7 +15,7 @@ class Structure{
 
         Structure(int _vieMax = 100, int _bouclierMax = 0, float _bouclierTaux = 0, int _visibilite = 0, int _attaque = 10);
 
-        // getters
+        // Getter
         int getVie() const;
         int getVieMax() const;
         int getBouclier() const;
@@ -24,16 +24,17 @@ class Structure{
         int getVisibilite() const;
         int getAttaque() const;
 
-        // setters
-        void setVie(int const _vie);
-        void setVieMax(int const _vieMax);
-        int setBouclier(int const _bouclier);
-        void setBouclierMax(int const _bouclierMax);
+        // Setter
+        void setVie( int const _vie);
+        int  setBouclier(int const _bouclier);
+        void setVieMax( int const _vieMax);
+        void setBouclierMax( int const _bouclierMax);
         void setBouclierTaux(float const _bouclierTaux);
-        void setVisibilite(int const _visibilite);
-        void setAttaque(int const _attaque);
+        void setVisibilite( int const _visibilite);
+        void setAttaque( int const _attaque);
 
-        // autres
+        void subir(Structure const& attaquant);
+        void attaquer(Structure& cible) const;
         void modifierVie(int const valeur);
         static Structure cloner(Structure const& modele, TechnologieStructure techS);
 
