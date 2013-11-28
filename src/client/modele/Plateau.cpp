@@ -18,7 +18,7 @@ Plateau::~Plateau()
 {
 }
 
-bool Plateau::possedeBatiment(Position p)
+bool Plateau::possedeBatiment(Position)
 {
 	return false;
 }
@@ -31,7 +31,7 @@ bool Plateau::possedeVaisseau(Position p)
 		return false;
 }
 
-bool Plateau::possedeEvenement(Position p)
+bool Plateau::possedeEvenement(Position)
 {
 	return false;
 }
@@ -48,14 +48,14 @@ DetailVaisseau Plateau::getVaisseau(Position p)
 	}
 	else
 	{
-		DetailVaisseau vaisseau = ((DetailVaisseau ) {
+		DetailVaisseau vaisseau = ((DetailVaisseau) {
 					TypeVaisseau::Inexistant, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } );
 
 		return vaisseau;
 	}
 }
 
-DetailBatiment Plateau::getBatiment(Position p)
+DetailBatiment Plateau::getBatiment(Position)
 {
 	DetailBatiment batiment = ((DetailBatiment ) {
 				TypeBatiment::Inexistant, 0, 0, 0, 0, 0, 0, 0, 0, 0 } );
@@ -63,7 +63,7 @@ DetailBatiment Plateau::getBatiment(Position p)
 	return batiment;
 }
 
-DetailEvenement Plateau::getEvenement(Position p)
+DetailEvenement Plateau::getEvenement(Position)
 {
 
 	DetailEvenement evenement = ((DetailEvenement ) {
