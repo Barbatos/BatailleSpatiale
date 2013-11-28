@@ -117,6 +117,15 @@ void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
+/*void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau){
+	sf::Packet paquet;
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
+
+	paquet << typePaquet << plateau;
+	ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+*/
+
 void ReseauServeur::AccepterNouveauClient(void)
 {
 	// On attend qu'il se passe quelque chose sur le réseau
@@ -154,6 +163,7 @@ void ReseauServeur::AccepterNouveauClient(void)
 
 				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
 				EnvoiATous(msgGlobal);
+
 
 				delete j;
 			}
