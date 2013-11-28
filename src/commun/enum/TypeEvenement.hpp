@@ -7,7 +7,7 @@
  * \brief Défini les différents types de l'évènement
  *
  */
-enum class TypeEvenement :sf::Int16 {
+enum class TypeEvenement :sf::Uint16 {
     Inexistant,
     ChampMeteor,
     Epave,
