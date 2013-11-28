@@ -5,6 +5,7 @@
 #include "../serveur/joueurs/Joueur.hpp"
 #include "../commun/ReseauGlobal.hpp"
 #include "../commun/enum/TypePaquet.hpp"
+#include "../serveur/plateau/Plateau.hpp"
 
 /**
  * Classe permettant de démarrer un serveur de jeu 
@@ -66,6 +67,15 @@ class ReseauServeur
 		 */
 		void EnvoiUnique(sf::TcpSocket& client, string& message);
 
+		/**
+		 * \brief Envoi du plateau à un client
+		 * 
+		 * \param client la socket du client
+		 * \param plateau le plateau
+		 */
+		void EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau);
+
+
 	private:
 
 		/// La socket du serveur
@@ -78,7 +88,6 @@ class ReseauServeur
 		vector<Joueur> joueurs;
 
 };
-
 
 #endif
 

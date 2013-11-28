@@ -84,6 +84,11 @@ void ReseauServeur::TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, s
 
 			break;
 
+		// Le client veut changer de pseudo
+		case TypePaquet::EnvoiPseudoServeur:
+
+			break;
+
 		default:
 			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
 			break;
@@ -111,6 +116,15 @@ void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
 	paquet << typePaquet << message;
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
+
+/*void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau){
+	sf::Packet paquet;
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
+
+	paquet << typePaquet << plateau;
+	ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+*/
 
 void ReseauServeur::AccepterNouveauClient(void)
 {
@@ -149,6 +163,7 @@ void ReseauServeur::AccepterNouveauClient(void)
 
 				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
 				EnvoiATous(msgGlobal);
+
 
 				delete j;
 			}

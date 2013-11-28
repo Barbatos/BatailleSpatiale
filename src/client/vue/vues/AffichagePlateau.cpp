@@ -21,10 +21,11 @@ AffichagePlateau::AffichagePlateau(int nom, int x, int y, int largeur,
 		tailleCase(0),
 		selection(-1, -1),
 		survol(-1, -1),
-		vuePlateau(sf::FloatRect(0, 0, 200, 100)),
-		vueInterface(sf::FloatRect(0, 0, 640, 480))
+		vuePlateau(sf::FloatRect(0, 0, 0, 0)),
+		vueInterface(sf::FloatRect(0, 0, 0, 0))
 {
-	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7));
+	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
+	vueInterface.setViewport(sf::FloatRect(0, 0, 1, 1));
 }
 
 AffichagePlateau::~AffichagePlateau()
@@ -32,20 +33,20 @@ AffichagePlateau::~AffichagePlateau()
 	details.reset();
 }
 
-void AffichagePlateau::changerParent(Scene* scene)
+void AffichagePlateau::initialiser()
 {
-	Element::changerParent(scene);
-
 	details = AffichageDetailsPtr(
 			new AffichageDetails(
 					0, 2, parent->lireJeu().lireAffichage().getSize().y - 102,
 					250, 100));
 
-	details->changerParent(scene);
-}
+	details->changerParent(parent.get());
 
-void AffichagePlateau::initialiser()
-{
+	vuePlateau.setSize(2000, 1000);
+	vuePlateau.move(200, -50);
+	vueInterface.setSize(parent->lireJeu().lireAffichage().getSize().x,
+							parent->lireJeu().lireAffichage().getSize().y);
+
 	details->initialiser();
 
 	tailleCase = 25;
@@ -119,6 +120,11 @@ void AffichagePlateau::actualiser(float delta)
 		else
 			cases[i].fond.setOutlineColor(sf::Color(255, 255, 255));
 	}
+}
+
+void AffichagePlateau::bougerPlateau(float x, float y)
+{
+	vuePlateau.move(x, y);
 }
 
 void AffichagePlateau::afficher(Affichage& affichage)
@@ -231,8 +237,7 @@ void AffichagePlateau::surPressionBoutonSouris(
 	details->selectionner(selection);
 }
 
-void AffichagePlateau::surRelachementBoutonSouris(
-	__attribute__((unused))          sf::Event::MouseButtonEvent evenement)
+void AffichagePlateau::surRelachementBoutonSouris(sf::Event::MouseButtonEvent)
 {
 	// On ne fait rien
 }
@@ -243,4 +248,19 @@ void AffichagePlateau::surMoletteSouris(sf::Event::MouseWheelEvent evenement)
 		vuePlateau.zoom(1.5 * -(evenement.delta));
 	else
 		vuePlateau.zoom(0.5 * evenement.delta);
+}
+
+void AffichagePlateau::surPressionToucheClavier(sf::Event::KeyEvent)
+{
+
+}
+
+void AffichagePlateau::surRelachementToucheClavier(sf::Event::KeyEvent)
+{
+
+}
+
+void AffichagePlateau::surTexteClavier(sf::Event::TextEvent)
+{
+
 }

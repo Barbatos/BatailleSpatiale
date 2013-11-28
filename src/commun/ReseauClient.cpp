@@ -4,8 +4,13 @@ ReseauClient::ReseauClient(void){
 	setActif(false);
 }
 
+ReseauClient::~ReseauClient(){
+
+}
+
 void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 	sf::IpAddress server(ip);
+	sf::Time timeout = sf::seconds(5);
 
 	if(getActif() == true){
 		cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
@@ -13,7 +18,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 	}
 
 	// On se connecte au serveur
-	if (socket.connect(server, port) != sf::Socket::Done){
+	if (socket.connect(server, port, timeout) != sf::Socket::Done){
 		cout << "[RESEAU] Impossible de se connecter au serveur !" << endl;
 		return;
 	}
@@ -41,10 +46,21 @@ void ReseauClient::TraiterPaquetServeur(void){
 	if(paquet.getDataSize() <= 0){
 		return;
 	}
-	
+
 	paquet >> typePaquet >> message;
 
 	cout << "serveur: " << message << endl;
+}
+
+/// Après la connexion, on dit bonjour au serveur
+/// en lui donnant notre pseudo
+void ReseauClient::EnvoyerPseudoServeur(string pseudo){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::EnvoiPseudoServeur);
+	sf::Packet paquet;
+
+	paquet << typePaquet << pseudo;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
 void ReseauClient::setActif(bool _actif){

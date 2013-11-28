@@ -1,5 +1,4 @@
 #include "Cellule.hpp"
-#include "../structures/batiments/TypeBatiment.hpp"
 #include "../structures/batiments/Batiment.hpp"
 #include "../structures/vaisseaux/Vaisseau.hpp"
 
@@ -13,9 +12,53 @@ TypeCellule Cellule::getType() const {
     return type;
 }
 
+void Cellule::setType(TypeCellule _type) {
+    type = _type;
+}
+
+bool Cellule::possedeEvenement() const {
+    return evenement != 0;
+}
+
+bool Cellule::possedeBatiment() const {
+    return batiment != 0;
+}
+
+bool Cellule::possedeVaisseau() const {
+    return vaisseau != 0;
+}
+
+bool Cellule::possedeEmplacement(TypeCellule _type) const {
+    if(_type == type)
+        if(evenement)
+            return evenement->estAccessible() && !batiment && !vaisseau;
+        else
+            return !batiment && !vaisseau;
+    else
+        return false;
+}
+
+TypeCellule Cellule::statutEmplacement() const {
+    if(!vaisseau && !batiment)
+        if(evenement)
+            if(evenement->estAccessible())
+                // Si il n'y a pas de structure et que l'evenement laisse construire
+                return type;
+            else 
+                // Si il n'y a pas de structure mais un evenement qui bloque
+                return TypeCellule::Evenement;
+        else 
+            // Si il n'y a pas de structure ni d'évenement
+            return type;
+    else if(vaisseau)
+        return TypeCellule::Vaisseau;
+    else
+        return TypeCellule::Batiment;
+}
+
 int Cellule::getCoutDeplacement() const {
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
-        if(type == CelluleMinerais)
+        if(type == TypeCellule::Minerais)
             if(evenement)
                 return evenement->getCoutDeplacement() + 1;
             else
@@ -31,7 +74,7 @@ int Cellule::getCoutDeplacement() const {
         return 10000;
         
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
-        if(type == CelluleMinerais)
+        if(type == TypeCellule::Minerais)
             if(evenement)
                 return evenement->getCoutDeplacement() + 1;
             else
@@ -74,6 +117,19 @@ int Cellule::getAttaqueCellule() {
         dommage *= evenement->getMultiplicateurDommage();
 
     return dommage;
+        return TypeBatiment::Inexistant;
+}
+
+void Cellule::creerVaisseauTest() {
+    vaisseau.reset(new Vaisseau(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Simple));
+}
+
+void Cellule::creerVaisseauConstructeurTest() {
+    vaisseau.reset(new Vaisseau(40, 10, 0.1f, 0, 10, 10, 25, TypeVaisseau::Constructeur));
+}
+
+void Cellule::creerBatimentBaseTest() {
+    batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
 }
 
 // Setters
@@ -128,7 +184,7 @@ TypeBatiment Cellule::typeBatiment() const {
 
 int Cellule::distanceMaximale() const {
     if(vaisseau)
-        return vaisseau->distanceMaximale();
+        return vaisseau->getDistanceMax();
     else 
         return 0;
 }
@@ -265,4 +321,16 @@ void Cellule::creerVaisseauConstructeurTest() {
 
 void Cellule::creerBatimentBaseTest() {
     batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, BatimentBase));
+
+EvenementPtr Cellule::getEvenement() {
+    return evenement;
+}
+
+BatimentPtr Cellule::getBatiment() {
+    return batiment;
+}
+
+void Cellule::setVaisseau(VaisseauPtr _vaisseau) {
+    vaisseau = _vaisseau;
+
 }

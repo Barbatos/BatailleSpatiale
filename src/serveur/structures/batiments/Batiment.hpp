@@ -1,21 +1,21 @@
 #ifndef BATIMENT_HPP
 #define BATIMENT_HPP
 #include "../vaisseaux/Vaisseau.hpp"
-#include "TypeBatiment.hpp"
+#include "../../../commun/enum/TypeBatiment.hpp"
 #include <memory>
 
 class Vaisseau;
 
 /*
-* Classe qui définit les differents attributs
-* que possèdent les batiments.
+* Classe qui dÃ©finit les differents attributs
+* que possÃ¨dent les batiments.
 */
 
 class Batiment : public Structure {
 
     public:
                 Batiment();
-                Batiment(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int niveau, TypeBatiment _type = BatimentVide);
+                Batiment(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int niveau, TypeBatiment _type = TypeBatiment::Inexistant);
                 TypeBatiment getType() const;
                 int getNiveau();
                 void setNiveau(int niveau);

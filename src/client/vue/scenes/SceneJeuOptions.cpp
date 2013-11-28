@@ -23,7 +23,7 @@ SceneJeuOptions::SceneJeuOptions(Jeu& jeu) :
 
 	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
 						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.jpg")));
+						jeu.lireRessources().lireImage("fond.png")));
 
 	Bouton* btnretour = new Bouton(Retour, "Retour", x, y, largeur, hauteur);
 

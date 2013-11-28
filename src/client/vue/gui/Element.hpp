@@ -174,4 +174,4 @@ class Element
 		 */
 };
 
-#endif /* ELEMENT_HPP_ */
+#endif /* ELEMENT_HPP */

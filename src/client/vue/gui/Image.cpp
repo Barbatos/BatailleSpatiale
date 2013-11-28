@@ -41,6 +41,7 @@ void Image::initialiser()
 	sprite.setPosition(zone.left, zone.top);
 	Utile::redimensionnerImage(sprite, zone.width, zone.height, false);
 }
+
 void Image::actualiser(__attribute__((unused)) float delta)
 {
 

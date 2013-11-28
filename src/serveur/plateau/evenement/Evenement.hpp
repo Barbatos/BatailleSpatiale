@@ -2,7 +2,7 @@
 #define EVENEMENT_HPP
 #include <iostream>
 #include <memory>
-#include "TypesEvenement.hpp"
+#include "../../../commun/enum/TypeEvenement.hpp"
 #include "../../structures/batiments/Batiment.hpp"
 #include "../../structures/vaisseaux/Vaisseau.hpp"
 
@@ -14,14 +14,14 @@
 class Evenement {
 	
 	public:
-		Evenement(TypeEvenement::type typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
+		Evenement(TypeEvenement typeEvenement, bool destructible = false, int _coutDeplacement = 1, int _multiplicateurDommage = 1, int _multiplicateurDegat = 1);
 		
 		//Setters
 		virtual void activer(Batiment*) {}
 		virtual void desactiver(Batiment*) {}
 		virtual void activer(Vaisseau*) {}
 		virtual void desactiver(Vaisseau*) {}
-		TypeEvenement::type quelType();
+		TypeEvenement quelType();
 		
 		//Getters
 		bool estDestructible();
@@ -34,7 +34,7 @@ class Evenement {
 		
 	private:
 		// Nature de l'évènements.
-		TypeEvenement::type typeEvenement;
+		TypeEvenement typeEvenement;
 		// l'évenement est destructible, on remonte une structure qui prend sa place.
 		bool destructible;
 		// nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible

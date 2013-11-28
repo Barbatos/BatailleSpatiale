@@ -42,7 +42,9 @@ enum class TypePaquet : sf::Uint16 {
     // TypePaquet, nom(std::string)
     ChangementDeNom,
     /// Juste pour savoir le nombre de TypePaquet
-    Nombre
+    Nombre,
+
+    EnvoiPseudoServeur, /// Le premier paquet envoyé au serveur après la connexion, envoi du pseudo du joueur
 };
 
 #endif

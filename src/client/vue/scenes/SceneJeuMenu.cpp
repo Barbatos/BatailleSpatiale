@@ -23,7 +23,7 @@ SceneJeuMenu::SceneJeuMenu(Jeu& jeu) :
 
 	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
 						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.jpg")));
+						jeu.lireRessources().lireImage("fond.png")));
 
 	Bouton* btnretour = new Bouton(Retour, "Retour au jeu", x, y, largeur,
 									hauteur);
@@ -72,6 +72,9 @@ void SceneJeuMenu::surMessage(int nom, Message message)
 					break;
 				case QuitterPartie:
 					jeu.changer(Scene::SceneMenuPrincipal);
+					break;
+				case Options:
+					jeu.changer(Scene::SceneJeuOptions);
 					break;
 				default:
 					break;

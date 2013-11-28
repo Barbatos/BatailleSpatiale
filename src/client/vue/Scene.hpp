@@ -96,6 +96,9 @@ class Scene
 			SceneJeu, //!< Scène du Jeu
 			SceneJeuMenu, //!< Scène du Menu en Jeu
 			SceneJeuOptions, //!< Scène des Options en Jeu
+			SceneOptionsMenu,
+			SceneMenuMultijoueur,
+			SceneLancerServeur, //!< Scène du lancement d'un serveur de jeu
 		};
 
 		/**
