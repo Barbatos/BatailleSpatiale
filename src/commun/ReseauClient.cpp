@@ -10,6 +10,7 @@ ReseauClient::~ReseauClient(){
 
 void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 	sf::IpAddress server(ip);
+	sf::Time timeout = sf::seconds(5);
 
 	if(getActif() == true){
 		cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
@@ -17,7 +18,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 	}
 
 	// On se connecte au serveur
-	if (socket.connect(server, port) != sf::Socket::Done){
+	if (socket.connect(server, port, timeout) != sf::Socket::Done){
 		cout << "[RESEAU] Impossible de se connecter au serveur !" << endl;
 		return;
 	}
