@@ -17,7 +17,7 @@
 #include <client/Jeu.hpp>
 
 ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
-	std::string remplacement) :
+	std::string placeholder) :
 		Element(nom, x, y, largeur, hauteur),
 		ElementSouris(),
 		ElementClavier(),
@@ -26,8 +26,7 @@ ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
 		label(),
 		survole(false),
 		selectionne(false),
-		texte(),
-		remplacement(remplacement)
+		texte()
 {
 	// On configure le rectangle (bordure)
 	rectangle.setPosition(x, y);
@@ -46,7 +45,8 @@ ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
 	label.setPosition(x + 5, y + (hauteur - label.getCharacterSize()) / 2);
 	label.setColor(sf::Color(255, 255, 255));
 
-	label.setString(remplacement);
+	if (placeholder != "")
+		label.setString(placeholder);
 }
 
 ZoneTexte::~ZoneTexte()
@@ -117,18 +117,12 @@ void ZoneTexte::surRelachementBoutonSouris(
 	{
 		// On selectionne la zone
 		selectionne = true;
-
-		if(texte.size() == 0)
-			label.setString("");
 	}
 	// Sinon
 	else
 	{
 		// On la déselectionne / ne fait rien
 		selectionne = false;
-
-		if (texte.size() == 0)
-			label.setString(remplacement);
 	}
 }
 

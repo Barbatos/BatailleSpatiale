@@ -58,11 +58,6 @@ class ZoneTexte :
 		std::string texte;
 
 		/**
-		 * \brief Le texte de remplacement, affiché quand aucun texte n'est entré
-		 */
-		std::string remplacement;
-
-		/**
 		 * \brief Retourne si le caractère unicode donné est autorisé ou non
 		 *
 		 * \param unicode le caractère à tester
@@ -74,7 +69,7 @@ class ZoneTexte :
 		/**
 		 * \brief Constructeur
 		 */
-		ZoneTexte(int nom, int x, int y, int largeur, int hauteur, std::string remplacement = "");
+		ZoneTexte(int nom, int x, int y, int largeur, int hauteur, std::string placeholder = "");
 
 		/**
 		 * \brief Destructeur

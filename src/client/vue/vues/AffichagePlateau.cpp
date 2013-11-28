@@ -172,6 +172,13 @@ void AffichagePlateau::surPressionBoutonSouris(
 			parent->lireJeu().lireAffichage().mapPixelToCoords(
 					sf::Vector2i(evenement.x, evenement.y), vuePlateau));
 
+	std::cout
+		<< "X : "
+		<< cellule.x
+		<< "Y : "
+		<< cellule.y
+		<< std::endl;
+
 	// Si la case selectionne n'est pas vide
 	if (cellule.x != -1 && cellule.y != -1)
 	{
@@ -237,12 +244,10 @@ void AffichagePlateau::surRelachementBoutonSouris(sf::Event::MouseButtonEvent)
 
 void AffichagePlateau::surMoletteSouris(sf::Event::MouseWheelEvent evenement)
 {
-	std::cout << vuePlateau.getSize().x << std::endl;
-
-	if (evenement.delta <= 0 && vuePlateau.getSize().x < 2000)
-		vuePlateau.zoom(1.1);
-	else if(evenement.delta >= 0 && vuePlateau.getSize().x > 100)
-		vuePlateau.zoom(0.9);
+	if (evenement.delta <= 0)
+		vuePlateau.zoom(1.5 * -(evenement.delta));
+	else
+		vuePlateau.zoom(0.5 * evenement.delta);
 }
 
 void AffichagePlateau::surPressionToucheClavier(sf::Event::KeyEvent)
