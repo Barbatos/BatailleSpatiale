@@ -70,6 +70,11 @@ void Jeu::changer(Scene::Type nouvelleScene)
 		case Scene::SceneOptionsMenu:
 			scene = ScenePtr(new SceneOptionsMenu(*this));
 			break;
+
+		case Scene::SceneLancerServeur:
+			scene = ScenePtr(new SceneLancerServeur(*this));
+			break;
+			
 		default:
 			scene = ScenePtr(new SceneMenuPrincipal(*this));
 			break;

@@ -20,7 +20,7 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 
 	int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
 
-	int y = (jeu.lireAffichage().getSize().y - hauteur) / 5;
+	int y = (jeu.lireAffichage().getSize().y - hauteur) / 6;
 
 	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
 						jeu.lireAffichage().getSize().y,
@@ -29,20 +29,23 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 	Bouton* btnsolo = new Bouton(Solo, "Partie Solo", x, y, largeur, hauteur);
 	Bouton* btnmulti = new Bouton(Multi, "Partie Multi", x, 2 * y, largeur,
 									hauteur);
-	Bouton* btnquitter = new Bouton(Quitter, "Quitter le jeu", x, 4 * y,
+	Bouton* btnserveur = new Bouton(Serveur, "Lancer un serveur", x, 3 * y, largeur, hauteur);
+	Bouton* btnquitter = new Bouton(Quitter, "Quitter le jeu", x, 5 * y,
 									largeur, hauteur);
 	Bouton* btnmusique = new Bouton(Musique, "Jouer musique", 0, 0, largeur,
 									hauteur);
-	Bouton* btnoptions = new Bouton(Options,"Options",x,3 * y,largeur,hauteur);
+	Bouton* btnoptions = new Bouton(Options,"Options",x,4 * y,largeur,hauteur);
 
 	ajouter(btnsolo);
 	ajouter(btnmulti);
+	ajouter(btnserveur);
 	ajouter(btnquitter);
 	ajouter(btnmusique);
 	ajouter(btnoptions);
 
 	enregistrerSouris(btnsolo);
 	enregistrerSouris(btnmulti);
+	enregistrerSouris(btnserveur);
 	enregistrerSouris(btnquitter);
 	enregistrerSouris(btnmusique);
 	enregistrerSouris(btnoptions);
@@ -71,6 +74,9 @@ void SceneMenuPrincipal::surMessage(int nom, Scene::Message message)
 					break;
 				case Multi:
 					jeu.changer(Scene::SceneMenuMultijoueur);
+					break;
+				case Serveur:
+					jeu.changer(Scene::SceneLancerServeur);
 					break;
 				case Quitter:
 					jeu.quitter();

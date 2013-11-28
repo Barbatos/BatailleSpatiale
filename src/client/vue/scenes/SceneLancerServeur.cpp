@@ -1,18 +1,18 @@
 /*
- * SceneMenuPrincipal.cpp
+ * SceneLancerServeur.cpp
  *
- *  Created on: 3 oct. 2013
- *      Author: Kowah
+ *  Created on: 28 nov. 2013
+ *      Author: Barbatos
  */
 
-#include "SceneMenuSolo.hpp"
+#include "SceneLancerServeur.hpp"
 
 #include <client/vue/gui/ZoneTexte.hpp>
 #include <client/vue/gui/Image.hpp>
 #include <client/vue/gui/Bouton.hpp>
 #include <client/Jeu.hpp>
 
-SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
+SceneLancerServeur::SceneLancerServeur(Jeu& jeu) :
 		Scene(jeu)
 {
 	int largeur = 300 / 2;
@@ -26,37 +26,33 @@ SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
 						jeu.lireAffichage().getSize().y,
 						jeu.lireRessources().lireImage("fond.png")));
 
-	ip = new ZoneTexte(Ip, x, y, largeur, hauteur);
 
 	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur);
 
-	Bouton* btnsolo = new Bouton(Solo, "Lancer partie", x, 3 * y, largeur,
+	Bouton* btnserveur = new Bouton(Serveur, "Lancer le serveur", x, 3 * y, largeur,
 									hauteur);
 
 	Bouton* btnretour = new Bouton(Retour, "Retour", x, 4 * y, largeur,
 									hauteur);
 
-	ajouter(ip);
 	ajouter(port);
-	ajouter(btnsolo);
+	ajouter(btnserveur);
 	ajouter(btnretour);
 
-	enregistrerSouris(ip);
 	enregistrerSouris(port);
-	enregistrerSouris(btnsolo);
+	enregistrerSouris(btnserveur);
 	enregistrerSouris(btnretour);
 
-	enregistrerClavier(ip);
 	enregistrerClavier(port);
 }
 
-SceneMenuSolo::~SceneMenuSolo()
+SceneLancerServeur::~SceneLancerServeur()
 {
 }
 
-void SceneMenuSolo::surMessage(int nom, Scene::Message message)
+void SceneLancerServeur::surMessage(int nom, Scene::Message message)
 {
-	switch (message)
+	/*switch (message)
 	{
 		case Clic:
 			switch (nom)
@@ -76,5 +72,5 @@ void SceneMenuSolo::surMessage(int nom, Scene::Message message)
 			break;
 		case Sort:
 			break;
-	}
+	}*/
 }

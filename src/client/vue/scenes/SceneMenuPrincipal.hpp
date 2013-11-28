@@ -36,7 +36,8 @@ class SceneMenuPrincipal : public Scene
 			Multi,//!< Lancer une partie Multi
 			Quitter,//!< Quitter la partie
 			Musique,//!< Jouer ou mettre en pause la musique
-			Options//!< Options du jeu
+			Options,//!< Options du jeu
+			Serveur //!< Lancer un serveur 
 		};
 
 	public:
