@@ -1,5 +1,0 @@
-const Evenement ChampMeteor = new Evenement("ChampMeteor", true, -1, 1, 1);
-const Evenement Epave = new Evenement("Epave", true, -1, 1, 1);
-const Evenement InfluenceTrouNoir = new Evenement("InfluenceTrouNoir", false,	3, 2, 2);
-const Evenement NuageGaz = new Evenement("NuageGaz", false, 1, 2, 1);
-const Evenement StationSpatialeAbandonnee ) new Evenement("StationSpatialeAbandonnee", true, -1, 1, 1);

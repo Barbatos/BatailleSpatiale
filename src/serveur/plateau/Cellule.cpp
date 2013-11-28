@@ -1,5 +1,4 @@
 #include "Cellule.hpp"
-#include "../structures/batiments/TypeBatiment.hpp"
 #include "../structures/batiments/Batiment.hpp"
 #include "../structures/vaisseaux/Vaisseau.hpp"
 
@@ -45,19 +44,19 @@ TypeCellule Cellule::statutEmplacement() const {
                 return type;
             else 
                 // Si il n'y a pas de structure mais un evenement qui bloque
-                return CelluleEvenement;
+                return TypeCellule::Evenement;
         else 
             // Si il n'y a pas de structure ni d'évenement
             return type;
     else if(vaisseau)
-        return CelluleVaisseau;
+        return TypeCellule::Vaisseau;
     else
-        return CelluleBatiment;
+        return TypeCellule::Batiment;
 }
 
 int Cellule::getCoutDeplacement() const {
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
-        if(type == CelluleMinerais)
+        if(type == TypeCellule::Minerais)
             if(evenement)
                 return evenement->getCoutDeplacement() + 1;
             else
@@ -73,7 +72,7 @@ int Cellule::getCoutDeplacement() const {
         return 10000;
         
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
-        if(type == CelluleMinerais)
+        if(type == TypeCellule::Minerais)
             if(evenement)
                 return evenement->getCoutDeplacement() + 1;
             else
@@ -94,19 +93,19 @@ TypeBatiment Cellule::typeBatiment() const {
     if(batiment)
         return batiment->getType();
     else
-        return BatimentVide;
+        return TypeBatiment::Inexistant;
 }
 
 void Cellule::creerVaisseauTest() {
-    vaisseau.reset(new Vaisseau(80, 20, 0.2f, 0, 20, 5, 25, VaisseauSimple));
+    vaisseau.reset(new Vaisseau(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Simple));
 }
 
 void Cellule::creerVaisseauConstructeurTest() {
-    vaisseau.reset(new Vaisseau(40, 10, 0.1f, 0, 10, 10, 25, VaisseauConstructeur));
+    vaisseau.reset(new Vaisseau(40, 10, 0.1f, 0, 10, 10, 25, TypeVaisseau::Constructeur));
 }
 
 void Cellule::creerBatimentBaseTest() {
-    batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, BatimentBase));
+    batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
 }
 
 /*

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Evenement.hpp"
 
-Evenement::Evenement(TypeEvenement::type _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
+Evenement::Evenement(TypeEvenement _typeEvenement, bool _destructible, int _coutDeplacement, int _multiplicateurDommage, int _multiplicateurDegat) {
 	typeEvenement = _typeEvenement;
 	destructible = _destructible;
 	coutDeplacement = _coutDeplacement;
@@ -9,7 +9,7 @@ Evenement::Evenement(TypeEvenement::type _typeEvenement, bool _destructible, int
 	multiplicateurDegat = _multiplicateurDegat;
 }
 
-TypeEvenement::type Evenement::quelType() {
+TypeEvenement Evenement::quelType() {
 	return typeEvenement;
 	//if((destructible == true) != (coutDeplacement == -1))
 		//cout << "Erreur ! un évenement destructible est traversable !!";
