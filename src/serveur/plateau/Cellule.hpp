@@ -38,13 +38,13 @@ public:
     TypeBatiment typeBatiment() const;
     bool estAccessible() const;
     
-    BatimentPtr getBatiment();
+    BatimentPtr getBatiment() const;
     
-    EvenementPtr getEvenement();
+    EvenementPtr getEvenement() const;
     
     void retirerVaisseau();
     void setVaisseau(VaisseauPtr _vaisseau);
-    VaisseauPtr getVaisseau();
+    VaisseauPtr getVaisseau() const;
     int distanceMaximale() const;
 
     //Multiple fonctions de test
@@ -61,5 +61,7 @@ private:
     TypeCellule type;
 
 };
+
+sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule);
 
 #endif // CELLULE_HPP

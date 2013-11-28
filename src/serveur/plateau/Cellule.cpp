@@ -42,10 +42,10 @@ TypeCellule Cellule::statutEmplacement() const {
             if(evenement->estAccessible())
                 // Si il n'y a pas de structure et que l'evenement laisse construire
                 return type;
-            else 
+            else
                 // Si il n'y a pas de structure mais un evenement qui bloque
                 return TypeCellule::Evenement;
-        else 
+        else
             // Si il n'y a pas de structure ni d'évenement
             return type;
     else if(vaisseau)
@@ -61,32 +61,30 @@ int Cellule::getCoutDeplacement() const {
                 return evenement->getCoutDeplacement() + 1;
             else
                 return 2;
+        else if(evenement)
+            return evenement->getCoutDeplacement();
         else
-            if(evenement)
-                return evenement->getCoutDeplacement();
-            else
-                return 1;
+            return 1;
     }
 
     else
         return 10000;
-        
+
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
         if(type == TypeCellule::Minerais)
             if(evenement)
                 return evenement->getCoutDeplacement() + 1;
             else
                 return 2;
+        else if(evenement)
+            return evenement->getCoutDeplacement();
         else
-            if(evenement)
-                return evenement->getCoutDeplacement();
-            else
-                return 1;
+            return 1;
     }
 
     else
         return 10000;
-        
+
 }
 
 TypeBatiment Cellule::typeBatiment() const {
@@ -116,7 +114,7 @@ void Cellule::subir(Structure const& attaquant) {
         batiment->subir(attaquant);
 }*/
 
-Structure Cellule::getAttaquant(){
+Structure Cellule::getAttaquant() {
     if(vaisseau)
         return *vaisseau;
     else
@@ -126,7 +124,7 @@ Structure Cellule::getAttaquant(){
 int Cellule::distanceMaximale() const {
     if(vaisseau)
         return vaisseau->getDistanceMax();
-    else 
+    else
         return 0;
 }
 
@@ -141,18 +139,36 @@ void Cellule::retirerVaisseau() {
     vaisseau.reset();
 }
 
-VaisseauPtr Cellule::getVaisseau() {
+VaisseauPtr Cellule::getVaisseau() const {
     return vaisseau;
 }
 
-EvenementPtr Cellule::getEvenement() {
+EvenementPtr Cellule::getEvenement() const {
     return evenement;
 }
 
-BatimentPtr Cellule::getBatiment() {
+BatimentPtr Cellule::getBatiment() const {
     return batiment;
 }
 
 void Cellule::setVaisseau(VaisseauPtr _vaisseau) {
     vaisseau = _vaisseau;
+}
+
+sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule) {
+    paquet << static_cast<sf::Uint16>(cellule.getType());
+    
+    paquet << cellule.possedeEvenement();
+    if(cellule.possedeEvenement())
+        paquet << *(cellule.getEvenement());
+
+    paquet << cellule.possedeVaisseau();
+    if(cellule.possedeVaisseau())
+        paquet << *(cellule.getVaisseau());
+
+    paquet << cellule.possedeBatiment();
+    if(cellule.possedeBatiment())
+        paquet << *(cellule.getBatiment());
+
+    return paquet;
 }

@@ -10,7 +10,7 @@
  * l'énergie, du minerais, ...
  *
  */
-enum class TypeCellule :sf::Int16 {
+enum class TypeCellule :sf::Uint16 {
     Vide,
     Minerais,
     Energie,
