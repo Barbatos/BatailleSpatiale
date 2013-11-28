@@ -17,39 +17,42 @@ class Vaisseau : public Structure {
 public:
     Vaisseau();
     Vaisseau(
-        int _vieMax,
-        int _bouclierMax,
+        sf::Int16 _vieMax,
+        sf::Int16 _bouclierMax,
         float _bouclierTaux,
-        int _visibilite,
-        int _attaque,
-        int _distanceMax,
-        int _consommation,
+        sf::Int16 _visibilite,
+        sf::Int16 _attaque,
+        sf::Int16 _distanceMax,
+        sf::Int16 _consommation,
         TypeVaisseau _type = TypeVaisseau::Inexistant
     );
 
     // Getters
-    int getConsommation() const;
-    int getDistanceMax() const;
+    sf::Int16 getConsommation() const;
+    sf::Int16 getDistanceMax() const;
     TypeVaisseau getType() const;
 
     // Setters
-    void setConsommation(const int _consommation);
+    void setConsommation(const sf::Int16 _consommation);
 
-    void modifierEnergie(int const valeur);
+    void modifierEnergie(sf::Int16 const valeur);
     static Vaisseau cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
     void subir(Vaisseau const& attaquant);
     void subir(Batiment const& attaquant);
     void afficher(std::ostream& fluxSortant) const;
 
 protected:
-    TypeVaisseau type;
 
 private:
-    int distanceMax;
-    int consommation;
+    TypeVaisseau type;
+    sf::Int16 distanceMax;
+    sf::Int16 consommation;
+    
     friend std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau);
-
+    friend sf::Packet& operator <<(sf::Packet& paquet, const Vaisseau& vaisseau);
 };
+
+sf::Packet& operator <<(sf::Packet& paquet, const Vaisseau& vaisseau);
 
 typedef std::shared_ptr<Vaisseau> VaisseauPtr;
 
