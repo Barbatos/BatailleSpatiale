@@ -7,7 +7,7 @@
  * \brief Défini les différents types de batiment
  *
  */
-enum class TypeBatiment :sf::Int16 {
+enum class TypeBatiment :sf::Uint16 {
     Inexistant,
     Base,
     Nombre

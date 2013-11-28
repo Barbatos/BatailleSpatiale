@@ -13,20 +13,25 @@ class Vaisseau;
 
 class Batiment : public Structure {
 
-    public:
-                Batiment();
-                Batiment(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int niveau, TypeBatiment _type = TypeBatiment::Inexistant);
-                TypeBatiment getType() const;
-                int getNiveau();
-                void setNiveau(int niveau);
-                void subir(Vaisseau const& attaquant);
-                void subir(Batiment const& attaquant);
+public:
+    Batiment();
+    Batiment(sf::Int16 vieMax, sf::Int16 bouclierMax, float bouclierTaux, sf::Int16 visibilite, sf::Int16 attaque, sf::Int16 niveau, TypeBatiment _type = TypeBatiment::Inexistant);
+    TypeBatiment getType() const;
+    sf::Int16 getNiveau();
+    void setNiveau(sf::Int16 niveau);
+    void subir(Vaisseau const& attaquant);
+    void subir(Batiment const& attaquant);
 
-        protected:
-                TypeBatiment type;
-    private:
-                int niveau;
+protected:
+
+private:
+    TypeBatiment type;
+    sf::Int16 niveau;
+
+    friend sf::Packet& operator <<(sf::Packet& paquet, const Batiment& batiment);
 };
+
+sf::Packet& operator <<(sf::Packet& paquet, const Batiment& batiment);
 
 typedef std::shared_ptr<Batiment> BatimentPtr;
 
