@@ -68,6 +68,9 @@ void SceneMenuSolo::surMessage(int nom, Scene::Message message)
 					if (jeu.lireReseau()->getActif())
 						jeu.changer(Scene::SceneJeu);
 					break;
+				case Retour:
+					jeu.changer(Scene::SceneMenuPrincipal);
+					break;
 				default:
 					break;
 			}
