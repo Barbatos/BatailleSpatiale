@@ -8,6 +8,7 @@
 #include "SceneMenuPrincipal.hpp"
 
 #include <client/vue/gui/Image.hpp>
+#include <client/vue/gui/Animation.hpp>
 #include <client/vue/gui/Bouton.hpp>
 #include <client/Jeu.hpp>
 
@@ -23,7 +24,7 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 
 	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
 						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.jpg")));
+						jeu.lireRessources().lireImage("fond.png")));
 
 	Bouton* btnsolo = new Bouton(Solo, "Partie Solo", x, y, largeur, hauteur);
 	Bouton* btnmulti = new Bouton(Multi, "Partie Multi", x, 2 * y, largeur,
@@ -49,6 +50,8 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 	jeu.lireRessources().changerVolumeGlobal(10);
 
 	musique = jeu.lireRessources().lireMusique("Clearness.ogg");
+
+	ajouter(new Animation(999, 100, 100, 240, 240, true, jeu.lireRessources().lireImage("Environnement/comete2.png")));
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()
@@ -67,6 +70,7 @@ void SceneMenuPrincipal::surMessage(int nom, Scene::Message message)
 					jeu.changer(Scene::SceneMenuSolo);
 					break;
 				case Multi:
+					jeu.changer(Scene::SceneMenuMultijoueur);
 					break;
 				case Quitter:
 					jeu.quitter();

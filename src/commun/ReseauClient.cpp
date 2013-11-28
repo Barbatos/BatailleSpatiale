@@ -4,6 +4,10 @@ ReseauClient::ReseauClient(void){
 	setActif(false);
 }
 
+ReseauClient::~ReseauClient(){
+
+}
+
 void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 	sf::IpAddress server(ip);
 
@@ -41,7 +45,7 @@ void ReseauClient::TraiterPaquetServeur(void){
 	if(paquet.getDataSize() <= 0){
 		return;
 	}
-	
+
 	paquet >> typePaquet >> message;
 
 	cout << "serveur: " << message << endl;

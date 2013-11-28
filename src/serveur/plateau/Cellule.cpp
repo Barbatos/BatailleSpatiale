@@ -19,6 +19,14 @@ bool Cellule::possedeEvenement() const {
     return evenement != 0;
 }
 
+bool Cellule::possedeBatiment() const {
+    return batiment != 0;
+}
+
+bool Cellule::possedeVaisseau() const {
+    return vaisseau != 0;
+}
+
 bool Cellule::possedeEmplacement(TypeCellule _type) const {
     if(_type == type)
         if(evenement)
@@ -118,7 +126,7 @@ Structure Cellule::getAttaquant(){
 
 int Cellule::distanceMaximale() const {
     if(vaisseau)
-        return vaisseau->distanceMaximale();
+        return vaisseau->getDistanceMax();
     else 
         return 0;
 }
@@ -136,6 +144,14 @@ void Cellule::retirerVaisseau() {
 
 VaisseauPtr Cellule::getVaisseau() {
     return vaisseau;
+}
+
+EvenementPtr Cellule::getEvenement() {
+    return evenement;
+}
+
+BatimentPtr Cellule::getBatiment() {
+    return batiment;
 }
 
 void Cellule::setVaisseau(VaisseauPtr _vaisseau) {

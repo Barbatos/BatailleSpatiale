@@ -1,21 +1,22 @@
 #ifndef NOEUD_HPP
 #define NOEUD_HPP
-#include "Point.hpp"
+#include "../../commun/utile/Position.hpp"
+#include <SFML/System.hpp>
 
-class Noeud{
+class Noeud {
 	public:
-		Noeud(Point _point);
-		Noeud(Point& _point, int g, Point _parentPoint);
-		bool lowerG(const Noeud& noeud);
-		bool equal(const Noeud& noeud);
-		Point getPoint();
-		Point getParentPoint();
-		int getG();
+		Noeud(Position _position);
+		Noeud(Position& _position, sf::Int16 g, Position _parentPosition);
+		bool gInferieur(const Noeud& noeud);
+		bool operator==(const Noeud& noeud);
+		Position getPosition();
+		Position getPositionParent();
+		sf::Int16 getG();
 	
 	private:
-		Point point;
-		Point parentPoint;
-		int distanceG;
+		Position position;
+		Position positionParent;
+		sf::Int16 distanceG;
 };
 
 #endif // NOEUD_HPP

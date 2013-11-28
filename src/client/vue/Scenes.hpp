@@ -19,5 +19,6 @@
 #include "scenes/SceneJeuOptions.hpp"
 #include "scenes/SceneMenuSolo.hpp"
 #include "scenes/SceneOptionsMenu.hpp"
+#include "scenes/SceneMenuMultijoueur.hpp"
 
 #endif /* SCENES_HPP_ */

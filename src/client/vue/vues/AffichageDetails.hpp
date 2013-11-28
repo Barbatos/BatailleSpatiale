@@ -19,7 +19,7 @@
 #include <client/vue/gui/Label.hpp>
 
 // Includes des classes moteur
-#include <client/modele/Position.hpp>
+#include <commun/utile/Position.hpp>
 
 /**
  * \brief Affiche les détails de la case selectionnée

@@ -15,6 +15,7 @@
 // Includes de nos classes
 #include <client/vue/gui/Element.hpp>
 #include <client/vue/gui/ElementSouris.hpp>
+#include <client/vue/gui/ElementClavier.hpp>
 #include "AffichageDetails.hpp"
 
 // Typedefs
@@ -30,16 +31,38 @@ typedef std::shared_ptr<AffichageDetails> AffichageDetailsPtr;
  * \see ElementSouris
  */
 class AffichagePlateau :
-	public Element, public ElementSouris
+	public Element, public ElementSouris, public ElementClavier
 {
 	private:
+		/**
+		 * \brief Représente une case du plateau
+		 */
 		struct Case
 		{
 			public:
+				/**
+				 * \brief La position en x de la case
+				 */
 				int x;
+
+				/**
+				 * \brief La position en y de la case
+				 */
 				int y;
+
+				/**
+				 * \brief La position de la case liée
+				 */
 				Position position;
+
+				/**
+				 * \brief L'image présente sur la case
+				 */
 				sf::Sprite image;
+
+				/**
+				 * \brief L'héxagone de fond de la case
+				 */
 				sf::CircleShape fond;
 		};
 
@@ -72,7 +95,14 @@ class AffichagePlateau :
 		 */
 		Position survol;
 
+		/**
+		 * \brief La vue du plateau
+		 */
 		sf::View vuePlateau;
+
+		/**
+		 * \brief La vue de l'interface
+		 */
 		sf::View vueInterface;
 
 	public:
@@ -116,8 +146,10 @@ class AffichagePlateau :
 		void surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement);
 		void surMoletteSouris(sf::Event::MouseWheelEvent evenement);
 
-		//Override d'Element
-		void changerParent(Scene* scene);
+		// Héritées d'ElementClavier
+		void surPressionToucheClavier(sf::Event::KeyEvent evenement);
+		void surRelachementToucheClavier(sf::Event::KeyEvent evenement);
+		void surTexteClavier(sf::Event::TextEvent evenement);
 
 		// Héritées d'Element
 		void initialiser();

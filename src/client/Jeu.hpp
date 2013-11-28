@@ -16,6 +16,7 @@
 #include <memory>
 
 typedef std::unique_ptr<Scene> ScenePtr;
+typedef std::unique_ptr<ReseauClient> ReseauPtr;
 
 /**
  * \brief Conteneur du jeu
@@ -86,7 +87,7 @@ class Jeu
 		 *
 		 * \see ReseauClient
 		 */
-		ReseauClient* reseau;
+		ReseauPtr reseau;
 
 	public:
 		/**
@@ -159,6 +160,8 @@ class Jeu
 		 * \return les ressources du jeu
 		 */
 		Ressources& lireRessources();
+
+		ReseauPtr& lireReseau();
 };
 
 #endif /* JEU_HPP */

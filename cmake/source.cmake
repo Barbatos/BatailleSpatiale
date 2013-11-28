@@ -40,6 +40,7 @@ FILE(GLOB_RECURSE SERVEUR_SRC
 FILE(GLOB_RECURSE COMMUN_SRC
     "src/commun/ReseauGlobal.[ch]pp"
     "src/commun/enum/*.[ch]pp"
+    "src/commun/utile/*.[ch]pp"
 )
 
 # Ajout de l'éxecutable client

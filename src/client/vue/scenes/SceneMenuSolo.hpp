@@ -10,6 +10,8 @@
 
 #include <client/vue/Scene.hpp>
 
+class ZoneTexte;
+
 /**
  * \brief Scène du menu de création de partie Solo
  *
@@ -22,8 +24,14 @@ class SceneMenuSolo : public Scene
 		 * \brief Les différents boutons de la scène
 		 */
 		enum Boutons {
-			Solo//!< Lancer une partie Solo
+			Solo,//!< Lancer une partie Solo
+			Retour,
+			Ip,
+			Port
 		};
+
+		ZoneTexte* ip;
+		ZoneTexte* port;
 
 	public:
 		/**

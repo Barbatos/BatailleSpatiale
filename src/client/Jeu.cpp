@@ -15,16 +15,25 @@
 #define TEMPS_FRAME 1000/FPS
 
 Jeu::Jeu() :
-		affichage(), modele(), controleur(modele), scene(nullptr), ressources(), horloge()
+		affichage(),
+		modele(),
+		controleur(modele),
+		scene(nullptr),
+		ressources(),
+		horloge(),
+		reseau(nullptr)
 {
 	changer(Scene::SceneMenuPrincipal);
-	reseau = new ReseauClient();
+	reseau = ReseauPtr(new ReseauClient());
 }
 
 Jeu::~Jeu()
 {
-	if(scene != nullptr)
+	if (scene != nullptr)
 		scene.release();
+
+	if (reseau != nullptr)
+		reseau.release();
 }
 
 void Jeu::changer(Scene::Type nouvelleScene)
@@ -47,7 +56,16 @@ void Jeu::changer(Scene::Type nouvelleScene)
 			scene = ScenePtr(new SceneJeuOptions(*this));
 			break;
 		case Scene::SceneMenuSolo:
-			scene = ScenePtr(new SceneMenuSolo(*this));
+			if (reseau->getActif())
+				scene = ScenePtr(new SceneJeu(*this));
+			else
+				scene = ScenePtr(new SceneMenuSolo(*this));
+			break;
+		case Scene::SceneMenuMultijoueur:
+			if (reseau->getActif())
+				scene = ScenePtr(new SceneJeu(*this));
+			else
+				scene = ScenePtr(new SceneMenuMultijoueur(*this));
 			break;
 		case Scene::SceneOptionsMenu:
 			scene = ScenePtr(new SceneOptionsMenu(*this));
@@ -71,7 +89,7 @@ void Jeu::lancer()
 		sf::Time nouveau = horloge.getElapsedTime();
 
 		reseau->TraiterPaquetServeur();
-		
+
 		delta = (nouveau - precedent).asMilliseconds();
 
 		precedent = nouveau;
@@ -92,8 +110,8 @@ void Jeu::lancer()
 
 		affichage.display();
 
-		attente = TEMPS_FRAME
-				- (horloge.getElapsedTime() - nouveau).asMilliseconds();
+		attente = TEMPS_FRAME - (horloge.getElapsedTime() - nouveau)
+				.asMilliseconds();
 
 		if (attente > 0)
 			sf::sleep(sf::milliseconds(attente));
@@ -123,4 +141,9 @@ Controleur& Jeu::lireControleur()
 Ressources& Jeu::lireRessources()
 {
 	return (ressources);
+}
+
+ReseauPtr& Jeu::lireReseau()
+{
+	return (reseau);
 }

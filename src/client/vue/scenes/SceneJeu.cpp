@@ -23,7 +23,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 
 	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
 						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.jpg")));
+						jeu.lireRessources().lireImage("fond.png")));
 
 	Bouton* btnpause = new Bouton(Pause, "Pause", x, y, largeur, hauteur);
 
@@ -32,6 +32,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 
 	enregistrerSouris(btnpause);
 	enregistrerSouris(&plateau);
+	enregistrerClavier(&plateau);
 }
 
 SceneJeu::~SceneJeu()

@@ -7,6 +7,7 @@
 
 #include "Label.hpp"
 
+// Moche, à changer plus tard par une CVar
 #define TAILLE_TEXTE 14
 
 Label::Label() : sf::Text()

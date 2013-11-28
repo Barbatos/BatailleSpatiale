@@ -8,12 +8,14 @@
 #include "Affichage.hpp"
 
 #define TITRE_FENETRE "BattleStar2.0"
-#define HAUTEUR_FENETRE 640
-#define LARGEUR_FENETRE 480
+#define HAUTEUR_FENETRE 1200
+#define LARGEUR_FENETRE 675
 
-Affichage::Affichage() : sf::RenderWindow()
+Affichage::Affichage() :
+		sf::RenderWindow()
 {
-	create(sf::VideoMode(HAUTEUR_FENETRE, LARGEUR_FENETRE), TITRE_FENETRE, sf::Style::Close);
+	create(sf::VideoMode(HAUTEUR_FENETRE, LARGEUR_FENETRE), TITRE_FENETRE,
+			sf::Style::Close);
 }
 
 Affichage::~Affichage()
