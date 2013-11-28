@@ -61,4 +61,4 @@ class SceneMenuPrincipal : public Scene
 		void surMessage(int nom, Scene::Message message);
 };
 
-#endif /* SCENEMENUPRINCIPAL_HPP_ */
+#endif /* SCENEMENUPRINCIPAL_HPP */

@@ -17,10 +17,11 @@
 #include <client/vue/gui/ElementSouris.hpp>
 #include <client/vue/gui/ElementClavier.hpp>
 #include "AffichageDetails.hpp"
+#include "AffichageCase.hpp"
 
 // Typedefs
 typedef std::shared_ptr<AffichageDetails> AffichageDetailsPtr;
-
+typedef std::unique_ptr<AffichageCase> AffichageCasePtr;
 /**
  * \brief Affiche le plateau dans son intégralité
  *
@@ -35,43 +36,11 @@ class AffichagePlateau :
 {
 	private:
 		/**
-		 * \brief Représente une case du plateau
-		 */
-		struct Case
-		{
-			public:
-				/**
-				 * \brief La position en x de la case
-				 */
-				int x;
-
-				/**
-				 * \brief La position en y de la case
-				 */
-				int y;
-
-				/**
-				 * \brief La position de la case liée
-				 */
-				Position position;
-
-				/**
-				 * \brief L'image présente sur la case
-				 */
-				sf::Sprite image;
-
-				/**
-				 * \brief L'héxagone de fond de la case
-				 */
-				sf::CircleShape fond;
-		};
-
-		/**
 		 * \brief Les cases affichées
 		 *
 		 * \see AffichageCase
 		 */
-		std::vector<Case> cases;
+		std::vector<AffichageCasePtr> cases;
 
 		/**
 		 * \brief Les détails sur la case actuellement selectionnée
@@ -79,21 +48,6 @@ class AffichagePlateau :
 		 * \see AffichageDetails
 		 */
 		AffichageDetailsPtr details;
-
-		/**
-		 * \brief Taille d'une case
-		 */
-		int tailleCase;
-
-		/**
-		 * \brief La cellule actuellement selectionnée
-		 */
-		Position selection;
-
-		/**
-		 * \brief La cellule actuellement survolée
-		 */
-		Position survol;
 
 		/**
 		 * \brief La vue du plateau
@@ -127,19 +81,11 @@ class AffichagePlateau :
 		virtual ~AffichagePlateau();
 
 		/**
-		 * \brief Donne la cellule actuellement présente sous la souris
+		 * \brief Déplace la vue plateau
 		 *
-		 * Prends en paramètre la position actuelle de la souris, et renvoie la position
-		 * de la cellule correspondante.
-		 *
-		 * @param souris la position de la souris
-		 * @return la position de la cellule correspondante
+		 * @param x nombre de pixels à déplacer en x
+		 * @param y nombre de pixels à déplacer en y
 		 */
-		Position positionCellule(sf::Vector2f souris);
-
-		void dessinerCase(Affichage& affichage, Case c, bool survol,
-			bool selectionne);
-
 		void bougerPlateau(float x, float y);
 
 		// Héritées d'ElementSouris

@@ -36,4 +36,4 @@ class SceneOptionsMenu : public Scene
 		void surMessage(int nom, Scene::Message message);
 };
 
-#endif /* SCENEOPTIONSMENU_HPP_ */
+#endif /* SCENEOPTIONSMENU_HPP */

@@ -50,7 +50,7 @@ SceneLancerServeur::~SceneLancerServeur()
 {
 }
 
-void SceneLancerServeur::surMessage(int nom, Scene::Message message)
+void SceneLancerServeur::surMessage(int, Scene::Message)
 {
 	/*switch (message)
 	{

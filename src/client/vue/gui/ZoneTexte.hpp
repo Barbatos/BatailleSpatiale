@@ -58,6 +58,11 @@ class ZoneTexte :
 		std::string texte;
 
 		/**
+		 * \brief Le texte affiché lorsque la zone de texte est vide
+		 */
+		std::string remplacement;
+
+		/**
 		 * \brief Retourne si le caractère unicode donné est autorisé ou non
 		 *
 		 * \param unicode le caractère à tester
@@ -69,7 +74,7 @@ class ZoneTexte :
 		/**
 		 * \brief Constructeur
 		 */
-		ZoneTexte(int nom, int x, int y, int largeur, int hauteur, std::string placeholder = "");
+		ZoneTexte(int nom, int x, int y, int largeur, int hauteur, std::string remplacement = "");
 
 		/**
 		 * \brief Destructeur
@@ -112,7 +117,7 @@ class ZoneTexte :
 		 class UneScene : public Scene
 		 {
 		 	 ..
-		 	 enum Boutons
+		 	 enum Elements
 		 	 {
 		 	 	 Zone
 		 	 }
@@ -123,7 +128,7 @@ class ZoneTexte :
 		 // Constructeur d'une scène
 		 UneScene() :
 		 	 Scene(),
-		 	 zone(Boutons.Zone, 100, 100, 200, 50)
+		 	 zone(Boutons.Zone, 100, 100, 200, 50, "Une zone de texte")
 		 {
 			 ajouter(zone);
 			 enregistrerSouris(zone);

@@ -54,4 +54,4 @@ class SceneMenuSolo : public Scene
 		void surMessage(int nom, Scene::Message message);
 };
 
-#endif /* SCENEMENUSOLO_HPP_ */
+#endif /* SCENEMENUSOLO_HPP */
