@@ -69,7 +69,7 @@ class ZoneTexte :
 		/**
 		 * \brief Constructeur
 		 */
-		ZoneTexte(int nom, int x, int y, int largeur, int hauteur);
+		ZoneTexte(int nom, int x, int y, int largeur, int hauteur, std::string placeholder = "");
 
 		/**
 		 * \brief Destructeur

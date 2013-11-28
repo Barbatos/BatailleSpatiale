@@ -3,7 +3,7 @@
 #include "../Structure.hpp"
 #include "../batiments/Batiment.hpp"
 #include "TechnologieVaisseau.hpp"
-#include "TypeVaisseau.hpp"
+#include "../../../commun/enum/TypeVaisseau.hpp"
 #include <memory>
 
 class Batiment;
@@ -24,7 +24,7 @@ public:
         int _attaque,
         int _distanceMax,
         int _consommation,
-        TypeVaisseau _type = VaisseauVide
+        TypeVaisseau _type = TypeVaisseau::Inexistant
     );
 
     // Getters

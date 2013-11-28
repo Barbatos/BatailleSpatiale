@@ -1,8 +1,8 @@
 #ifndef CELLULE_HPP
 #define CELLULE_HPP
-#include "TypeCellule.hpp"
+#include "../../commun/enum/TypeCellule.hpp"
 #include "evenement/Evenement.hpp"
-#include "../structures/batiments/TypeBatiment.hpp"
+#include "../../commun/enum/TypeBatiment.hpp"
 #include "../structures/batiments/Batiment.hpp"
 #include "../structures/vaisseaux/Vaisseau.hpp"
 #include "../structures/Structure.hpp"
@@ -13,7 +13,7 @@
 class Cellule {
 
 public:
-    Cellule(EvenementPtr _evenement = 0, TypeCellule _type = CelluleVide);
+    Cellule(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
     TypeCellule getType() const;
     
     bool possedeEvenement() const;

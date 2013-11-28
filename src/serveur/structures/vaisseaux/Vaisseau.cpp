@@ -79,16 +79,16 @@ void Vaisseau::subir(Vaisseau const& attaquant)
 	switch (cAttaquant.getType())
 	{
 
-		case VaisseauChasseur:
+		case TypeVaisseau::Chasseur:
 			switch (type)
 			{
-				case VaisseauBombardier:
+				case TypeVaisseau::Bombardier:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.75);
 					break;
-				case VaisseauCroiseur:
+				case TypeVaisseau::Croiseur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() / 2);
 					break;
-				case VaisseauDestructeur:
+				case TypeVaisseau::Destructeur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() / 4);
 					break;
 				default:
@@ -97,13 +97,13 @@ void Vaisseau::subir(Vaisseau const& attaquant)
 			}
 			break;
 
-		case VaisseauChasseurLourd:
+		case TypeVaisseau::ChasseurLourd:
 			switch (type)
 			{
-				case VaisseauBombardier:
+				case TypeVaisseau::Bombardier:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 2.5);
 					break;
-				case VaisseauDestructeur:
+				case TypeVaisseau::Destructeur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() / 3);
 					break;
 				default:
@@ -112,13 +112,13 @@ void Vaisseau::subir(Vaisseau const& attaquant)
 			}
 			break;
 
-		case VaisseauCroiseur:
+		case TypeVaisseau::Croiseur:
 			switch (type)
 			{
-				case VaisseauChasseur:
+				case TypeVaisseau::Chasseur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 3);
 					break;
-				case VaisseauDestructeur:
+				case TypeVaisseau::Destructeur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() / 2);
 					break;
 				default:
@@ -127,22 +127,22 @@ void Vaisseau::subir(Vaisseau const& attaquant)
 
 			break;
 
-		case VaisseauTraqueur:
+		case TypeVaisseau::Traqueur:
 			switch (type)
 			{
-				case VaisseauLeger:
+				case TypeVaisseau::Leger:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 3);
 					break;
-				case VaisseauChasseurLourd:
+				case TypeVaisseau::ChasseurLourd:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f);
 					break;
-				case VaisseauCroiseur:
+				case TypeVaisseau::Croiseur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f);
 					break;
-				case VaisseauBombardier:
+				case TypeVaisseau::Bombardier:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f);
 					break;
-				case VaisseauDestructeur:
+				case TypeVaisseau::Destructeur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() / 1.5f);
 					break;
 				default:
@@ -151,13 +151,13 @@ void Vaisseau::subir(Vaisseau const& attaquant)
 			}
 			break;
 
-		case VaisseauDestructeur:
+		case TypeVaisseau::Destructeur:
 			switch (type)
 			{
-				case VaisseauLeger:
+				case TypeVaisseau::Leger:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 4);
 					break;
-				case VaisseauTraqueur:
+				case TypeVaisseau::Traqueur:
 					cAttaquant.setAttaque(cAttaquant.getAttaque() * 2);
 					break;
 				default:

@@ -11,6 +11,13 @@ enum class TypeVaisseau :sf::Int16 {
     Inexistant,
     Simple,
     Constructeur,
+    Bombardier,
+    Chasseur,
+    Croiseur,
+    Destructeur,
+    ChasseurLourd,
+    Traqueur,
+    Leger,
     Nombre
 };
 
