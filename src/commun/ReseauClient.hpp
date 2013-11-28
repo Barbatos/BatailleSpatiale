@@ -54,6 +54,8 @@ class ReseauClient
 
 		sf::TcpSocket& getSocket(void);
 
+		void EnvoyerPseudoServeur(string pseudo);
+
 	private:
 
 		/// La socket du client

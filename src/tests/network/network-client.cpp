@@ -34,13 +34,14 @@ void GetMessageFromServer(){
 	}
 }
 
-void RunClient(string ip, unsigned short port){
+void RunClient(string ip, unsigned short port, string pseudo){
 
 	sf::Thread clientCinThread(&WaitForInput);
 	sf::Thread fromServerThread(&GetMessageFromServer);
 
 	client = new ReseauClient();
 	client->ConnexionServeur(ip, port);
+	client->EnvoyerPseudoServeur(pseudo);
 
 	fromServerThread.launch();
 	clientCinThread.launch();
@@ -51,11 +52,12 @@ int main(){
 	unsigned short port = 1337;
 	string selection;
 	string p;
+	string pseudo = "Anonymous";
 	string ip = "localhost";
 
-	cout << "NETWORK TEST - CLIENT" << endl;
+	cout << "TEST RESEAU - CLIENT" << endl;
 
-	cout << "Which IP? (" << ip << ")" << endl;
+	cout << "Quelle IP? (" << ip << ")" << endl;
 	getline(cin, selection);
 
 	if(!selection.empty()){
@@ -64,13 +66,20 @@ int main(){
 
 	selection = "";
 
-	cout << "Which port ? (" << port << ")" << endl;
+	cout << "Quel port ? (" << port << ")" << endl;
 	getline(cin, selection);
 
 	if(!selection.empty()){
-		port = atoi(p.c_str());
+		port = atoi(selection.c_str());
 	}
 
-	cout << "Connecting to " << ip << ":" << port << endl;
-	RunClient(ip, port);
+	cout << "Quel est ton pseudo ?" << endl;
+	getline(cin, selection);
+
+	if(!selection.empty()){
+		pseudo = selection;
+	}
+
+	cout << "Connexion au serveur " << ip << ":" << port << endl;
+	RunClient(ip, port, pseudo);
 }

@@ -47,6 +47,17 @@ void ReseauClient::TraiterPaquetServeur(void){
 	cout << "serveur: " << message << endl;
 }
 
+/// Après la connexion, on dit bonjour au serveur
+/// en lui donnant notre pseudo
+void ReseauClient::EnvoyerPseudoServeur(string pseudo){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::EnvoiPseudoServeur);
+	sf::Packet paquet;
+
+	paquet << typePaquet << pseudo;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
 void ReseauClient::setActif(bool _actif){
 	actif = _actif;
 }

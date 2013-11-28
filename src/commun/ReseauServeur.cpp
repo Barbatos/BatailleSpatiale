@@ -84,6 +84,11 @@ void ReseauServeur::TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, s
 
 			break;
 
+		// Le client veut changer de pseudo
+		case TypePaquet::EnvoiPseudoServeur:
+
+			break;
+
 		default:
 			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
 			break;
