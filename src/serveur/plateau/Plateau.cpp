@@ -214,3 +214,13 @@ sf::Int16 Plateau::getTailleX() {
 sf::Int16 Plateau::getTailleY() {
     return tailleY;
 }
+
+sf::Packet& operator <<(sf::Packet& paquet, const Plateau& plateau) {
+    paquet << plateau.tailleX << plateau.tailleY;
+
+    for (sf::Int16 x = 0 ; x < plateau.tailleX ; ++x)
+        for (sf::Int16 y = 0 ; y < plateau.tailleY ; ++y)
+            paquet << plateau.cellule[x][y];
+
+    return paquet;
+}

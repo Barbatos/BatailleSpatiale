@@ -114,7 +114,7 @@ public:
 
     /**
      * \brief Retourne le chemin jusqu'à la position p
-     * 
+     *
      * \param p La position à atteindre
      * \param zoneParcourable la zone recherché par le pathfinding
      * \return Le chemin à effectuer de la première à la dernière case
@@ -142,6 +142,10 @@ private:
     sf::Int16 tailleX;
     /// La taille du plateau à la verticale
     sf::Int16 tailleY;
+
+    friend sf::Packet& operator <<(sf::Packet& paquet, const Plateau& plateau);
 };
+
+sf::Packet& operator <<(sf::Packet& paquet, const Plateau& plateau);
 
 #endif // PLATEAU_HPP
