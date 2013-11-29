@@ -1,16 +1,11 @@
 #include "Plateau.hpp"
-#include <iostream>
-#include "../commun/enum/TypePaquet.hpp"
 
 Plateau::Plateau() :
     tailleX(0), tailleY(0) {
 }
 
-Plateau::~Plateau() {
-}
-
 bool Plateau::possedeEvenement(Position p) {
-    return cellule[p.x][p.y].possedeEvenement();
+    return positionValide(p) && cellule[p.x][p.y].possedeEvenement();
 }
 
 const DetailEvenement& Plateau::getEvenement(Position p) {
@@ -18,7 +13,7 @@ const DetailEvenement& Plateau::getEvenement(Position p) {
 }
 
 bool Plateau::possedeBatiment(Position p) {
-    return cellule[p.x][p.y].possedeBatiment();
+    return positionValide(p) && cellule[p.x][p.y].possedeBatiment();
 }
 
 const DetailBatiment& Plateau::getBatiment(Position p) {
@@ -30,7 +25,19 @@ bool Plateau::possedeVaisseau(Position p) {
 }
 
 const DetailVaisseau& Plateau::getVaisseau(Position p) {
-    return cellule[p.x][p.y].getVaisseau();
+    return positionValide(p) && cellule[p.x][p.y].getVaisseau();
+}
+
+const sf::Int16& Plateau::getTailleX() const {
+    return tailleX;
+}
+
+const sf::Int16& Plateau::getTailleY() const {
+    return tailleY;
+}
+
+bool Plateau::positionValide(Position p) {
+    return p.x < tailleX && p.y < tailleY;
 }
 
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
@@ -44,12 +51,4 @@ sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
             paquet >> plateau.cellule[x][y];
 
     return paquet;
-}
-
-const sf::Int16& Plateau::getTailleX() const {
-    return tailleX;
-}
-
-const sf::Int16& Plateau::getTailleY() const {
-    return tailleY;
 }

@@ -1,42 +1,84 @@
 #ifndef PLATEAU_CLIENT_HPP
 #define PLATEAU_CLIENT_HPP
-#include <SFML/System.hpp>
-#include <SFML/Network.hpp>
 #include <vector>
-#include <list>
-#include <string>
 #include "plateau/Cellule.hpp"
-#include "Position.hpp"
-#include "Joueur.hpp"
+#include "../commun/utile/Position.hpp"
 
 /**
- * \brief Le plateau coté client
- *
- * Cette classe est l'unique classe que le client peut utiliser pour
- * intéragir avec le moteur.
- *
+ * \brief Le plateau
  */
 class Plateau {
 
 public:
     /**
-     * \brief Constructeur par défaut il créé la connexion avec le serveur
-     * C'est dans cette méthode que le plateau sera téléchargé
-     *
-     * \param adresseServeur L'adresse ip du serveur
+     * \brief Constructeur par défaut créé simplement un plateau vide
      */
     Plateau();
-    ~Plateau();
+    
+    /**
+     * \brief Informe si le plateau possède un évènement a la position p
+     * 
+     * \param p La position
+     * \return vrai si le plateau en possède un à la position p
+     */
     bool possedeEvenement(Position p);
+    
+    /**
+     * \brief Retourne l'évènement a la position p
+     * 
+     * \param p La position
+     * \return L'évènement
+     */
     const DetailEvenement& getEvenement(Position p);
+    
+    /**
+     * \brief Informe si le plateau possède un batiment a la position p
+     * 
+     * \param p La position
+     * \return vrai si le plateau en possède un à la position p
+     */
     bool possedeBatiment(Position p);
+    
+    /**
+     * \brief Retourne le batiment a la position p
+     * 
+     * \param p La position
+     * \return Le batiment
+     */
     const DetailBatiment& getBatiment(Position p);
+    
+    /**
+     * \brief Informe si le plateau possède un vaisseau a la position p
+     * 
+     * \param p La position
+     * \return vrai si le plateau en possède un à la position p
+     */
     bool possedeVaisseau(Position p);
+    
+    /**
+     * \brief Retourne le vaisseau a la position p
+     * 
+     * \param p La position
+     * \return Le vaisseau
+     */
     const DetailVaisseau& getVaisseau(Position p);
+    
+    /**
+     * \brief Getter tailleX
+     * 
+     * \return La taille horizontalement
+     */
     const sf::Int16& getTailleX() const;
+    
+    /**
+     * \brief Getter tailleY
+     * 
+     * \return La taille verticalement
+     */
     const sf::Int16& getTailleY() const;
 
 private:
+    bool positionValide(Position p);
     /// Les cellules du plateau
     std::vector<std::vector<Cellule>> cellule;
     sf::Int16 tailleX;///< Taille du plateau en X
