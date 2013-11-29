@@ -25,7 +25,7 @@ public:
      *
      * \param adresseServeur L'adresse ip du serveur
      */
-    Plateau(std::string adresseServeur = "127.0.0.1", int port = 50001);
+    Plateau();
     ~Plateau();
     bool possedeEvenement(Position p);
     const DetailEvenement& getEvenement(Position p);
@@ -33,45 +33,17 @@ public:
     const DetailBatiment& getBatiment(Position p);
     bool possedeVaisseau(Position p);
     const DetailVaisseau& getVaisseau(Position p);
-    bool deplacerVaisseau(Position depart, Position arrivee);
-    sf::Socket::Status envoyerMessageServeur(std::string message);
-    sf::Socket::Status envoyerMessagePourTous(std::string message);
-    const std::string& getNomJoueur() const;
-    const std::list<Joueur*>& getJoueurs();
-    void renommerJoueur(std::string nouveauNom);
-    const sf::Int32& getTailleX() const;
-    const sf::Int32& getTailleY() const;
+    const sf::Int16& getTailleX() const;
+    const sf::Int16& getTailleY() const;
 
 private:
-    /**
-     * \brief recupere le joueur qui possede cet id
-     *
-     * \param id l'id du joueur
-     */
-    const Joueur& getJoueur(sf::Int16 id);
-    void gererServeur();
-    void traiterPaquet(sf::Packet& paquet);
-    void actualiserJoueur(sf::Packet& paquet);
-    void supprimerJoueur(sf::Packet& paquet);
     /// Les cellules du plateau
     std::vector<std::vector<Cellule>> cellule;
-    sf::Int32 tailleX;///< Taille du plateau en X
-    sf::Int32 tailleY;///< Taille du plateau en Y
-    sf::Int32 numeroJoueur;///< Le numero du joueur sur ce client
-    std::shared_ptr<Joueur> joueur;///< Le joueur sur ce client
-    /// La liste des joueurs présents
-    std::list<Joueur*> listeJoueur;
-    /// La socket pour interagir avec le serveur
-    sf::TcpSocket socket;
-    /// Le thread de gestion des paquets du serveur
-    sf::Thread gestionServeur;
-    /// Booléen pour savoir si c'est au tour du joueur de jouer
-    bool tourJoueur;
+    sf::Int16 tailleX;///< Taille du plateau en X
+    sf::Int16 tailleY;///< Taille du plateau en Y
 
     friend sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
 };
-
-bool operator==(const Joueur& j1, const Joueur& j2);
 
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
 
