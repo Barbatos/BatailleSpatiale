@@ -26,7 +26,7 @@ public:
     bool possedeVaisseau();
     const DetailVaisseau& getVaisseau();
     void setVaisseau(Vaisseau* _vaisseau);
-    void echangerVaisseau(Cellule cellule);
+    void echangerVaisseau(Cellule& cellule);
 
     void setType(TypeCellule _type);
 
@@ -38,7 +38,7 @@ private:
     void retirerBatiment();
     void retirerVaisseau();
 
-    Vaisseau* getPointeurVaisseau();
+    VaisseauPtr& getReferenceVaisseau();
     EvenementPtr evenement;
     BatimentPtr batiment;
     VaisseauPtr vaisseau;
