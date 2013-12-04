@@ -20,8 +20,9 @@ class ReseauServeur
 		 * \brief Constructeur par défaut
 		 * 
 		 * \param port le port du serveur
+		 * \param plateau le plateau de jeu
 		 */
-		ReseauServeur(unsigned short port);
+		ReseauServeur(unsigned short port, Plateau& plateau);
 
 		/**
 		 * \brief Fonction cherchant s'il y a des clients en attente de connexion
@@ -68,8 +69,9 @@ class ReseauServeur
 		 * \param client la socket du client
 		 * \param plateau le plateau
 		 */
-		void EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau);
+		void EnvoiPlateau(sf::TcpSocket& client, Plateau& _plateau);
 
+		void setPlateau(Plateau& plateau);
 
 	private:
 
@@ -82,6 +84,7 @@ class ReseauServeur
 		/// Liste des joueurs connectés
 		vector<Joueur> joueurs;
 
+		Plateau& plateau;
 };
 
 #endif

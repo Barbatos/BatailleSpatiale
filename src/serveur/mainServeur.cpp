@@ -3,7 +3,7 @@
 int main()
 {
 	ReseauPtr serveur;
-	PlateauPtr plateau;
+	Plateau* plateau;
 	unsigned int port = 1337;
 	string msg = "";
 
@@ -16,8 +16,8 @@ int main()
 		port = atoi(msg.c_str());
 	}
 
-	serveur = ReseauPtr(new ReseauServeur(port));
-	plateau = PlateauPtr(new Plateau(100, 100));
+	plateau = new Plateau(100, 100);
+	serveur = ReseauPtr(new ReseauServeur(port, *plateau));
 
 	while(true){
 		serveur->AccepterNouveauClient();

@@ -1,6 +1,6 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short port){
+ReseauServeur::ReseauServeur(unsigned short port, Plateau& _plateau) : plateau(_plateau) {
 
 	// On écoute sur le port défini plus haut
 	if (listener.listen(port) != sf::Socket::Done){
@@ -117,14 +117,14 @@ void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-/*void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau){
+void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau){
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
 
 	paquet << typePaquet << plateau;
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
-*/
+
 
 void ReseauServeur::AccepterNouveauClient(void)
 {
@@ -156,6 +156,9 @@ void ReseauServeur::AccepterNouveauClient(void)
 
 				// On envoie un paquet de bienvenue au client
 				EnvoiUnique(*client, s);
+
+				// On envoie le plateau
+				EnvoiPlateau(*client, plateau);
 
 				cout << "[RESEAU] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 				
@@ -251,3 +254,6 @@ void ReseauServeur::AccepterNouveauClient(void)
 	}
 }
 
+void ReseauServeur::setPlateau(Plateau& _plateau){
+	plateau = _plateau;
+}
