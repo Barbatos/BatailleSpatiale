@@ -1,10 +1,4 @@
-#include "../global.hpp"
-#include "../commun/ReseauGlobal.hpp"
-#include "../commun/ReseauServeur.hpp"
-#include "plateau/Plateau.hpp"
-
-typedef std::unique_ptr<Plateau> PlateauPtr;
-typedef std::unique_ptr<ReseauServeur> ReseauPtr;
+#include "mainServeur.hpp"
 
 int main()
 {
