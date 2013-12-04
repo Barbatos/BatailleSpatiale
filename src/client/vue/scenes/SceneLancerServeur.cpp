@@ -27,7 +27,7 @@ SceneLancerServeur::SceneLancerServeur(Jeu& jeu) :
 						jeu.lireRessources().lireImage("fond.png")));
 
 
-	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur);
+	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur, "Port du serveur");
 
 	Bouton* btnserveur = new Bouton(Serveur, "Lancer le serveur", x, 3 * y, largeur,
 									hauteur);
@@ -50,19 +50,15 @@ SceneLancerServeur::~SceneLancerServeur()
 {
 }
 
-void SceneLancerServeur::surMessage(int, Scene::Message)
+void SceneLancerServeur::surMessage(int nom, Scene::Message message)
 {
-	/*switch (message)
+	switch (message)
 	{
 		case Clic:
 			switch (nom)
 			{
-				case Solo:
-					jeu.lireReseau()->ConnexionServeur(
-						ip->lireTexte(), atoi(port->lireTexte().c_str()));
-
-					if (jeu.lireReseau()->getActif())
-						jeu.changer(Scene::SceneJeu);
+				case Retour:
+					jeu.changer(Scene::SceneMenuPrincipal);
 					break;
 				default:
 					break;
@@ -72,5 +68,5 @@ void SceneLancerServeur::surMessage(int, Scene::Message)
 			break;
 		case Sort:
 			break;
-	}*/
+	}
 }
