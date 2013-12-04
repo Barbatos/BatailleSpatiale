@@ -1,10 +1,15 @@
 #include "../global.hpp"
 #include "../commun/ReseauGlobal.hpp"
 #include "../commun/ReseauServeur.hpp"
+#include "plateau/Plateau.hpp"
+
+typedef std::unique_ptr<Plateau> PlateauPtr;
+typedef std::unique_ptr<ReseauServeur> ReseauPtr;
 
 int main()
 {
-	ReseauServeur* serveur;
+	ReseauPtr serveur;
+	PlateauPtr plateau;
 	unsigned int port = 1337;
 	string msg = "";
 
@@ -17,7 +22,8 @@ int main()
 		port = atoi(msg.c_str());
 	}
 
-	serveur = new ReseauServeur(port);
+	serveur = ReseauPtr(new ReseauServeur(port));
+	plateau = PlateauPtr(new Plateau(100, 100));
 
 	while(true){
 		serveur->AccepterNouveauClient();

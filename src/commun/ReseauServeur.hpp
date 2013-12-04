@@ -24,11 +24,6 @@ class ReseauServeur
 		ReseauServeur(unsigned short port);
 
 		/**
-		 * \brief Destructeur par défaut
-		 */
-		~ReseauServeur(void);
-
-		/**
 		 * \brief Fonction cherchant s'il y a des clients en attente de connexion
 		 * et qui les accepte (ou pas). Cette fonction gère aussi les déconnexions
 		 * de clients.
