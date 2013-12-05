@@ -67,100 +67,57 @@ std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau) {
 
 }
 
-void Vaisseau::subir(Vaisseau const& attaquant) {
 
-    Vaisseau cAttaquant(attaquant);
+// il faut équilibrer les valeurs, rajouter les cas de certains types ...
+int Vaisseau::triangulaire(Vaisseau *vAttaquant) {
 
-    switch (cAttaquant.getType()) {
+    switch (vAttaquant->getType()) {
 
-    case TypeVaisseau::Chasseur:
-        switch (type) {
-        case TypeVaisseau::Bombardier:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.75);
-            break;
-        case TypeVaisseau::Croiseur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() / 2);
-            break;
-        case TypeVaisseau::Destructeur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() / 4);
-            break;
-        default:
-            break;
-
-        }
-        break;
-
-    case TypeVaisseau::ChasseurLourd:
-        switch (type) {
-        case TypeVaisseau::Bombardier:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 2.5);
-            break;
-        case TypeVaisseau::Destructeur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() / 3);
-            break;
-        default:
-            break;
-
-        }
-        break;
-
-    case TypeVaisseau::Croiseur:
-        switch (type) {
         case TypeVaisseau::Chasseur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 3);
-            break;
-        case TypeVaisseau::Destructeur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() / 2);
-            break;
-        default:
-            break;
-        }
+            switch (type) {
+                case TypeVaisseau::Bombardier:  return 2;   break;
+                case TypeVaisseau::Croiseur:    return 10;  break;
+                case TypeVaisseau::Destructeur: return 80;  break;
+                default:                                    break;
+        } break;
 
-        break;
-
-    case TypeVaisseau::Traqueur:
-        switch (type) {
-        case TypeVaisseau::Leger:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 3);
-            break;
         case TypeVaisseau::ChasseurLourd:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f);
-            break;
+            switch (type) {
+                case TypeVaisseau::Bombardier:  return 2;   break;
+                case TypeVaisseau::Croiseur:    return 10;  break;
+                case TypeVaisseau::Destructeur: return 80;  break;
+                default:                                    break;
+        } break;
+
         case TypeVaisseau::Croiseur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f);
-            break;
-        case TypeVaisseau::Bombardier:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 1.5f);
-            break;
-        case TypeVaisseau::Destructeur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() / 1.5f);
-            break;
-        default:
-            break;
+            switch (type) {
+                case TypeVaisseau::Bombardier:  return 2;   break;
+                case TypeVaisseau::Croiseur:    return 10;  break;
+                case TypeVaisseau::Destructeur: return 80;  break;
+                default:                                    break;
+        } break;
 
-        }
-        break;
-
-    case TypeVaisseau::Destructeur:
-        switch (type) {
-        case TypeVaisseau::Leger:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 4);
-            break;
         case TypeVaisseau::Traqueur:
-            cAttaquant.setAttaque(cAttaquant.getAttaque() * 2);
-            break;
+            switch (type) {
+                case TypeVaisseau::Bombardier:  return 2;   break;
+                case TypeVaisseau::Croiseur:    return 10;  break;
+                case TypeVaisseau::Destructeur: return 80;  break;
+                default:                                    break;
+        } break;
+
+        case TypeVaisseau::Destructeur:
+            switch (type) {
+                case TypeVaisseau::Bombardier:  return 2;   break;
+                case TypeVaisseau::Croiseur:    return 10;  break;
+                case TypeVaisseau::Destructeur: return 80;  break;
+                default:                                    break;
+        } break;
+
         default:
             break;
-
-        }
-        break;
-
-    default:
-        break;
     }
 
-    Structure::subir(cAttaquant);
-
+    return 1;
 }
 
 /*

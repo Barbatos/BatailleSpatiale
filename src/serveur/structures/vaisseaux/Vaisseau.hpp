@@ -37,8 +37,7 @@ public:
 
     void modifierEnergie(sf::Int16 const valeur);
     static Vaisseau cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
-    void subir(Vaisseau const& attaquant);
-    void subir(Batiment const& attaquant);
+    int triangulaire(Vaisseau *attaquant);
     void afficher(std::ostream& fluxSortant) const;
 
 protected:
