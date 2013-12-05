@@ -1,92 +1,54 @@
-/*
- * Plateau.cpp
- *
- *  Created on: 11 nov. 2013
- *      Author: Soinou
- */
-
 #include "Plateau.hpp"
 
 Plateau::Plateau() :
-		xVaisseau(0),
-		yVaisseau(0)
-{
-
+    tailleX(0), tailleY(0) {
 }
 
-Plateau::~Plateau()
-{
+bool Plateau::possedeEvenement(Position p) {
+    return positionValide(p) && cellule[p.x][p.y].possedeEvenement();
 }
 
-bool Plateau::possedeBatiment(Position)
-{
-	return false;
+const DetailEvenement& Plateau::getEvenement(Position p) {
+    return cellule[p.x][p.y].getEvenement();
 }
 
-bool Plateau::possedeVaisseau(Position p)
-{
-	if (p.x == xVaisseau && p.y == yVaisseau)
-		return true;
-	else
-		return false;
+bool Plateau::possedeBatiment(Position p) {
+    return positionValide(p) && cellule[p.x][p.y].possedeBatiment();
 }
 
-bool Plateau::possedeEvenement(Position)
-{
-	return false;
+const DetailBatiment& Plateau::getBatiment(Position p) {
+    return cellule[p.x][p.y].getBatiment();
 }
 
-DetailVaisseau Plateau::getVaisseau(Position p)
-{
-
-	if (p.x == xVaisseau && p.y == yVaisseau)
-	{
-		DetailVaisseau vaisseau = ((DetailVaisseau ) {
-					TypeVaisseau::Simple, 45, 50, 50, 100, 50, 5, 5, 9000, 42, 5 } );
-
-		return vaisseau;
-	}
-	else
-	{
-		DetailVaisseau vaisseau = ((DetailVaisseau) {
-					TypeVaisseau::Inexistant, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } );
-
-		return vaisseau;
-	}
+bool Plateau::possedeVaisseau(Position p) {
+    return positionValide(p) && cellule[p.x][p.y].possedeVaisseau();
 }
 
-DetailBatiment Plateau::getBatiment(Position)
-{
-	DetailBatiment batiment = ((DetailBatiment ) {
-				TypeBatiment::Inexistant, 0, 0, 0, 0, 0, 0, 0, 0, 0 } );
-
-	return batiment;
+const DetailVaisseau& Plateau::getVaisseau(Position p) {
+    return cellule[p.x][p.y].getVaisseau();
 }
 
-DetailEvenement Plateau::getEvenement(Position)
-{
-
-	DetailEvenement evenement = ((DetailEvenement ) {
-				TypeEvenement::Inexistant, 0, 0, 0, 0 } );
-
-	return evenement;
+const sf::Int16& Plateau::getTailleX() const {
+    return tailleX;
 }
 
-sf::Int16 Plateau::getTailleX()
-{
-	return 10;
-}
-sf::Int16 Plateau::getTailleY()
-{
-	return 10;
+const sf::Int16& Plateau::getTailleY() const {
+    return tailleY;
 }
 
-void Plateau::deplacerVaisseau(Position ancienne, Position nouvelle)
-{
-	if (ancienne.x == xVaisseau && ancienne.y == yVaisseau && nouvelle.x < getTailleX() && nouvelle
-			.y < getTailleY())
-	{
-		xVaisseau = nouvelle.x;
-		yVaisseau = nouvelle.y;
-	}
+bool Plateau::positionValide(Position p) {
+    return p.x < tailleX && p.y < tailleY;
+}
+
+sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
+
+    paquet >> plateau.tailleX >> plateau.tailleY;
+
+    plateau.cellule.resize(plateau.tailleX, std::vector<Cellule>(plateau.tailleY));
+
+    for (sf::Int16 x = 0 ; x < plateau.tailleX ; ++x)
+        for (sf::Int16 y = 0 ; y < plateau.tailleY ; ++y)
+            paquet >> plateau.cellule[x][y];
+
+    return paquet;
 }

@@ -1,9 +1,9 @@
 #ifndef CELLULE_HPP
 #define CELLULE_HPP
 #include "Evenement.hpp"
-#include "../structure/Batiment.hpp"
-#include "../structure/Vaisseau.hpp"
-#include "../../commun/enum/TypeCellule.hpp"
+#include "../structures/Batiment.hpp"
+#include "../structures/Vaisseau.hpp"
+#include "../../../commun/enum/TypeCellule.hpp"
 
 /**
  * \brief Défini une case du plateau
