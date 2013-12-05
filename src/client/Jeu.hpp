@@ -127,6 +127,8 @@ class Jeu
 		 */
 		void quitter();
 
+		void threadReseau();
+
 		/**
 		 * \brief Récupère l'affichage
 		 *

@@ -81,19 +81,27 @@ void Jeu::changer(Scene::Type nouvelleScene)
 	}
 }
 
+void Jeu::threadReseau(){
+	while(true){
+		reseau->TraiterPaquetServeur();
+		sf::sleep(sf::milliseconds(10));
+	}
+}
+
 void Jeu::lancer()
 {
 
 	sf::Event evenement;
 	sf::Time precedent;
+	sf::Thread reseauThread(&Jeu::threadReseau, this);
 	long delta;
 	long attente;
+
+	reseauThread.launch();
 
 	while (affichage.isOpen())
 	{
 		sf::Time nouveau = horloge.getElapsedTime();
-
-		reseau->TraiterPaquetServeur();
 
 		delta = (nouveau - precedent).asMilliseconds();
 
