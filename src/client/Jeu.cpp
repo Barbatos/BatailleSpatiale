@@ -81,23 +81,19 @@ void Jeu::changer(Scene::Type nouvelleScene)
 	}
 }
 
-void Jeu::threadReseau(){
-	while(true){
-		reseau->TraiterPaquetServeur();
-		sf::sleep(sf::milliseconds(10));
-	}
+void Jeu::connexionServeur(string ip, unsigned short port){
+	reseau->setIp(ip);
+	reseau->setPort(port);
 }
 
 void Jeu::lancer()
 {
-
 	sf::Event evenement;
 	sf::Time precedent;
-	sf::Thread reseauThread(&Jeu::threadReseau, this);
 	long delta;
 	long attente;
 
-	reseauThread.launch();
+	reseau->lancerReseau();
 
 	while (affichage.isOpen())
 	{
@@ -129,6 +125,8 @@ void Jeu::lancer()
 		if (attente > 0)
 			sf::sleep(sf::milliseconds(attente));
 	}
+
+	reseau->fermerReseau();
 }
 
 void Jeu::quitter()

@@ -127,7 +127,7 @@ class Jeu
 		 */
 		void quitter();
 
-		void threadReseau();
+		void connexionServeur(string ip, unsigned short port);
 
 		/**
 		 * \brief Récupère l'affichage

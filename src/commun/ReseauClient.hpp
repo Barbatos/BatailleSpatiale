@@ -54,7 +54,17 @@ class ReseauClient
 
 		sf::TcpSocket& getSocket(void);
 
+		void setIp(string _ip);
+
+		void setPort(unsigned short _port);
+
 		void EnvoyerPseudoServeur(string pseudo);
+
+		void threadReseau();
+
+		void lancerReseau();
+
+		void fermerReseau();
 
 	private:
 
@@ -63,6 +73,12 @@ class ReseauClient
 
 		/// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
 		bool actif;
+
+		sf::Thread reseauThread;
+
+		string ip;
+
+		unsigned short port;
 };
 
 #endif
