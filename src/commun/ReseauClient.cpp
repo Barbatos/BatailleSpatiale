@@ -1,6 +1,6 @@
 #include "ReseauClient.hpp"
 
-ReseauClient::ReseauClient(void){
+ReseauClient::ReseauClient() : reseauThread(&ReseauClient::threadReseau, this), ip("none"), port(0) {
 	setActif(false);
 }
 
@@ -71,6 +71,38 @@ bool ReseauClient::getActif(void){
 	return actif;
 }
 
+void ReseauClient::setIp(string _ip){
+	ip = _ip;
+}
+
+void ReseauClient::setPort(unsigned short _port){
+	port = _port;
+}
+
 sf::TcpSocket& ReseauClient::getSocket(void){
 	return socket;
+}
+
+void ReseauClient::threadReseau(){
+	// On attend de recevoir les informations de connexion
+	while((ip == "none") || (port == 0)){
+		sf::sleep(sf::milliseconds(50));
+	}
+
+	// On se connecte au serveur
+	ConnexionServeur(ip, port);
+
+	// On écoute le réseau et on traite les paquets reçus du serveur
+	while(true){
+		TraiterPaquetServeur();
+		sf::sleep(sf::milliseconds(10));
+	}
+}
+
+void ReseauClient::lancerReseau(){
+	reseauThread.launch();
+}
+
+void ReseauClient::fermerReseau(){
+	reseauThread.terminate();
 }

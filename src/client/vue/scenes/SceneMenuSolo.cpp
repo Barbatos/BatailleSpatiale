@@ -62,6 +62,7 @@ void SceneMenuSolo::surMessage(int nom, Scene::Message message)
 			switch (nom)
 			{
 				case Solo:
+					jeu.connexionServeur(ip->lireTexte(), atoi(port->lireTexte().c_str()));
 					//jeu.lireReseau()->ConnexionServeur(
 						//ip->lireTexte(), atoi(port->lireTexte().c_str()));
 

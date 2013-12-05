@@ -1,79 +1,92 @@
-/**
- * \class Plateau Plateau.hpp "Plateau.hpp"
- *
- * \date 11/11/2013 Création
- * \author Soinou
- */
-
-#ifndef PLATEAU_HPP
-#define PLATEAU_HPP
-
-#include "DetailBatiment.hpp"
-#include "DetailVaisseau.hpp"
-#include "DetailEvenement.hpp"
+#ifndef PLATEAU_CLIENT_HPP
+#define PLATEAU_CLIENT_HPP
+#include <vector>
+#include "plateau/Cellule.hpp"
 #include "../../commun/utile/Position.hpp"
 
+/**
+ * \brief Le plateau
+ */
 class Plateau {
-private:
-    sf::Int16 xVaisseau;
-    sf::Int16 yVaisseau;
 
 public:
-    Plateau();
-    virtual ~Plateau();
-
     /**
-     * \brief Informe si la cellule a la position p possède un évènement
-     *
+     * \brief Constructeur par défaut créé simplement un plateau vide
+     */
+    Plateau();
+    
+    /**
+     * \brief Informe si le plateau possède un évènement a la position p
+     * 
      * \param p La position
-     * \return vrai si elle possède un évènement
+     * \return vrai si le plateau en possède un à la position p
      */
     bool possedeEvenement(Position p);
-
+    
     /**
-     * \brief Informe si la cellule a la position p possède un vaisseau
-     *
+     * \brief Retourne l'évènement a la position p
+     * 
      * \param p La position
-     * \return vrai si elle possède un vaisseau
+     * \return L'évènement
      */
-    bool possedeVaisseau(Position p);
-
+    const DetailEvenement& getEvenement(Position p);
+    
     /**
-     * \brief Informe si la cellule a la position p possède un batiment
-     *
+     * \brief Informe si le plateau possède un batiment a la position p
+     * 
      * \param p La position
-     * \return vrai si elle possède un batiment
+     * \return vrai si le plateau en possède un à la position p
      */
     bool possedeBatiment(Position p);
-
+    
     /**
-     * \brief Getter vaisseau
-     *
+     * \brief Retourne le batiment a la position p
+     * 
      * \param p La position
-     * \return Les détails du vaisseau
+     * \return Le batiment
      */
-    DetailVaisseau getVaisseau(Position p);
-
+    const DetailBatiment& getBatiment(Position p);
+    
     /**
-     * \brief Getter batiment
-     *
+     * \brief Informe si le plateau possède un vaisseau a la position p
+     * 
      * \param p La position
-     * \return Les détails du batiment
+     * \return vrai si le plateau en possède un à la position p
      */
-    DetailBatiment getBatiment(Position p);
-
+    bool possedeVaisseau(Position p);
+    
     /**
-     * \brief Getter évènement
-     *
+     * \brief Retourne le vaisseau a la position p
+     * 
      * \param p La position
-     * \return Les détails de l'évènement
+     * \return Le vaisseau
      */
-    DetailEvenement getEvenement(Position p);
+    const DetailVaisseau& getVaisseau(Position p);
+    
+    /**
+     * \brief Getter tailleX
+     * 
+     * \return La taille horizontalement
+     */
+    const sf::Int16& getTailleX() const;
+    
+    /**
+     * \brief Getter tailleY
+     * 
+     * \return La taille verticalement
+     */
+    const sf::Int16& getTailleY() const;
 
-    sf::Int16 getTailleX();
-    sf::Int16 getTailleY();
+private:
+    bool positionValide(Position p);
+    /// Les cellules du plateau
+    std::vector<std::vector<Cellule>> cellule;
+    sf::Int16 tailleX;///< Taille du plateau en X
+    sf::Int16 tailleY;///< Taille du plateau en Y
 
-    void deplacerVaisseau(Position ancienne, Position nouvelle);
+    friend sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
 };
 
-#endif /* PLATEAU_HPP */
+sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
+
+#endif /* PLATEAU_CLIENT_HPP */
