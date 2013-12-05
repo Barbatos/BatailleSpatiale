@@ -55,7 +55,7 @@ void Cellule::retirerVaisseau() {
 }
 
 void Cellule::echangerVaisseau(Cellule& cellule){
-    std::swap(vaisseau, cellule.getReferenceVaisseau();
+    std::swap(vaisseau, cellule.getReferenceVaisseau());
 }
 
 VaisseauPtr& Cellule::getReferenceVaisseau(){
@@ -67,6 +67,10 @@ void Cellule::setType(TypeCellule _type) {
 }
 
 sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
+    sf::Int16 typeCellule;
+    paquet >> typeCellule;
+    cellule.setType(static_cast<TypeCellule>(typeCellule));
+    
     bool existeEvenement;
     paquet >> existeEvenement;
     if(existeEvenement) {
@@ -97,8 +101,5 @@ sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
         cellule.retirerBatiment();
     }
     
-    sf::Int16 typeCellule;
-    paquet >> typeCellule;
-    cellule.setType(static_cast<TypeCellule>(typeCellule));
     return paquet;
 }
