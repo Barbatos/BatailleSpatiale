@@ -172,3 +172,31 @@ sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule) {
 
     return paquet;
 }
+
+
+void Cellule::attaquer(Cellule *cCible) {
+    int degat = 0;
+
+    if (vaisseau) {
+        degat += vaisseau->getAttaque();
+        if (cCible->getVaisseau()) {
+            //to debug
+    //        degat *= vaisseau->triangulaire(cCible->getVaisseau());
+        }
+    }
+
+    if (batiment) {
+        degat += batiment->getAttaque();
+    }
+
+    if(evenement) {
+        degat *= evenement->getMultiplicateurDommage();
+    }
+
+    cCible->defendre(degat);
+}
+
+void Cellule::defendre(int degat) {
+
+
+}

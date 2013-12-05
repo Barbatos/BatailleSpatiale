@@ -51,6 +51,8 @@ public:
     void creerVaisseauTest();
     void creerVaisseauConstructeurTest();
     void creerBatimentBaseTest();
+    void attaquer(Cellule *cCible);
+    void defendre(int degat);
 
 protected:
 
