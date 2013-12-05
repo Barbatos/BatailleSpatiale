@@ -1,7 +1,7 @@
 #ifndef DETAIL_BATIMENT_HPP
 #define DETAIL_BATIMENT_HPP
 #include <SFML/System.hpp>
-#include "TypeBatiment.hpp"
+#include "../../commun/enum/TypeBatiment.hpp"
 
 /**
  * \brief Défini les différents attributs du batiment

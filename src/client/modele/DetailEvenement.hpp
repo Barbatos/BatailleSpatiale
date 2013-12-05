@@ -1,7 +1,7 @@
 #ifndef DETAIL_EVENEMENT_HPP
 #define DETAIL_EVENEMENT_HPP
 #include <SFML/System.hpp>
-#include "TypeEvenement.hpp"
+#include "../../commun/enum/TypeEvenement.hpp"
 
 /**
  * \brief Défini les différents attributs de l'évènement
