@@ -21,6 +21,7 @@ class Animation :
 		int posy;
 		int time;
 		bool add;
+		bool actualisation;
 
 	public:
 		Animation(int nom, int x, int y, int largeur, int hauteur, bool add, sf::Sprite sprite);
@@ -33,6 +34,8 @@ class Animation :
 
 		void initialiser();
 		void actualiser(float delta);
+		void stop();
+		void start();
 		void afficher(Affichage& affichage);
 };
 

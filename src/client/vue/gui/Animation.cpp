@@ -12,14 +12,14 @@
 #include <client/utile/Utile.hpp>
 #include <client/vue/Affichage.hpp>
 
-Animation::Animation(int nom, int x, int y, int largeur, int hauteur, bool add,
-	sf::Sprite sprite) :
-		Element(nom, x, y, largeur, hauteur),
-		sprite(sprite),
-		posx(0),
-		posy(0),
-		time(0),
-		add(add)
+Animation::Animation(int nom, int x, int y, int largeur, int hauteur, bool add,sf::Sprite sprite) :
+	Element(nom, x, y, largeur, hauteur),
+	sprite(sprite),
+	posx(0),
+	posy(0),
+	time(0),
+	add(add),
+	actualisation(true)
 {
 }
 
@@ -50,27 +50,40 @@ void Animation::actualiser(float delta)
 
 	if (time > 1000 / 24)
 	{
-		if ((posx * 480) < sprite.getTexture()->getSize().x - 480)
+		if(actualisation)
 		{
-			posx++;
-		}
-		else
-		{
-			if ((posy * 480) < sprite.getTexture()->getSize().y - 480)
+			if ((posx * 480) < sprite.getTexture()->getSize().x - 480)
 			{
-				posy++;
+				posx++;
 			}
 			else
 			{
-				posy = 0;
+				if ((posy * 480) < sprite.getTexture()->getSize().y - 480)
+				{
+					posy++;
+				}
+				else
+				{
+					posy = 0;
+				}
+				posx = 0;
 			}
-			posx = 0;
 		}
 
 		sprite.setTextureRect(sf::IntRect(posx * 480, posy * 480, 480, 480));
 
 		time = 0;
 	}
+}
+
+void Animation::stop()
+{
+	actualisation = false;
+}
+
+void Animation::start()
+{
+	actualisation = true;
 }
 
 void Animation::afficher(Affichage& affichage)

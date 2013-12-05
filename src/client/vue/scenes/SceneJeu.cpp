@@ -9,6 +9,7 @@
 
 #include <client/vue/gui/Image.hpp>
 #include <client/vue/gui/Bouton.hpp>
+#include <client/vue/gui/BoutonDeplacementCarte.hpp>
 #include <client/Jeu.hpp>
 
 SceneJeu::SceneJeu(Jeu& jeu) :
@@ -26,26 +27,32 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 						jeu.lireRessources().lireImage("fond.png")));
 
 	Bouton* btnpause = new Bouton(Pause, "Pause", x, y, largeur, hauteur);
-	Bouton* btndroite = new Bouton(Droite, ">",
-									jeu.lireAffichage().getSize().x - 50,
-									(jeu.lireAffichage().getSize().y - 50) / 2,
-									50, 50);
-	Bouton* btngauche = new Bouton(Gauche, "<", 0,
-									(jeu.lireAffichage().getSize().y - 50) / 2,
-									50, 50);
-	Bouton* btnhaut = new Bouton(Haut, "^",
-									(jeu.lireAffichage().getSize().x - 50) / 2,
-									0, 50, 50);
-	Bouton* btnbas = new Bouton(Bas, "V",
-								(jeu.lireAffichage().getSize().x - 50) / 2,
-								6 * (jeu.lireAffichage().getSize().y) / 7, 50,
-								50);
+	BoutonDeplacementCarte* btndroite = new BoutonDeplacementCarte(Droite,
+									jeu.lireAffichage().getSize().x - 30,
+									30,
+									30,
+									jeu.lireAffichage().getSize().y - 60);
+	BoutonDeplacementCarte* btngauche = new BoutonDeplacementCarte(Gauche,
+									0,
+									30,
+									30,
+									jeu.lireAffichage().getSize().y - 60);
+	BoutonDeplacementCarte* btnhaut = new BoutonDeplacementCarte(Haut,
+									30,
+									0,
+									jeu.lireAffichage().getSize().x - 60,
+									30);
+	BoutonDeplacementCarte* btnbas = new BoutonDeplacementCarte(Bas,
+								30,
+								jeu.lireAffichage().getSize().y - 30,
+								jeu.lireAffichage().getSize().x - 60,
+								30);
 
-	ajouter(btnpause);
 	ajouter(btndroite);
 	ajouter(btngauche);
 	ajouter(btnhaut);
 	ajouter(btnbas);
+	ajouter(btnpause);
 	ajouter(&plateau);
 
 	enregistrerSouris(btnpause);
@@ -75,16 +82,16 @@ void SceneJeu::surMessage(int nom, Scene::Message message)
 				case Plateau:
 					break;
 				case Droite:
-					plateau.bougerPlateau(10, 0);
+					plateau.bougerPlateau(3, 0);
 					break;
 				case Gauche:
-					plateau.bougerPlateau(-10, 0);
+					plateau.bougerPlateau(-3, 0);
 					break;
 				case Haut:
-					plateau.bougerPlateau(0, -10);
+					plateau.bougerPlateau(0, -3);
 					break;
 				case Bas:
-					plateau.bougerPlateau(0, 10);
+					plateau.bougerPlateau(0, 3);
 					break;
 				default:
 					break;
