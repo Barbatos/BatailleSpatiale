@@ -12,7 +12,7 @@
 #include <client/utile/Utile.hpp>
 #include <client/vue/Affichage.hpp>
 
-Animation::Animation(int nom, int x, int y, int largeur, int hauteur, bool add,sf::Sprite sprite) :
+Animation::Animation(int nom, unsigned int x, unsigned int y, int largeur, int hauteur, bool add, sf::Sprite sprite) :
 	Element(nom, x, y, largeur, hauteur),
 	sprite(sprite),
 	posx(0),
@@ -52,13 +52,13 @@ void Animation::actualiser(float delta)
 	{
 		if(actualisation)
 		{
-			if ((posx * 480) < sprite.getTexture()->getSize().x - 480)
+			if ((posx * 480) < (sprite.getTexture()->getSize().x - 480))
 			{
 				posx++;
 			}
 			else
 			{
-				if ((posy * 480) < sprite.getTexture()->getSize().y - 480)
+				if ((posy * 480) < (sprite.getTexture()->getSize().y - 480))
 				{
 					posy++;
 				}

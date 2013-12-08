@@ -17,14 +17,14 @@ class Animation :
 {
 	private:
 		sf::Sprite sprite;
-		int posx;
-		int posy;
+		unsigned int posx;
+		unsigned int posy;
 		int time;
 		bool add;
 		bool actualisation;
 
 	public:
-		Animation(int nom, int x, int y, int largeur, int hauteur, bool add, sf::Sprite sprite);
+		Animation(int nom, unsigned int x, unsigned int y, int largeur, int hauteur, bool add, sf::Sprite sprite);
 
 		virtual ~Animation();
 
