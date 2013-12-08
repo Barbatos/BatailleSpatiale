@@ -196,7 +196,7 @@ void Cellule::attaquer(Cellule *cCible) {
     cCible->defendre(degat);
 }
 
-void Cellule::defendre(int degat) {
+void Cellule::defendre(int ) {
 
 
 }
