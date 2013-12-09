@@ -25,6 +25,7 @@ Jeu::Jeu() :
 {
 	changer(Scene::SceneMenuPrincipal);
 	reseau = ReseauPtr(new ReseauClient());
+	reseauActif = false;
 }
 
 Jeu::~Jeu()
@@ -102,6 +103,11 @@ void Jeu::lancer()
 		delta = (nouveau - precedent).asMilliseconds();
 
 		precedent = nouveau;
+
+		if(reseau->getActif() && !reseauActif){
+			reseauActif = true;
+			changer(Scene::SceneJeu);
+		}
 
 		while (affichage.pollEvent(evenement))
 		{

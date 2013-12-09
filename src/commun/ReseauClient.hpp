@@ -4,6 +4,7 @@
 #include "../global.hpp"
 #include "ReseauGlobal.hpp"
 #include "enum/TypePaquet.hpp"
+#include "../client/modele/Plateau.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à

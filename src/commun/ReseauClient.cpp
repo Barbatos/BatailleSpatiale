@@ -34,8 +34,9 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 
 void ReseauClient::TraiterPaquetServeur(void){
 	sf::Uint16 	typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
-	string 		message;
 	sf::Packet 	paquet;
+	string 		message;
+	Plateau 	plateau;
 
 	if(!getActif()){
 		return;
@@ -47,9 +48,23 @@ void ReseauClient::TraiterPaquetServeur(void){
 		return;
 	}
 
-	paquet >> typePaquet >> message;
+	paquet >> typePaquet;
 
-	cout << "serveur: " << message << endl;
+	switch(static_cast<TypePaquet>(typePaquet)){
+
+		case TypePaquet::Plateau:
+
+			paquet >> plateau;
+			cout << "taille x: " << plateau.getTailleX() << endl;
+			cout << "taille y: " << plateau.getTailleY() << endl;
+			break;
+
+		case TypePaquet::MessageEchoServeur:
+		default:
+			paquet >> typePaquet >> message;
+			cout << "serveur: " << message << endl;
+			break;
+	}
 }
 
 /// Après la connexion, on dit bonjour au serveur

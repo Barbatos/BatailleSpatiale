@@ -89,6 +89,8 @@ class Jeu
 		 */
 		ReseauPtr reseau;
 
+		bool reseauActif;
+
 	public:
 		/**
 		 * \brief Constructeur

@@ -14,7 +14,7 @@
 
 SceneJeu::SceneJeu(Jeu& jeu) :
 		Scene(jeu),
-		plateau(Plateau, 640, 0, 640, 376)
+		plateau(Plateau, 0, 0, 640, 376)
 {
 	float largeur = 300 / 2;
 	float hauteur = 86 / 2;
