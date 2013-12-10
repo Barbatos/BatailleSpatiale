@@ -56,14 +56,11 @@ void ReseauClient::TraiterPaquetServeur(void){
 		case TypePaquet::Plateau:
 
 			paquet >> plateau;
-			cout << "taille x: " << plateau.getTailleX() << endl;
-			cout << "taille y: " << plateau.getTailleY() << endl;
 			break;
 
 		case TypePaquet::MessageEchoServeur:
 		default:
 			paquet >> typePaquet >> message;
-			cout << "serveur: " << message << endl;
 			break;
 	}
 }
