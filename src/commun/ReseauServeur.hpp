@@ -25,11 +25,10 @@ class ReseauServeur
 		ReseauServeur(unsigned short port, Plateau& plateau);
 
 		/**
-		 * \brief Fonction cherchant s'il y a des clients en attente de connexion
-		 * et qui les accepte (ou pas). Cette fonction gère aussi les déconnexions
-		 * de clients.
+		 * \brief Fonction gérant les paquets envoyés au serveur par des 
+		 * clients extérieurs.
 		 */
-		void AccepterNouveauClient(void);
+		void EcouterReseau(void);
 
 		/**
 		 * \brief Fonction permettant de traiter un paquet reçu d'un client

@@ -20,7 +20,7 @@ int main()
 	serveur = ReseauPtr(new ReseauServeur(port, *plateau));
 
 	while(true){
-		serveur->AccepterNouveauClient();
+		serveur->EcouterReseau();
 		sf::sleep(sf::milliseconds(50));
 	}
 

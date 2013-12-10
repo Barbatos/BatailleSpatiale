@@ -126,7 +126,7 @@ void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau){
 }
 
 
-void ReseauServeur::AccepterNouveauClient(void)
+void ReseauServeur::EcouterReseau(void)
 {
 	// On attend qu'il se passe quelque chose sur le réseau
 	if (selector.wait()){
@@ -257,3 +257,4 @@ void ReseauServeur::AccepterNouveauClient(void)
 void ReseauServeur::setPlateau(Plateau& _plateau){
 	plateau = _plateau;
 }
+
