@@ -81,8 +81,6 @@ void AffichagePlateau::actualiser(float delta)
 	// On actualise l'affichage des détails
 	details->actualiser(delta);
 
-	cout << "gettaillex:" << parent->lireJeu().lirePlateau().getTailleX() << endl;
-	
 	// Pour toutes les cases
 	for (std::vector<AffichageCasePtr>::size_type i = 0; i < cases.size(); i++)
 	{
