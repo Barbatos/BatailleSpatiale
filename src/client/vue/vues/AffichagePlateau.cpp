@@ -50,6 +50,8 @@ void AffichagePlateau::initialiser()
 	int taille = 25;
 	int k = 0;
 
+	cout << "gettaillex:" << parent->lireJeu().lirePlateau().getTailleX() << endl;
+
 	for (int i = 0; i < parent->lireJeu().lirePlateau().getTailleX(); i++)
 		for (int j = 0; j < parent->lireJeu().lirePlateau().getTailleY(); j++)
 		{

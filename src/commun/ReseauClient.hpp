@@ -18,7 +18,7 @@ class ReseauClient
 		 * \brief Constructeur par défaut
 		 * 
 		 */
-		ReseauClient(void);
+		ReseauClient(Plateau& _plateau);
 
 		/**
 		 * \brief Destructeur par défaut
@@ -80,6 +80,8 @@ class ReseauClient
 		string ip;
 
 		unsigned short port;
+
+		Plateau& plateau;
 };
 
 #endif

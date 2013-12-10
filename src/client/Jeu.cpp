@@ -24,7 +24,7 @@ Jeu::Jeu() :
 		reseau(nullptr)
 {
 	changer(Scene::SceneMenuPrincipal);
-	reseau = ReseauPtr(new ReseauClient());
+	reseau = ReseauPtr(new ReseauClient(modele));
 	reseauActif = false;
 }
 

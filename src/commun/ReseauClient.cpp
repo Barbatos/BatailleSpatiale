@@ -1,6 +1,8 @@
 #include "ReseauClient.hpp"
 
-ReseauClient::ReseauClient() : reseauThread(&ReseauClient::threadReseau, this), ip("none"), port(0) {
+ReseauClient::ReseauClient(Plateau& _plateau) : 
+	reseauThread(&ReseauClient::threadReseau, this), ip("none"), port(0), plateau(_plateau) 
+{
 	setActif(false);
 }
 
@@ -36,7 +38,6 @@ void ReseauClient::TraiterPaquetServeur(void){
 	sf::Uint16 	typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 	sf::Packet 	paquet;
 	string 		message;
-	Plateau 	plateau;
 
 	if(!getActif()){
 		return;
