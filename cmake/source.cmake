@@ -32,13 +32,13 @@ FILE(GLOB_RECURSE CLIENT_SRC
 # Sources du serveur
 FILE(GLOB_RECURSE SERVEUR_SRC
     "src/serveur/*.[ch]pp"
-    "src/commun/ReseauServeur.cpp"
-    "src/commun/ReseauServeur.hpp"
 )
 
 # Sources communes
 FILE(GLOB_RECURSE COMMUN_SRC
     "src/commun/ReseauGlobal.[ch]pp"
+    "src/commun/ReseauServeur.cpp"
+    "src/commun/ReseauServeur.hpp"
     "src/commun/enum/*.[ch]pp"
     "src/commun/utile/*.[ch]pp"
 )
