@@ -181,7 +181,7 @@ void Cellule::attaquer(Cellule *cCible) {
         degat += vaisseau->getAttaque();
         if (cCible->getVaisseau()) {
             //to debug
-    //        degat *= vaisseau->triangulaire(cCible->getVaisseau());
+           degat *= vaisseau->triangulaire(cCible->getVaisseau());
         }
     }
 

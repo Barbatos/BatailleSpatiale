@@ -7,6 +7,10 @@
 #include <memory>
 
 class Batiment;
+class Vaisseau;
+
+typedef std::shared_ptr<Vaisseau> VaisseauPtr;
+
 
 /*
 * Classe qui définit les differents attributs
@@ -37,7 +41,7 @@ public:
 
     void modifierEnergie(sf::Int16 const valeur);
     static Vaisseau cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
-    int triangulaire(Vaisseau *attaquant);
+    int triangulaire(VaisseauPtr vAttaquant);
     void afficher(std::ostream& fluxSortant) const;
 
 protected:
@@ -52,8 +56,5 @@ private:
 };
 
 sf::Packet& operator <<(sf::Packet& paquet, const Vaisseau& vaisseau);
-
-typedef std::shared_ptr<Vaisseau> VaisseauPtr;
-
 
 #endif // VAISSEAU_HPP

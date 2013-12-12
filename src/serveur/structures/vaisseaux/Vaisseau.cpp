@@ -69,7 +69,7 @@ std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau) {
 
 
 // il faut équilibrer les valeurs, rajouter les cas de certains types ...
-int Vaisseau::triangulaire(Vaisseau *vAttaquant) {
+int Vaisseau::triangulaire(VaisseauPtr vAttaquant) {
 
     switch (vAttaquant->getType()) {
 
