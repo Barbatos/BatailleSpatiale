@@ -32,20 +32,20 @@ FILE(GLOB_RECURSE CLIENT_SRC
 # Sources du serveur
 FILE(GLOB_RECURSE SERVEUR_SRC
     "src/serveur/*.[ch]pp"
+    "src/commun/ReseauServeur.cpp"
+    "src/commun/ReseauServeur.hpp"
 )
 
 # Sources communes
 FILE(GLOB_RECURSE COMMUN_SRC
     "src/commun/ReseauGlobal.[ch]pp"
-    "src/commun/ReseauServeur.cpp"
-    "src/commun/ReseauServeur.hpp"
     "src/commun/enum/*.[ch]pp"
     "src/commun/utile/*.[ch]pp"
 )
 
 # Ajout de l'éxecutable client
 IF(COMPILER_CLIENT)
-    ADD_EXECUTABLE(${EXE_CLIENT} ${COMMUN_SRC} ${CLIENT_SRC})
+    ADD_EXECUTABLE(${EXE_CLIENT} ${COMMUN_SRC} ${CLIENT_SRC} ${SERVEUR_SRC})
     TARGET_LINK_LIBRARIES(${EXE_CLIENT} ${SFML_LIBRARIES})
 ENDIF()
 
