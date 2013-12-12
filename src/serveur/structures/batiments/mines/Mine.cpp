@@ -1,6 +1,6 @@
 #include "Mine.hpp"
 
-Mine::Mine() : Batiment(){
+Mine::Mine() : BatimentServeur(){
     production = 0;
 
 }

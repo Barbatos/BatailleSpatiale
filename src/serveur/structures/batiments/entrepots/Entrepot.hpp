@@ -1,12 +1,12 @@
 #ifndef ENTREPOT_HPP
 #define ENTREPOT_HPP
 
-#include "../Batiment.hpp"
+#include "../BatimentServeur.hpp"
 /*
  * Classe qui définit les differents attributs
  * que possèdent les batiments.
  */
-class Entrepot : public Batiment {
+class Entrepot : public BatimentServeur {
 
     public:
     Entrepot(int _energie = 0, int _energieMax = 100);

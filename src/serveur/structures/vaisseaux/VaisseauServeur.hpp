@@ -1,12 +1,12 @@
 #ifndef VAISSEAUSERVEUR_HPP
 #define VAISSEAUSERVEUR_HPP
 #include "../Structure.hpp"
-#include "../batiments/Batiment.hpp"
+#include "../batiments/BatimentServeur.hpp"
 #include "TechnologieVaisseau.hpp"
 #include "../../../commun/enum/TypeVaisseau.hpp"
 #include <memory>
 
-class Batiment;
+class BatimentServeur;
 class VaisseauServeur;
 
 typedef std::shared_ptr<VaisseauServeur> VaisseauServeurPtr;

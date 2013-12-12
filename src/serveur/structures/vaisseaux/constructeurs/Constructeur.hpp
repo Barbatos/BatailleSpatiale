@@ -2,7 +2,7 @@
 #define CONSTRUCTEUR_HPP
 
 #include "../../../../global.hpp"
-#include "../../batiments/Batiment.hpp"
+#include "../../batiments/BatimentServeur.hpp"
 
 
 
@@ -20,13 +20,13 @@ class Constructeur : public VaisseauServeur {
     void setMateriaux(int materiaux);
     int getMateriauxMax();
     void setMateriauxMax(int materiauxMax);
-    void ajouterBatiment(Batiment batiment);
+    void ajouterBatiment(BatimentServeur batiment);
     void retirerBatiment();
 
     private:
     int materiaux;
     int materiauxMax;
-    std::vector<Batiment> listeConstruction;
+    std::vector<BatimentServeur> listeConstruction;
 
 
 };

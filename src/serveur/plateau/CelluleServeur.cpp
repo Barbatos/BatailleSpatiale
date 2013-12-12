@@ -1,5 +1,5 @@
 #include "CelluleServeur.hpp"
-#include "../structures/batiments/Batiment.hpp"
+#include "../structures/batiments/BatimentServeur.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
 
 CelluleServeur::CelluleServeur(EvenementPtr _evenement, TypeCellule _type) :
@@ -131,7 +131,7 @@ void CelluleServeur::creerVaisseauConstructeurTest() {
 }
 
 void CelluleServeur::creerBatimentBaseTest() {
-    batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
+    batiment.reset(new BatimentServeur(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
 }
 
 /**
@@ -185,7 +185,7 @@ EvenementPtr CelluleServeur::getEvenement() const {
     return evenement;
 }
 
-BatimentPtr CelluleServeur::getBatiment() const {
+BatimentServeurPtr CelluleServeur::getBatiment() const {
     return batiment;
 }
 

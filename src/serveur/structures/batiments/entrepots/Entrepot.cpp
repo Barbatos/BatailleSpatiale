@@ -1,7 +1,7 @@
 #include "Entrepot.hpp"
 
 Entrepot::Entrepot(int _energie, int _energieMax):
-	Batiment::Batiment(), energie(_energie), energieMax(_energieMax) {
+	BatimentServeur::BatimentServeur(), energie(_energie), energieMax(_energieMax) {
 }
 
 /*Entrepot::Entrepot(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int niveau, int energieMax) :

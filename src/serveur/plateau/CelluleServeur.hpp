@@ -3,7 +3,7 @@
 #include "../../commun/enum/TypeCellule.hpp"
 #include "evenement/Evenement.hpp"
 #include "../../commun/enum/TypeBatiment.hpp"
-#include "../structures/batiments/Batiment.hpp"
+#include "../structures/batiments/BatimentServeur.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
 #include "../structures/Structure.hpp"
 
@@ -38,7 +38,7 @@ public:
     TypeBatiment typeBatiment() const;
     bool estAccessible() const;
     
-    BatimentPtr getBatiment() const;
+    BatimentServeurPtr getBatiment() const;
     
     EvenementPtr getEvenement() const;
     
@@ -58,7 +58,7 @@ protected:
 
 private:
     EvenementPtr evenement;
-    BatimentPtr batiment;
+    BatimentServeurPtr batiment;
     VaisseauServeurPtr vaisseau;
     TypeCellule type;
 

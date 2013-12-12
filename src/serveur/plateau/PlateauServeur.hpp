@@ -62,7 +62,7 @@ public:
      * \param p La position
      * \return Les détails du batiment
      */
-    BatimentPtr getBatiment(Position p);
+    BatimentServeurPtr getBatiment(Position p);
 
     /**
      * \brief Getter évènement

@@ -31,7 +31,7 @@ void Constructeur::setMateriauxMax(int materiauxMax){
 
 }
 
-void Constructeur::ajouterBatiment(Batiment batiment){
+void Constructeur::ajouterBatiment(BatimentServeur batiment){
     listeConstruction.push_back(batiment);
 
 

@@ -121,7 +121,7 @@ int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
 }
 
 /*
- void VaisseauServeur::subir(Batiment const& attaquant){
+ void VaisseauServeur::subir(BatimentServeur const& attaquant){
  Structure::subir(attaquant);
 
  }

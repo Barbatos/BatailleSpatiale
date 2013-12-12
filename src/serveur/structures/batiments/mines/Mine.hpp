@@ -2,14 +2,14 @@
 #define MINE_HPP
 #include <vector>
 
-#include "../Batiment.hpp"
+#include "../BatimentServeur.hpp"
 #include "../entrepots/Entrepot.hpp"
 
 /*
  * Classe qui définit les differents attributs
  * que possèdent les batiments.
  */
-class Mine : public Batiment {
+class Mine : public BatimentServeur {
 
     public:
     Mine();

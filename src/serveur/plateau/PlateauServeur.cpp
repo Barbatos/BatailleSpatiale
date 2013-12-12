@@ -26,7 +26,7 @@ VaisseauServeurPtr PlateauServeur::getVaisseau(Position p) {
     return cellule[p.x][p.y].getVaisseau();
 }
 
-BatimentPtr PlateauServeur::getBatiment(Position p) {
+BatimentServeurPtr PlateauServeur::getBatiment(Position p) {
     return cellule[p.x][p.y].getBatiment();
 }
 
