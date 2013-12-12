@@ -26,6 +26,13 @@ bool Cellule::possedeVaisseau() const {
     return vaisseau != 0;
 }
 
+/**
+ * \brief Indique si la cellule est disponible au deplacement
+ * Si un vaisseau ou un batiment est present, alors elle retourne faux.
+ * De même si un evenement est present alors on indique s'il est accessible
+ * 
+ * \return Si accessible ou non
+ */
 bool Cellule::possedeEmplacement(TypeCellule _type) const {
     if(_type == type)
         if(evenement)
@@ -36,6 +43,13 @@ bool Cellule::possedeEmplacement(TypeCellule _type) const {
         return false;
 }
 
+/**
+ * \brief Indique le type de la cellule
+ * Si un vaisseau ou un batiment est present, alors elle retourne un type correspondant.
+ * De même si un evenement est present.
+ * 
+ * \return Le type de la cellule.
+ */
 TypeCellule Cellule::statutEmplacement() const {
     if(!vaisseau && !batiment)
         if(evenement)
@@ -54,6 +68,14 @@ TypeCellule Cellule::statutEmplacement() const {
         return TypeCellule::Batiment;
 }
 
+/**
+ * \brief Indique le cout de deplacement de la cellule
+ * Si un vaisseau ou un batiment est present, alors elle retourne un grand nombre.
+ * De même si un evenement est present et inaccessible.
+ * Ainsi l'algorithme ne fera pas passer le vaisseau par cette cellule.
+ * 
+ * \return Le cout de de placement de la cellule.
+ */
 int Cellule::getCoutDeplacement() const {
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
         if(type == TypeCellule::Minerais)
@@ -87,6 +109,12 @@ int Cellule::getCoutDeplacement() const {
 
 }
 
+/**
+ * \brief Indique le type de batiment de la cellule s'il existe.
+ * Si un batiment est present, alors elle retourne le type correspondant.
+ * 
+ * \return Le type de batiment de la cellule.
+ */
 TypeBatiment Cellule::typeBatiment() const {
     if(batiment)
         return batiment->getType();
@@ -106,14 +134,11 @@ void Cellule::creerBatimentBaseTest() {
     batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
 }
 
-/*
-void Cellule::subir(Structure const& attaquant) {
-    if(vaisseau)
-        vaisseau->subir(attaquant);
-    if(batiment)
-        batiment->subir(attaquant);
-}*/
-
+/**
+ * \brief Indique la structure de la cellule
+ *
+ * \return La structure de la cellule.
+ */
 Structure Cellule::getAttaquant() {
     if(vaisseau)
         return *vaisseau;
@@ -121,6 +146,12 @@ Structure Cellule::getAttaquant() {
         return *batiment;
 }
 
+/**
+ * \brief Indique la distance maximale du vaisseau sur la cellule.
+ * S'il n'y a pas de vaisseau, alors on retourne 0.
+ *
+ * \return La distance maximale du vaisseau sur la cellule.
+ */
 int Cellule::distanceMaximale() const {
     if(vaisseau)
         return vaisseau->getDistanceMax();
