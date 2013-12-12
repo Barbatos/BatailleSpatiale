@@ -1,6 +1,6 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short port, Plateau& _plateau) : plateau(_plateau) {
+ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : plateau(_plateau) {
 
 	// On écoute sur le port défini plus haut
 	if (listener.listen(port) != sf::Socket::Done){
@@ -117,7 +117,7 @@ void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, Plateau& plateau){
+void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau){
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
 
@@ -254,7 +254,7 @@ void ReseauServeur::EcouterReseau(void)
 	}
 }
 
-void ReseauServeur::setPlateau(Plateau& _plateau){
+void ReseauServeur::setPlateau(PlateauServeur& _plateau){
 	plateau = _plateau;
 }
 

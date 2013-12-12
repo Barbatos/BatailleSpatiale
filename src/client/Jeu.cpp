@@ -10,6 +10,7 @@
 #include <iostream>
 #include <client/vue/gui/Bouton.hpp>
 #include <client/vue/vues/AffichageDetails.hpp>
+#include <serveur/plateau/PlateauServeur.hpp>
 
 #define FPS 60
 #define TEMPS_FRAME 1000/FPS
@@ -85,6 +86,15 @@ void Jeu::changer(Scene::Type nouvelleScene)
 void Jeu::connexionServeur(string ip, unsigned short port){
 	reseau->setIp(ip);
 	reseau->setPort(port);
+}
+
+void Jeu::lancerServeurGUI(unsigned int port){
+	
+	//PlateauServeur* plateau;
+	sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
+
+	//plateau = new PlateauServeur(300, 250);
+	//serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
 }
 
 void Jeu::lancer()

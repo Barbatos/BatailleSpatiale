@@ -5,7 +5,7 @@
 #include "../serveur/joueurs/Joueur.hpp"
 #include "../commun/ReseauGlobal.hpp"
 #include "../commun/enum/TypePaquet.hpp"
-#include "../serveur/plateau/Plateau.hpp"
+#include "../serveur/plateau/PlateauServeur.hpp"
 
 /**
  * Classe permettant de démarrer un serveur de jeu 
@@ -22,8 +22,7 @@ class ReseauServeur
 		 * \param port le port du serveur
 		 * \param plateau le plateau de jeu
 		 */
-		ReseauServeur(unsigned short port, Plateau& plateau);
-
+		ReseauServeur(unsigned short port, PlateauServeur& plateau);
 		/**
 		 * \brief Fonction gérant les paquets envoyés au serveur par des 
 		 * clients extérieurs.
@@ -68,9 +67,9 @@ class ReseauServeur
 		 * \param client la socket du client
 		 * \param plateau le plateau
 		 */
-		void EnvoiPlateau(sf::TcpSocket& client, Plateau& _plateau);
+		void EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
 
-		void setPlateau(Plateau& plateau);
+		void setPlateau(PlateauServeur& plateau);
 
 	private:
 
@@ -83,8 +82,10 @@ class ReseauServeur
 		/// Liste des joueurs connectés
 		vector<Joueur> joueurs;
 
-		Plateau& plateau;
+		PlateauServeur& plateau;
 };
+
+typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;
 
 #endif
 

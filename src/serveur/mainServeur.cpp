@@ -2,8 +2,8 @@
 
 int main()
 {
-	ReseauPtr serveur;
-	Plateau* plateau;
+	ReseauServeurPtr serveur;
+	PlateauServeur* plateau;
 	unsigned int port = 1337;
 	string msg = "";
 
@@ -16,8 +16,8 @@ int main()
 		port = atoi(msg.c_str());
 	}
 
-	plateau = new Plateau(300, 250);
-	serveur = ReseauPtr(new ReseauServeur(port, *plateau));
+	plateau = new PlateauServeur(300, 250);
+	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
 
 	while(true){
 		serveur->EcouterReseau();

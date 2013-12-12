@@ -12,6 +12,8 @@
 #include <client/vue/gui/Bouton.hpp>
 #include <client/Jeu.hpp>
 
+#include <commun/ReseauServeur.hpp>
+
 SceneLancerServeur::SceneLancerServeur(Jeu& jeu) :
 		Scene(jeu)
 {
@@ -60,6 +62,11 @@ void SceneLancerServeur::surMessage(int nom, Scene::Message message)
 				case Retour:
 					jeu.changer(Scene::SceneMenuPrincipal);
 					break;
+
+				case Serveur:
+					jeu.lancerServeurGUI(atoi(port->lireTexte().c_str()));
+					break;
+
 				default:
 					break;
 			}
