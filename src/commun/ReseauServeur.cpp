@@ -17,7 +17,7 @@ ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : pl
 	cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
 
-void ReseauServeur::TraiterCommandeClient(Joueur& joueur, string& commande){
+void ReseauServeur::TraiterCommandeClient(JoueurServeur& joueur, string& commande){
 	sf::TcpSocket* client = joueur.getSocket();
 
 	// On récupère la commande exécutée
@@ -48,8 +48,8 @@ void ReseauServeur::TraiterCommandeClient(Joueur& joueur, string& commande){
 	else if((cmd == "/list") || (cmd == "/clients") || (cmd == "/players") || (cmd == "/joueurs")){
 		string listeJoueurs = "Liste des joueurs connectés:\n";
 
-		for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
-			Joueur& j = *it;
+		for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+			JoueurServeur& j = *it;
 			ostringstream id;
 
 			id << j.getId();
@@ -62,7 +62,7 @@ void ReseauServeur::TraiterCommandeClient(Joueur& joueur, string& commande){
 
 }
 
-void ReseauServeur::TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, string& msg){
+void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Uint16 typePaquet, string& msg){
 
 	switch(static_cast<TypePaquet>(typePaquet)){
 
@@ -101,9 +101,9 @@ void ReseauServeur::EnvoiATous(string& message){
 
 	paquet << typePaquet << message;
 
-	for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+	for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 		// On récupère les infos du client dans la liste
-		Joueur& j = *it;
+		JoueurServeur& j = *it;
 		sf::TcpSocket* client = j.getSocket();
 		ReseauGlobal::EnvoiPaquet(*client, paquet);
 	}
@@ -139,7 +139,7 @@ void ReseauServeur::EcouterReseau(void)
 
 			// Le nouveau client a été accepté
 			if (listener.accept(*client) == sf::Socket::Done){
-				Joueur* j = new Joueur();
+				JoueurServeur* j = new JoueurServeur();
 				string msgGlobal;
 				ostringstream c;
 
@@ -184,9 +184,9 @@ void ReseauServeur::EcouterReseau(void)
 		// d'un des clients
 		else {
 			// On parcours la liste de tous les clients
-			for (vector<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+			for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
 				// On récupère les infos du client dans la liste
-				Joueur& j = *it;
+				JoueurServeur& j = *it;
 				sf::TcpSocket* client = j.getSocket();
 
 				// Si le client a envoyé un message
