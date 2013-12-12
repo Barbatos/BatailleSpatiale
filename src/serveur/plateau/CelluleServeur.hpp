@@ -4,7 +4,7 @@
 #include "evenement/Evenement.hpp"
 #include "../../commun/enum/TypeBatiment.hpp"
 #include "../structures/batiments/Batiment.hpp"
-#include "../structures/vaisseaux/Vaisseau.hpp"
+#include "../structures/vaisseaux/VaisseauServeur.hpp"
 #include "../structures/Structure.hpp"
 
 /**
@@ -43,8 +43,8 @@ public:
     EvenementPtr getEvenement() const;
     
     void retirerVaisseau();
-    void setVaisseau(VaisseauPtr _vaisseau);
-    VaisseauPtr getVaisseau() const;
+    void setVaisseau(VaisseauServeurPtr _vaisseau);
+    VaisseauServeurPtr getVaisseau() const;
     int distanceMaximale() const;
 
     //Multiple fonctions de test
@@ -59,7 +59,7 @@ protected:
 private:
     EvenementPtr evenement;
     BatimentPtr batiment;
-    VaisseauPtr vaisseau;
+    VaisseauServeurPtr vaisseau;
     TypeCellule type;
 
 };

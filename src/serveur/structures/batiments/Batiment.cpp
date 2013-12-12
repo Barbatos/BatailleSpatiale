@@ -26,8 +26,8 @@ TypeBatiment Batiment::getType() const {
     return type;
 }
 
-void Batiment::subir(Vaisseau const& attaquant) {
-    Vaisseau cAttaquant(attaquant);
+void Batiment::subir(VaisseauServeur const& attaquant) {
+    VaisseauServeur cAttaquant(attaquant);
     switch(cAttaquant.getType()) {
     case TypeVaisseau::Bombardier :
         cAttaquant.setAttaque(cAttaquant.getAttaque() * 2);

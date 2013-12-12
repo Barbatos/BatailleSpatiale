@@ -1,6 +1,6 @@
-#include "Vaisseau.hpp"
+#include "VaisseauServeur.hpp"
 
-Vaisseau::Vaisseau() :
+VaisseauServeur::VaisseauServeur() :
     Structure(),
     type(),
     distanceMax(0),
@@ -9,7 +9,7 @@ Vaisseau::Vaisseau() :
 {
 }
 
-Vaisseau::Vaisseau(sf::Int16 _vieMax, sf::Int16 _bouclierMax, float _bouclierTaux,
+VaisseauServeur::VaisseauServeur(sf::Int16 _vieMax, sf::Int16 _bouclierMax, float _bouclierTaux,
                    sf::Int16 _visibilite, sf::Int16 _attaque, sf::Int16 _distanceMax,
                    sf::Int16 _consommation, TypeVaisseau _type) :
     Structure(_vieMax, _bouclierMax, _bouclierTaux, _visibilite, _attaque),
@@ -20,17 +20,17 @@ Vaisseau::Vaisseau(sf::Int16 _vieMax, sf::Int16 _bouclierMax, float _bouclierTau
 {
 }
 
-sf::Int16 Vaisseau::getConsommation() const {
+sf::Int16 VaisseauServeur::getConsommation() const {
     return consommation;
 }
 
 // Setters
 
-void Vaisseau::setConsommation(const sf::Int16 _consommation) {
+void VaisseauServeur::setConsommation(const sf::Int16 _consommation) {
     consommation = _consommation;
 }
 
-void Vaisseau::afficher(std::ostream& fluxSortant) const {
+void VaisseauServeur::afficher(std::ostream& fluxSortant) const {
 
     fluxSortant
             << "Vie : "
@@ -60,16 +60,16 @@ void Vaisseau::afficher(std::ostream& fluxSortant) const {
 
 }
 
-std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau) {
+std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& VaisseauServeur) {
 
-    Vaisseau.afficher(fluxSortant);
+    VaisseauServeur.afficher(fluxSortant);
     return fluxSortant;
 
 }
 
 
 // il faut équilibrer les valeurs, rajouter les cas de certains types ...
-int Vaisseau::triangulaire(VaisseauPtr vAttaquant) {
+int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
 
     switch (vAttaquant->getType()) {
 
@@ -121,18 +121,18 @@ int Vaisseau::triangulaire(VaisseauPtr vAttaquant) {
 }
 
 /*
- void Vaisseau::subir(Batiment const& attaquant){
+ void VaisseauServeur::subir(Batiment const& attaquant){
  Structure::subir(attaquant);
 
  }
  */
 
-Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS,
+VaisseauServeur VaisseauServeur::cloner(VaisseauServeur const& modele, TechnologieStructure techS,
                           TechnologieVaisseau techV) {
 
     Structure base = Structure::cloner(modele, techS);
 
-    return Vaisseau(
+    return VaisseauServeur(
                base.getVieMax(),
                base.getBouclierMax(),
                base.getBouclierTaux(),
@@ -145,16 +145,16 @@ Vaisseau Vaisseau::cloner(Vaisseau const& modele, TechnologieStructure techS,
 
 }
 
-sf::Int16 Vaisseau::getDistanceMax() const {
+sf::Int16 VaisseauServeur::getDistanceMax() const {
     return distanceMax;
 }
 
-TypeVaisseau Vaisseau::getType() const {
+TypeVaisseau VaisseauServeur::getType() const {
     return type;
 }
 
 
-sf::Packet& operator <<(sf::Packet& paquet, const Vaisseau& vaisseau) {
+sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau) {
     return paquet << static_cast<sf::Uint16>(vaisseau.type) << vaisseau.attaque
            << vaisseau.vie << vaisseau.vieMax << vaisseau.visibilite
            << vaisseau.bouclier << vaisseau.bouclierMax << vaisseau.bouclierTaux

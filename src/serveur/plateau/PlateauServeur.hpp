@@ -54,7 +54,7 @@ public:
      * \param p La position
      * \return Les détails du vaisseau
      */
-    VaisseauPtr getVaisseau(Position p);
+    VaisseauServeurPtr getVaisseau(Position p);
 
     /**
      * \brief Getter batiment

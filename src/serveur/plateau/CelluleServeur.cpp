@@ -1,6 +1,6 @@
 #include "CelluleServeur.hpp"
 #include "../structures/batiments/Batiment.hpp"
-#include "../structures/vaisseaux/Vaisseau.hpp"
+#include "../structures/vaisseaux/VaisseauServeur.hpp"
 
 CelluleServeur::CelluleServeur(EvenementPtr _evenement, TypeCellule _type) :
     evenement(_evenement), type(_type) {
@@ -123,11 +123,11 @@ TypeBatiment CelluleServeur::typeBatiment() const {
 }
 
 void CelluleServeur::creerVaisseauTest() {
-    vaisseau.reset(new Vaisseau(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Simple));
+    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Simple));
 }
 
 void CelluleServeur::creerVaisseauConstructeurTest() {
-    vaisseau.reset(new Vaisseau(40, 10, 0.1f, 0, 10, 10, 25, TypeVaisseau::Constructeur));
+    vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 0, 10, 10, 25, TypeVaisseau::Constructeur));
 }
 
 void CelluleServeur::creerBatimentBaseTest() {
@@ -170,7 +170,7 @@ void CelluleServeur::retirerVaisseau() {
     vaisseau.reset();
 }
 
-VaisseauPtr CelluleServeur::getVaisseau() const {
+VaisseauServeurPtr CelluleServeur::getVaisseau() const {
     return vaisseau;
 }
 
@@ -182,7 +182,7 @@ BatimentPtr CelluleServeur::getBatiment() const {
     return batiment;
 }
 
-void CelluleServeur::setVaisseau(VaisseauPtr _vaisseau) {
+void CelluleServeur::setVaisseau(VaisseauServeurPtr _vaisseau) {
     vaisseau = _vaisseau;
 }
 

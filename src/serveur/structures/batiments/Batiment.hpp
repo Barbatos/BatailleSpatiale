@@ -1,10 +1,10 @@
 #ifndef BATIMENT_HPP
 #define BATIMENT_HPP
-#include "../vaisseaux/Vaisseau.hpp"
+#include "../vaisseaux/VaisseauServeur.hpp"
 #include "../../../commun/enum/TypeBatiment.hpp"
 #include <memory>
 
-class Vaisseau;
+class VaisseauServeur;
 
 /*
 * Classe qui définit les differents attributs
@@ -19,7 +19,7 @@ public:
     TypeBatiment getType() const;
     sf::Int16 getNiveau();
     void setNiveau(sf::Int16 niveau);
-    void subir(Vaisseau const& attaquant);
+    void subir(VaisseauServeur const& attaquant);
     void subir(Batiment const& attaquant);
 
 protected:

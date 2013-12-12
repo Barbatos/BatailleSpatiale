@@ -1,5 +1,5 @@
-#ifndef VAISSEAU_HPP
-#define VAISSEAU_HPP
+#ifndef VAISSEAUSERVEUR_HPP
+#define VAISSEAUSERVEUR_HPP
 #include "../Structure.hpp"
 #include "../batiments/Batiment.hpp"
 #include "TechnologieVaisseau.hpp"
@@ -7,20 +7,20 @@
 #include <memory>
 
 class Batiment;
-class Vaisseau;
+class VaisseauServeur;
 
-typedef std::shared_ptr<Vaisseau> VaisseauPtr;
+typedef std::shared_ptr<VaisseauServeur> VaisseauServeurPtr;
 
 
 /*
 * Classe qui définit les differents attributs
 * que possèdent les vaisseaux.
 */
-class Vaisseau : public Structure {
+class VaisseauServeur : public Structure {
 
 public:
-    Vaisseau();
-    Vaisseau(
+    VaisseauServeur();
+    VaisseauServeur(
         sf::Int16 _vieMax,
         sf::Int16 _bouclierMax,
         float _bouclierTaux,
@@ -40,8 +40,8 @@ public:
     void setConsommation(const sf::Int16 _consommation);
 
     void modifierEnergie(sf::Int16 const valeur);
-    static Vaisseau cloner(Vaisseau const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
-    int triangulaire(VaisseauPtr vAttaquant);
+    static VaisseauServeur cloner(VaisseauServeur const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
+    int triangulaire(VaisseauServeurPtr vAttaquant);
     void afficher(std::ostream& fluxSortant) const;
 
 protected:
@@ -51,10 +51,10 @@ private:
     sf::Int16 distanceMax;
     sf::Int16 consommation;
     
-    friend std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau);
-    friend sf::Packet& operator <<(sf::Packet& paquet, const Vaisseau& vaisseau);
+    friend std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& VaisseauServeur);
+    friend sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau);
 };
 
-sf::Packet& operator <<(sf::Packet& paquet, const Vaisseau& vaisseau);
+sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau);
 
-#endif // VAISSEAU_HPP
+#endif // VAISSEAUSERVEUR_HPP

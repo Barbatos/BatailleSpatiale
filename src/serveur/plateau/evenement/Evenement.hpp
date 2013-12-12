@@ -5,7 +5,7 @@
 #include <SFML/System.hpp>
 #include "../../../commun/enum/TypeEvenement.hpp"
 #include "../../structures/batiments/Batiment.hpp"
-#include "../../structures/vaisseaux/Vaisseau.hpp"
+#include "../../structures/vaisseaux/VaisseauServeur.hpp"
 /*
  * Classe qui permet d'affecter les vaisseaux
  * selon certains paramêtres
@@ -17,8 +17,8 @@ public:
     //Setters
     virtual void activer(Batiment*) {}
     virtual void desactiver(Batiment*) {}
-    virtual void activer(Vaisseau*) {}
-    virtual void desactiver(Vaisseau*) {}
+    virtual void activer(VaisseauServeur*) {}
+    virtual void desactiver(VaisseauServeur*) {}
     TypeEvenement quelType();
     //Getters
     bool estDestructible();

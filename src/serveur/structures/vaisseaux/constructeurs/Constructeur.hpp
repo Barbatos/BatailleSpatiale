@@ -10,7 +10,7 @@
  * Classe qui définit les differents attributs
  * que possèdent les constructeurs.
  */
-class Constructeur : public Vaisseau {
+class Constructeur : public VaisseauServeur {
 
     public:
     Constructeur();
@@ -31,7 +31,7 @@ class Constructeur : public Vaisseau {
 
 };
 
-std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau);
+std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& VaisseauServeur);
 
 #endif // CONSTRUCTEUR_HPP
 

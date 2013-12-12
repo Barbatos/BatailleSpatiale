@@ -22,7 +22,7 @@ bool PlateauServeur::possedeEvenement(Position p) {
     return cellule[p.x][p.y].possedeEvenement();
 }
 
-VaisseauPtr PlateauServeur::getVaisseau(Position p) {
+VaisseauServeurPtr PlateauServeur::getVaisseau(Position p) {
     return cellule[p.x][p.y].getVaisseau();
 }
 
