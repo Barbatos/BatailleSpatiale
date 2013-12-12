@@ -4,7 +4,7 @@
 #include <list>
 #include "CelluleServeur.hpp"
 #include "NoeudServeur.hpp"
-#include "../joueurs/Joueur.hpp"
+#include "../joueurs/JoueurServeur.hpp"
 #include "../../commun/utile/Position.hpp"
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>

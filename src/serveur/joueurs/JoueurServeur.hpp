@@ -1,18 +1,18 @@
-#ifndef _JOUEUR_HPP_
-#define _JOUEUR_HPP_
+#ifndef _JOUEURSERVEUR_HPP_
+#define _JOUEURSERVEUR_HPP_
 
 #include "../../global.hpp"
 
 /**
  * Classe permettant de gérer les joueurs.
  */
-class Joueur {
+class JoueurServeur {
 	public:
 		/**
 		 * \brief Constructeur par défaut
 		 * 
 		 */
-		Joueur(void);
+		JoueurServeur(void);
 
 		/**
 		 * \brief Récupération de la socket réseau du joueur

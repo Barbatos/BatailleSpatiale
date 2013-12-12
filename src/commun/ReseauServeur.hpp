@@ -2,7 +2,7 @@
 #define _RESEAU_SERVER_H_
 
 #include "../global.hpp"
-#include "../serveur/joueurs/Joueur.hpp"
+#include "../serveur/joueurs/JoueurServeur.hpp"
 #include "../commun/ReseauGlobal.hpp"
 #include "../commun/enum/TypePaquet.hpp"
 #include "../serveur/plateau/PlateauServeur.hpp"
@@ -36,7 +36,7 @@ class ReseauServeur
 		 * \param typePaquet le type de paquet reçu
 		 * \param msg le contenu du paquet
 		 */
-		void TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, string& msg);
+		void TraiterPaquetClient(JoueurServeur& joueur, sf::Uint16 typePaquet, string& msg);
 
 		/**
 		 * \brief Fonction traitant une commande client commençant par un tiret /
@@ -44,7 +44,7 @@ class ReseauServeur
 		 * \param joueur le joueur ayant effectué la commande
 		 * \param commande la commande envoyée par le joueur
 		 */
-		void TraiterCommandeClient(Joueur& joueur, string& commande);
+		void TraiterCommandeClient(JoueurServeur& joueur, string& commande);
 
 		/**
 		 * \brief Envoi d'un message par le serveur à tous les clients
@@ -80,7 +80,7 @@ class ReseauServeur
 		sf::SocketSelector selector;
 
 		/// Liste des joueurs connectés
-		vector<Joueur> joueurs;
+		vector<JoueurServeur> joueurs;
 
 		PlateauServeur& plateau;
 };
