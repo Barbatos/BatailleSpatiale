@@ -180,7 +180,6 @@ void Cellule::attaquer(Cellule *cCible) {
     if (vaisseau) {
         degat += vaisseau->getAttaque();
         if (cCible->getVaisseau()) {
-            //to debug
            degat *= vaisseau->triangulaire(cCible->getVaisseau());
         }
     }
@@ -196,7 +195,29 @@ void Cellule::attaquer(Cellule *cCible) {
     cCible->defendre(degat);
 }
 
-void Cellule::defendre(int ) {
+/*
+ * La méthode applique les dégats à la cellule, en calculant la part des evenements et du bouclier.
+ */
+void Cellule::defendre(int degat) {
+    int degatBouclier;
+    int degatStructure;
 
+    if(evenement) {
+        degat *= evenement->getMultiplicateurDegat();
+    }
+
+    if (vaisseau) {
+        degatBouclier = degat - vaisseau->getBouclierTaux() * degat;
+        degatStructure = degat - degatBouclier;
+        vaisseau->setBouclier(vaisseau->getBouclier() - degatBouclier);
+        vaisseau->setVie(vaisseau->getVie() - degatStructure);
+    }
+
+    if (batiment) {
+        degatBouclier = degat - batiment->getBouclierTaux() * degat;
+        degatStructure = degat - degatBouclier;
+        batiment->setBouclier(batiment->getBouclier() - degatBouclier);
+        batiment->setVie(batiment->getVie() - degatStructure);
+    }
 
 }
