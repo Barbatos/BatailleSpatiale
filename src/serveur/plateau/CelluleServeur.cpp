@@ -159,6 +159,13 @@ int CelluleServeur::distanceMaximale() const {
         return 0;
 }
 
+/**
+ * \brief Indique si la cellule est accessible
+ * S'il n'ya ni vaisseau ni batiment, la cellule est accesible
+ * S'il y a un evenement, il peut laisser la cellule accesible
+ * 
+ * \return True pour accessible, False sinon.
+ */
 bool CelluleServeur::estAccessible() const {
     if(evenement)
         return (evenement->estAccessible() && !vaisseau && !batiment);
@@ -205,6 +212,15 @@ sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
 }
 
 
+/**
+ * \brief Attaque une cellule cible.
+ * Les degats sont calculés selon : 
+ * - une base qui provient de la structure attaquante sur la cellule.
+ * - un coefficient multiplicateur par l'evement, s'il existe.
+ * - un coefficient en fonction du type d'attaque par rapport à la cible. 
+ * 
+ * Ensuite, on appelle defendre qui va faire les modifications sur les parametres de la cible.
+ */
 void CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
 
@@ -226,8 +242,11 @@ void CelluleServeur::attaquer(CelluleServeur *cCible) {
     cCible->defendre(degat);
 }
 
-/*
- * La méthode applique les dégats à la cellule, en calculant la part des evenements et du bouclier.
+/**
+ * \brief Inflige les degats a la structure de la cellule.
+ * Les degats sont calculés selon : 
+ * - une base qui provient de la cellule attaquante.
+ * - un coefficient multiplicateur par l'evement, s'il existe.
  */
 void CelluleServeur::defendre(int degat) {
     int degatBouclier;
