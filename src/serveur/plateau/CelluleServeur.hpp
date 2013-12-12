@@ -1,5 +1,5 @@
-#ifndef CELLULE_HPP
-#define CELLULE_HPP
+#ifndef CELLULESERVEUR_HPP
+#define CELLULESERVEUR_HPP
 #include "../../commun/enum/TypeCellule.hpp"
 #include "evenement/Evenement.hpp"
 #include "../../commun/enum/TypeBatiment.hpp"
@@ -10,10 +10,10 @@
 /**
  * Cette classe est une case elementaire du plateau
  */
-class Cellule {
+class CelluleServeur {
 
 public:
-    Cellule(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
+    CelluleServeur(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
     TypeCellule getType() const;
     
     bool possedeEvenement() const;
@@ -51,7 +51,7 @@ public:
     void creerVaisseauTest();
     void creerVaisseauConstructeurTest();
     void creerBatimentBaseTest();
-    void attaquer(Cellule *cCible);
+    void attaquer(CelluleServeur *cCible);
     void defendre(int degat);
 
 protected:
@@ -64,6 +64,6 @@ private:
 
 };
 
-sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule);
+sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule);
 
-#endif // CELLULE_HPP
+#endif // CELLULESERVEUR_HPP

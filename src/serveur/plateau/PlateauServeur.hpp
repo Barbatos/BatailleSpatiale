@@ -2,8 +2,8 @@
 #define PLATEAUSERVEUR_HPP
 #include <vector>
 #include <list>
-#include "Cellule.hpp"
-#include "Noeud.hpp"
+#include "CelluleServeur.hpp"
+#include "NoeudServeur.hpp"
 #include "../joueurs/Joueur.hpp"
 #include "../../commun/utile/Position.hpp"
 #include <SFML/Network.hpp>
@@ -110,7 +110,7 @@ public:
      * \param positionVaisseau La position contenant le vaisseau
      * \return La zone parcourable
      */
-    std::list<Noeud> getZoneParcourable(Position positionVaisseau);
+    std::list<NoeudServeur> getZoneParcourable(Position positionVaisseau);
 
     /**
      * \brief Retourne le chemin jusqu'à la position p
@@ -119,7 +119,7 @@ public:
      * \param zoneParcourable la zone recherché par le pathfinding
      * \return Le chemin à effectuer de la première à la dernière case
      */
-    static std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable);
+    static std::list<Position> obtenirChemin(Position p, std::list<NoeudServeur>* zoneParcourable);
 
     /**
      * \brief Getter tailleX
@@ -137,7 +137,7 @@ public:
 
 private:
     /// Les cellules du plateau
-    std::vector<std::vector<Cellule>> cellule;
+    std::vector<std::vector<CelluleServeur>> cellule;
     /// La taille du plateau à l'horizontal
     sf::Int16 tailleX;
     /// La taille du plateau à la verticale

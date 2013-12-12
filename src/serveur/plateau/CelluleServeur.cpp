@@ -1,28 +1,28 @@
-#include "Cellule.hpp"
+#include "CelluleServeur.hpp"
 #include "../structures/batiments/Batiment.hpp"
 #include "../structures/vaisseaux/Vaisseau.hpp"
 
-Cellule::Cellule(EvenementPtr _evenement, TypeCellule _type) :
+CelluleServeur::CelluleServeur(EvenementPtr _evenement, TypeCellule _type) :
     evenement(_evenement), type(_type) {
 }
 
-TypeCellule Cellule::getType() const {
+TypeCellule CelluleServeur::getType() const {
     return type;
 }
 
-void Cellule::setType(TypeCellule _type) {
+void CelluleServeur::setType(TypeCellule _type) {
     type = _type;
 }
 
-bool Cellule::possedeEvenement() const {
+bool CelluleServeur::possedeEvenement() const {
     return evenement != 0;
 }
 
-bool Cellule::possedeBatiment() const {
+bool CelluleServeur::possedeBatiment() const {
     return batiment != 0;
 }
 
-bool Cellule::possedeVaisseau() const {
+bool CelluleServeur::possedeVaisseau() const {
     return vaisseau != 0;
 }
 
@@ -33,7 +33,7 @@ bool Cellule::possedeVaisseau() const {
  * 
  * \return Si accessible ou non
  */
-bool Cellule::possedeEmplacement(TypeCellule _type) const {
+bool CelluleServeur::possedeEmplacement(TypeCellule _type) const {
     if(_type == type)
         if(evenement)
             return evenement->estAccessible() && !batiment && !vaisseau;
@@ -50,7 +50,7 @@ bool Cellule::possedeEmplacement(TypeCellule _type) const {
  * 
  * \return Le type de la cellule.
  */
-TypeCellule Cellule::statutEmplacement() const {
+TypeCellule CelluleServeur::statutEmplacement() const {
     if(!vaisseau && !batiment)
         if(evenement)
             if(evenement->estAccessible())
@@ -76,7 +76,7 @@ TypeCellule Cellule::statutEmplacement() const {
  * 
  * \return Le cout de de placement de la cellule.
  */
-int Cellule::getCoutDeplacement() const {
+int CelluleServeur::getCoutDeplacement() const {
     if((evenement) && (evenement->getCoutDeplacement() != -1)) {
         if(type == TypeCellule::Minerais)
             if(evenement)
@@ -115,22 +115,22 @@ int Cellule::getCoutDeplacement() const {
  * 
  * \return Le type de batiment de la cellule.
  */
-TypeBatiment Cellule::typeBatiment() const {
+TypeBatiment CelluleServeur::typeBatiment() const {
     if(batiment)
         return batiment->getType();
     else
         return TypeBatiment::Inexistant;
 }
 
-void Cellule::creerVaisseauTest() {
+void CelluleServeur::creerVaisseauTest() {
     vaisseau.reset(new Vaisseau(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Simple));
 }
 
-void Cellule::creerVaisseauConstructeurTest() {
+void CelluleServeur::creerVaisseauConstructeurTest() {
     vaisseau.reset(new Vaisseau(40, 10, 0.1f, 0, 10, 10, 25, TypeVaisseau::Constructeur));
 }
 
-void Cellule::creerBatimentBaseTest() {
+void CelluleServeur::creerBatimentBaseTest() {
     batiment.reset(new Batiment(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
 }
 
@@ -139,7 +139,7 @@ void Cellule::creerBatimentBaseTest() {
  *
  * \return La structure de la cellule.
  */
-Structure Cellule::getAttaquant() {
+Structure CelluleServeur::getAttaquant() {
     if(vaisseau)
         return *vaisseau;
     else
@@ -152,41 +152,41 @@ Structure Cellule::getAttaquant() {
  *
  * \return La distance maximale du vaisseau sur la cellule.
  */
-int Cellule::distanceMaximale() const {
+int CelluleServeur::distanceMaximale() const {
     if(vaisseau)
         return vaisseau->getDistanceMax();
     else
         return 0;
 }
 
-bool Cellule::estAccessible() const {
+bool CelluleServeur::estAccessible() const {
     if(evenement)
         return (evenement->estAccessible() && !vaisseau && !batiment);
     else
         return (!vaisseau && !batiment);
 }
 
-void Cellule::retirerVaisseau() {
+void CelluleServeur::retirerVaisseau() {
     vaisseau.reset();
 }
 
-VaisseauPtr Cellule::getVaisseau() const {
+VaisseauPtr CelluleServeur::getVaisseau() const {
     return vaisseau;
 }
 
-EvenementPtr Cellule::getEvenement() const {
+EvenementPtr CelluleServeur::getEvenement() const {
     return evenement;
 }
 
-BatimentPtr Cellule::getBatiment() const {
+BatimentPtr CelluleServeur::getBatiment() const {
     return batiment;
 }
 
-void Cellule::setVaisseau(VaisseauPtr _vaisseau) {
+void CelluleServeur::setVaisseau(VaisseauPtr _vaisseau) {
     vaisseau = _vaisseau;
 }
 
-sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule) {
+sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
     paquet << static_cast<sf::Uint16>(cellule.getType());
     
     paquet << cellule.possedeEvenement();
@@ -205,7 +205,7 @@ sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule) {
 }
 
 
-void Cellule::attaquer(Cellule *cCible) {
+void CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
 
     if (vaisseau) {
@@ -229,7 +229,7 @@ void Cellule::attaquer(Cellule *cCible) {
 /*
  * La méthode applique les dégats à la cellule, en calculant la part des evenements et du bouclier.
  */
-void Cellule::defendre(int degat) {
+void CelluleServeur::defendre(int degat) {
     int degatBouclier;
     int degatStructure;
 
