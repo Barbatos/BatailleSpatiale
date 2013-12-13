@@ -89,12 +89,11 @@ void Jeu::connexionServeur(string ip, unsigned short port){
 }
 
 void Jeu::lancerServeurGUI(unsigned int port){
-	
-	//PlateauServeur* plateau;
+	PlateauServeur* plateau;
 	sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
-	//plateau = new PlateauServeur(300, 250);
-	//serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
+	plateau = new PlateauServeur(300, 250);
+	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
 }
 
 void Jeu::lancer()
