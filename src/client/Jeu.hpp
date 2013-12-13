@@ -94,6 +94,8 @@ class Jeu
 
 		ReseauServeurPtr serveur;
 
+		PlateauServeurPtr plateauServeur;
+
 	public:
 		/**
 		 * \brief Constructeur

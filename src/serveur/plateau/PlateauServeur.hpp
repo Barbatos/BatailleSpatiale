@@ -148,4 +148,6 @@ private:
 
 sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);
 
+typedef std::shared_ptr<PlateauServeur> PlateauServeurPtr;
+
 #endif // PLATEAUSERVEUR_HPP
