@@ -2,7 +2,9 @@
 #define _JOUEURSERVEUR_HPP_
 #include "../structures/TechnologieStructure.hpp"
 #include "../structures/batiments/TechnologieBatiment.hpp"
-#include "../structures/vaisseaux/TechnologieVaisseau.hpp"
+#include "../structures/batiments/BatimentServeur.hpp"
+#include "../structures/batiments/TechnologieBatiment.hpp"
+#include "../structures/vaisseaux/VaisseauServeur.hpp"
 
 #include "../../global.hpp"
 
@@ -46,12 +48,31 @@ public:
     sf::Uint16 getId(void);
 
     /**
-     * \brief
+     * \brief Recuperation des points de commandements du joueur
      *
+     * \return Les points de commandements du joueur
      */
     sf::Int16 getCommandement(void);
+
+    /**
+     * \brief Recuperation des points de réquisitions du joueur
+     *
+     * \return Les points de réquisitions du joueur
+     */
     sf::Int16 getRequisition(void);
+
+    /**
+     * \brief Recuperation de l'énergie du joueur
+     *
+     * \return L'énergie du joueur
+     */
     sf::Int32 getEnergie(void);
+
+    /**
+     * \brief Recuperation des materiaux du joueur
+     *
+     * \return Les materiaux du joueur
+     */
     sf::Int32 getMateriaux(void);
 
     /// Setters
@@ -74,6 +95,12 @@ private:
     
     /// La technologie du joueur pour les batiments
     TechnologieBatiment techB;
+    
+    /// La liste des batiments du joueurs
+    std::list<std::weak_ptr<BatimentServeur>> listeBatiments;
+    
+    /// La liste des vaisseaux du joueurs
+    std::list<std::weak_ptr<VaisseauServeur>> listeVaisseaux;
 
     /// La socket du joueur
     sf::TcpSocket* socket;
