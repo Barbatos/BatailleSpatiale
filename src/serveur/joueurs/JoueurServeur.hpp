@@ -1,5 +1,8 @@
 #ifndef _JOUEURSERVEUR_HPP_
 #define _JOUEURSERVEUR_HPP_
+#include "../structures/TechnologieStructure.hpp"
+#include "../structures/batiments/TechnologieBatiment.hpp"
+#include "../structures/vaisseaux/TechnologieVaisseau.hpp"
 
 #include "../../global.hpp"
 
@@ -7,81 +10,90 @@
  * Classe permettant de gérer les joueurs.
  */
 class JoueurServeur {
-	public:
-		/**
-		 * \brief Constructeur par défaut
-		 * 
-		 */
-		JoueurServeur(void);
+public:
+    /**
+     * \brief Constructeur par défaut
+     *
+     */
+    JoueurServeur(void);
 
-		/**
-		 * \brief Récupération de la socket réseau du joueur
-		 * 
-		 * \return un pointeur vers la socket de type sf::TcpSocket
-		 */
-		sf::TcpSocket* getSocket(void);
+    /**
+     * \brief Récupération de la socket réseau du joueur
+     *
+     * \return un pointeur vers la socket de type sf::TcpSocket
+     */
+    sf::TcpSocket* getSocket(void);
 
-		/**
-		 * \brief Récupération du pseudo du joueur
-		 * 
-		 * \return le pseudo sous forme de chaîne de caractères
-		 */
-		string getPseudo(void);
+    /**
+     * \brief Récupération du pseudo du joueur
+     *
+     * \return le pseudo sous forme de chaîne de caractères
+     */
+    string getPseudo(void);
 
-		/**
-		 * \brief Récupération de l'adresse IP du joueur
-		 * 
-		 * \return l'adresse ip sous forme de chaîne de caractères
-		 */
-		string getIp(void);
+    /**
+     * \brief Récupération de l'adresse IP du joueur
+     *
+     * \return l'adresse ip sous forme de chaîne de caractères
+     */
+    string getIp(void);
 
-		/**
-		 * \brief Récupération du numéro du joueur sur le serveur
-		 * 
-		 * \return Le numéro du joueur
-		 */
-		sf::Uint16 getId(void);
+    /**
+     * \brief Récupération du numéro du joueur sur le serveur
+     *
+     * \return Le numéro du joueur
+     */
+    sf::Uint16 getId(void);
 
-		/**
-		 * \brief 
-		 * 
-		 */
-		sf::Int16 getCommandement(void);
-		sf::Int16 getRequisition(void);
-		sf::Int32 getEnergie(void);
-		sf::Int32 getMateriaux(void);
+    /**
+     * \brief
+     *
+     */
+    sf::Int16 getCommandement(void);
+    sf::Int16 getRequisition(void);
+    sf::Int32 getEnergie(void);
+    sf::Int32 getMateriaux(void);
 
-		/// Setters
-		void setSocket(sf::TcpSocket* _socket);
-		void setPseudo(string _pseudo);
-		void setIp(string _ip);
-		void setId(sf::Uint16 _id);
-		void setCommandement(sf::Int16 _commandement);
-		void setRequisition(sf::Int16 _requisition);
-		void setEnergie(sf::Int32 _energie);
-		void setMateriaux(sf::Int32 _materiaux);
-	protected:
+    /// Setters
+    void setSocket(sf::TcpSocket* _socket);
+    void setPseudo(string _pseudo);
+    void setIp(string _ip);
+    void setId(sf::Uint16 _id);
+    void setCommandement(sf::Int16 _commandement);
+    void setRequisition(sf::Int16 _requisition);
+    void setEnergie(sf::Int32 _energie);
+    void setMateriaux(sf::Int32 _materiaux);
+protected:
 
-	private:
-		/// La socket du joueur
-		sf::TcpSocket* socket;
+private:
+    /// La technologie du joueur pour les structures
+    TechnologieStructure techS;
+    
+    /// La technologie du joueur pour les vaisseaux
+    TechnologieVaisseau techV;
+    
+    /// La technologie du joueur pour les batiments
+    TechnologieBatiment techB;
 
-		/// Le pseudo du joueur
-		string pseudo;
+    /// La socket du joueur
+    sf::TcpSocket* socket;
 
-		/// L'adresse IP du joueur
-		string ip;
+    /// Le pseudo du joueur
+    string pseudo;
 
-		/// L'identifiant (nombre positif) du joueur sur le serveur
-		sf::Uint16 id;
+    /// L'adresse IP du joueur
+    string ip;
 
-		sf::Int16 commandement;
+    /// L'identifiant (nombre positif) du joueur sur le serveur
+    sf::Uint16 id;
 
-		sf::Int16 requisition;
+    sf::Int16 commandement;
 
-		sf::Int32 energie;
+    sf::Int16 requisition;
 
-		sf::Int32 materiaux;
+    sf::Int32 energie;
+
+    sf::Int32 materiaux;
 };
 
 #endif
