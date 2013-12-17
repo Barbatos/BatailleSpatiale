@@ -7,9 +7,9 @@
 
 #include "SceneMenuSolo.hpp"
 
-#include <client/vue/gui/ZoneTexte.hpp>
-#include <client/vue/gui/Image.hpp>
-#include <client/vue/gui/Bouton.hpp>
+#include <client/vue/gui/elements/ZoneTexte.hpp>
+#include <client/vue/gui/elements/Image.hpp>
+#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
@@ -22,62 +22,38 @@ SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
 
 	int y = (jeu.lireAffichage().getSize().y - hauteur) / 5;
 
-	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
-						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.png")));
+	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
+				jeu.lireAffichage().getSize().y,
+				jeu.lireRessources().lireImage("fond.png"));
 
-	ip = new ZoneTexte(Ip, x, y, largeur, hauteur, "IP");
+	ip = new ZoneTexte(&gui, Ip, x, y, largeur, hauteur, "IP");
 
-	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur, "Port");
+	port = new ZoneTexte(&gui, Port, x, 2 * y, largeur, hauteur, "Port");
 
-	Bouton* btnsolo = new Bouton(Solo, "Lancer partie", x, 3 * y, largeur,
-									hauteur);
+	new Bouton(&gui, Solo, "Lancer partie", x, 3 * y, largeur, hauteur);
 
-	Bouton* btnretour = new Bouton(Retour, "Retour", x, 4 * y, largeur,
-									hauteur);
-
-	ajouter(ip);
-	ajouter(port);
-	ajouter(btnsolo);
-	ajouter(btnretour);
-
-	enregistrerSouris(ip);
-	enregistrerSouris(port);
-	enregistrerSouris(btnsolo);
-	enregistrerSouris(btnretour);
-
-	enregistrerClavier(ip);
-	enregistrerClavier(port);
+	new Bouton(&gui, Retour, "Retour", x, 4 * y, largeur, hauteur);
 }
 
 SceneMenuSolo::~SceneMenuSolo()
 {
 }
 
-void SceneMenuSolo::surMessage(int nom, Scene::Message message)
+void SceneMenuSolo::surMessage(int id)
 {
-	switch (message)
+	switch (id)
 	{
-		case Clic:
-			switch (nom)
-			{
-				case Solo:
-					//jeu.lireReseau()->ConnexionServeur(
-						//ip->lireTexte(), atoi(port->lireTexte().c_str()));
+		case Solo:
+			//jeu.lireReseau()->ConnexionServeur(
+			//ip->lireTexte(), atoi(port->lireTexte().c_str()));
 
-					//if (jeu.lireReseau()->getActif())
-						jeu.changer(Scene::SceneJeu);
-					break;
-				case Retour:
-					jeu.changer(Scene::SceneMenuPrincipal);
-					break;
-				default:
-					break;
-			}
+			//if (jeu.lireReseau()->getActif())
+			jeu.changer(Scene::SceneJeu);
 			break;
-		case Entre:
+		case Retour:
+			jeu.changer(Scene::SceneMenuPrincipal);
 			break;
-		case Sort:
+		default:
 			break;
 	}
 }

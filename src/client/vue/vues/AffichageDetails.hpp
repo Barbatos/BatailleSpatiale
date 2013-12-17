@@ -11,15 +11,10 @@
 // Includes de la libstd
 #include <memory>
 
-// Includes de la SFML
-#include <SFML/Graphics.hpp>
+// Includes du 'pack' vues
+#include "VuesPack.hpp"
 
-// Includes de nos classes
-#include <client/vue/gui/Element.hpp>
-#include <client/vue/gui/Label.hpp>
-
-// Includes des classes moteur
-#include <commun/utile/Position.hpp>
+#include <client/vue/gui/elements/Label.hpp>
 
 /**
  * \brief Affiche les détails de la case selectionnée
@@ -29,7 +24,8 @@
  *
  * \see Element
  */
-class AffichageDetails : public Element
+class AffichageDetails :
+	public Element
 {
 	private:
 		/**
@@ -71,8 +67,8 @@ class AffichageDetails : public Element
 		 * \param largeur la largeur de l'élément
 		 * \param hauteur la hauteur de l'élément
 		 */
-		AffichageDetails(int nom, float x, float y, float largeur,
-				float hauteur);
+		AffichageDetails(Gui* gui, int id, float x, float y, float largeur,
+			float hauteur);
 
 		/**
 		 * \brief Destructeur
@@ -125,9 +121,9 @@ class AffichageDetails : public Element
 		void selectionner();
 
 		// Héritées d'Element
-		void initialiser();
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
 };
 
 #endif /* AFFICHAGEDETAILS_HPP */

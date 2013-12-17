@@ -9,9 +9,6 @@
 #define SCENEJEU_HPP
 
 #include <client/vue/Scene.hpp>
-#include <client/modele/DetailBatiment.hpp>
-#include <client/modele/DetailVaisseau.hpp>
-#include <client/vue/vues/AffichageDetails.hpp>
 #include <SFML/Graphics.hpp>
 #include <client/vue/vues/AffichagePlateau.hpp>
 
@@ -20,17 +17,13 @@
  *
  * Scène affichant le plateau
  */
-class SceneJeu : public Scene
+class SceneJeu :
+	public Scene
 {
 	private:
 		enum Elements
 		{
-			Pause = 0,
-			Plateau,
-			Droite,
-			Gauche,
-			Haut,
-			Bas
+			Pause = 0, Plateau, Droite, Gauche, Haut, Bas
 		};
 
 		AffichagePlateau plateau;
@@ -53,7 +46,7 @@ class SceneJeu : public Scene
 		virtual ~SceneJeu();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int nom);
 };
 
-#endif /* SCENEJEU_HPP_ */
+#endif /* SCENEJEU_HPP */

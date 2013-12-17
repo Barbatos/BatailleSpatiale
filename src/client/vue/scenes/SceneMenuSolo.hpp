@@ -17,14 +17,16 @@ class ZoneTexte;
  *
  * Écran de création d'une partie Solo
  */
-class SceneMenuSolo : public Scene
+class SceneMenuSolo :
+	public Scene
 {
 	private:
 		/**
 		 * \brief Les différents boutons de la scène
 		 */
-		enum Boutons {
-			Solo,//!< Lancer une partie Solo
+		enum Boutons
+		{
+			Solo, //!< Lancer une partie Solo
 			Retour,
 			Ip,
 			Port
@@ -51,7 +53,7 @@ class SceneMenuSolo : public Scene
 		virtual ~SceneMenuSolo();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
 
 #endif /* SCENEMENUSOLO_HPP */

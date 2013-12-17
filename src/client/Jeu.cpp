@@ -8,7 +8,6 @@
 #include "Jeu.hpp"
 
 #include <iostream>
-#include <client/vue/gui/Bouton.hpp>
 #include <client/vue/vues/AffichageDetails.hpp>
 
 #define FPS 60
@@ -44,45 +43,47 @@ void Jeu::changer(Scene::Type nouvelleScene)
 	switch (nouvelleScene)
 	{
 		case Scene::SceneMenuPrincipal:
-			scene = ScenePtr(new SceneMenuPrincipal(*this));
+			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
 			break;
 		case Scene::SceneJeu:
-			scene = ScenePtr(new SceneJeu(*this));
+			scene = Scene::Ptr(new SceneJeu(*this));
 			break;
 		case Scene::SceneJeuMenu:
-			scene = ScenePtr(new SceneJeuMenu(*this));
+			scene = Scene::Ptr(new SceneJeuMenu(*this));
 			break;
 		case Scene::SceneJeuOptions:
-			scene = ScenePtr(new SceneJeuOptions(*this));
+			scene = Scene::Ptr(new SceneJeuOptions(*this));
 			break;
 		case Scene::SceneMenuSolo:
 			if (reseau->getActif())
-				scene = ScenePtr(new SceneJeu(*this));
+				scene = Scene::Ptr(new SceneJeu(*this));
 			else
-				scene = ScenePtr(new SceneMenuSolo(*this));
+				scene = Scene::Ptr(new SceneMenuSolo(*this));
 			break;
 		case Scene::SceneMenuMultijoueur:
 			if (reseau->getActif())
-				scene = ScenePtr(new SceneJeu(*this));
+				scene = Scene::Ptr(new SceneJeu(*this));
 			else
-				scene = ScenePtr(new SceneMenuMultijoueur(*this));
+				scene = Scene::Ptr(new SceneMenuMultijoueur(*this));
 			break;
 		case Scene::SceneOptionsMenu:
-			scene = ScenePtr(new SceneOptionsMenu(*this));
+			scene = Scene::Ptr(new SceneOptionsMenu(*this));
 			break;
 
 		case Scene::SceneLancerServeur:
-			scene = ScenePtr(new SceneLancerServeur(*this));
+			scene = Scene::Ptr(new SceneLancerServeur(*this));
 			break;
-			
+
 		default:
-			scene = ScenePtr(new SceneMenuPrincipal(*this));
+			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
 			break;
 	}
 }
 
-void Jeu::threadReseau(){
-	while(true){
+void Jeu::threadReseau()
+{
+	while (true)
+	{
 		reseau->TraiterPaquetServeur();
 		sf::sleep(sf::milliseconds(10));
 	}
@@ -92,21 +93,13 @@ void Jeu::lancer()
 {
 
 	sf::Event evenement;
-	sf::Time precedent;
+	int message;
 	sf::Thread reseauThread(&Jeu::threadReseau, this);
-	long delta;
-	long attente;
 
 	reseauThread.launch();
 
 	while (affichage.isOpen())
 	{
-		sf::Time nouveau = horloge.getElapsedTime();
-
-		delta = (nouveau - precedent).asMilliseconds();
-
-		precedent = nouveau;
-
 		while (affichage.pollEvent(evenement))
 		{
 			if (evenement.type == sf::Event::Closed)
@@ -115,20 +108,21 @@ void Jeu::lancer()
 			scene->traiter(evenement);
 		}
 
+		while (scene->lireGui().obtenirMessage(&message))
+		{
+			scene->surMessage(message);
+		}
+
 		affichage.clear();
 
-		scene->actualiser(delta);
+		scene->actualiser();
 
 		scene->afficher();
 
 		affichage.display();
-
-		attente = TEMPS_FRAME - (horloge.getElapsedTime() - nouveau)
-				.asMilliseconds();
-
-		if (attente > 0)
-			sf::sleep(sf::milliseconds(attente));
 	}
+
+	reseauThread.terminate();
 }
 
 void Jeu::quitter()

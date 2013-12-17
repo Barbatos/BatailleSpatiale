@@ -11,16 +11,18 @@
 #include <client/vue/Affichage.hpp>
 #include <client/Jeu.hpp>
 
-AffichageCase::AffichageCase(int nom, float x, float y, float taille,
+AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
 	Position position, sf::View* vuePlateau) :
-		Element(nom, x, y, taille, taille),
-		ElementSouris(),
+		Element(gui, id),
 		image(),
 		fond(),
 		position(position),
 		survole(false),
 		selectionne(false)
 {
+	ecrirePosition(x, y);
+	ecrireTaille(taille, taille);
+
 	fond = sf::CircleShape(taille / 2, 6);
 	fond.setPosition(x + taille / 2, y + taille / 2);
 	fond.setOrigin(taille / 2, taille / 2);
@@ -34,32 +36,31 @@ AffichageCase::AffichageCase(int nom, float x, float y, float taille,
 
 AffichageCase::~AffichageCase()
 {
-	// TODO Auto-generated destructor stub
-}
-
-void AffichageCase::initialiser()
-{
 }
 
 void AffichageCase::actualiser(float)
 {
 	// Si la case contient un vaisseau
-	if (parent->lireJeu().lirePlateau().possedeVaisseau(position))
+	if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
+			position))
 	{
 		// On met l'image du vaisseau correspondant
-		image = parent->lireJeu().lireRessources().lireImage(
+		image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(
 				"Vaisseaux/sprite_bombardier_1.png");
 		image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
-		image.setPosition(zone.left, zone.top);
-		Utile::redimensionnerImage(image, zone.width, zone.width, false);
+		image.setPosition(lirePosition().x, lirePosition().y);
+		Utile::redimensionnerImage(image, lireTaille().x, lireTaille().y,
+									false);
 	}
 	// Si elle contient un batiment
-	else if (parent->lireJeu().lirePlateau().possedeBatiment(position))
+	else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(
+			position))
 	{
 		// On met l'image du bâtiment correspondant
 	}
 	// Si elle contient un évènement
-	else if (parent->lireJeu().lirePlateau().possedeEvenement(position))
+	else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeEvenement(
+			position))
 	{
 		// On met l'image de l'évènement correspondantz
 	}
@@ -79,47 +80,17 @@ void AffichageCase::actualiser(float)
 		fond.setOutlineColor(sf::Color(255, 255, 255));
 }
 
-void AffichageCase::afficher(Affichage& affichage)
+void AffichageCase::afficher(sf::RenderWindow& affichage)
 {
 	affichage.draw(fond);
 	affichage.draw(image);
 }
 
-bool AffichageCase::contient(sf::Vector2f point)
+bool AffichageCase::contient(sf::Vector2i position)
 {
-	return point.x >= fond.getPosition().x - fond.getRadius() * 0.9 && point.x <= fond
-			.getPosition().x + fond.getRadius() * 0.9 && point.y >= fond
-			.getPosition().y - fond.getRadius() * 0.9 && point.y <= fond
+	return position.x >= fond.getPosition().x - fond.getRadius() * 0.9 && position
+			.x <= fond.getPosition().x + fond.getRadius() * 0.9 && position.y >= fond
+			.getPosition().y - fond.getRadius() * 0.9 && position.y <= fond
 			.getPosition().y + fond.getRadius() * 0.9;
-}
-
-void AffichageCase::surMouvementSouris(sf::Event::MouseMoveEvent evenement)
-{
-	if (contient(
-			parent->lireJeu().lireAffichage().mapPixelToCoords(
-					sf::Vector2i(evenement.x, evenement.y),
-					*(vuePlateau.get()))))
-		survole = true;
-	else
-		survole = false;
-}
-
-void AffichageCase::surPressionBoutonSouris(
-	sf::Event::MouseButtonEvent evenement)
-{
-	if (survole && evenement.button == sf::Mouse::Left)
-		selectionne = true;
-	else
-		selectionne = false;
-}
-
-void AffichageCase::surRelachementBoutonSouris(sf::Event::MouseButtonEvent)
-{
-
-}
-
-void AffichageCase::surMoletteSouris(sf::Event::MouseWheelEvent)
-{
-
 }
 

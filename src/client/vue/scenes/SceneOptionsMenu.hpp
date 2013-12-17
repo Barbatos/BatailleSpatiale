@@ -7,7 +7,8 @@
 #ifndef SCENEOPTIONSMENU_HPP_
 #define SCENEOPTIONSMENU_HPP_
 #include <client/vue/Scene.hpp>
-class SceneOptionsMenu : public Scene
+class SceneOptionsMenu :
+	public Scene
 {
 	private:
 		enum Boutons
@@ -33,7 +34,7 @@ class SceneOptionsMenu : public Scene
 		virtual ~SceneOptionsMenu();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
 
 #endif /* SCENEOPTIONSMENU_HPP */

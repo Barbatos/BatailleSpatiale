@@ -7,9 +7,9 @@
 
 #include "SceneLancerServeur.hpp"
 
-#include <client/vue/gui/ZoneTexte.hpp>
-#include <client/vue/gui/Image.hpp>
-#include <client/vue/gui/Bouton.hpp>
+#include <client/vue/gui/elements/ZoneTexte.hpp>
+#include <client/vue/gui/elements/Image.hpp>
+#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneLancerServeur::SceneLancerServeur(Jeu& jeu) :
@@ -22,51 +22,30 @@ SceneLancerServeur::SceneLancerServeur(Jeu& jeu) :
 
 	int y = (jeu.lireAffichage().getSize().y - hauteur) / 5;
 
-	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
-						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.png")));
+	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
+				jeu.lireAffichage().getSize().y,
+				jeu.lireRessources().lireImage("fond.png"));
 
+	port = new ZoneTexte(&gui, Port, x, 2 * y, largeur, hauteur,
+							"Port du serveur");
 
-	port = new ZoneTexte(Port, x, 2 * y, largeur, hauteur, "Port du serveur");
+	new Bouton(&gui, Serveur, "Lancer le serveur", x, 3 * y, largeur, hauteur);
 
-	Bouton* btnserveur = new Bouton(Serveur, "Lancer le serveur", x, 3 * y, largeur,
-									hauteur);
-
-	Bouton* btnretour = new Bouton(Retour, "Retour", x, 4 * y, largeur,
-									hauteur);
-
-	ajouter(port);
-	ajouter(btnserveur);
-	ajouter(btnretour);
-
-	enregistrerSouris(port);
-	enregistrerSouris(btnserveur);
-	enregistrerSouris(btnretour);
-
-	enregistrerClavier(port);
+	new Bouton(&gui, Retour, "Retour", x, 4 * y, largeur, hauteur);
 }
 
 SceneLancerServeur::~SceneLancerServeur()
 {
 }
 
-void SceneLancerServeur::surMessage(int nom, Scene::Message message)
+void SceneLancerServeur::surMessage(int id)
 {
-	switch (message)
+	switch (id)
 	{
-		case Clic:
-			switch (nom)
-			{
-				case Retour:
-					jeu.changer(Scene::SceneMenuPrincipal);
-					break;
-				default:
-					break;
-			}
+		case Retour:
+			jeu.changer(Scene::SceneMenuPrincipal);
 			break;
-		case Entre:
-			break;
-		case Sort:
+		default:
 			break;
 	}
 }

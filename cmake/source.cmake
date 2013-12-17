@@ -5,65 +5,65 @@
 ########################################################################
 
 # Includes
-INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/src")
+include_directories("${SRC_DIR}")
 
 # Executable client 
-SET(EXE_CLIENT "BatailleSpatiale")
+set(EXE_CLIENT "BatailleSpatiale")
 
 # Executable serveur
-SET(EXE_SERVER "ServeurBatailleSpatiale")
+set(EXE_SERVER "ServeurBatailleSpatiale")
 
 # Que compiler
-OPTION(COMPILER_CLIENT "Compiler l'exécutable client" ON)
-OPTION(COMPILER_SERVEUR "Compiler l'exécutable serveur" ON)
+option(COMPILER_CLIENT "Compiler l'exécutable client" ON)
+option(COMPILER_SERVEUR "Compiler l'exécutable serveur" ON)
 
 # Si rien n'est à compiler, erreur
-IF(NOT COMPILER_CLIENT AND NOT COMPILER_SERVEUR)
-    MESSAGE(FATAL_ERROR "Rien à compiler !!")
-ENDIF()
+if(NOT COMPILER_CLIENT AND NOT COMPILER_SERVEUR)
+    message(FATAL_ERROR "Rien à compiler !!")
+endif()
 
 # Sources du client
-FILE(GLOB_RECURSE CLIENT_SRC
-    "src/client/*.[ch]pp"
-    "src/commun/ReseauClient.[ch]pp"
-    "src/global.hpp"
+file(GLOB_RECURSE CLIENT_SRC
+    "${SRC_DIR}/client/*.[ch]pp"
+    "${SRC_DIR}/commun/ReseauClient.[ch]pp"
+    "${SRC_DIR}/global.hpp"
 )
 
 # Sources du serveur
-FILE(GLOB_RECURSE SERVEUR_SRC
-    "src/serveur/*.[ch]pp"
-    "src/commun/ReseauServeur.cpp"
-    "src/commun/ReseauServeur.hpp"
+file(GLOB_RECURSE SERVEUR_SRC
+    "${SRC_DIR}/serveur/*.[ch]pp"
+    "${SRC_DIR}/commun/ReseauServeur.cpp"
+    "${SRC_DIR}/commun/ReseauServeur.hpp"
 )
 
 # Sources communes
-FILE(GLOB_RECURSE COMMUN_SRC
-    "src/commun/ReseauGlobal.[ch]pp"
-    "src/commun/enum/*.[ch]pp"
-    "src/commun/utile/*.[ch]pp"
+file(GLOB_RECURSE COMMUN_SRC
+    "${SRC_DIR}/commun/ReseauGlobal.[ch]pp"
+    "${SRC_DIR}/commun/enum/*.[ch]pp"
+    "${SRC_DIR}/commun/utile/*.[ch]pp"
 )
 
 # Ajout de l'éxecutable client
-IF(COMPILER_CLIENT)
-    ADD_EXECUTABLE(${EXE_CLIENT} ${COMMUN_SRC} ${CLIENT_SRC})
-    TARGET_LINK_LIBRARIES(${EXE_CLIENT} ${SFML_LIBRARIES})
-ENDIF()
+if(COMPILER_CLIENT)
+    add_executable(${EXE_CLIENT} ${COMMUN_SRC} ${CLIENT_SRC})
+    target_link_libraries(${EXE_CLIENT} ${SFML_LIBRARIES})
+endif()
 
 # Ajout de l'éxecutable serveur
-IF(COMPILER_SERVEUR)
-    ADD_EXECUTABLE(${EXE_SERVER} ${COMMUN_SRC} ${SERVEUR_SRC})
-    TARGET_LINK_LIBRARIES(${EXE_SERVER} ${SFML_LIBRARIES})
-ENDIF()
+if(COMPILER_SERVEUR)
+    add_executable(${EXE_SERVER} ${COMMUN_SRC} ${SERVEUR_SRC})
+    target_link_libraries(${EXE_SERVER} ${SFML_LIBRARIES})
+endif()
 
 # Changement des flags selon les éxecutables pour windows
-IF(WIN32)
+if(WIN32)
     # -mwindows pour le client
-    IF(COMPILER_CLIENT)
-        SET_TARGET_PROPERTIES(${EXE_CLIENT} PROPERTIES COMPILE_FLAGS "-mwindows")
-    ENDIF()
+    if(COMPILER_CLIENT)
+        set_target_properties(${EXE_CLIENT} PROPERTIES COMPILE_FLAGS "-mwindows")
+    endif()
     
     # -mconsole pour le serveur
-    IF(COMPILER_SERVEUR)
-        SET_TARGET_PROPERTIES(${EXE_SERVER} PROPERTIES COMPILE_FLAGS "-mconsole")
-    ENDIF()
-ENDIF()
+    if(COMPILER_SERVEUR)
+        set_target_properties(${EXE_SERVER} PROPERTIES COMPILE_FLAGS "-mconsole")
+    endif()
+endif()

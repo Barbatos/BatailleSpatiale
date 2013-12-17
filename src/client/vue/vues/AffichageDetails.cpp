@@ -12,12 +12,25 @@
 #include <sstream>
 #include <iostream>
 
-AffichageDetails::AffichageDetails(int nom, float x, float y, float largeur,
-		float hauteur) :
-		Element(nom, x, y, largeur, hauteur), fond(), label("", x + 5, y), position(
-				-1, -1)
+AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
+	float largeur, float hauteur) :
+		Element(gui, id),
+		fond(),
+		label("", x + 5, y),
+		position(-1, -1)
 {
+	ecrirePosition(x, y);
+	ecrireTaille(largeur, hauteur);
 
+	fond.setPosition(lirePosition().x, lirePosition().y);
+	fond.setSize(sf::Vector2f(lireTaille().x, lireTaille().y));
+	fond.setFillColor(sf::Color(50, 50, 50));
+	fond.setOutlineColor(sf::Color(100, 100, 100));
+	fond.setOutlineThickness(2);
+
+	label.setFont(
+			lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
+					"grand9k.ttf"));
 }
 
 AffichageDetails::~AffichageDetails()
@@ -25,60 +38,68 @@ AffichageDetails::~AffichageDetails()
 
 }
 
-void AffichageDetails::initialiser()
-{
-	fond.setPosition(zone.left, zone.top);
-	fond.setSize(sf::Vector2f(zone.width, zone.height));
-	fond.setFillColor(sf::Color(50, 50, 50));
-	fond.setOutlineColor(sf::Color(100, 100, 100));
-	fond.setOutlineThickness(2);
-
-	label.setFont(parent->lireJeu().lireRessources().lirePolice("grand9k.ttf"));
-}
-
-void AffichageDetails::actualiser(__attribute__((unused)) float delta)
+void AffichageDetails::actualiser(float)
 {
 	std::stringstream stream;
 
 	if (position.x != -1 && position.y != -1)
 	{
-		if (parent->lireJeu().lirePlateau().possedeVaisseau(position))
+		if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
+				position))
 		{
-			stream << "Vie : "
-					<< parent->lireJeu().lirePlateau().getVaisseau(position).vie
-					<< "/"
-					<< parent->lireJeu().lirePlateau().getVaisseau(position).vieMax
-					<< "\n";
+			stream
+				<< "Vie : "
+				<< lireGui()->lireScene()->lireJeu().lirePlateau().getVaisseau(
+						position).vie
+				<< "/"
+				<< lireGui()->lireScene()->lireJeu().lirePlateau().getVaisseau(
+						position).vieMax
+				<< "\n";
 		}
-		else if (parent->lireJeu().lirePlateau().possedeBatiment(position))
+		else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(
+				position))
 		{
-			stream << "Vie : "
-					<< parent->lireJeu().lirePlateau().getBatiment(position).vie
-					<< "/"
-					<< parent->lireJeu().lirePlateau().getBatiment(position).vieMax
-					<< "\n";
+			stream
+				<< "Vie : "
+				<< lireGui()->lireScene()->lireJeu().lirePlateau().getBatiment(
+						position).vie
+				<< "/"
+				<< lireGui()->lireScene()->lireJeu().lirePlateau().getBatiment(
+						position).vieMax
+				<< "\n";
 		}
-		else if (parent->lireJeu().lirePlateau().possedeEvenement(position))
+		else if (lireGui()->lireScene()->lireJeu().lirePlateau()
+				.possedeEvenement(position))
 		{
 		}
 		else
 		{
-			stream << "Case vide" << "Position : " << position.x << " : "
-					<< position.y;
+			stream
+				<< "Case vide"
+				<< "Position : "
+				<< position.x
+				<< " : "
+				<< position.y;
 		}
 	}
 	else
 	{
-		stream << "";
+		stream
+			<< "";
 	}
 
 	label.setString(stream.str());
 }
 
-void AffichageDetails::afficher(Affichage& affichage)
+void AffichageDetails::afficher(sf::RenderWindow& affichage)
 {
 	affichage.draw(fond);
 	affichage.draw(label);
+}
+
+bool AffichageDetails::contient(sf::Vector2i position)
+{
+	return false;
 }
 
 void AffichageDetails::selectionner(int i, int j)

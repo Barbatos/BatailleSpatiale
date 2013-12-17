@@ -13,15 +13,13 @@
 #include <memory>
 
 // Includes de nos classes
-#include <client/vue/gui/Element.hpp>
-#include <client/vue/gui/ElementSouris.hpp>
-#include <client/vue/gui/ElementClavier.hpp>
+#include "VuesPack.hpp"
 #include "AffichageDetails.hpp"
 #include "AffichageCase.hpp"
 
 // Typedefs
 typedef std::shared_ptr<AffichageDetails> AffichageDetailsPtr;
-typedef std::unique_ptr<AffichageCase> AffichageCasePtr;
+
 /**
  * \brief Affiche le plateau dans son intégralité
  *
@@ -32,7 +30,7 @@ typedef std::unique_ptr<AffichageCase> AffichageCasePtr;
  * \see ElementSouris
  */
 class AffichagePlateau :
-	public Element, public ElementSouris, public ElementClavier
+	public Element, public ObservateurSouris, public ObservateurClavier
 {
 	private:
 		/**
@@ -40,7 +38,7 @@ class AffichagePlateau :
 		 *
 		 * \see AffichageCase
 		 */
-		std::vector<AffichageCasePtr> cases;
+		std::vector<AffichageCase::Ptr> cases;
 
 		/**
 		 * \brief Les détails sur la case actuellement selectionnée
@@ -71,7 +69,8 @@ class AffichagePlateau :
 		 * @param largeur la largeur de l'affichage
 		 * @param hauteur la hauteur de l'affichage
 		 */
-		AffichagePlateau(int nom, int x, int y, int largeur, int hauteur);
+		AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
+			int hauteur);
 
 		/**
 		 * \brief Destructeur
@@ -89,20 +88,22 @@ class AffichagePlateau :
 		void bougerPlateau(float x, float y);
 
 		// Héritées d'ElementSouris
-		void surMouvementSouris(sf::Event::MouseMoveEvent evenement);
-		void surPressionBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surMoletteSouris(sf::Event::MouseWheelEvent evenement);
+		void clicSouris();
+		void pressionSouris(sf::Mouse::Button bouton);
+		void relachementSouris(sf::Mouse::Button bouton);
+		void entreeSouris(sf::Vector2f position);
+		void sortieSouris(sf::Vector2f position);
+		void moletteSouris(int delta);
 
 		// Héritées d'ElementClavier
-		void surPressionToucheClavier(sf::Event::KeyEvent evenement);
-		void surRelachementToucheClavier(sf::Event::KeyEvent evenement);
-		void surTexteClavier(sf::Event::TextEvent evenement);
+		void pressionTouche(sf::Keyboard::Key touche);
+		void relachementTouche(sf::Keyboard::Key touche);
+		void entreeTexte(sf::Uint32 texte);
 
 		// Héritées d'Element
-		void initialiser();
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
 };
 
 #endif /* AFFICHAGEPLATEAU_HPP */

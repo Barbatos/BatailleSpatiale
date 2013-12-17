@@ -15,7 +15,8 @@
  *
  * Écran des options du jeu
  */
-class SceneJeuOptions : public Scene
+class SceneJeuOptions :
+	public Scene
 {
 	private:
 		enum Boutons
@@ -41,7 +42,7 @@ class SceneJeuOptions : public Scene
 		virtual ~SceneJeuOptions();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
 
 #endif /* SCENEJEUOPTIONS_HPP_ */

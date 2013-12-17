@@ -8,9 +8,7 @@
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
 
-#include <SFML/Graphics.hpp>
-
-#include "Element.hpp"
+#include "ElementPack.hpp"
 
 /**
  * \brief Simple image à afficher
@@ -36,7 +34,7 @@ class Image :
 		 * \param largeur la largeur de l'image
 		 * \param hauteur la hauteur de l'image
 		 */
-		Image(int nom, int x, int y, int largeur, int hauteur);
+		Image(Gui* gui, int id, int x, int y, int largeur, int hauteur);
 
 		/**
 		 * \brief Constructeur
@@ -48,7 +46,7 @@ class Image :
 		 * \param hauteur la hauteur de l'image
 		 * \param sprite le sprite de l'image
 		 */
-		Image(int nom, int x, int y, int largeur, int hauteur,
+		Image(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 			sf::Sprite sprite);
 
 		/**
@@ -71,9 +69,9 @@ class Image :
 		sf::Sprite& lireSprite();
 
 		// Héritées d'Element
-		void initialiser();
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
 };
 
 #endif /* IMAGE_HPP */

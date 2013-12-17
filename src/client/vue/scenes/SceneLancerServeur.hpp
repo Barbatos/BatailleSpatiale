@@ -17,16 +17,16 @@ class ZoneTexte;
  *
  * Écran de création d'un serveur
  */
-class SceneLancerServeur : public Scene
+class SceneLancerServeur :
+	public Scene
 {
 	private:
 		/**
 		 * \brief Les différents boutons de la scène
 		 */
-		enum Boutons {
-			Port,
-			Serveur,
-			Retour
+		enum Boutons
+		{
+			Port, Serveur, Retour
 		};
 
 		ZoneTexte* port;
@@ -49,7 +49,7 @@ class SceneLancerServeur : public Scene
 		virtual ~SceneLancerServeur();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
 
 #endif /* SCENELANCERSERVEUR_HPP */

@@ -7,8 +7,8 @@
 
 #include "SceneJeuOptions.hpp"
 
-#include <client/vue/gui/Image.hpp>
-#include <client/vue/gui/Bouton.hpp>
+#include <client/vue/gui/elements/Image.hpp>
+#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneJeuOptions::SceneJeuOptions(Jeu& jeu) :
@@ -21,38 +21,25 @@ SceneJeuOptions::SceneJeuOptions(Jeu& jeu) :
 
 	int y = (jeu.lireAffichage().getSize().y - hauteur) / 2;
 
-	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
-						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.png")));
+	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
+				jeu.lireAffichage().getSize().y,
+				jeu.lireRessources().lireImage("fond.png"));
 
-	Bouton* btnretour = new Bouton(Retour, "Retour", x, y, largeur, hauteur);
-
-	ajouter(btnretour);
-
-	enregistrerSouris(btnretour);
+	new Bouton(&gui, Retour, "Retour", x, y, largeur, hauteur);
 }
 
 SceneJeuOptions::~SceneJeuOptions()
 {
 }
 
-void SceneJeuOptions::surMessage(int nom, Scene::Message message)
+void SceneJeuOptions::surMessage(int id)
 {
-	switch (message)
+	switch (id)
 	{
-		case Clic:
-			switch (nom)
-			{
-				case Retour:
-					jeu.changer(Scene::SceneJeuMenu);
-					break;
-				default:
-					break;
-			}
+		case Retour:
+			jeu.changer(Scene::SceneJeuMenu);
 			break;
-		case Entre:
-			break;
-		case Sort:
+		default:
 			break;
 	}
 }

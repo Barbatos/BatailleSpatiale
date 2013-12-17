@@ -11,20 +11,15 @@
 // Includes de la libstd
 #include <string>
 
-// Includes de la SFML
-#include <SFML/Graphics.hpp>
-
-// Includes de nos classes
-#include "Element.hpp"
-#include "ElementClavier.hpp"
-#include "ElementSouris.hpp"
+// Includes du pack element
+#include "ElementPack.hpp"
 #include "Label.hpp"
 
 /**
  * \brief Représente une zone dans laquelle on peut entrer du texte
  */
 class ZoneTexte :
-	public Element, public ElementSouris, public ElementClavier
+	public Element, public ObservateurSouris, public ObservateurClavier
 {
 	private:
 		/**
@@ -74,7 +69,8 @@ class ZoneTexte :
 		/**
 		 * \brief Constructeur
 		 */
-		ZoneTexte(int nom, int x, int y, int largeur, int hauteur, std::string remplacement = "");
+		ZoneTexte(Gui* gui, int id, int x, int y, int largeur, int hauteur,
+			std::string remplacement = "");
 
 		/**
 		 * \brief Destructeur
@@ -89,20 +85,22 @@ class ZoneTexte :
 		std::string lireTexte();
 
 		// Héritées d'Element
-		void initialiser(void);
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
 
 		// Héritées d'ElementSouris
-		void surMouvementSouris(sf::Event::MouseMoveEvent evenement);
-		void surPressionBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surMoletteSouris(sf::Event::MouseWheelEvent evenement);
+		void clicSouris();
+		void pressionSouris(sf::Mouse::Button bouton);
+		void relachementSouris(sf::Mouse::Button bouton);
+		void entreeSouris(sf::Vector2f position);
+		void sortieSouris(sf::Vector2f position);
+		void moletteSouris(int delta);
 
 		// Héritées d'ElementClavier
-		void surPressionToucheClavier(sf::Event::KeyEvent evenement);
-		void surRelachementToucheClavier(sf::Event::KeyEvent evenement);
-		void surTexteClavier(sf::Event::TextEvent evenement);
+		void pressionTouche(sf::Keyboard::Key touche);
+		void relachementTouche(sf::Keyboard::Key touche);
+		void entreeTexte(sf::Uint32 texte);
 
 		/**
 		 * \class ZoneTexte
@@ -116,23 +114,23 @@ class ZoneTexte :
 		 // Définition d'une scène
 		 class UneScene : public Scene
 		 {
-		 	 ..
-		 	 enum Elements
-		 	 {
-		 	 	 Zone
-		 	 }
-		 	 ZoneScene zone;
-		 	 ..
+		 ..
+		 enum Elements
+		 {
+		 Zone
+		 }
+		 ZoneScene zone;
+		 ..
 		 }
 
 		 // Constructeur d'une scène
 		 UneScene() :
-		 	 Scene(),
-		 	 zone(Boutons.Zone, 100, 100, 200, 50, "Une zone de texte")
+		 Scene(),
+		 zone(Boutons.Zone, 100, 100, 200, 50, "Une zone de texte")
 		 {
-			 ajouter(zone);
-			 enregistrerSouris(zone);
-			 enregistrerClavier(zone);
+		 ajouter(zone);
+		 enregistrerSouris(zone);
+		 enregistrerClavier(zone);
 		 }
 
 		 \endcode

@@ -15,7 +15,6 @@
 #include <commun/ReseauClient.hpp>
 #include <memory>
 
-typedef std::unique_ptr<Scene> ScenePtr;
 typedef std::unique_ptr<ReseauClient> ReseauPtr;
 
 /**
@@ -60,7 +59,7 @@ class Jeu
 		 *
 		 * \see Scene
 		 */
-		ScenePtr scene;
+		Scene::Ptr scene;
 
 		/**
 		 * \brief Ressources

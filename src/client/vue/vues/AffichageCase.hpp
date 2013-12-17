@@ -11,13 +11,8 @@
 // Includes de la libstd
 #include <memory>
 
-// Includes de la SFML
-#include <SFML/Graphics.hpp>
-
-// Includes de nos classes
-#include <client/vue/gui/Element.hpp>
-#include <client/vue/gui/ElementSouris.hpp>
-#include <commun/utile/Position.hpp>
+// Include du 'pack' vue
+#include "VuesPack.hpp"
 
 typedef std::shared_ptr<sf::View> VuePtr;
 
@@ -25,7 +20,7 @@ typedef std::shared_ptr<sf::View> VuePtr;
  * \brief Représente l'affichage d'une case du plateau
  */
 class AffichageCase :
-	public Element, public ElementSouris
+	public Element
 {
 	private:
 		/**
@@ -59,10 +54,12 @@ class AffichageCase :
 		bool selectionne;
 
 	public:
+		typedef std::unique_ptr<AffichageCase> Ptr;
+
 		/**
 		 * \brief Constructeur
 		 */
-		AffichageCase(int nom, float x, float y, float taille,
+		AffichageCase(Gui* gui, int id, float x, float y, float taille,
 			Position position, sf::View* vuePlateau);
 
 		/**
@@ -70,25 +67,10 @@ class AffichageCase :
 		 */
 		virtual ~AffichageCase();
 
-		/**
-		 * \brief Retourne si la case contient le point donné
-		 *
-		 * @param point le point à tester
-		 * @return true si le point se trouve dans la case, false sinon
-		 */
-		bool contient(sf::Vector2f point);
-
 		// Héritées d'Element
-		void initialiser();
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
-
-		// Héritées d'ElementSouris
-		void surMouvementSouris(sf::Event::MouseMoveEvent evenement);
-		void surPressionBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surMoletteSouris(sf::Event::MouseWheelEvent evenement);
-
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
 };
 
 #endif /* AFFICHAGECASE_HPP */

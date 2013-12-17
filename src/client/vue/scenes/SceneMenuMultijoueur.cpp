@@ -7,8 +7,8 @@
 
 #include "SceneMenuMultijoueur.hpp"
 
-#include <client/vue/gui/Image.hpp>
-#include <client/vue/gui/Bouton.hpp>
+#include <client/vue/gui/elements/Image.hpp>
+#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneMenuMultijoueur::SceneMenuMultijoueur(Jeu& jeu) :
@@ -21,40 +21,25 @@ SceneMenuMultijoueur::SceneMenuMultijoueur(Jeu& jeu) :
 
 	int y = (jeu.lireAffichage().getSize().y - hauteur) / 2;
 
-	ajouter(new Image(100, 0, 0, jeu.lireAffichage().getSize().x,
-						jeu.lireAffichage().getSize().y,
-						jeu.lireRessources().lireImage("fond.png")));
+	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
+				jeu.lireAffichage().getSize().y,
+				jeu.lireRessources().lireImage("fond.png"));
 
-	Bouton* btnmultijoueur = new Bouton(Multijoueur, "Lancer partie", x, y, largeur, hauteur);
-
-	ajouter(btnmultijoueur);
-
-	enregistrerSouris(btnmultijoueur);
+	new Bouton(&gui, Multijoueur, "Lancer partie", x, y, largeur, hauteur);
 }
 
 SceneMenuMultijoueur::~SceneMenuMultijoueur()
 {
 }
 
-void SceneMenuMultijoueur::surMessage(int nom, Scene::Message message)
+void SceneMenuMultijoueur::surMessage(int id)
 {
-	switch (message)
+	switch (id)
 	{
-		case Clic:
-			switch (nom)
-			{
-				case Multijoueur:
-					jeu.changer(Scene::SceneJeu);
-					break;
-				default:
-					break;
-			}
+		case Multijoueur:
+			jeu.changer(Scene::SceneJeu);
 			break;
-		case Entre:
-			break;
-		case Sort:
+		default:
 			break;
 	}
 }
-
-

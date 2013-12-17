@@ -16,10 +16,14 @@
  *
  * Scène du menu pause
  */
-class SceneJeuMenu : public Scene
+class SceneJeuMenu :
+	public Scene
 {
 	private:
-		enum Boutons { Retour, Sauvegarder, Charger, Options, QuitterPartie, QuitterJeu };
+		enum Boutons
+		{
+			Retour, Sauvegarder, Charger, Options, QuitterPartie, QuitterJeu
+		};
 
 	public:
 		/**
@@ -39,7 +43,7 @@ class SceneJeuMenu : public Scene
 		virtual ~SceneJeuMenu();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
 
-#endif /* SCENEJEUMENU_HPP_ */
+#endif /* SCENEJEUMENU_HPP */

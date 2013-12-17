@@ -1,0 +1,45 @@
+/*
+ * ElementPack.hpp
+ *
+ *  Created on: 16 déc. 2013
+ *      Author: Soinou
+ */
+
+#ifndef ELEMENTPACK_HPP
+#define ELEMENTPACK_HPP
+
+// Inclus toutes les classes dont on pourrait avoir besoin pour créer un élement
+
+///////////////////////////////////////////
+///	SFML
+///////////////////////////////////////////
+
+#include <SFML/Graphics.hpp>
+
+///////////////////////////////////////////
+///	Gui
+///////////////////////////////////////////
+
+#include <client/vue/gui/Gui.hpp>
+
+///////////////////////////////////////////
+///	Element
+///////////////////////////////////////////
+
+#include <client/vue/gui/Element.hpp>
+
+///////////////////////////////////////////
+///	Observateurs
+///////////////////////////////////////////
+
+#include <client/vue/gui/evenements/ObservateurSouris.hpp>
+#include <client/vue/gui/evenements/ObservateurClavier.hpp>
+
+///////////////////////////////////////////
+///	Utiles
+///////////////////////////////////////////
+
+#include <client/utile/Utile.hpp>
+#include <client/Jeu.hpp>
+
+#endif /* ELEMENTPACK_HPP */

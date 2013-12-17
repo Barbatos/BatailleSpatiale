@@ -12,15 +12,11 @@
 // Includes de la libstd
 #include <sstream>
 
-// Includes de nos classes
-#include <client/vue/Affichage.hpp>
-#include <client/Jeu.hpp>
-
-ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
+ZoneTexte::ZoneTexte(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 	std::string remplacement) :
-		Element(nom, x, y, largeur, hauteur),
-		ElementSouris(),
-		ElementClavier(),
+		Element(gui, id),
+		ObservateurSouris(),
+		ObservateurClavier(),
 		rectangle(),
 		curseur(),
 		label(),
@@ -29,6 +25,9 @@ ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
 		texte(),
 		remplacement(remplacement)
 {
+	ecrirePosition(x, y);
+	ecrireTaille(largeur, hauteur);
+
 	// On configure le rectangle (bordure)
 	rectangle.setPosition(x, y);
 	rectangle.setSize(sf::Vector2f(largeur, hauteur));
@@ -47,6 +46,9 @@ ZoneTexte::ZoneTexte(int nom, int x, int y, int largeur, int hauteur,
 	label.setColor(sf::Color(255, 255, 255));
 
 	label.setString(remplacement);
+	label.setFont(
+			gui->lireScene()->lireJeu().lireRessources().lirePolice(
+					"grand9k.ttf"));
 }
 
 ZoneTexte::~ZoneTexte()
@@ -59,25 +61,19 @@ std::string ZoneTexte::lireTexte()
 	return texte;
 }
 
-void ZoneTexte::initialiser()
-{
-	// On change la police de la zone
-	label.setFont(parent->lireJeu().lireRessources().lirePolice("grand9k.ttf"));
-}
-
 void ZoneTexte::actualiser(float)
 {
 	// On change la couleur de la bordure selon que la zone soit selectionnée,
 	// survolée, ou rien du tout
 	if (selectionne)
 		rectangle.setOutlineColor(sf::Color(255, 0, 0));
-	else if (survole)
+	else if (lireSurvol())
 		rectangle.setOutlineColor(sf::Color(255, 255, 0));
 	else
 		rectangle.setOutlineColor(sf::Color(255, 255, 255));
 }
 
-void ZoneTexte::afficher(Affichage& affichage)
+void ZoneTexte::afficher(sf::RenderWindow& affichage)
 {
 	// On dessine le rectangle, le label, et si la zone est selectionnée,
 	// le curseur
@@ -88,60 +84,9 @@ void ZoneTexte::afficher(Affichage& affichage)
 		affichage.draw(curseur);
 }
 
-void ZoneTexte::surMouvementSouris(sf::Event::MouseMoveEvent evenement)
+bool ZoneTexte::contient(sf::Vector2i position)
 {
-	// Si le rectangle contient la souris
-	if (rectangle.getGlobalBounds().contains(evenement.x, evenement.y))
-	{
-		// Elle est survole
-		survole = true;
-	}
-	// Sinon
-	else
-	{
-		// Elle ne l'est pas
-		survole = false;
-	}
-}
-
-void ZoneTexte::surPressionBoutonSouris(sf::Event::MouseButtonEvent)
-{
-
-}
-
-void ZoneTexte::surRelachementBoutonSouris(
-	sf::Event::MouseButtonEvent evenement)
-{
-	// Si la zone est survole et que le bouton est le bouton gauche
-	if (survole && evenement.button == sf::Mouse::Left)
-	{
-		// On selectionne la zone
-		selectionne = true;
-		label.setString("");
-	}
-	// Sinon
-	else
-	{
-		// On la déselectionne / ne fait rien
-		selectionne = false;
-
-		if(texte.size() == 0)
-			label.setString(remplacement);
-	}
-}
-
-void ZoneTexte::surMoletteSouris(sf::Event::MouseWheelEvent)
-{
-
-}
-
-void ZoneTexte::surPressionToucheClavier(sf::Event::KeyEvent)
-{
-}
-
-void ZoneTexte::surRelachementToucheClavier(sf::Event::KeyEvent)
-{
-
+	return rectangle.getGlobalBounds().contains(position.x, position.y);
 }
 
 bool ZoneTexte::estAutorise(int unicode)
@@ -154,17 +99,88 @@ bool ZoneTexte::estAutorise(int unicode)
 	|| unicode == 32; // Espace
 }
 
-void ZoneTexte::surTexteClavier(sf::Event::TextEvent evenement)
+void ZoneTexte::clicSouris()
 {
+	// Si la zone est survole et que le bouton est le bouton gauche
+	if (lireSurvol())
+	{
+		// On selectionne la zone
+		selectionne = true;
+		label.setString("");
+	}
+	// Sinon
+	else
+	{
+		// On la déselectionne / ne fait rien
+		selectionne = false;
+
+		if (texte.size() == 0)
+			label.setString(remplacement);
+	}
+}
+
+void ZoneTexte::pressionSouris(sf::Mouse::Button)
+{
+
+}
+
+void ZoneTexte::relachementSouris(sf::Mouse::Button bouton)
+{
+	// Si la zone est survole et que le bouton est le bouton gauche
+	if (lireSurvol() && bouton == sf::Mouse::Left)
+	{
+		// On selectionne la zone
+		selectionne = true;
+		label.setString("");
+	}
+	// Sinon
+	else
+	{
+		// On la déselectionne / ne fait rien
+		selectionne = false;
+
+		if (texte.size() == 0)
+			label.setString(remplacement);
+	}
+}
+
+void ZoneTexte::entreeSouris(sf::Vector2f)
+{
+
+}
+
+void ZoneTexte::sortieSouris(sf::Vector2f)
+{
+
+}
+
+void ZoneTexte::moletteSouris(int)
+{
+
+}
+
+void ZoneTexte::pressionTouche(sf::Keyboard::Key)
+{
+
+}
+
+void ZoneTexte::relachementTouche(sf::Keyboard::Key)
+{
+
+}
+
+void ZoneTexte::entreeTexte(sf::Uint32 unicode)
+{
+
 	// Si la zone est selectionnée et ne dépasse pas du rectangle
 	if (selectionne)
 	{
 		// Si le texte entré fait partie des caractères autorisé, et qu'on ne dépasse pas du rectangle
-		if (estAutorise(evenement.unicode) && label.getGlobalBounds().width < rectangle
+		if (estAutorise(unicode) && label.getGlobalBounds().width < rectangle
 				.getSize().x - 20)
 		{
 			// On transforme le caractère entré depuis son format unicode
-			char c = (char) evenement.unicode;
+			char c = (char) unicode;
 
 			// On l'ajoute au texte actuel
 			std::stringstream stream;
@@ -182,7 +198,7 @@ void ZoneTexte::surTexteClavier(sf::Event::TextEvent evenement)
 					curseur.getPosition().y);
 		}
 		// Si le caractère entré est la touche de retour arrière
-		else if (evenement.unicode == 8)
+		else if (unicode == 8)
 		{
 			// On réduit le texte de 1 caractère
 			texte = texte.substr(0, texte.size() - 1);
@@ -204,9 +220,9 @@ void ZoneTexte::surTexteClavier(sf::Event::TextEvent evenement)
 		{
 			// On affiche le caractère
 			std::cout
-				<< evenement.unicode
+				<< unicode
 				<< " : "
-				<< (char) evenement.unicode
+				<< (char) unicode
 				<< std::endl;
 		}
 

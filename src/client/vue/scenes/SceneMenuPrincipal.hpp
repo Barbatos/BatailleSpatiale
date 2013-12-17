@@ -17,7 +17,8 @@
  *
  * Scène du Menu Principal, premier écran montré
  */
-class SceneMenuPrincipal : public Scene
+class SceneMenuPrincipal :
+	public Scene
 {
 	private:
 		/**
@@ -32,11 +33,11 @@ class SceneMenuPrincipal : public Scene
 		 */
 		enum Boutons
 		{
-			Solo,//!< Lancer une partie Solo
-			Multi,//!< Lancer une partie Multi
-			Quitter,//!< Quitter la partie
-			Musique,//!< Jouer ou mettre en pause la musique
-			Options,//!< Options du jeu
+			Solo, //!< Lancer une partie Solo
+			Multi, //!< Lancer une partie Multi
+			Quitter, //!< Quitter la partie
+			Musique, //!< Jouer ou mettre en pause la musique
+			Options, //!< Options du jeu
 			Serveur //!< Lancer un serveur 
 		};
 
@@ -58,7 +59,7 @@ class SceneMenuPrincipal : public Scene
 		virtual ~SceneMenuPrincipal();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
 
 #endif /* SCENEMENUPRINCIPAL_HPP */

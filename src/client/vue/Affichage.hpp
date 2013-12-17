@@ -32,4 +32,4 @@ class Affichage : public sf::RenderWindow
 		virtual ~Affichage();
 };
 
-#endif /* AFFICHAGE_HPP_ */
+#endif /* AFFICHAGE_HPP */

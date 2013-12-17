@@ -8,12 +8,10 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 
-#include <SFML/Graphics.hpp>
-
-#include "Element.hpp"
+#include "ElementPack.hpp"
 
 class Animation :
-		public Element
+	public Element
 {
 	private:
 		sf::Sprite sprite;
@@ -23,7 +21,8 @@ class Animation :
 		bool add;
 
 	public:
-		Animation(int nom, int x, int y, int largeur, int hauteur, bool add, sf::Sprite sprite);
+		Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
+			bool add, sf::Sprite sprite);
 
 		virtual ~Animation();
 
@@ -31,9 +30,9 @@ class Animation :
 
 		sf::Sprite& lireSprite();
 
-		void initialiser();
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
 };
 
 #endif /* ANIMATION_HPP_ */

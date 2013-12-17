@@ -1,177 +1,281 @@
 /*
  * Element.hpp
  *
- *  Created on: 6 oct. 2013
+ *  Created on: 16 déc. 2013
  *      Author: Soinou
  */
 
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
 
-// Includes de la libstd
+// Includes de la stdlib
 #include <memory>
-#include <string>
 
 // Includes de la SFML
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 // Includes de nos classes
-#include <client/vue/Scene.hpp>
+class Gui;
+#include "evenements/ObservateurSouris.hpp"
+#include "evenements/ObservateurClavier.hpp"
 
-// Pré-déclarations
-class Affichage;
-
-// Typedefs
-typedef std::unique_ptr<Scene> ScenePtr;
-
-/**
- * \brief Définit un élément graphique
- */
 class Element
 {
+	private:
+		/////////////////////////////////////////
+		///	General
+		/////////////////////////////////////////
+
+		/**
+		 * \brief L'ID de l'élement
+		 */
+		int id;
+
+		/**
+		 * \brief Le gui contenant l'élement
+		 *
+		 * \see Gui
+		 */
+		Gui* gui;
+
+		/**
+		 * \brief La position de l'élement
+		 */
+		sf::Vector2f position;
+
+		/**
+		 * \brief La taille de l'élement
+		 */
+		sf::Vector2f taille;
+
+		/////////////////////////////////////////
+		///	Observateurs
+		/////////////////////////////////////////
+
+		/**
+		 * \brief Si l'élement observe les évènements de la souris
+		 */
+		bool souris;
+
+		/**
+		 * \brief Si l'élement observe les évènements du clavier
+		 */
+		bool clavier;
+
+		/**
+		 * \brief Observateur de la souris
+		 *
+		 * \see ObservateurSouris
+		 */
+		ObservateurSouris::Ptr observateurSouris;
+
+		/**
+		 * \brief Observateur du clavier
+		 *
+		 * \see ObservateurClavier
+		 */
+		ObservateurClavier::Ptr observateurClavier;
+
 	protected:
-		/**
-		 * \brief Le nom de l'élement
-		 *
-		 * Indique le nom de l'élément
-		 */
-		int nom;
+		/////////////////////////////////////////
+		///	Divers
+		/////////////////////////////////////////
 
 		/**
-		 * \brief La zone de l'élément
-		 *
-		 * La position et la taille de l'élément
+		 * \brief Si l'élement est survolé
 		 */
-		sf::FloatRect zone;
+		bool survol;
 
 		/**
-		 * \brief Le parent de l'élément
-		 *
-		 * Pointeur vers le parent de l'élément
-		 *
-		 * \see Scene
+		 * \brief Si l'élement est appuyé
 		 */
-		ScenePtr parent;
+		bool appui;
 
 	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé un nouvel élément avec le nom donné et la zone donnée
-		 *
-		 * \param nom le nom de l'élément
-		 * \param x la position en x de l'élement
-		 * \param y la position en y de l'élément
-		 * \param largeur la largeur de l'élément
-		 * \param hauteur la hauteur de l'élément
-		 */
-		Element(int nom, int x, int y, int largeur,
-				int hauteur);
+		/////////////////////////////////////////
+		///	Typedef
+		/////////////////////////////////////////
+		typedef std::shared_ptr<Element> Ptr;
+
+		/////////////////////////////////////////
+		///	Constructeurs / Destructeurs
+		/////////////////////////////////////////
 
 		/**
 		 * \brief Constructeur
 		 *
-		 * Créé un nouvel élément avec le nom donné et la zone donnée
+		 * Appelle Element(Gui::Ptr, int) avec le Gui* transformé en Gui::Ptr
 		 *
-		 * \param nom le nom de l'élément
-		 * \param zone la zone de l'élément
+		 * @param gui le gui contenant l'élement
+		 * @param id l'id de l'élement
 		 */
-		Element(int nom, sf::FloatRect zone);
+		Element(Gui* gui, int id);
 
 		/**
 		 * \brief Destructeur
-		 *
-		 * Détruit une instance précédemment créé d'un élément
 		 */
 		virtual ~Element();
 
-		/**
-		 * \brief Initialise l'élément
-		 *
-		 * Appelé juste après changerParent(). Cette fonction est donc éxecutée lorsque le parent
-		 * de l'élément a été défini.
-		 */
-		virtual void initialiser() = 0;
+		/////////////////////////////////////////
+		///	Methodes Observateurs
+		/////////////////////////////////////////
 
 		/**
-		 * \brief Actualise l'élément
 		 *
-		 * Met à jour l'élément selon le temps donné en paramètre
+		 * @return
+		 */
+		ObservateurSouris::Ptr lireSouris();
+		/**
 		 *
-		 * \param delta le temps qui s'est écoulé depuis le dernier appel à la fonction
+		 * @return
+		 */
+		ObservateurClavier::Ptr lireClavier();
+
+		/**
+		 *
+		 * @param observateur
+		 */
+		void enregistrerSouris(ObservateurSouris::Ptr observateur);
+		/**
+		 *
+		 * @param observateur
+		 */
+		void enregistrerClavier(ObservateurClavier::Ptr observateur);
+
+		/**
+		 *
+		 * @return
+		 */
+		bool observeSouris();
+		/**
+		 *
+		 * @return
+		 */
+		bool observeClavier();
+
+		/////////////////////////////////////////
+		///	Methodes générales
+		/////////////////////////////////////////
+
+		/**
+		 *
+		 * @return
+		 */
+		int lireId();
+
+		/**
+		 *
+		 * \return
+		 */
+		Gui* lireGui();
+
+		/**
+		 *
+		 * @param id
+		 */
+		void ecrireId(int id);
+
+		/**
+		 *
+		 * @param gui
+		 */
+		void ecrireGui(Gui* gui);
+
+		/**
+		 *
+		 * @return
+		 */
+		sf::Vector2f lireTaille();
+
+		/**
+		 *
+		 * @return
+		 */
+		sf::Vector2f lirePosition();
+
+		/**
+		 *
+		 * @param taille
+		 */
+		void ecrireTaille(sf::Vector2f taille);
+		/**
+		 *
+		 * @param largeur
+		 * @param hauteur
+		 */
+		void ecrireTaille(float largeur, float hauteur);
+
+		/**
+		 *
+		 * @param position
+		 */
+		void ecrirePosition(sf::Vector2f position);
+		/**
+		 *
+		 * @param x
+		 * @param y
+		 */
+		void ecrirePosition(float x, float y);
+
+		/**
+		 *
+		 * @param zone
+		 */
+		void ecrireZone(sf::FloatRect zone);
+
+		/////////////////////////////////////////
+		///	Methodes diverses
+		/////////////////////////////////////////
+
+		/**
+		 *
+		 * @param survol
+		 */
+		void ecrireSurvol(bool survol);
+		/**
+		 *
+		 * @param appui
+		 */
+		void ecrireAppui(bool appui);
+
+		/**
+		 *
+		 * @return
+		 */
+		bool lireSurvol();
+		/**
+		 *
+		 * @return
+		 */
+		bool lireAppui();
+
+		/**
+		 *
+		 */
+		void envoyerMessage();
+
+		/**
+		 *
+		 * @param position
+		 * @return
+		 */
+		virtual bool contient(sf::Vector2i position) = 0;
+
+		/////////////////////////////////////////
+		///	Methodes d'affichage
+		/////////////////////////////////////////
+
+		/**
+		 *
+		 * @param delta
 		 */
 		virtual void actualiser(float delta) = 0;
-
 		/**
-		 * \brief Affiche l'élément à l'écran
 		 *
-		 * Affiche l'élément sur l'affichage donné en paramètre
-		 *
-		 * \param affichage l'affichage où dessiner l'élément
-		 * \see Affichage
+		 * @param fenetre
 		 */
-		virtual void afficher(Affichage& affichage) = 0;
-
-		/**
-		 * \brief Change le parent de l'élément
-		 *
-		 * Indique à l'élément qui est son parent, c'est à dire à qui il doit envoyer ses messages
-		 *
-		 * \param parent le parent de l'élément
-		 * \see Scene
-		 */
-		virtual void changerParent(Scene* parent);
-
-		/**
-		 * \brief Envoie un message au parent de l'élément
-		 *
-		 * Fait suivre un message au parent précédemment défini de l'élément
-		 *
-		 * \param message le message à faire suivre
-		 * \see Scene::Message
-		 */
-		void envoyerMessage(Scene::Message message);
-
-		/**
-		 * \class Element
-		 *
-		 * élément générique affiché dans une scène.
-		 *
-		 * Possède une fonction permettant d'envoyer un message qui sera traité par la scène parente,
-		 * et deux fonctions à implémenter lors d'un héritage : actualiser() et afficher()
-		 *
-		 * Exemple de création de nouvel élément :
-		 *
-		 \code
-		 class NouvelElement : public Element
-		 {
-			 public:
-				 NouvelElement(std::string nom);
-				 ~NouvelElement() { }
-
-				 void actualiser(float delta);
-				 void afficher(Affichage& affichage);
-		 }
-
-		 NouvelElement::NouvelElement(std::string nom) : Element(nom)
-		 {
-		 }
-
-		 void NouvelElement::actualiser(float delta)
-		 {
-			 // Mise à jour de l'élément
-
-			 // On a besoin de faire passer un message à la scène :
-			 envoyerMessage(Scene::NouveauMessage);
-		 }
-
-		 void NouvelElement::afficher(Affichage& affichage)
-		 {
-			 // Affichage de l'élément
-			 affichage.draw(quelqueChose);
-		 }
-		 \endcode
-		 */
+		virtual void afficher(sf::RenderWindow& fenetre) = 0;
 };
 
-#endif /* ELEMENT_HPP */
+#endif /* NEWELEMENT_HPP */

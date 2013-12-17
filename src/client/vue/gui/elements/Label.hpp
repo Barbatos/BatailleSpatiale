@@ -9,7 +9,7 @@
 #define LABEL_HPP
 
 // Includes de la SFML
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 /**
  * \brief Simple label, affichant du texte

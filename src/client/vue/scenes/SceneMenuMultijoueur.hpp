@@ -15,14 +15,16 @@
  *
  * Écran de création d'une partie Multijoueur
  */
-class SceneMenuMultijoueur : public Scene
+class SceneMenuMultijoueur :
+	public Scene
 {
 	private:
 		/**
 		 * \brief Les différents boutons de la scène
 		 */
-		enum Boutons {
-			Multijoueur//!< Lancer une partie multijoueur
+		enum Boutons
+		{
+			Multijoueur //!< Lancer une partie multijoueur
 		};
 
 	public:
@@ -43,8 +45,7 @@ class SceneMenuMultijoueur : public Scene
 		virtual ~SceneMenuMultijoueur();
 
 		// Héritée de Scene
-		void surMessage(int nom, Scene::Message message);
+		void surMessage(int id);
 };
-
 
 #endif /* SCENEMENUMULTIJOUEUR_HPP_ */

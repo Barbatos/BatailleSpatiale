@@ -15,16 +15,11 @@
 #include <vector>
 #include <memory>
 
+// Includes de nos classes
+#include "gui/Gui.hpp"
+
 // Pré-déclarations
 class Jeu;
-class Element;
-class ElementSouris;
-class ElementClavier;
-
-// Typedefs
-typedef std::shared_ptr<Element> ElementPtr;
-typedef std::shared_ptr<ElementSouris> SourisPtr;
-typedef std::shared_ptr<ElementClavier> ClavierPtr;
 
 /**
  * \brief Représente une scène du jeu
@@ -41,47 +36,17 @@ class Scene
 		 */
 		Jeu& jeu;
 
-	private:
 		/**
-		 * \brief Liste des éléments
 		 *
-		 * Liste des éléments présents dans la scène
-		 *
-		 * \see Element
 		 */
-		std::vector<ElementPtr> elements;
-
-		/**
-		 * \brief Liste des observateur souris
-		 *
-		 * Liste des observateur souris présents dans la scène
-		 *
-		 * \see ObservateurSouris
-		 */
-		std::vector<SourisPtr> souris;
-
-		/**
-		 * \brief Liste des observateur clavier
-		 *
-		 * Liste des observateur clavier présents dans la scène
-		 *
-		 * \see ObservateurClavier
-		 */
-		std::vector<ClavierPtr> clavier;
+		Gui gui;
 
 	public:
 
 		/**
-		 * \brief Type du message reçu
-		 *
-		 * message qu'un des éléments a envoyé
+		 * \brief Version unique_ptr de la scène
 		 */
-		enum Message
-		{
-			Clic, //!< Un élément a été cliqué
-			Entre, //!< La souris est entrée dans un élément
-			Sort, //!< La souris est sortie d'un élément
-		};
+		typedef std::unique_ptr<Scene> Ptr;
 
 		/**
 		 * \brief Les différentes scènes possibles
@@ -119,38 +84,13 @@ class Scene
 		virtual ~Scene();
 
 		/**
-		 * \brief Ajoute l'élément donné à la scène
-		 *
-		 * Récupère l'élément donné et l'ajoute à la scène
-		 *
-		 * \param element l'élément à rajouter
-		 * \see Element
-		 */
-		void ajouter(Element* element);
-
-		/**
-		 * \brief Enregistre l'observateur souris donné
-		 *
-		 * Ajoute l'observateur souris donné et appelera ses fonctions de callback en cas d'évènement
-		 *
-		 * \param souris
-		 */
-		void enregistrerSouris(ElementSouris* souris);
-
-		/**
-		 * \brief
-		 * \param clavier
-		 */
-		void enregistrerClavier(ElementClavier* clavier);
-
-		/**
 		 * \brief Met à jour la scène
 		 *
 		 * Met à jour la scène selon le temps passé en paramètre
 		 *
 		 * \param delta le temps écoulé depuis le dernier affichage
 		 */
-		void actualiser(float delta);
+		void actualiser();
 
 		/**
 		 * \brief Affiche la scène
@@ -178,7 +118,7 @@ class Scene
 		 * @param message le message envoyé
 		 * \see Message
 		 */
-		virtual void surMessage(int nom, Message message) = 0;
+		virtual void surMessage(int id) = 0;
 
 		/**
 		 * \brief Renvoie le jeu
@@ -189,6 +129,12 @@ class Scene
 		 * \see Jeu
 		 */
 		Jeu& lireJeu();
+
+		/**
+		 *
+		 * @return
+		 */
+		Gui& lireGui();
 
 		/**
 		 * \class Scene
@@ -206,35 +152,35 @@ class Scene
 		 \code
 		 class NouvelleScene : public Scene
 		 {
-		 	 public:
-		 	 	 NouvelleScene(Jeu& jeu);
-		 		 ~NouvelleScene() { }
+		 public:
+		 NouvelleScene(Jeu& jeu);
+		 ~NouvelleScene() { }
 
-		 		 void surMessage(std::string nom, Message message);
+		 void surMessage(std::string nom, Message message);
 		 }
 
 		 NouvelleScene::NouvelleScene(Jeu& jeu) : Scene(jeu)
 		 {
-		 	 ajouterElement(new Element("element"));
-		 	 ajouterSouris(new ObservateurSouris("elementSouris"));
-		 	 ajouterClavier(new ObservateurClavier("elementClavier"));
+		 ajouterElement(new Element("element"));
+		 ajouterSouris(new ObservateurSouris("elementSouris"));
+		 ajouterClavier(new ObservateurClavier("elementClavier"));
 		 }
 
 		 void NouvelleScene::surMessage(std::string nom, Message message)
 		 {
-		 	switch(message)
-		 	{
-		 		case Clic:
-		 			if(nom == "elementSouris")
-		 				// elementSouris a été cliqué !
-		 				// Cet élément doit faire passer à la prochaine scène :
-		 				jeu.changer(Scene::NouvelleScene);
+		 switch(message)
+		 {
+		 case Clic:
+		 if(nom == "elementSouris")
+		 // elementSouris a été cliqué !
+		 // Cet élément doit faire passer à la prochaine scène :
+		 jeu.changer(Scene::NouvelleScene);
 
-		 				// Note : La classe Scene possède l'énumération Scene::Type regroupant
-		 				// toutes les scènes du jeu
-		 			break;
-		 		// Autres cas ...
-		 	}
+		 // Note : La classe Scene possède l'énumération Scene::Type regroupant
+		 // toutes les scènes du jeu
+		 break;
+		 // Autres cas ...
+		 }
 		 }
 		 \endcode
 		 */

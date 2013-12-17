@@ -7,20 +7,21 @@
 
 #include "Animation.hpp"
 
-#include <iostream>
-
-#include <client/utile/Utile.hpp>
-#include <client/vue/Affichage.hpp>
-
-Animation::Animation(int nom, int x, int y, int largeur, int hauteur, bool add,
-	sf::Sprite sprite) :
-		Element(nom, x, y, largeur, hauteur),
+Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
+	bool add, sf::Sprite sprite) :
+		Element(gui, id),
 		sprite(sprite),
 		posx(0),
 		posy(0),
 		time(0),
 		add(add)
 {
+	ecrirePosition(x, y);
+	ecrireTaille(largeur, hauteur);
+
+	sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
+	sprite.setPosition(lirePosition().x, lirePosition().y);
+	Utile::redimensionnerImage(sprite, lireTaille().x, lireTaille().y, false);
 }
 
 Animation::~Animation()
@@ -35,13 +36,6 @@ void Animation::ecrireSprite(sf::Sprite sprite)
 sf::Sprite& Animation::lireSprite()
 {
 	return sprite;
-}
-
-void Animation::initialiser()
-{
-	sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
-	sprite.setPosition(zone.left, zone.top);
-	Utile::redimensionnerImage(sprite, zone.width, zone.height, false);
 }
 
 void Animation::actualiser(float delta)
@@ -73,7 +67,7 @@ void Animation::actualiser(float delta)
 	}
 }
 
-void Animation::afficher(Affichage& affichage)
+void Animation::afficher(sf::RenderWindow& affichage)
 {
 	if (add)
 	{
@@ -83,4 +77,9 @@ void Animation::afficher(Affichage& affichage)
 	{
 		affichage.draw(sprite);
 	}
+}
+
+bool Animation::contient(sf::Vector2i position)
+{
+	return sprite.getGlobalBounds().contains(position.x, position.y);
 }

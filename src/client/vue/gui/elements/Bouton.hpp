@@ -8,13 +8,8 @@
 #ifndef BOUTON_HPP
 #define BOUTON_HPP
 
-// Includes de la SFML
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
 // Includes de nos classes
-#include "Element.hpp"
-#include "ElementSouris.hpp"
+#include "ElementPack.hpp"
 #include "Label.hpp"
 
 // Pré-déclarations
@@ -23,7 +18,8 @@ class Affichage;
 /**
  * \brief Simple bouton générique
  */
-class Bouton : public Element, public ElementSouris
+class Bouton :
+	public Element, public ObservateurSouris
 {
 	private:
 		/**
@@ -54,16 +50,6 @@ class Bouton : public Element, public ElementSouris
 		 */
 		sf::Sprite appui;
 
-		/**
-		 * \brief Si le bouton est survolé ou non.
-		 */
-		bool survole;
-
-		/**
-		 * \brief Si le vouton est appuyé ou non.
-		 */
-		bool appuye;
-
 	public:
 		/**
 		 * \brief Constructeur
@@ -77,7 +63,8 @@ class Bouton : public Element, public ElementSouris
 		 * \param largeur sa largeur
 		 * \param hauteur sa hauteur
 		 */
-		Bouton(int nom, std::string texte, float x, float y, float largeur, float hauteur);
+		Bouton(Gui* gui, int id, std::string texte, float x, float y,
+			float largeur, float hauteur);
 
 		/**
 		 * \brief Destructeur
@@ -87,13 +74,16 @@ class Bouton : public Element, public ElementSouris
 		virtual ~Bouton();
 
 		// Héritées de ElementSouris
-		void initialiser();
 		void actualiser(float delta);
-		void afficher(Affichage& affichage);
-		void surMouvementSouris(sf::Event::MouseMoveEvent evenement);
-		void surPressionBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement);
-		void surMoletteSouris(sf::Event::MouseWheelEvent evenement);
+		void afficher(sf::RenderWindow& affichage);
+		bool contient(sf::Vector2i position);
+
+		void clicSouris();
+		void pressionSouris(sf::Mouse::Button bouton);
+		void relachementSouris(sf::Mouse::Button bouton);
+		void entreeSouris(sf::Vector2f position);
+		void sortieSouris(sf::Vector2f position);
+		void moletteSouris(int delta);
 
 		/**
 		 * \class Bouton
@@ -118,41 +108,41 @@ class Bouton : public Element, public ElementSouris
 		 // Dans la fonction surMessage() de la même scène :
 		 switch(message)
 		 {
-		 	 case Clic:
-		 	 	 switch(nom)
-		 	 	 {
-		 	 	 	 case 0:
-		 	 	 	 	 // La souris a cliqué sur notre bouton
-		 	 	 	 	 faireQuelqueChose();
-		 	 	 	 	 break;
-		 	 	 	 default:
-		 	 	 	 	 break;
-		 	 	 }
-		 	 	 break;
-		 	 case Entre:
-		 	 	 switch(nom)
-		 	 	 {
-		 	 	 	 case 0:
-		 	 	 	 	 // La souris est entrée dans notre bouton
-		 	 	 	 	 faireAutreChose();
-		 	 	 	 	 break;
-		 	 	 	 default:
-		 	 	 	 	 break;
-		 	 	 }
-		 	 	 break;
-		 	 case Sort:
-		 	 	 switch(nom)
-		 	 	 {
-		 	 	 	 case 0:
-		 	 	 	 	 // La souris est sortie de notre bouton !
-		 	 	 	 	 faireEncoreAutreChose();
-		 	 	 	 	 break;
-		 	 	 	 default:
-		 	 	 	 	 break;
-		 	 	 }
-		 	 	 break;
-		 	 default:
-		 	 	 break;
+		 case Clic:
+		 switch(nom)
+		 {
+		 case 0:
+		 // La souris a cliqué sur notre bouton
+		 faireQuelqueChose();
+		 break;
+		 default:
+		 break;
+		 }
+		 break;
+		 case Entre:
+		 switch(nom)
+		 {
+		 case 0:
+		 // La souris est entrée dans notre bouton
+		 faireAutreChose();
+		 break;
+		 default:
+		 break;
+		 }
+		 break;
+		 case Sort:
+		 switch(nom)
+		 {
+		 case 0:
+		 // La souris est sortie de notre bouton !
+		 faireEncoreAutreChose();
+		 break;
+		 default:
+		 break;
+		 }
+		 break;
+		 default:
+		 break;
 		 }
 		 \endcode
 		 *

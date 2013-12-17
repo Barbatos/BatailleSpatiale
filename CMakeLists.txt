@@ -13,16 +13,16 @@ project(BatailleSpatiale)
 # Build type par défaut à Debug
 if(CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE "Debug")
-ENDIF()
+endif()
 
-# Change le dossier des modules cmake
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+# Localisation de différents dossiers
+set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+set(BIN_DIR "${CMAKE_SOURCE_DIR}/bin")
 
-# Dossier de build
-set(CMAKE_BUILD_PATH ${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE})
-
-# Change le dossier où seront créés les éxecutables
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+# Changement de quelques dossiers utilisés par CMake
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
+set(CMAKE_BUILD_PATH "${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}")
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}")
 
 # Change les flags de compilation
 set(CMAKE_CXX_FLAGS "-std=c++0x -Wall -Wextra")
@@ -34,7 +34,7 @@ set(CMAKE_CXX_FLAGS "-std=c++0x -Wall -Wextra")
 ########################################################################
 
 # On inclut le chargement de la SFML
-INCLUDE(cmake/sfml.cmake)
+include("cmake/sfml.cmake")
 
 ########################################################################
 #
@@ -43,7 +43,7 @@ INCLUDE(cmake/sfml.cmake)
 ########################################################################
 
 # On inclut les sources
-INCLUDE(cmake/source.cmake)
+include("cmake/source.cmake")
 
 ########################################################################
 #
@@ -52,4 +52,4 @@ INCLUDE(cmake/source.cmake)
 ########################################################################
 
 # On inclut la copie des ressources
-INCLUDE(cmake/ressources.cmake)
+include("cmake/ressources.cmake")
