@@ -4,6 +4,7 @@
 #include "../global.hpp"
 #include "ReseauGlobal.hpp"
 #include "enum/TypePaquet.hpp"
+#include "../client/modele/Plateau.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à
@@ -17,7 +18,7 @@ class ReseauClient
 		 * \brief Constructeur par défaut
 		 * 
 		 */
-		ReseauClient(void);
+		ReseauClient(Plateau& _plateau);
 
 		/**
 		 * \brief Destructeur par défaut
@@ -54,7 +55,17 @@ class ReseauClient
 
 		sf::TcpSocket& getSocket(void);
 
+		void setIp(string _ip);
+
+		void setPort(unsigned short _port);
+
 		void EnvoyerPseudoServeur(string pseudo);
+
+		void threadReseau();
+
+		void lancerReseau();
+
+		void fermerReseau();
 
 	private:
 
@@ -63,6 +74,14 @@ class ReseauClient
 
 		/// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
 		bool actif;
+
+		sf::Thread reseauThread;
+
+		string ip;
+
+		unsigned short port;
+
+		Plateau& plateau;
 };
 
 #endif

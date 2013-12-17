@@ -1,44 +1,44 @@
-#include "Plateau.hpp"
+#include "PlateauServeur.hpp"
 
-Plateau::Plateau(sf::Int16 _tailleX, sf::Int16 _tailleY) :
+PlateauServeur::PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY) :
     tailleX(_tailleX), tailleY(_tailleY) {
 
-    cellule.resize(tailleX, std::vector<Cellule>(tailleY));
+    cellule.resize(tailleX, std::vector<CelluleServeur>(tailleY));
 
     for (sf::Int16 x = 0 ; x < tailleX ; ++x)
         for (sf::Int16 y = 0 ; y < tailleY ; ++y)
-            cellule[x][y] = Cellule();
+            cellule[x][y] = CelluleServeur();
 }
 
-bool Plateau::possedeBatiment(Position p) {
+bool PlateauServeur::possedeBatiment(Position p) {
     return cellule[p.x][p.y].possedeBatiment();
 }
 
-bool Plateau::possedeVaisseau(Position p) {
+bool PlateauServeur::possedeVaisseau(Position p) {
     return cellule[p.x][p.y].possedeVaisseau();
 }
 
-bool Plateau::possedeEvenement(Position p) {
+bool PlateauServeur::possedeEvenement(Position p) {
     return cellule[p.x][p.y].possedeEvenement();
 }
 
-VaisseauPtr Plateau::getVaisseau(Position p) {
+VaisseauServeurPtr PlateauServeur::getVaisseau(Position p) {
     return cellule[p.x][p.y].getVaisseau();
 }
 
-BatimentPtr Plateau::getBatiment(Position p) {
+BatimentServeurPtr PlateauServeur::getBatiment(Position p) {
     return cellule[p.x][p.y].getBatiment();
 }
 
-EvenementPtr Plateau::getEvenement(Position p) {
+EvenementPtr PlateauServeur::getEvenement(Position p) {
     return cellule[p.x][p.y].getEvenement();
 }
 
-int Plateau::getCoutDeplacement(Position p) {
+int PlateauServeur::getCoutDeplacement(Position p) {
     return cellule[p.x][p.y].getCoutDeplacement();
 }
 
-std::list<Position> Plateau::celluleAutour(Position p) {
+std::list<Position> PlateauServeur::celluleAutour(Position p) {
     std::list<Position> autour;
     Position nouveauPoint;
     for(int i =-1; i <= 1; i++) {
@@ -55,16 +55,16 @@ std::list<Position> Plateau::celluleAutour(Position p) {
     return autour;
 }
 
-std::list<Noeud> Plateau::getZoneParcourable(Position positionVaisseau) {
+std::list<NoeudServeur> PlateauServeur::getZoneParcourable(Position positionVaisseau) {
     //On créé une liste parcourable
-    std::list<Noeud> zoneParcourable;
+    std::list<NoeudServeur> zoneParcourable;
 
     //On regarde si le vaisseau peut se déplacer
     if(cellule[positionVaisseau.x][positionVaisseau.y].distanceMaximale() > 0) {
 
         //Liste des noeuds encore à étudier
-        std::list<Noeud> openListe;
-        std::list<Noeud>::iterator noeudIterateur;
+        std::list<NoeudServeur> openListe;
+        std::list<NoeudServeur>::iterator noeudIterateur;
 
         //Liste des points autour du noeud etudié
         std::list<Position> pointAutour;
@@ -73,7 +73,7 @@ std::list<Noeud> Plateau::getZoneParcourable(Position positionVaisseau) {
         bool noeudTrouve = false;
 
         //On commence par étudier le noeud ou le vaisseau se situe
-        Noeud noeudCourant(positionVaisseau);
+        NoeudServeur noeudCourant(positionVaisseau);
 
         //On défini la distance maximale des recherches
         int distanceParcourable = cellule[positionVaisseau.x][positionVaisseau.y].distanceMaximale();
@@ -115,7 +115,7 @@ std::list<Noeud> Plateau::getZoneParcourable(Position positionVaisseau) {
                         if (noeudCourant.getG() + cellule[pointCourant->x][pointCourant->y].getCoutDeplacement() < noeudIterateur->getG()) {
 
                             noeudIterateur = openListe.erase(noeudIterateur);
-                            openListe.push_back(Noeud(*pointCourant, cellule[pointCourant->x][pointCourant->y].getCoutDeplacement(), noeudCourant.getPosition()));
+                            openListe.push_back(NoeudServeur(*pointCourant, cellule[pointCourant->x][pointCourant->y].getCoutDeplacement(), noeudCourant.getPosition()));
                         }
 
                         //Sinon
@@ -133,7 +133,7 @@ std::list<Noeud> Plateau::getZoneParcourable(Position positionVaisseau) {
 
                         //Si il n'est ni dans l'openListe ni dans la zone parcourable on l'ajoute à l'openListe
                         if (!noeudTrouve) {
-                            openListe.push_back(Noeud(*pointCourant, cellule[pointCourant->x][pointCourant->y].getCoutDeplacement() + noeudCourant.getG(), noeudCourant.getPosition()));
+                            openListe.push_back(NoeudServeur(*pointCourant, cellule[pointCourant->x][pointCourant->y].getCoutDeplacement() + noeudCourant.getG(), noeudCourant.getPosition()));
                         }
                     }
                 }
@@ -157,7 +157,7 @@ std::list<Noeud> Plateau::getZoneParcourable(Position positionVaisseau) {
     return zoneParcourable;
 }
 
-std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable) {
+std::list<Position> obtenirChemin(Position p, std::list<NoeudServeur>* zoneParcourable) {
     //Le chemin à retourner
     std::list<Position> chemin;
     //La position courante à envoyer dans la liste(chemin)
@@ -168,7 +168,7 @@ std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable)
     bool noeudTrouve;
 
     //On cherche si la position p est bien dans la zone parcourable
-    std::list<Noeud>::iterator noeudIterateur = zoneParcourable->begin();
+    std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable->begin();
     while(!pCourante.isNull() && noeudIterateur != zoneParcourable->end()) {
         if(p == (noeudIterateur->getPosition())) {
             pCourante = p;
@@ -182,7 +182,7 @@ std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable)
         noeudTrouve=false;
         
         //On cherche le noeud qui correspond a la position courante
-        std::list<Noeud>::iterator noeudIterateur = zoneParcourable->begin();
+        std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable->begin();
         while(!noeudTrouve && noeudIterateur != zoneParcourable->end()) {
             if(pCourante == (noeudIterateur->getPosition())) {
 
@@ -203,19 +203,19 @@ std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable)
     return chemin;
 }
 
-bool Plateau::celluleAccessible(Position p) {
+bool PlateauServeur::celluleAccessible(Position p) {
     return cellule[p.x][p.y].estAccessible();
 }
 
-sf::Int16 Plateau::getTailleX() {
+sf::Int16 PlateauServeur::getTailleX() {
     return tailleX;
 }
 
-sf::Int16 Plateau::getTailleY() {
+sf::Int16 PlateauServeur::getTailleY() {
     return tailleY;
 }
 
-sf::Packet& operator <<(sf::Packet& paquet, const Plateau& plateau) {
+sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau) {
     paquet << plateau.tailleX << plateau.tailleY;
 
     for (sf::Int16 x = 0 ; x < plateau.tailleX ; ++x)

@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <client/vue/vues/AffichageDetails.hpp>
+#include <serveur/plateau/PlateauServeur.hpp>
 
 #define FPS 60
 #define TEMPS_FRAME 1000/FPS
@@ -23,7 +24,8 @@ Jeu::Jeu() :
 		reseau(nullptr)
 {
 	changer(Scene::SceneMenuPrincipal);
-	reseau = ReseauPtr(new ReseauClient());
+	reseau = ReseauPtr(new ReseauClient(modele));
+	reseauActif = false;
 }
 
 Jeu::~Jeu()
@@ -80,6 +82,7 @@ void Jeu::changer(Scene::Type nouvelleScene)
 	}
 }
 
+<<<<<<< HEAD
 void Jeu::threadReseau()
 {
 	while (true)
@@ -87,19 +90,50 @@ void Jeu::threadReseau()
 		reseau->TraiterPaquetServeur();
 		sf::sleep(sf::milliseconds(10));
 	}
+=======
+void Jeu::connexionServeur(string ip, unsigned short port){
+	reseau->setIp(ip);
+	reseau->setPort(port);
+}
+
+void Jeu::lancerServeurGUI(unsigned int port){
+	sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
+
+	plateauServeur = PlateauServeurPtr(new PlateauServeur(300, 250));
+	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 }
 
 void Jeu::lancer()
 {
-
 	sf::Event evenement;
+<<<<<<< HEAD
 	int message;
 	sf::Thread reseauThread(&Jeu::threadReseau, this);
+=======
+	sf::Time precedent;
+	long delta;
+	long attente;
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 
-	reseauThread.launch();
+	reseau->lancerReseau();
 
 	while (affichage.isOpen())
 	{
+<<<<<<< HEAD
+=======
+		sf::Time nouveau = horloge.getElapsedTime();
+
+		delta = (nouveau - precedent).asMilliseconds();
+
+		precedent = nouveau;
+
+		if(reseau->getActif() && !reseauActif){
+			reseauActif = true;
+			changer(Scene::SceneJeu);
+		}
+
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 		while (affichage.pollEvent(evenement))
 		{
 			if (evenement.type == sf::Event::Closed)
@@ -122,7 +156,11 @@ void Jeu::lancer()
 		affichage.display();
 	}
 
+<<<<<<< HEAD
 	reseauThread.terminate();
+=======
+	reseau->fermerReseau();
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 }
 
 void Jeu::quitter()

@@ -2,8 +2,8 @@
 
 int main()
 {
-	ReseauPtr serveur;
-	Plateau* plateau;
+	ReseauServeurPtr serveur;
+	PlateauServeur* plateau;
 	unsigned int port = 1337;
 	string msg = "";
 
@@ -16,11 +16,11 @@ int main()
 		port = atoi(msg.c_str());
 	}
 
-	plateau = new Plateau(100, 100);
-	serveur = ReseauPtr(new ReseauServeur(port, *plateau));
+	plateau = new PlateauServeur(300, 250);
+	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
 
 	while(true){
-		serveur->AccepterNouveauClient();
+		serveur->EcouterReseau();
 		sf::sleep(sf::milliseconds(50));
 	}
 

@@ -1,6 +1,8 @@
 #include "ReseauClient.hpp"
 
-ReseauClient::ReseauClient(void){
+ReseauClient::ReseauClient(Plateau& _plateau) : 
+	reseauThread(&ReseauClient::threadReseau, this), ip("none"), port(0), plateau(_plateau) 
+{
 	setActif(false);
 }
 
@@ -34,8 +36,8 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port){
 
 void ReseauClient::TraiterPaquetServeur(void){
 	sf::Uint16 	typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
-	string 		message;
 	sf::Packet 	paquet;
+	string 		message;
 
 	if(!getActif()){
 		return;
@@ -47,9 +49,20 @@ void ReseauClient::TraiterPaquetServeur(void){
 		return;
 	}
 
-	paquet >> typePaquet >> message;
+	paquet >> typePaquet;
 
-	cout << "serveur: " << message << endl;
+	switch(static_cast<TypePaquet>(typePaquet)){
+
+		case TypePaquet::Plateau:
+
+			paquet >> plateau;
+			break;
+
+		case TypePaquet::MessageEchoServeur:
+		default:
+			paquet >> typePaquet >> message;
+			break;
+	}
 }
 
 /// Après la connexion, on dit bonjour au serveur
@@ -71,6 +84,38 @@ bool ReseauClient::getActif(void){
 	return actif;
 }
 
+void ReseauClient::setIp(string _ip){
+	ip = _ip;
+}
+
+void ReseauClient::setPort(unsigned short _port){
+	port = _port;
+}
+
 sf::TcpSocket& ReseauClient::getSocket(void){
 	return socket;
+}
+
+void ReseauClient::threadReseau(){
+	// On attend de recevoir les informations de connexion
+	while((ip == "none") || (port == 0)){
+		sf::sleep(sf::milliseconds(50));
+	}
+
+	// On se connecte au serveur
+	ConnexionServeur(ip, port);
+
+	// On écoute le réseau et on traite les paquets reçus du serveur
+	while(true){
+		TraiterPaquetServeur();
+		sf::sleep(sf::milliseconds(10));
+	}
+}
+
+void ReseauClient::lancerReseau(){
+	reseauThread.launch();
+}
+
+void ReseauClient::fermerReseau(){
+	reseauThread.terminate();
 }

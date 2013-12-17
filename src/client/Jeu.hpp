@@ -12,6 +12,7 @@
 #include <client/controleur/Controleur.hpp>
 #include <client/vue/Scenes.hpp>
 #include <client/ressources/Ressources.hpp>
+#include <commun/ReseauServeur.hpp>
 #include <commun/ReseauClient.hpp>
 #include <memory>
 
@@ -88,6 +89,12 @@ class Jeu
 		 */
 		ReseauPtr reseau;
 
+		bool reseauActif;
+
+		ReseauServeurPtr serveur;
+
+		PlateauServeurPtr plateauServeur;
+
 	public:
 		/**
 		 * \brief Constructeur
@@ -126,7 +133,9 @@ class Jeu
 		 */
 		void quitter();
 
-		void threadReseau();
+		void connexionServeur(string ip, unsigned short port);
+
+		void lancerServeurGUI(unsigned int port);
 
 		/**
 		 * \brief Récupère l'affichage

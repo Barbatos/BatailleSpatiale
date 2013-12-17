@@ -1,19 +1,19 @@
-#ifndef CELLULE_HPP
-#define CELLULE_HPP
+#ifndef CELLULESERVEUR_HPP
+#define CELLULESERVEUR_HPP
 #include "../../commun/enum/TypeCellule.hpp"
 #include "evenement/Evenement.hpp"
 #include "../../commun/enum/TypeBatiment.hpp"
-#include "../structures/batiments/Batiment.hpp"
-#include "../structures/vaisseaux/Vaisseau.hpp"
+#include "../structures/batiments/BatimentServeur.hpp"
+#include "../structures/vaisseaux/VaisseauServeur.hpp"
 #include "../structures/Structure.hpp"
 
 /**
  * Cette classe est une case elementaire du plateau
  */
-class Cellule {
+class CelluleServeur {
 
 public:
-    Cellule(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
+    CelluleServeur(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
     TypeCellule getType() const;
     
     bool possedeEvenement() const;
@@ -38,30 +38,32 @@ public:
     TypeBatiment typeBatiment() const;
     bool estAccessible() const;
     
-    BatimentPtr getBatiment() const;
+    BatimentServeurPtr getBatiment() const;
     
     EvenementPtr getEvenement() const;
     
     void retirerVaisseau();
-    void setVaisseau(VaisseauPtr _vaisseau);
-    VaisseauPtr getVaisseau() const;
+    void setVaisseau(VaisseauServeurPtr _vaisseau);
+    VaisseauServeurPtr getVaisseau() const;
     int distanceMaximale() const;
 
     //Multiple fonctions de test
     void creerVaisseauTest();
     void creerVaisseauConstructeurTest();
     void creerBatimentBaseTest();
+    void attaquer(CelluleServeur *cCible);
+    void defendre(int degat);
 
 protected:
 
 private:
     EvenementPtr evenement;
-    BatimentPtr batiment;
-    VaisseauPtr vaisseau;
+    BatimentServeurPtr batiment;
+    VaisseauServeurPtr vaisseau;
     TypeCellule type;
 
 };
 
-sf::Packet& operator <<(sf::Packet& paquet, const Cellule& cellule);
+sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule);
 
-#endif // CELLULE_HPP
+#endif // CELLULESERVEUR_HPP

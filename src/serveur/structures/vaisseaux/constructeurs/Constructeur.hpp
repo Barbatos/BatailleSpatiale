@@ -2,7 +2,7 @@
 #define CONSTRUCTEUR_HPP
 
 #include "../../../../global.hpp"
-#include "../../batiments/Batiment.hpp"
+#include "../../batiments/BatimentServeur.hpp"
 
 
 
@@ -10,7 +10,7 @@
  * Classe qui définit les differents attributs
  * que possèdent les constructeurs.
  */
-class Constructeur : public Vaisseau {
+class Constructeur : public VaisseauServeur {
 
     public:
     Constructeur();
@@ -20,18 +20,18 @@ class Constructeur : public Vaisseau {
     void setMateriaux(int materiaux);
     int getMateriauxMax();
     void setMateriauxMax(int materiauxMax);
-    void ajouterBatiment(Batiment batiment);
+    void ajouterBatiment(BatimentServeur batiment);
     void retirerBatiment();
 
     private:
     int materiaux;
     int materiauxMax;
-    std::vector<Batiment> listeConstruction;
+    std::vector<BatimentServeur> listeConstruction;
 
 
 };
 
-std::ostream& operator<<(std::ostream& fluxSortant, Vaisseau const& Vaisseau);
+std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& VaisseauServeur);
 
 #endif // CONSTRUCTEUR_HPP
 

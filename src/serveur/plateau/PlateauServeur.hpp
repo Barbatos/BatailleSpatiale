@@ -1,10 +1,10 @@
-#ifndef PLATEAU_HPP
-#define PLATEAU_HPP
+#ifndef PLATEAUSERVEUR_HPP
+#define PLATEAUSERVEUR_HPP
 #include <vector>
 #include <list>
-#include "Cellule.hpp"
-#include "Noeud.hpp"
-#include "../joueurs/Joueur.hpp"
+#include "CelluleServeur.hpp"
+#include "NoeudServeur.hpp"
+#include "../joueurs/JoueurServeur.hpp"
 #include "../../commun/utile/Position.hpp"
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
@@ -13,7 +13,7 @@
  * \brief Le plateau coté serveur
  *
  */
-class Plateau {
+class PlateauServeur {
 
 public:
     /**
@@ -22,7 +22,7 @@ public:
      * \param _tailleX Taille du plateau en X
      * \param _tailleY Taille du plateau en Y
      */
-    Plateau(sf::Int16 _tailleX, sf::Int16 _tailleY);
+    PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY);
 
     /**
      * \brief Informe si la cellule a la position p possède un évènement
@@ -54,7 +54,7 @@ public:
      * \param p La position
      * \return Les détails du vaisseau
      */
-    VaisseauPtr getVaisseau(Position p);
+    VaisseauServeurPtr getVaisseau(Position p);
 
     /**
      * \brief Getter batiment
@@ -62,7 +62,7 @@ public:
      * \param p La position
      * \return Les détails du batiment
      */
-    BatimentPtr getBatiment(Position p);
+    BatimentServeurPtr getBatiment(Position p);
 
     /**
      * \brief Getter évènement
@@ -110,7 +110,7 @@ public:
      * \param positionVaisseau La position contenant le vaisseau
      * \return La zone parcourable
      */
-    std::list<Noeud> getZoneParcourable(Position positionVaisseau);
+    std::list<NoeudServeur> getZoneParcourable(Position positionVaisseau);
 
     /**
      * \brief Retourne le chemin jusqu'à la position p
@@ -119,7 +119,7 @@ public:
      * \param zoneParcourable la zone recherché par le pathfinding
      * \return Le chemin à effectuer de la première à la dernière case
      */
-    static std::list<Position> obtenirChemin(Position p, std::list<Noeud>* zoneParcourable);
+    static std::list<Position> obtenirChemin(Position p, std::list<NoeudServeur>* zoneParcourable);
 
     /**
      * \brief Getter tailleX
@@ -137,15 +137,17 @@ public:
 
 private:
     /// Les cellules du plateau
-    std::vector<std::vector<Cellule>> cellule;
+    std::vector<std::vector<CelluleServeur>> cellule;
     /// La taille du plateau à l'horizontal
     sf::Int16 tailleX;
     /// La taille du plateau à la verticale
     sf::Int16 tailleY;
 
-    friend sf::Packet& operator <<(sf::Packet& paquet, const Plateau& plateau);
+    friend sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);
 };
 
-sf::Packet& operator <<(sf::Packet& paquet, const Plateau& plateau);
+sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);
 
-#endif // PLATEAU_HPP
+typedef std::shared_ptr<PlateauServeur> PlateauServeurPtr;
+
+#endif // PLATEAUSERVEUR_HPP

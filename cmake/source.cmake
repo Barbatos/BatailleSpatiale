@@ -30,6 +30,7 @@ file(GLOB_RECURSE CLIENT_SRC
 )
 
 # Sources du serveur
+<<<<<<< HEAD
 file(GLOB_RECURSE SERVEUR_SRC
     "${SRC_DIR}/serveur/*.[ch]pp"
     "${SRC_DIR}/commun/ReseauServeur.cpp"
@@ -41,6 +42,22 @@ file(GLOB_RECURSE COMMUN_SRC
     "${SRC_DIR}/commun/ReseauGlobal.[ch]pp"
     "${SRC_DIR}/commun/enum/*.[ch]pp"
     "${SRC_DIR}/commun/utile/*.[ch]pp"
+=======
+FILE(GLOB_RECURSE SERVEUR_SRC
+   "src/serveur/mainServeur.[ch]pp"
+)
+
+# Sources communes
+FILE(GLOB_RECURSE COMMUN_SRC
+    "src/commun/ReseauGlobal.[ch]pp"
+    "src/commun/ReseauServeur.cpp"
+    "src/commun/ReseauServeur.hpp"
+    "src/commun/enum/*.[ch]pp"
+    "src/commun/utile/*.[ch]pp"
+    "src/serveur/joueurs/*.[ch]pp"
+    "src/serveur/plateau/*.[ch]pp"
+    "src/serveur/structures/*.[ch]pp"
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 )
 
 # Ajout de l'éxecutable client

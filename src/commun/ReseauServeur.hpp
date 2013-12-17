@@ -2,10 +2,10 @@
 #define _RESEAU_SERVER_H_
 
 #include "../global.hpp"
-#include "../serveur/joueurs/Joueur.hpp"
+#include "../serveur/joueurs/JoueurServeur.hpp"
 #include "../commun/ReseauGlobal.hpp"
 #include "../commun/enum/TypePaquet.hpp"
-#include "../serveur/plateau/Plateau.hpp"
+#include "../serveur/plateau/PlateauServeur.hpp"
 
 /**
  * Classe permettant de démarrer un serveur de jeu 
@@ -22,14 +22,12 @@ class ReseauServeur
 		 * \param port le port du serveur
 		 * \param plateau le plateau de jeu
 		 */
-		ReseauServeur(unsigned short port, Plateau& plateau);
-
+		ReseauServeur(unsigned short port, PlateauServeur& plateau);
 		/**
-		 * \brief Fonction cherchant s'il y a des clients en attente de connexion
-		 * et qui les accepte (ou pas). Cette fonction gère aussi les déconnexions
-		 * de clients.
+		 * \brief Fonction gérant les paquets envoyés au serveur par des 
+		 * clients extérieurs.
 		 */
-		void AccepterNouveauClient(void);
+		void EcouterReseau(void);
 
 		/**
 		 * \brief Fonction permettant de traiter un paquet reçu d'un client
@@ -38,7 +36,7 @@ class ReseauServeur
 		 * \param typePaquet le type de paquet reçu
 		 * \param msg le contenu du paquet
 		 */
-		void TraiterPaquetClient(Joueur& joueur, sf::Uint16 typePaquet, string& msg);
+		void TraiterPaquetClient(JoueurServeur& joueur, sf::Uint16 typePaquet, string& msg);
 
 		/**
 		 * \brief Fonction traitant une commande client commençant par un tiret /
@@ -46,7 +44,7 @@ class ReseauServeur
 		 * \param joueur le joueur ayant effectué la commande
 		 * \param commande la commande envoyée par le joueur
 		 */
-		void TraiterCommandeClient(Joueur& joueur, string& commande);
+		void TraiterCommandeClient(JoueurServeur& joueur, string& commande);
 
 		/**
 		 * \brief Envoi d'un message par le serveur à tous les clients
@@ -69,9 +67,9 @@ class ReseauServeur
 		 * \param client la socket du client
 		 * \param plateau le plateau
 		 */
-		void EnvoiPlateau(sf::TcpSocket& client, Plateau& _plateau);
+		void EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
 
-		void setPlateau(Plateau& plateau);
+		void setPlateau(PlateauServeur& plateau);
 
 	private:
 
@@ -82,10 +80,12 @@ class ReseauServeur
 		sf::SocketSelector selector;
 
 		/// Liste des joueurs connectés
-		vector<Joueur> joueurs;
+		vector<JoueurServeur> joueurs;
 
-		Plateau& plateau;
+		PlateauServeur& plateau;
 };
+
+typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;
 
 #endif
 

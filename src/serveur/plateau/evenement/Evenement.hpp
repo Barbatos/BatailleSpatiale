@@ -4,8 +4,8 @@
 #include <memory>
 #include <SFML/System.hpp>
 #include "../../../commun/enum/TypeEvenement.hpp"
-#include "../../structures/batiments/Batiment.hpp"
-#include "../../structures/vaisseaux/Vaisseau.hpp"
+#include "../../structures/batiments/BatimentServeur.hpp"
+#include "../../structures/vaisseaux/VaisseauServeur.hpp"
 /*
  * Classe qui permet d'affecter les vaisseaux
  * selon certains paramêtres
@@ -15,10 +15,10 @@ class Evenement {
 public:
     Evenement(TypeEvenement typeEvenement, bool destructible = false, sf::Int16 _coutDeplacement = 1, sf::Int16 _multiplicateurDommage = 1, sf::Int16 _multiplicateurDegat = 1);
     //Setters
-    virtual void activer(Batiment*) {}
-    virtual void desactiver(Batiment*) {}
-    virtual void activer(Vaisseau*) {}
-    virtual void desactiver(Vaisseau*) {}
+    virtual void activer(BatimentServeur*) {}
+    virtual void desactiver(BatimentServeur*) {}
+    virtual void activer(VaisseauServeur*) {}
+    virtual void desactiver(VaisseauServeur*) {}
     TypeEvenement quelType();
     //Getters
     bool estDestructible();

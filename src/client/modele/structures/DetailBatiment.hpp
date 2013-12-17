@@ -1,7 +1,7 @@
 #ifndef DETAIL_BATIMENT_HPP
 #define DETAIL_BATIMENT_HPP
 #include <SFML/System.hpp>
-#include "../../commun/enum/TypeBatiment.hpp"
+#include "../../../commun/enum/TypeBatiment.hpp"
 
 /**
  * \brief Défini les différents attributs du batiment
@@ -16,7 +16,7 @@ struct DetailBatiment {
     sf::Int32 bouclier; ///< Le bouclier courant
     sf::Int32 bouclierMax; ///< Le bouclier maximum
     float bouclierTaux; ///< Le taux de dégats pris par le bouclier
-    sf::Int32 rayonVisibilite; ///< Le rayon de visibilité
+    sf::Int32 visibilite; ///< Le rayon de visibilité
     sf::Int32 rayonAttaque; ///< Le rayon d'attaque
 };
 

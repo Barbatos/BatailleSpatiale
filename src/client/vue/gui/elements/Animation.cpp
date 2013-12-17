@@ -7,6 +7,7 @@
 
 #include "Animation.hpp"
 
+<<<<<<< HEAD:src/client/vue/gui/elements/Animation.cpp
 Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 	bool add, sf::Sprite sprite) :
 		Element(gui, id),
@@ -15,6 +16,21 @@ Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 		posy(0),
 		time(0),
 		add(add)
+=======
+#include <iostream>
+
+#include <client/utile/Utile.hpp>
+#include <client/vue/Affichage.hpp>
+
+Animation::Animation(int nom, unsigned int x, unsigned int y, int largeur, int hauteur, bool add, sf::Sprite sprite) :
+	Element(nom, x, y, largeur, hauteur),
+	sprite(sprite),
+	posx(0),
+	posy(0),
+	time(0),
+	add(add),
+	actualisation(true)
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d:src/client/vue/gui/Animation.cpp
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
@@ -44,21 +60,24 @@ void Animation::actualiser(float delta)
 
 	if (time > 1000 / 24)
 	{
-		if ((posx * 480) < sprite.getTexture()->getSize().x - 480)
+		if(actualisation)
 		{
-			posx++;
-		}
-		else
-		{
-			if ((posy * 480) < sprite.getTexture()->getSize().y - 480)
+			if ((posx * 480) < (sprite.getTexture()->getSize().x - 480))
 			{
-				posy++;
+				posx++;
 			}
 			else
 			{
-				posy = 0;
+				if ((posy * 480) < (sprite.getTexture()->getSize().y - 480))
+				{
+					posy++;
+				}
+				else
+				{
+					posy = 0;
+				}
+				posx = 0;
 			}
-			posx = 0;
 		}
 
 		sprite.setTextureRect(sf::IntRect(posx * 480, posy * 480, 480, 480));
@@ -67,7 +86,21 @@ void Animation::actualiser(float delta)
 	}
 }
 
+<<<<<<< HEAD:src/client/vue/gui/elements/Animation.cpp
 void Animation::afficher(sf::RenderWindow& affichage)
+=======
+void Animation::stop()
+{
+	actualisation = false;
+}
+
+void Animation::start()
+{
+	actualisation = true;
+}
+
+void Animation::afficher(Affichage& affichage)
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d:src/client/vue/gui/Animation.cpp
 {
 	if (add)
 	{
