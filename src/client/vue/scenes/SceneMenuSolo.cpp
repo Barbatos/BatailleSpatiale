@@ -43,27 +43,12 @@ void SceneMenuSolo::surMessage(int id)
 {
 	switch (id)
 	{
-<<<<<<< HEAD
 		case Solo:
 			//jeu.lireReseau()->ConnexionServeur(
 			//ip->lireTexte(), atoi(port->lireTexte().c_str()));
 
 			//if (jeu.lireReseau()->getActif())
 			jeu.changer(Scene::SceneJeu);
-=======
-		case Clic:
-			switch (nom)
-			{
-				case Solo:
-					jeu.connexionServeur(ip->lireTexte(), atoi(port->lireTexte().c_str()));
-					break;
-				case Retour:
-					jeu.changer(Scene::SceneMenuPrincipal);
-					break;
-				default:
-					break;
-			}
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 			break;
 		case Retour:
 			jeu.changer(Scene::SceneMenuPrincipal);

@@ -9,11 +9,6 @@
 
 // On inclut les déclarations des classes manquantes
 #include <client/Jeu.hpp>
-#include <client/vue/gui/Element.hpp>
-#include <client/vue/gui/ElementSouris.hpp>
-#include <client/vue/gui/ElementClavier.hpp>
-
-#include <client/vue/Affichage.hpp>
 
 Scene::Scene(Jeu& jeu) :
 		jeu(jeu),

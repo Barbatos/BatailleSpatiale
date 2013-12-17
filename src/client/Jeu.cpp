@@ -82,8 +82,6 @@ void Jeu::changer(Scene::Type nouvelleScene)
 	}
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 void Jeu::threadReseau()
 {
 	while (true)
@@ -91,9 +89,8 @@ void Jeu::threadReseau()
 		reseau->TraiterPaquetServeur();
 		sf::sleep(sf::milliseconds(10));
 	}
-=======
-=======
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
+}
+
 void Jeu::connexionServeur(string ip, unsigned short port){
 	reseau->setIp(ip);
 	reseau->setPort(port);
@@ -104,48 +101,23 @@ void Jeu::lancerServeurGUI(unsigned int port){
 
 	plateauServeur = PlateauServeurPtr(new PlateauServeur(300, 250));
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
-<<<<<<< HEAD
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
-=======
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 }
 
 void Jeu::lancer()
 {
 	sf::Event evenement;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	int message;
 	sf::Thread reseauThread(&Jeu::threadReseau, this);
-=======
-=======
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
-	sf::Time precedent;
-	long delta;
-	long attente;
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 
 	reseau->lancerReseau();
 
 	while (affichage.isOpen())
 	{
-<<<<<<< HEAD
-=======
-		sf::Time nouveau = horloge.getElapsedTime();
-
-		delta = (nouveau - precedent).asMilliseconds();
-
-		precedent = nouveau;
-
 		if(reseau->getActif() && !reseauActif){
 			reseauActif = true;
 			changer(Scene::SceneJeu);
 		}
 
-<<<<<<< HEAD
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
-=======
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 		while (affichage.pollEvent(evenement))
 		{
 			if (evenement.type == sf::Event::Closed)
@@ -168,15 +140,8 @@ void Jeu::lancer()
 		affichage.display();
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	reseauThread.terminate();
-=======
 	reseau->fermerReseau();
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
-=======
-	reseau->fermerReseau();
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 }
 
 void Jeu::quitter()

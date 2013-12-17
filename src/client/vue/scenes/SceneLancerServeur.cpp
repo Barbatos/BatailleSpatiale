@@ -44,28 +44,14 @@ void SceneLancerServeur::surMessage(int id)
 {
 	switch (id)
 	{
-<<<<<<< HEAD
 		case Retour:
 			jeu.changer(Scene::SceneMenuPrincipal);
-=======
-		case Clic:
-			switch (nom)
-			{
-				case Retour:
-					jeu.changer(Scene::SceneMenuPrincipal);
-					break;
-
-				case Serveur:
-					jeu.lancerServeurGUI(atoi(port->lireTexte().c_str()));
-					break;
-
-				default:
-					break;
-			}
 			break;
-		case Entre:
->>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
+
+		case Serveur:
+			jeu.lancerServeurGUI(atoi(port->lireTexte().c_str()));
 			break;
+
 		default:
 			break;
 	}

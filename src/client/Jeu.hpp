@@ -133,6 +133,8 @@ class Jeu
 		 */
 		void quitter();
 
+		void threadReseau();
+
 		void connexionServeur(string ip, unsigned short port);
 
 		void lancerServeurGUI(unsigned int port);

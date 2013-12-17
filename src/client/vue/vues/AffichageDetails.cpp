@@ -97,7 +97,7 @@ void AffichageDetails::afficher(sf::RenderWindow& affichage)
 	affichage.draw(label);
 }
 
-bool AffichageDetails::contient(sf::Vector2i position)
+bool AffichageDetails::contient(sf::Vector2i)
 {
 	return false;
 }

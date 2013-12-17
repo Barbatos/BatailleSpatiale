@@ -22,6 +22,9 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 		vuePlateau(sf::FloatRect(0, 0, 0, 0)),
 		vueInterface(sf::FloatRect(0, 0, 0, 0))
 {
+	ecrirePosition(x, y);
+	ecrireTaille(largeur, hauteur);
+
 	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
 	vueInterface.setViewport(sf::FloatRect(0, 0, 1, 1));
 
@@ -109,7 +112,7 @@ void AffichagePlateau::afficher(sf::RenderWindow& affichage)
 	affichage.setView(affichage.getDefaultView());
 }
 
-bool AffichagePlateau::contient(sf::Vector2i position)
+bool AffichagePlateau::contient(sf::Vector2i)
 {
 	return false;
 }
