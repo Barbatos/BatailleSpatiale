@@ -8,9 +8,13 @@
 #include "Animation.hpp"
 
 Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-		bool add, sf::Sprite sprite) :
-		Element(gui, id), sprite(sprite), posx(0), posy(0), time(0), add(add), actualisation(
-				true)
+	bool add, sf::Sprite sprite) :
+		Element(gui, id),
+		sprite(sprite),
+		selection(),
+		time(0),
+		ajout(add),
+		active(true)
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
@@ -40,27 +44,28 @@ void Animation::actualiser(float delta)
 
 	if (time > 1000 / 24)
 	{
-		if (actualisation)
+		if (active)
 		{
-			if ((posx * 480) < (sprite.getTexture()->getSize().x - 480))
+			if ((selection.x * 480) < (sprite.getTexture()->getSize().x - 480))
 			{
-				posx++;
+				selection.x++;
 			}
 			else
 			{
-				if ((posy * 480) < (sprite.getTexture()->getSize().y - 480))
+				if ((selection.y * 480) < (sprite.getTexture()->getSize().y - 480))
 				{
-					posy++;
+					selection.y++;
 				}
 				else
 				{
-					posy = 0;
+					selection.y = 0;
 				}
-				posx = 0;
+				selection.x = 0;
 			}
 		}
 
-		sprite.setTextureRect(sf::IntRect(posx * 480, posy * 480, 480, 480));
+		sprite.setTextureRect(
+				sf::IntRect(selection.x * 480, selection.y * 480, 480, 480));
 
 		time = 0;
 	}
@@ -68,17 +73,33 @@ void Animation::actualiser(float delta)
 
 void Animation::stop()
 {
-	actualisation = false;
+	selection.x = 0;
+	selection.y = 0;
+
+	pause();
 }
 
-void Animation::start()
+void Animation::pause()
 {
-	actualisation = true;
+	active = false;
+}
+
+void Animation::lancer()
+{
+	selection.x = 0;
+	selection.y = 0;
+
+	resumer();
+}
+
+void Animation::resumer()
+{
+	active = true;
 }
 
 void Animation::afficher(sf::RenderWindow& affichage)
 {
-	if (add)
+	if (ajout)
 	{
 		affichage.draw(sprite, sf::BlendAdd);
 	}

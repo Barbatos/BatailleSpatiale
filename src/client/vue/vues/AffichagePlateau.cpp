@@ -9,10 +9,6 @@
 
 #include <client/Jeu.hpp>
 
-#include <client/utile/Utile.hpp>
-
-#include <iostream>
-
 AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 	int hauteur) :
 		Element(gui, id),

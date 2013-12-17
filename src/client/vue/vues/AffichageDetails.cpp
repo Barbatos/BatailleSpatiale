@@ -16,14 +16,15 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 	float largeur, float hauteur) :
 		Element(gui, id),
 		fond(),
-		label("", x + 5, y),
+		label("", x + 5, y + 5),
 		position(-1, -1)
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
-	fond.setPosition(lirePosition().x, lirePosition().y);
-	fond.setSize(sf::Vector2f(lireTaille().x, lireTaille().y));
+	fond.setOrigin(-2, -2);
+	fond.setPosition(x, y);
+	fond.setSize(sf::Vector2f(largeur - 4, hauteur - 4));
 	fond.setFillColor(sf::Color(50, 50, 50));
 	fond.setOutlineColor(sf::Color(100, 100, 100));
 	fond.setOutlineThickness(2);
@@ -85,7 +86,7 @@ void AffichageDetails::actualiser(float)
 	else
 	{
 		stream
-			<< "";
+			<< "Aucune case n'est selectionnee";
 	}
 
 	label.setString(stream.str());

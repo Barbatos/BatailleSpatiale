@@ -1,6 +1,8 @@
 /*
  * Bouton.hpp
  *
+ * >>>> Ne pas formater svp :( <<<<
+ *
  *  Created on: 5 oct. 2013
  *      Author: Tendry
  */
@@ -81,6 +83,7 @@ class Bouton :
 		void afficher(sf::RenderWindow& affichage);
 		bool contient(sf::Vector2i position);
 
+		// Héritées d'ObservateurSouris
 		void clicSouris();
 		void pressionSouris(sf::Mouse::Button bouton);
 		void relachementSouris(sf::Mouse::Button bouton);
@@ -97,20 +100,21 @@ class Bouton :
 		 *
 		 \code
 		 // Dans le constructeur d'une scène :
-		 // Création d'un bouton avec l'id 0, possédant le texte "Je suis un bouton", en position
+		 // Ajout d'un bouton à l'objet 'gui' de type Gui préablement défini,
+		 // avec l'id 0, possédant le texte "Je suis un bouton", en position
 		 // 50x/50y, faisant 200 par 20 pixels
-		 // Note : gui est un objet de type Gui défini au préalable
+
 		 new Bouton(&gui, 0, "Je suis un bouton !", 50, 50, 200, 20);
 
 		 // Dans la fonction surMessage() de la même scène :
 		 switch(id)
 		 {
-			case 0:
-				// La souris a cliqué sur notre bouton
-				faireQuelqueChose();
-				break;
-			default:
-				break;
+			 case 0:
+				 // La souris a cliqué sur notre bouton
+				 faireQuelqueChose();
+				 break;
+			 default:
+			 	 break;
 		 }
 		 \endcode
 		 *
