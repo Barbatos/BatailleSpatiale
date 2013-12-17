@@ -6,6 +6,8 @@ bataille2.*
 
 # Build files
 build/*
+Debug/*
+Release/*
 
 # Binary files
 bin/*

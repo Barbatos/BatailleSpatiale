@@ -47,11 +47,6 @@ class Gui
 		/**
 		 *
 		 */
-		sf::Time precedent;
-
-		/**
-		 *
-		 */
 		sf::RenderWindow* fenetre;
 
 		/**

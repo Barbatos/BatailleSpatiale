@@ -16,6 +16,8 @@ Affichage::Affichage() :
 {
 	create(sf::VideoMode(HAUTEUR_FENETRE, LARGEUR_FENETRE), TITRE_FENETRE,
 			sf::Style::Close);
+
+	setVerticalSyncEnabled(true);
 }
 
 Affichage::~Affichage()

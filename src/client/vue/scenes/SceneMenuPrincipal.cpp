@@ -16,11 +16,29 @@
 SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 		Scene(jeu)
 {
-	new Image(&gui, 0, 0, 0, jeu.lireAffichage().getSize().x,
-				jeu.lireAffichage().getSize().y,
-				jeu.lireRessources().lireImage("fond.png"));
+	int largeur = 300 / 2;
+	int hauteur = 86 / 2;
 
-	new Bouton(&gui, Quitter, "Quitter", 50, 50, 100, 20);
+	int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
+	int y = (jeu.lireAffichage().getSize().y - hauteur) / 6;
+
+	new Image(&gui, 0, 0, 0, jeu.lireAffichage().getSize().x,
+			jeu.lireAffichage().getSize().y,
+			jeu.lireRessources().lireImage("fond.png"));
+
+	new Bouton(&gui, Solo, "Partie Solo", x, y, largeur, hauteur);
+
+	new Bouton(&gui, Multi, "Partie Multi", x, 2 * y, largeur, hauteur);
+
+	new Bouton(&gui, Serveur, "Lancer un serveur", x, 3 * y, largeur, hauteur);
+
+	new Bouton(&gui, Options, "Options", x, 4 * y, largeur, hauteur);
+
+	new Bouton(&gui, Quitter, "Quitter", x, 5 * y, largeur, hauteur);
+
+	new Bouton(&gui, Musique, "Musique !", 5, 5, largeur, hauteur);
+
+	new Animation(&gui, -1, 50, 100, 200, 200, true, jeu.lireRessources().lireImage("Environnement/comete2.png"));
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()
