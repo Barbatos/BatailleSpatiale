@@ -7,17 +7,10 @@
 
 #include "Animation.hpp"
 
-#include <iostream>
-
 Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-	bool add, sf::Sprite sprite) :
-		Element(gui, id),
-		sprite(sprite),
-		posx(0),
-		posy(0),
-		time(0),
-		add(add),
-		actualisation(true)
+		bool add, sf::Sprite sprite) :
+		Element(gui, id), sprite(sprite), posx(0), posy(0), time(0), add(add), actualisation(
+				true)
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
@@ -47,7 +40,7 @@ void Animation::actualiser(float delta)
 
 	if (time > 1000 / 24)
 	{
-		if(actualisation)
+		if (actualisation)
 		{
 			if ((posx * 480) < (sprite.getTexture()->getSize().x - 480))
 			{

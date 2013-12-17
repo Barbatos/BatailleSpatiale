@@ -10,11 +10,7 @@
 #include <client/vue/Scene.hpp>
 
 Gui::Gui(sf::RenderWindow* fenetre, Scene* scene) :
-		elements(),
-		messages(),
-		horloge(),
-		fenetre(fenetre),
-		scene(scene)
+		elements(), messages(), horloge(), fenetre(fenetre), scene(scene)
 {
 
 }
@@ -93,7 +89,9 @@ void Gui::traiter(sf::Event evenement)
 								evenement.mouseButton.button);
 
 						// Si il est appuyé et que c'est un clic gauche
-						if (element->lireAppui() && evenement.mouseButton.button == sf::Mouse::Left)
+						if (element->lireAppui()
+								&& evenement.mouseButton.button
+										== sf::Mouse::Left)
 						{
 							// Il n'est plus appuyé
 							element->ecrireAppui(false);
@@ -114,7 +112,7 @@ void Gui::traiter(sf::Event evenement)
 				{
 					// On récupère la position de la souris
 					sf::Vector2i position(evenement.mouseMove.x,
-											evenement.mouseMove.y);
+							evenement.mouseMove.y);
 
 					// Si l'élement est survolé, mais ne contient pas la souris
 					if (element->lireSurvol() && !element->contient(position))
@@ -128,8 +126,8 @@ void Gui::traiter(sf::Event evenement)
 								sf::Vector2f(position));
 					}
 					// Sinon, si il n'est pas survolé mais contient la souris
-					else if (!element->lireSurvol() && element->contient(
-							position))
+					else if (!element->lireSurvol()
+							&& element->contient(position))
 					{
 						// Il est survolé
 						element->ecrireSurvol(true);
@@ -209,14 +207,11 @@ void Gui::actualiser()
 	// On stocke le nouveau temps de l'horloge
 	sf::Time nouveau = horloge.restart();
 	// On calcule le temps écoulé depuis le dernier appel
-	float delta = (nouveau - precedent).asMilliseconds();
+	float delta = nouveau.asMilliseconds();
 
 	// On actualise tout les élements
 	for (Element::Ptr element : elements)
 		element->actualiser(delta);
-
-	// On garde en mémoire le temps de l'appel
-	precedent = nouveau;
 }
 
 void Gui::afficher()
