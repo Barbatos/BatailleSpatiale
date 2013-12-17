@@ -23,8 +23,8 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 	int y = (jeu.lireAffichage().getSize().y - hauteur) / 6;
 
 	new Image(&gui, 0, 0, 0, jeu.lireAffichage().getSize().x,
-			jeu.lireAffichage().getSize().y,
-			jeu.lireRessources().lireImage("fond.png"));
+				jeu.lireAffichage().getSize().y,
+				jeu.lireRessources().lireImage("fond.png"));
 
 	new Bouton(&gui, Solo, "Partie Solo", x, y, largeur, hauteur);
 
@@ -38,7 +38,9 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 
 	new Bouton(&gui, Musique, "Musique !", 5, 5, largeur, hauteur);
 
-	new Animation(&gui, -1, 50, 100, 200, 200, true, jeu.lireRessources().lireImage("Environnement/comete2.png"));
+	new Animation(
+			&gui, -1, 50, 100, 200, 200, true,
+			jeu.lireRessources().lireImage("Environnement/comete2.png"));
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()
@@ -54,7 +56,7 @@ void SceneMenuPrincipal::surMessage(int id)
 			jeu.changer(Scene::SceneMenuSolo);
 			break;
 		case Multi:
-			jeu.changer(Scene::SceneMenuMultijoueur);
+			jeu.changer(Scene::SceneMenuMulti);
 			break;
 		case Serveur:
 			jeu.changer(Scene::SceneLancerServeur);

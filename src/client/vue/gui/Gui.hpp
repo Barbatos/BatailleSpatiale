@@ -25,6 +25,8 @@ class Scene;
  * \brief Représente une interface, contenant des éléments graphiques
  *
  * Contient tout les élements affichés à l'écran, et intéragit avec eux
+ *
+ * TODO: Documenter le gui
  */
 class Gui
 {

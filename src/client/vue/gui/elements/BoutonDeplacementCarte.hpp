@@ -18,6 +18,9 @@
 
 class Affichage;
 
+/**
+ * TODO: Documenter le BoutonDeplacementCarte
+ */
 class BoutonDeplacementCarte :
 	public Element, public ObservateurSouris
 {

@@ -7,7 +7,8 @@
  * Classe permettant de stocker les informations des joueurs 
  * qui sont envoyées par le serveur.
  */
-class Joueur {
+class Joueur
+{
 
 	public:
 		/**
@@ -21,7 +22,10 @@ class Joueur {
 		 * \param _energie
 		 * \param _materiaux
 		 */
-		Joueur(string _pseudo = "Anonymous", string _ip = "", sf::Uint16 _id = -1, sf::Int16 _commandement = 0, sf::Int16 _requisition = 0, sf::Int32 _energie = 0, sf::Int32 _materiaux = 0);
+		Joueur(string _pseudo = "Anonymous", string _ip = "",
+			sf::Uint16 _id = -1, sf::Int16 _commandement = 0,
+			sf::Int16 _requisition = 0, sf::Int32 _energie = 0,
+			sf::Int32 _materiaux = 0);
 
 		/**
 		 * \brief Récupération du pseudo du joueur

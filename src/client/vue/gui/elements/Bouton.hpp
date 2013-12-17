@@ -16,7 +16,9 @@
 class Affichage;
 
 /**
- * \brief Simple bouton générique
+ * \brief Représente un bouton, qu'on peut cliquer pour effectuer une action
+ *
+ * \see Element, ObservateurSouris
  */
 class Bouton :
 	public Element, public ObservateurSouris
@@ -56,7 +58,8 @@ class Bouton :
 		 *
 		 * Créé un nouveau bouton avec les paramètres donnés
 		 *
-		 * \param nom le nom du bouton
+		 * \param gui le gui contenant le bouton
+		 * \param id l'id du bouton
 		 * \param texte le texte du bouton
 		 * \param x sa position en x
 		 * \param y sa position en y
@@ -96,53 +99,18 @@ class Bouton :
 		 // Dans le constructeur d'une scène :
 		 // Création d'un bouton avec l'id 0, possédant le texte "Je suis un bouton", en position
 		 // 50x/50y, faisant 200 par 20 pixels
-		 Bouton* btnbouton1 = new Bouton(0, "Je suis un bouton !", 50, 50, 200, 20);
-
-		 // Ajoute le bouton à la scène
-		 ajouter(btnbouton1);
-
-		 // Demande au bouton d'écouter les évènements qui se passent dans la scène
-		 enregistrerSouris(btnbouton1);
-
+		 // Note : gui est un objet de type Gui défini au préalable
+		 new Bouton(&gui, 0, "Je suis un bouton !", 50, 50, 200, 20);
 
 		 // Dans la fonction surMessage() de la même scène :
-		 switch(message)
+		 switch(id)
 		 {
-		 case Clic:
-		 switch(nom)
-		 {
-		 case 0:
-		 // La souris a cliqué sur notre bouton
-		 faireQuelqueChose();
-		 break;
-		 default:
-		 break;
-		 }
-		 break;
-		 case Entre:
-		 switch(nom)
-		 {
-		 case 0:
-		 // La souris est entrée dans notre bouton
-		 faireAutreChose();
-		 break;
-		 default:
-		 break;
-		 }
-		 break;
-		 case Sort:
-		 switch(nom)
-		 {
-		 case 0:
-		 // La souris est sortie de notre bouton !
-		 faireEncoreAutreChose();
-		 break;
-		 default:
-		 break;
-		 }
-		 break;
-		 default:
-		 break;
+			case 0:
+				// La souris a cliqué sur notre bouton
+				faireQuelqueChose();
+				break;
+			default:
+				break;
 		 }
 		 \endcode
 		 *

@@ -63,11 +63,12 @@ class AffichagePlateau :
 		 *
 		 * Créé un nouvel affichage plateau
 		 *
-		 * @param nom le nom de l'affichage
-		 * @param x la position en x de l'affichage
-		 * @param y la position en y de l'affichage
-		 * @param largeur la largeur de l'affichage
-		 * @param hauteur la hauteur de l'affichage
+		 * \param gui le gui contenant le plateau
+		 * \param id l'id du plateau
+		 * \param x la position en x du plateau
+		 * \param y la position en y du plateau
+		 * \param largeur la largeur du plateau
+		 * \param hauteur la hauteur du plateau
 		 */
 		AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 			int hauteur);
@@ -82,8 +83,8 @@ class AffichagePlateau :
 		/**
 		 * \brief Déplace la vue plateau
 		 *
-		 * @param x nombre de pixels à déplacer en x
-		 * @param y nombre de pixels à déplacer en y
+		 * \param x nombre de pixels à déplacer en x
+		 * \param y nombre de pixels à déplacer en y
 		 */
 		void bougerPlateau(float x, float y);
 

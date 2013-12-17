@@ -28,7 +28,8 @@ class Image :
 		/**
 		 * \brief Constructeur
 		 *
-		 * \param nom le nom de l'image
+		 * \param gui le gui contenant l'image
+		 * \param id l'id de l'image
 		 * \param x la position en x de l'image
 		 * \param y la position en y de l'image
 		 * \param largeur la largeur de l'image
@@ -39,7 +40,8 @@ class Image :
 		/**
 		 * \brief Constructeur
 		 *
-		 * \param nom le nom de l'image
+		 * \param gui le gui contenant l'image
+		 * \param id l'id de l'image
 		 * \param x la position en x de l'image
 		 * \param y la position en y de l'image
 		 * \param largeur la largeur de l'image

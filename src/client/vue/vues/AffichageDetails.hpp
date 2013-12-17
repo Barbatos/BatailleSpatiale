@@ -61,11 +61,12 @@ class AffichageDetails :
 		 *
 		 * Créé une nouvelle instance d'affichage détails
 		 *
-		 * \param nom le nom de l'élément
-		 * \param x la position en x de l'élément
-		 * \param y la position en y de l'élément
-		 * \param largeur la largeur de l'élément
-		 * \param hauteur la hauteur de l'élément
+		 * \param gui le gui contenant les détails
+		 * \param id l'id des détails
+		 * \param x la position en x des détails
+		 * \param y la position en y des détails
+		 * \param largeur la largeur des détails
+		 * \param hauteur la hauteur des détails
 		 */
 		AffichageDetails(Gui* gui, int id, float x, float y, float largeur,
 			float hauteur);
@@ -80,14 +81,14 @@ class AffichageDetails :
 		/**
 		 * \brief Retourne si une case est actuellement selectionnée
 		 *
-		 * @return si une case est selectionnée
+		 * \return si une case est selectionnée
 		 */
 		bool estSelectionne();
 
 		/**
 		 * \brief Retourne la position de la case actuellement selectionnée
 		 *
-		 * @return la position actuellement selectionnée
+		 * \return la position actuellement selectionnée
 		 */
 		Position lirePosition();
 

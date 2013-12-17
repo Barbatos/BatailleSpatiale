@@ -12,6 +12,8 @@
 
 /**
  * Case à cocher, indique qu'un élément est selectioné
+ *
+ * Todo: Documenter la CaseACocher
  */
 class CaseACocher : public Element , public ObservateurSouris
 {

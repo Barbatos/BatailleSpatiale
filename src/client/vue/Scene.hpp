@@ -28,16 +28,16 @@ class Scene
 {
 	protected:
 		/**
-		 *	\brief Référence vers le jeu
-		 *
-		 *	Une simple référence vers le jeu actuel
+		 *	\brief Référence vers le jeu actuel
 		 *
 		 *	\see Jeu
 		 */
 		Jeu& jeu;
 
 		/**
+		 * \brief Le gui associé à la scène
 		 *
+		 * \see Gui
 		 */
 		Gui gui;
 
@@ -61,8 +61,7 @@ class Scene
 			SceneJeu, //!< Scène du Jeu
 			SceneJeuMenu, //!< Scène du Menu en Jeu
 			SceneJeuOptions, //!< Scène des Options en Jeu
-			SceneOptionsMenu,
-			SceneMenuMultijoueur,
+			SceneOptionsMenu, //!< Scène du menu des options
 			SceneLancerServeur //!< Scène du lancement d'un serveur de jeu
 		};
 
@@ -71,7 +70,7 @@ class Scene
 		 *
 		 * Instancie une nouvelle scène avec le jeu passé en paramètre
 		 *
-		 * @param jeu le jeu actuel
+		 * \param jeu le jeu actuel
 		 * \see Jeu
 		 */
 		Scene(Jeu& jeu);
@@ -87,8 +86,6 @@ class Scene
 		 * \brief Met à jour la scène
 		 *
 		 * Met à jour la scène selon le temps passé en paramètre
-		 *
-		 * \param delta le temps écoulé depuis le dernier affichage
 		 */
 		void actualiser();
 
@@ -104,7 +101,7 @@ class Scene
 		 *
 		 * Récupère un évènement et le traite
 		 *
-		 * @param evenement l'évènement à traiter
+		 * \param evenement l'évènement à traiter
 		 */
 		void traiter(sf::Event& evenement);
 
@@ -114,8 +111,7 @@ class Scene
 		 * Lorsqu'un élément présent dans la scène a besoin de lui envoyer une message,
 		 * cette fonction est appelée
 		 *
-		 * @param nom le nom de l'élement
-		 * @param message le message envoyé
+		 * \param id l'id de l'élement
 		 * \see Message
 		 */
 		virtual void surMessage(int id) = 0;
@@ -125,14 +121,14 @@ class Scene
 		 *
 		 * Renvoie une référence vers le jeu actuel, contenant la scène
 		 *
-		 * @return le jeu actuel
+		 * \return le jeu actuel
 		 * \see Jeu
 		 */
 		Jeu& lireJeu();
 
 		/**
 		 *
-		 * @return
+		 * \return
 		 */
 		Gui& lireGui();
 
@@ -150,38 +146,7 @@ class Scene
 		 * Exemple de création de nouvelle scène :
 		 *
 		 \code
-		 class NouvelleScene : public Scene
-		 {
-		 public:
-		 NouvelleScene(Jeu& jeu);
-		 ~NouvelleScene() { }
-
-		 void surMessage(std::string nom, Message message);
-		 }
-
-		 NouvelleScene::NouvelleScene(Jeu& jeu) : Scene(jeu)
-		 {
-		 ajouterElement(new Element("element"));
-		 ajouterSouris(new ObservateurSouris("elementSouris"));
-		 ajouterClavier(new ObservateurClavier("elementClavier"));
-		 }
-
-		 void NouvelleScene::surMessage(std::string nom, Message message)
-		 {
-		 switch(message)
-		 {
-		 case Clic:
-		 if(nom == "elementSouris")
-		 // elementSouris a été cliqué !
-		 // Cet élément doit faire passer à la prochaine scène :
-		 jeu.changer(Scene::NouvelleScene);
-
-		 // Note : La classe Scene possède l'énumération Scene::Type regroupant
-		 // toutes les scènes du jeu
-		 break;
-		 // Autres cas ...
-		 }
-		 }
+		 TODO refaire l'exemple de code de la scène
 		 \endcode
 		 */
 };

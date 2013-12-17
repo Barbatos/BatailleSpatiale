@@ -57,25 +57,17 @@ void Jeu::changer(Scene::Type nouvelleScene)
 			scene = Scene::Ptr(new SceneJeuOptions(*this));
 			break;
 		case Scene::SceneMenuSolo:
-			if (reseau->getActif())
-				scene = Scene::Ptr(new SceneJeu(*this));
-			else
-				scene = Scene::Ptr(new SceneMenuSolo(*this));
+			scene = Scene::Ptr(new SceneMenuSolo(*this));
 			break;
-		case Scene::SceneMenuMultijoueur:
-			if (reseau->getActif())
-				scene = Scene::Ptr(new SceneJeu(*this));
-			else
-				scene = Scene::Ptr(new SceneMenuMultijoueur(*this));
+		case Scene::SceneMenuMulti:
+			scene = Scene::Ptr(new SceneMenuMultijoueur(*this));
 			break;
 		case Scene::SceneOptionsMenu:
 			scene = Scene::Ptr(new SceneOptionsMenu(*this));
 			break;
-
 		case Scene::SceneLancerServeur:
 			scene = Scene::Ptr(new SceneLancerServeur(*this));
 			break;
-
 		default:
 			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
 			break;
@@ -91,12 +83,14 @@ void Jeu::threadReseau()
 	}
 }
 
-void Jeu::connexionServeur(string ip, unsigned short port){
+void Jeu::connexionServeur(string ip, unsigned short port)
+{
 	reseau->setIp(ip);
 	reseau->setPort(port);
 }
 
-void Jeu::lancerServeurGUI(unsigned int port){
+void Jeu::lancerServeurGUI(unsigned int port)
+{
 	sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
 	plateauServeur = PlateauServeurPtr(new PlateauServeur(300, 250));
@@ -113,7 +107,8 @@ void Jeu::lancer()
 
 	while (affichage.isOpen())
 	{
-		if(reseau->getActif() && !reseauActif){
+		if (reseau->getActif() && !reseauActif)
+		{
 			reseauActif = true;
 			changer(Scene::SceneJeu);
 		}
