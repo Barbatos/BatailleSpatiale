@@ -10,7 +10,11 @@
 #include <client/vue/Scene.hpp>
 
 Gui::Gui(sf::RenderWindow* fenetre, Scene* scene) :
-		elements(), messages(), horloge(), fenetre(fenetre), scene(scene)
+		elements(),
+		messages(),
+		horloge(),
+		fenetre(fenetre),
+		scene(scene)
 {
 
 }
@@ -60,17 +64,13 @@ void Gui::traiter(sf::Event evenement)
 				// Si l'élement observe la souris
 				if (element->observeSouris())
 				{
-					// Si il est survolé
-					if (element->lireSurvol())
-					{
-						// On lui envoie l'évènement
-						element->lireSouris()->pressionSouris(
-								evenement.mouseButton.button);
+					// On lui envoie l'évènement
+					element->lireSouris()->pressionSouris(
+							evenement.mouseButton.button);
 
-						// Si c'est un clic gauche, on lui dit qu'il est appuyé
-						if (evenement.mouseButton.button == sf::Mouse::Left)
-							element->ecrireAppui(true);
-					}
+					// Si c'est un clic gauche, on lui dit qu'il est appuyé
+					if (element->lireSurvol() && evenement.mouseButton.button == sf::Mouse::Left)
+						element->ecrireAppui(true);
 				}
 			}
 			break;
@@ -81,24 +81,19 @@ void Gui::traiter(sf::Event evenement)
 				// Si l'élement observe la souris
 				if (element->observeSouris())
 				{
-					// Si il est survolé
-					if (element->lireSurvol())
+					// On lui envoie l'évènement
+					element->lireSouris()->relachementSouris(
+							evenement.mouseButton.button);
+
+					// Si il est appuyé et que c'est un clic gauche
+					if (element->lireSurvol() && element->lireAppui() && evenement
+							.mouseButton.button == sf::Mouse::Left)
 					{
-						// On lui envoie l'évènement
-						element->lireSouris()->relachementSouris(
-								evenement.mouseButton.button);
+						// Il n'est plus appuyé
+						element->ecrireAppui(false);
 
-						// Si il est appuyé et que c'est un clic gauche
-						if (element->lireAppui()
-								&& evenement.mouseButton.button
-										== sf::Mouse::Left)
-						{
-							// Il n'est plus appuyé
-							element->ecrireAppui(false);
-
-							// Mais il a été cliqué !
-							element->lireSouris()->clicSouris();
-						}
+						// Mais il a été cliqué !
+						element->lireSouris()->clicSouris();
 					}
 				}
 			}
@@ -112,7 +107,7 @@ void Gui::traiter(sf::Event evenement)
 				{
 					// On récupère la position de la souris
 					sf::Vector2i position(evenement.mouseMove.x,
-							evenement.mouseMove.y);
+											evenement.mouseMove.y);
 
 					// Si l'élement est survolé, mais ne contient pas la souris
 					if (element->lireSurvol() && !element->contient(position))
@@ -126,8 +121,8 @@ void Gui::traiter(sf::Event evenement)
 								sf::Vector2f(position));
 					}
 					// Sinon, si il n'est pas survolé mais contient la souris
-					else if (!element->lireSurvol()
-							&& element->contient(position))
+					else if (!element->lireSurvol() && element->contient(
+							position))
 					{
 						// Il est survolé
 						element->ecrireSurvol(true);

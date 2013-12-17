@@ -28,6 +28,9 @@ ZoneTexte::ZoneTexte(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
+	enregistrerSouris(ObservateurSouris::Ptr(this));
+	enregistrerClavier(ObservateurClavier::Ptr(this));
+
 	// On configure le rectangle (bordure)
 	rectangle.setPosition(x, y);
 	rectangle.setSize(sf::Vector2f(largeur, hauteur));
@@ -101,47 +104,27 @@ bool ZoneTexte::estAutorise(int unicode)
 
 void ZoneTexte::clicSouris()
 {
-	// Si la zone est survole et que le bouton est le bouton gauche
-	if (lireSurvol())
-	{
-		// On selectionne la zone
-		selectionne = true;
-		label.setString("");
-	}
-	// Sinon
-	else
-	{
-		// On la déselectionne / ne fait rien
-		selectionne = false;
+	// On selectionne la zone
+	selectionne = true;
 
-		if (texte.size() == 0)
-			label.setString(remplacement);
-	}
+	if (texte.empty())
+		label.setString("");
 }
 
 void ZoneTexte::pressionSouris(sf::Mouse::Button)
 {
-
-}
-
-void ZoneTexte::relachementSouris(sf::Mouse::Button bouton)
-{
-	// Si la zone est survole et que le bouton est le bouton gauche
-	if (lireSurvol() && bouton == sf::Mouse::Left)
+	if (!lireSurvol())
 	{
-		// On selectionne la zone
-		selectionne = true;
-		label.setString("");
-	}
-	// Sinon
-	else
-	{
-		// On la déselectionne / ne fait rien
 		selectionne = false;
 
-		if (texte.size() == 0)
+		if (texte.empty())
 			label.setString(remplacement);
 	}
+}
+
+void ZoneTexte::relachementSouris(sf::Mouse::Button)
+{
+
 }
 
 void ZoneTexte::entreeSouris(sf::Vector2f)
@@ -151,7 +134,6 @@ void ZoneTexte::entreeSouris(sf::Vector2f)
 
 void ZoneTexte::sortieSouris(sf::Vector2f)
 {
-
 }
 
 void ZoneTexte::moletteSouris(int)
