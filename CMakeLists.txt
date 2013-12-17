@@ -25,7 +25,7 @@ set(CMAKE_BUILD_PATH "${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}")
 
 # Change les flags de compilation
-set(CMAKE_CXX_FLAGS "-std=c++0x -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++0x -Wall -Wextra -pedantic")
 
 ########################################################################
 #

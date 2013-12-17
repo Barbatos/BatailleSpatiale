@@ -63,7 +63,7 @@ class Scene
 			SceneJeuOptions, //!< Scène des Options en Jeu
 			SceneOptionsMenu,
 			SceneMenuMultijoueur,
-			SceneLancerServeur, //!< Scène du lancement d'un serveur de jeu
+			SceneLancerServeur //!< Scène du lancement d'un serveur de jeu
 		};
 
 		/**

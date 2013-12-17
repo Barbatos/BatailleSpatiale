@@ -79,6 +79,5 @@ namespace Utile
 	void redimensionnerImage(sf::Sprite& image, float largeur, float hauteur,
 		bool proportions);
 }
-;
 
-#endif /* UTILE_HPP_ */
+#endif /* UTILE_HPP */
