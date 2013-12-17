@@ -14,11 +14,8 @@
 
 // Includes de nos classes
 #include "VuesPack.hpp"
-#include "AffichageDetails.hpp"
-#include "AffichageCase.hpp"
 
-// Typedefs
-typedef std::shared_ptr<AffichageDetails> AffichageDetailsPtr;
+#include "AffichageCase.hpp"
 
 /**
  * \brief Affiche le plateau dans son intégralité
@@ -41,23 +38,16 @@ class AffichagePlateau :
 		std::vector<AffichageCase::Ptr> cases;
 
 		/**
-		 * \brief Les détails sur la case actuellement selectionnée
-		 *
-		 * \see AffichageDetails
-		 */
-		AffichageDetailsPtr details;
-
-		/**
 		 * \brief La vue du plateau
 		 */
 		sf::View vuePlateau;
 
-		/**
-		 * \brief La vue de l'interface
-		 */
-		sf::View vueInterface;
-
 	public:
+		/**
+		 * \brief Version unique_ptr du plateau
+		 */
+		typedef std::unique_ptr<AffichagePlateau> Ptr;
+
 		/**
 		 * \brief Constructeur
 		 *

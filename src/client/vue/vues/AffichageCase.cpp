@@ -17,11 +17,13 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
 		image(),
 		fond(),
 		position(position),
-		survole(false),
 		selectionne(false)
 {
 	ecrirePosition(x, y);
 	ecrireTaille(taille, taille);
+	ecrireVue(vuePlateau);
+
+	enregistrerSouris(ObservateurSouris::Ptr(this));
 
 	fond = sf::CircleShape(taille / 2, 6);
 	fond.setPosition(x + taille / 2, y + taille / 2);
@@ -30,8 +32,6 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
 	fond.setOutlineColor(sf::Color(255, 255, 255));
 	fond.setOutlineThickness(2);
 	fond.rotate(30);
-
-	this->vuePlateau = VuePtr(vuePlateau);
 }
 
 AffichageCase::~AffichageCase()
@@ -74,7 +74,7 @@ void AffichageCase::actualiser(float)
 	// Selon que la case soit selectionnée, survolée, ou rien du tout, on change la couleur de la bordure
 	if (selectionne)
 		fond.setOutlineColor(sf::Color(255, 255, 0));
-	else if (survole)
+	else if (lireSurvol())
 		fond.setOutlineColor(sf::Color(255, 0, 0));
 	else
 		fond.setOutlineColor(sf::Color(255, 255, 255));
@@ -92,5 +92,46 @@ bool AffichageCase::contient(sf::Vector2i position)
 			.x <= fond.getPosition().x + fond.getRadius() * 0.9 && position.y >= fond
 			.getPosition().y - fond.getRadius() * 0.9 && position.y <= fond
 			.getPosition().y + fond.getRadius() * 0.9;
+}
+
+void AffichageCase::ecrirePositionPlateau(Position position)
+{
+	this->position = position;
+}
+
+Position AffichageCase::lirePositionPlateau()
+{
+	return position;
+}
+
+void AffichageCase::clicSouris()
+{
+	selectionne = true;
+}
+
+void AffichageCase::pressionSouris(sf::Mouse::Button)
+{
+	if (!lireSurvol())
+		selectionne = false;
+}
+
+void AffichageCase::relachementSouris(sf::Mouse::Button)
+{
+
+}
+
+void AffichageCase::entreeSouris(sf::Vector2f)
+{
+
+}
+
+void AffichageCase::sortieSouris(sf::Vector2f)
+{
+
+}
+
+void AffichageCase::moletteSouris(int)
+{
+
 }
 

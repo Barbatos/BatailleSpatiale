@@ -103,6 +103,7 @@ void Jeu::lancer()
 	int message;
 	sf::Thread reseauThread(&Jeu::threadReseau, this);
 
+	reseauThread.launch();
 	reseau->lancerReseau();
 
 	while (affichage.isOpen())

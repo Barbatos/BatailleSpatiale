@@ -27,13 +27,8 @@ class SceneMenuSolo :
 		enum Boutons
 		{
 			Solo, //!< Lancer une partie Solo
-			Retour,
-			Ip,
-			Port
+			Retour
 		};
-
-		ZoneTexte* ip;
-		ZoneTexte* port;
 
 	public:
 		/**

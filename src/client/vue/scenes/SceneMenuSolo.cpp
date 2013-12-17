@@ -20,19 +20,15 @@ SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
 
 	int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
 
-	int y = (jeu.lireAffichage().getSize().y - hauteur) / 5;
+	int y = (jeu.lireAffichage().getSize().y - hauteur) / 3;
 
 	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
 				jeu.lireAffichage().getSize().y,
 				jeu.lireRessources().lireImage("fond.png"));
 
-	ip = new ZoneTexte(&gui, Ip, x, y, largeur, hauteur, "IP");
+	new Bouton(&gui, Solo, "Lancer partie", x, y, largeur, hauteur);
 
-	port = new ZoneTexte(&gui, Port, x, 2 * y, largeur, hauteur, "Port");
-
-	new Bouton(&gui, Solo, "Lancer partie", x, 3 * y, largeur, hauteur);
-
-	new Bouton(&gui, Retour, "Retour", x, 4 * y, largeur, hauteur);
+	new Bouton(&gui, Retour, "Retour", x, 2 * y, largeur, hauteur);
 }
 
 SceneMenuSolo::~SceneMenuSolo()
@@ -44,11 +40,12 @@ void SceneMenuSolo::surMessage(int id)
 	switch (id)
 	{
 		case Solo:
-			//jeu.lireReseau()->ConnexionServeur(
-			//ip->lireTexte(), atoi(port->lireTexte().c_str()));
+			jeu.lancerServeurGUI(1337);
 
-			//if (jeu.lireReseau()->getActif())
-			jeu.changer(Scene::SceneJeu);
+			jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1337);
+
+			if (jeu.lireReseau()->getActif())
+				jeu.changer(Scene::SceneJeu);
 			break;
 		case Retour:
 			jeu.changer(Scene::SceneMenuPrincipal);

@@ -97,6 +97,11 @@ class Element
 		 */
 		bool appui;
 
+		/**
+		 * \brief La vue où se trouve l'élement
+		 */
+		sf::View* vue;
+
 	public:
 		///////////////////////////////////////////////////
 		///	<!-- Typedefs -->
@@ -267,6 +272,34 @@ class Element
 		///////////////////////////////////////////////////
 
 		/**
+		 * \brief Retourne si l'élement est survolé ou non
+		 *
+		 * \return si l'élement est survolé ou non
+		 */
+		bool lireSurvol();
+
+		/**
+		 * \brief Retourne si l'élement est appuyé ou non
+		 *
+		 * \return si l'élement est appuyé ou non
+		 */
+		bool lireAppui();
+
+		/**
+		 * \brief Retourne la vue où se trouve l'élement
+		 *
+		 * \return la vue où se trouve l'élement
+		 */
+		sf::View* lireVue();
+
+		/**
+		 * \brief Retourne si l'élement possède une vue définie ou non
+		 *
+		 * \return si l'élement possède une vue définie ou non
+		 */
+		bool possedeVue();
+
+		/**
 		 * \brief Change si l'élement est survolé ou non
 		 *
 		 * \param survol si l'élement est survolé ou non
@@ -281,18 +314,11 @@ class Element
 		void ecrireAppui(bool appui);
 
 		/**
-		 * \brief Retourne si l'élement est survolé ou non
+		 * \brief Change la vue de l'élement
 		 *
-		 * \return si l'élement est survolé ou non
+		 * \param vue la nouvelle vue de l'élement
 		 */
-		bool lireSurvol();
-
-		/**
-		 * \brief Retourne si l'élement est appuyé ou non
-		 *
-		 * \return si l'élement est appuyé ou non
-		 */
-		bool lireAppui();
+		void ecrireVue(sf::View* vue);
 
 		/**
 		 * \brief Envoie un message au gui contenant l'élement

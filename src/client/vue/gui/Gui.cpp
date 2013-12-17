@@ -109,6 +109,14 @@ void Gui::traiter(sf::Event evenement)
 					sf::Vector2i position(evenement.mouseMove.x,
 											evenement.mouseMove.y);
 
+					// Si l'élement est dans une vue, on récupère sa vraie position
+					if (element->possedeVue())
+					{
+						position = sf::Vector2i(
+								fenetre->mapPixelToCoords(
+										position, *element->lireVue()));
+					}
+
 					// Si l'élement est survolé, mais ne contient pas la souris
 					if (element->lireSurvol() && !element->contient(position))
 					{
@@ -212,5 +220,12 @@ void Gui::actualiser()
 void Gui::afficher()
 {
 	for (Element::Ptr element : elements)
+	{
+		if (element->possedeVue())
+			fenetre->setView(*element->lireVue());
+
 		element->afficher(*fenetre);
+
+		fenetre->setView(fenetre->getDefaultView());
+	}
 }

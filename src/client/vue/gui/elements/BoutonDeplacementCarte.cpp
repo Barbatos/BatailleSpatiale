@@ -24,6 +24,8 @@ BoutonDeplacementCarte::BoutonDeplacementCarte(Gui* gui, int id, float x,
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
+	enregistrerSouris(ObservateurSouris::Ptr(this));
+
 	normal.setPosition(x, y);
 	normal.setSize(sf::Vector2f(largeur, hauteur));
 	normal.setFillColor(sf::Color(50, 50, 50, 150));

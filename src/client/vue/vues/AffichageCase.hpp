@@ -8,19 +8,14 @@
 #ifndef AFFICHAGECASE_HPP
 #define AFFICHAGECASE_HPP
 
-// Includes de la libstd
-#include <memory>
-
 // Include du 'pack' vue
 #include "VuesPack.hpp"
-
-typedef std::shared_ptr<sf::View> VuePtr;
 
 /**
  * \brief Représente l'affichage d'une case du plateau
  */
 class AffichageCase :
-	public Element
+	public Element, public ObservateurSouris
 {
 	private:
 		/**
@@ -39,21 +34,14 @@ class AffichageCase :
 		Position position;
 
 		/**
-		 * \brief La vue qui contient la case
-		 */
-		VuePtr vuePlateau;
-
-		/**
-		 * \brief Si la case est survolée
-		 */
-		bool survole;
-
-		/**
 		 * \brief Si la case est selectionnée
 		 */
 		bool selectionne;
 
 	public:
+		/**
+		 * \brief Version unique_ptr de l'affichage case
+		 */
 		typedef std::unique_ptr<AffichageCase> Ptr;
 
 		/**
@@ -67,10 +55,32 @@ class AffichageCase :
 		 */
 		virtual ~AffichageCase();
 
+		/**
+		 * \brief Retourne la position sur le plateau de la case
+		 *
+		 * \return la position sur le plateau de la case
+		 */
+		Position lirePositionPlateau();
+
+		/**
+		 * \brief Change la position sur le plateau de la case
+		 *
+		 * \param position la nouvelle position sur le plateau de la case
+		 */
+		void ecrirePositionPlateau(Position position);
+
 		// Héritées d'Element
 		void actualiser(float delta);
 		void afficher(sf::RenderWindow& affichage);
 		bool contient(sf::Vector2i position);
+
+		// Héritées d'observateur souris
+		void clicSouris();
+		void pressionSouris(sf::Mouse::Button bouton);
+		void relachementSouris(sf::Mouse::Button bouton);
+		void entreeSouris(sf::Vector2f position);
+		void sortieSouris(sf::Vector2f position);
+		void moletteSouris(int delta);
 };
 
 #endif /* AFFICHAGECASE_HPP */

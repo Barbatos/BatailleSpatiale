@@ -17,7 +17,8 @@ Element::Element(Gui* gui, int id) :
 		observateurSouris(nullptr),
 		observateurClavier(nullptr),
 		survol(false),
-		appui(false)
+		appui(false),
+		vue(nullptr)
 {
 	gui->ajouter(Ptr(this));
 }
@@ -26,6 +27,9 @@ Element::~Element()
 {
 	if (gui != nullptr)
 		delete gui;
+
+	if (vue != nullptr)
+		delete vue;
 
 	observateurSouris.reset();
 
@@ -125,6 +129,26 @@ void Element::ecrireZone(sf::FloatRect zone)
 	ecrireTaille(zone.width, zone.height);
 }
 
+bool Element::lireSurvol()
+{
+	return survol;
+}
+
+bool Element::lireAppui()
+{
+	return appui;
+}
+
+sf::View* Element::lireVue()
+{
+	return vue;
+}
+
+bool Element::possedeVue()
+{
+	return vue != nullptr;
+}
+
 void Element::ecrireSurvol(bool survol)
 {
 	this->survol = survol;
@@ -135,14 +159,9 @@ void Element::ecrireAppui(bool appui)
 	this->appui = appui;
 }
 
-bool Element::lireSurvol()
+void Element::ecrireVue(sf::View* vue)
 {
-	return survol;
-}
-
-bool Element::lireAppui()
-{
-	return appui;
+	this->vue = vue;
 }
 
 void Element::envoyerMessage()

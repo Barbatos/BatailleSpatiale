@@ -18,7 +18,7 @@
 
 Ressources::Ressources()
 {
-	Archive archive("ressources/ressources.toc");
+	Archive archive("ressources/ressources.txt");
 
 	fichierLog.ajouterLigne("Chargement des images :");
 
@@ -55,7 +55,7 @@ void Ressources::chargerImage(std::string nomImage)
 	if (!textures[nomImage].loadFromFile("ressources/images/" + nomImage))
 	{
 		Utile::erreur("Ressources::chargerImage(" + nomImage + ")",
-				"Impossible de charger " + nomImage);
+						"Impossible de charger " + nomImage);
 	}
 
 	textures[nomImage].setSmooth(true);
@@ -96,7 +96,7 @@ void Ressources::chargerPolice(std::string nomPolice)
 	if (!polices[nomPolice].loadFromFile("ressources/polices/" + nomPolice))
 	{
 		Utile::erreur("Ressources::chargerPolice(" + nomPolice + ")",
-				"Impossible de charger " + nomPolice);
+						"Impossible de charger " + nomPolice);
 	}
 
 	fichierLog.ajouterLigne("    " + nomPolice + " chargée !");
@@ -134,12 +134,12 @@ void Ressources::chargerSon(std::string nomSon)
 			std::pair<std::string, std::pair<sf::SoundBuffer, sf::Sound>>(
 					nomSon,
 					std::pair<sf::SoundBuffer, sf::Sound>(sf::SoundBuffer(),
-							sf::Sound())));
+															sf::Sound())));
 
 	if (!sons[nomSon].first.loadFromFile("ressources/sons/" + nomSon))
 	{
 		Utile::erreur("Ressources::chargerSon(" + nomSon + ")",
-				"Impossible de charger " + nomSon);
+						"Impossible de charger " + nomSon);
 	}
 
 	sons[nomSon].second.setBuffer(sons[nomSon].first);
@@ -177,14 +177,17 @@ void Ressources::jouerSon(std::string nomSon)
 
 void Ressources::chargerMusique(std::string nomMusique)
 {
-	musiques.insert(std::pair<std::string, MusicPtr>(nomMusique, MusicPtr(new sf::Music())));
+	musiques.insert(
+			std::pair<std::string, MusicPtr>(nomMusique,
+												MusicPtr(new sf::Music())));
 
-	if (!musiques[nomMusique]->openFromFile("ressources/musiques/" + nomMusique))
+	if (!musiques[nomMusique]->openFromFile(
+			"ressources/musiques/" + nomMusique))
 	{
 		musiques[nomMusique].reset();
 
 		Utile::erreur("Ressources::chargerMusique(" + nomMusique + ")",
-				"Impossible de charger " + nomMusique);
+						"Impossible de charger " + nomMusique);
 	}
 
 	musiques[nomMusique]->setVolume(volumeMusiques);
@@ -232,7 +235,7 @@ void Ressources::changerVolumeMusiques(int volume)
 {
 	volumeMusiques = volume;
 
-	for (MusicMap::iterator it = musiques.begin(); it != musiques.end();it++)
+	for (MusicMap::iterator it = musiques.begin(); it != musiques.end(); it++)
 	{
 		(*it).second->setVolume(volume);
 	}

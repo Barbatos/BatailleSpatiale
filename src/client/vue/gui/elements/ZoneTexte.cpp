@@ -1,8 +1,6 @@
 /*
  * ZoneTexte.cpp
  *
- * Ne pas formater s'il vous plaît :(
- *
  *  Created on: 21 nov. 2013
  *      Author: Soinou
  */

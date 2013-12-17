@@ -57,6 +57,11 @@ class AffichageDetails :
 
 	public:
 		/**
+		 * \brief Version typedef des détails
+		 */
+		typedef std::unique_ptr<AffichageDetails> Ptr;
+
+		/**
 		 * \brief Constructeur
 		 *
 		 * Créé une nouvelle instance d'affichage détails

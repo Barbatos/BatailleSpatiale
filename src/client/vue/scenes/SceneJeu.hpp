@@ -12,6 +12,8 @@
 
 #include <client/vue/vues/AffichagePlateau.hpp>
 
+#include <client/vue/vues/AffichageDetails.hpp>
+
 /**
  * \brief Scène en jeu
  *
@@ -21,12 +23,29 @@ class SceneJeu :
 	public Scene
 {
 	private:
+		/**
+		 *
+		 */
 		enum Elements
 		{
-			Pause = 0, Plateau, Droite, Gauche, Haut, Bas
+			Pause, //!<
+			Plateau, //!<
+			Droite, //!<
+			Gauche, //!<
+			Haut, //!<
+			Bas, //!<
+			Details //!<
 		};
 
-		AffichagePlateau plateau;
+		/**
+		 *
+		 */
+		AffichagePlateau::Ptr plateau;
+
+		/**
+		 *
+		 */
+		AffichageDetails::Ptr details;
 
 	public:
 		/**
