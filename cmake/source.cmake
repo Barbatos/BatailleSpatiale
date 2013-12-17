@@ -57,6 +57,9 @@ FILE(GLOB_RECURSE COMMUN_SRC
     "src/serveur/joueurs/*.[ch]pp"
     "src/serveur/plateau/*.[ch]pp"
     "src/serveur/structures/*.[ch]pp"
+<<<<<<< HEAD
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
+=======
 >>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 )
 

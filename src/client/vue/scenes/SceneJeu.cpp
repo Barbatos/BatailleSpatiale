@@ -14,13 +14,20 @@
 #include <client/vue/gui/Image.hpp>
 #include <client/vue/gui/Bouton.hpp>
 #include <client/vue/gui/BoutonDeplacementCarte.hpp>
+<<<<<<< HEAD
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
+=======
 >>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 #include <client/Jeu.hpp>
 
 SceneJeu::SceneJeu(Jeu& jeu) :
 		Scene(jeu),
 <<<<<<< HEAD
+<<<<<<< HEAD
 		plateau(&gui, Plateau, 640, 0, 640, 376)
+=======
+		plateau(Plateau, 0, 0, 640, 376)
+>>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
 =======
 		plateau(Plateau, 0, 0, 640, 376)
 >>>>>>> 3ae1e68ab228005609523908f02572fda1ed3a8d
