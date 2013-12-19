@@ -36,13 +36,11 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 
 	new Bouton(&gui, Quitter, "Quitter", x, 5 * y, largeur, hauteur);
 
-	new Bouton(&gui, Musique, "Musique !", 5, 5, largeur, hauteur);
 
 	new Animation(
 			&gui, -1, 50, 100, 200, 200, true,
 			jeu.lireRessources().lireImage("Environnement/comete2.png"));
 
-	musique = jeu.lireRessources().lireMusique("Clearness.ogg");
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()
@@ -65,12 +63,6 @@ void SceneMenuPrincipal::surMessage(int id)
 			break;
 		case Quitter:
 			jeu.quitter();
-			break;
-		case Musique:
-			if (musique->getStatus() == sf::Music::Playing)
-				musique->pause();
-			else
-				musique->play();
 			break;
 		case Options:
 			jeu.changer(Scene::SceneOptionsMenu);

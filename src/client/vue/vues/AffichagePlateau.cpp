@@ -14,7 +14,8 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 		Element(gui, id),
 		ObservateurSouris(),
 		cases(),
-		vuePlateau(sf::FloatRect(0, 0, 0, 0))
+		vuePlateau(sf::FloatRect(0, 0, 0, 0)),
+		charge(false)
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
@@ -22,7 +23,10 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 	enregistrerSouris(ObservateurSouris::Ptr(this));
 
 	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
+}
 
+void AffichagePlateau::initialiserCases()
+{
 	int taille = 25;
 	int k = 0;
 
@@ -42,7 +46,7 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 			if (i % 2 == 1)
 				yc += taille * 3 / 5;
 
-			AffichageCase* c = new AffichageCase(gui, k++, xc, yc, taille,
+			AffichageCase* c = new AffichageCase(lireGui(), k++, xc, yc, taille,
 													Position(i, j),
 													&vuePlateau);
 
@@ -53,6 +57,10 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 		taille = yc;
 	else
 		taille = xc;
+
+	std::cout
+		<< lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX()
+		<< std::endl;
 
 	vuePlateau.setSize(taille * 0.9, taille * 0.9);
 	vuePlateau.move(taille / 2, taille / 2);
@@ -69,6 +77,11 @@ AffichagePlateau::~AffichagePlateau()
 
 void AffichagePlateau::actualiser(float)
 {
+	if (lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX() != 0 && !charge)
+	{
+		initialiserCases();
+		charge = true;
+	}
 }
 
 void AffichagePlateau::bougerPlateau(float x, float y)

@@ -18,7 +18,6 @@ ZoneTexte::ZoneTexte(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 		rectangle(),
 		curseur(),
 		label(),
-		survole(false),
 		selectionne(false),
 		texte(),
 		remplacement(remplacement)

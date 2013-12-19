@@ -7,14 +7,21 @@
 #ifndef SCENEOPTIONSMENU_HPP_
 #define SCENEOPTIONSMENU_HPP_
 #include <client/vue/Scene.hpp>
+#include <client/ressources/Ressources.hpp>
+
 class SceneOptionsMenu :
 	public Scene
 {
 	private:
 		enum Boutons
 		{
+			Musique,
+			AugmenterMusique,
+			BaisserMusique,
 			Retour
 		};
+
+		Ressources::MusicPtr musique;
 
 	public:
 		/**
