@@ -73,10 +73,22 @@ void JoueurServeur::setMateriaux(sf::Int32 _materiaux) {
     this->materiaux = _materiaux;
 }
 
- void JoueurServeur::ajouterVaisseau(VaisseauServeurPtr vaisseau) {
-     listeVaisseaux.push_back(std::weak_ptr<VaisseauServeur>(vaisseau));
- }
- 
- void JoueurServeur::ajouterBatiment(BatimentServeurPtr batiment) {
-     listeBatiments.push_back(std::weak_ptr<BatimentServeur>(batiment));
- }
+void JoueurServeur::ajouterVaisseau(VaisseauServeurPtr vaisseau) {
+    listeVaisseaux.push_back(std::weak_ptr<VaisseauServeur>(vaisseau));
+}
+
+void JoueurServeur::ajouterBatiment(BatimentServeurPtr batiment) {
+    listeBatiments.push_back(std::weak_ptr<BatimentServeur>(batiment));
+}
+
+void JoueurServeur::ajournerListeStructures() {
+    for (std::list<std::weak_ptr<BatimentServeur>>::iterator batiment=listeBatiments.begin();
+        batiment!=listeBatiments.end(); ++batiment)
+        if(!batiment->expired())
+            batiment = listeBatiments.erase(batiment);
+            
+    for (std::list<std::weak_ptr<VaisseauServeur>>::iterator vaisseau=listeVaisseaux.begin();
+        vaisseau!=listeVaisseaux.end(); ++vaisseau)
+        if(!vaisseau->expired())
+            vaisseau = listeVaisseaux.erase(vaisseau);
+}
