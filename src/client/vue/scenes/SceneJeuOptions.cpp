@@ -25,7 +25,10 @@ SceneJeuOptions::SceneJeuOptions(Jeu& jeu) :
 				jeu.lireAffichage().getSize().y,
 				jeu.lireRessources().lireImage("fond.png"));
 
+	new Bouton(&gui, Musique, "Musique", x, y, largeur, hauteur);
 	new Bouton(&gui, Retour, "Retour", x, y, largeur, hauteur);
+
+	musique = jeu.lireRessources().lireMusique("Clearness.ogg");
 }
 
 SceneJeuOptions::~SceneJeuOptions()
@@ -39,6 +42,12 @@ void SceneJeuOptions::surMessage(int id)
 		case Retour:
 			jeu.changer(Scene::SceneJeuMenu);
 			break;
+		case Musique:
+			if (musique->getStatus() == sf::Music::Playing)
+							musique->pause();
+						else
+							musique->play();
+		break;
 		default:
 			break;
 	}
