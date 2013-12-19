@@ -74,6 +74,20 @@ public:
      * \return Les materiaux du joueur
      */
     sf::Int32 getMateriaux(void);
+    
+    /**
+     * \brief Ajoute un vaisseau au joueur
+     * 
+     * \param vaisseau Le vaisseau a ajouter
+     */
+     void ajouterVaisseau(VaisseauServeurPtr vaisseau);
+    
+    /**
+     * \brief Ajoute un batiment au joueur
+     * 
+     * \param batiment Le batiment a ajouter
+     */
+     void ajouterBatiment(BatimentServeurPtr batiment);
 
     /// Setters
     void setSocket(sf::TcpSocket* _socket);
