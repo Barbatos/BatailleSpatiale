@@ -1,7 +1,7 @@
 #include "ReseauClient.hpp"
 
 ReseauClient::ReseauClient(Plateau& _plateau) : 
-	reseauThread(&ReseauClient::threadReseau, this), ip("none"), port(0), plateau(_plateau) 
+	ip("none"), port(0), plateau(_plateau) 
 {
 	setActif(false);
 }
@@ -54,13 +54,13 @@ void ReseauClient::TraiterPaquetServeur(void){
 	switch(static_cast<TypePaquet>(typePaquet)){
 
 		case TypePaquet::Plateau:
-
 			paquet >> plateau;
 			break;
 
 		case TypePaquet::MessageEchoServeur:
 		default:
 			paquet >> typePaquet >> message;
+			cout << "[SERVEUR] " << typePaquet << ", " << message << endl;
 			break;
 	}
 }
@@ -96,26 +96,3 @@ sf::TcpSocket& ReseauClient::getSocket(void){
 	return socket;
 }
 
-void ReseauClient::threadReseau(){
-	// On attend de recevoir les informations de connexion
-	while((ip == "none") || (port == 0)){
-		sf::sleep(sf::milliseconds(50));
-	}
-
-	// On se connecte au serveur
-	ConnexionServeur(ip, port);
-
-	// On écoute le réseau et on traite les paquets reçus du serveur
-	while(true){
-		TraiterPaquetServeur();
-		sf::sleep(sf::milliseconds(10));
-	}
-}
-
-void ReseauClient::lancerReseau(){
-	reseauThread.launch();
-}
-
-void ReseauClient::fermerReseau(){
-	reseauThread.terminate();
-}

@@ -1,6 +1,7 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : plateau(_plateau) {
+ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : 
+	plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this) {
 
 	// On écoute sur le port défini plus haut
 	if (listener.listen(port) != sf::Socket::Done){
@@ -105,6 +106,7 @@ void ReseauServeur::EnvoiATous(string& message){
 		// On récupère les infos du client dans la liste
 		JoueurServeur& j = *it;
 		sf::TcpSocket* client = j.getSocket();
+
 		ReseauGlobal::EnvoiPaquet(*client, paquet);
 	}
 }
@@ -128,6 +130,7 @@ void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau)
 
 void ReseauServeur::EcouterReseau(void)
 {
+
 	// On attend qu'il se passe quelque chose sur le réseau
 	if (selector.wait()){
 
@@ -256,5 +259,20 @@ void ReseauServeur::EcouterReseau(void)
 
 void ReseauServeur::setPlateau(PlateauServeur& _plateau){
 	plateau = _plateau;
+}
+
+void ReseauServeur::threadReseau(){
+	while(true){
+		EcouterReseau();
+		sf::sleep(sf::milliseconds(100));
+	}
+}
+
+void ReseauServeur::lancerReseau(){
+	reseauThread.launch();
+}
+
+void ReseauServeur::fermerReseau(){
+	reseauThread.terminate();
 }
 

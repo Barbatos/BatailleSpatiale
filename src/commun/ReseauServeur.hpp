@@ -71,6 +71,12 @@ class ReseauServeur
 
 		void setPlateau(PlateauServeur& plateau);
 
+		void threadReseau();
+
+		void lancerReseau();
+
+		void fermerReseau();
+
 	private:
 
 		/// La socket du serveur
@@ -83,6 +89,8 @@ class ReseauServeur
 		vector<JoueurServeur> joueurs;
 
 		PlateauServeur& plateau;
+
+		sf::Thread reseauThread;
 };
 
 typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;

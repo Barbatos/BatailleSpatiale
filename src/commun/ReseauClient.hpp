@@ -61,12 +61,6 @@ class ReseauClient
 
 		void EnvoyerPseudoServeur(string pseudo);
 
-		void threadReseau();
-
-		void lancerReseau();
-
-		void fermerReseau();
-
 	private:
 
 		/// La socket du client
@@ -74,8 +68,6 @@ class ReseauClient
 
 		/// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
 		bool actif;
-
-		sf::Thread reseauThread;
 
 		string ip;
 

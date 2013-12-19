@@ -40,12 +40,8 @@ void SceneMenuSolo::surMessage(int id)
 	switch (id)
 	{
 		case Solo:
-			jeu.lancerServeurGUI(1337);
-
-			jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1337);
-
-			if (jeu.lireReseau()->getActif())
-				jeu.changer(Scene::SceneJeu);
+			jeu.lancerServeurGUI(1338);
+			jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1338);
 			break;
 		case Retour:
 			jeu.changer(Scene::SceneMenuPrincipal);

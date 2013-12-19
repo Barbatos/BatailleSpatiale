@@ -83,18 +83,14 @@ void Jeu::threadReseau()
 	}
 }
 
-void Jeu::connexionServeur(string ip, unsigned short port)
-{
-	reseau->setIp(ip);
-	reseau->setPort(port);
-}
-
 void Jeu::lancerServeurGUI(unsigned int port)
 {
-	sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
+	//sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
 	plateauServeur = PlateauServeurPtr(new PlateauServeur(300, 250));
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
+
+	serveur->lancerReseau();
 }
 
 void Jeu::lancer()
@@ -104,7 +100,6 @@ void Jeu::lancer()
 	sf::Thread reseauThread(&Jeu::threadReseau, this);
 
 	reseauThread.launch();
-	reseau->lancerReseau();
 
 	while (affichage.isOpen())
 	{
@@ -137,7 +132,7 @@ void Jeu::lancer()
 	}
 
 	reseauThread.terminate();
-	reseau->fermerReseau();
+	serveur->fermerReseau();
 }
 
 void Jeu::quitter()
