@@ -43,7 +43,6 @@ public:
     EvenementPtr getEvenement() const;
     
     void retirerVaisseau();
-    void setVaisseau(VaisseauServeurPtr _vaisseau);
     VaisseauServeurPtr getVaisseau() const;
     int distanceMaximale() const;
 

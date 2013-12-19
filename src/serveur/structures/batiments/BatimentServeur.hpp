@@ -15,7 +15,15 @@ class BatimentServeur : public Structure {
 
 public:
     BatimentServeur();
-    BatimentServeur(sf::Int16 vieMax, sf::Int16 bouclierMax, float bouclierTaux, sf::Int16 visibilite, sf::Int16 attaque, sf::Int16 niveau, TypeBatiment _type = TypeBatiment::Inexistant);
+    BatimentServeur(
+        sf::Int16 vieMax, 
+        sf::Int16 bouclierMax, 
+        float bouclierTaux, 
+        sf::Int16 visibilite, 
+        sf::Int16 attaque, 
+        sf::Int16 niveau, 
+        TypeBatiment _type = TypeBatiment::Inexistant
+    );
     TypeBatiment getType() const;
     sf::Int16 getNiveau();
     void setNiveau(sf::Int16 niveau);
