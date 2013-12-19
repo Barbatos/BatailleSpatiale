@@ -59,8 +59,8 @@ void ReseauClient::TraiterPaquetServeur(void){
 
 		case TypePaquet::MessageEchoServeur:
 		default:
-			paquet >> typePaquet >> message;
-			cout << "[SERVEUR] " << typePaquet << ", " << message << endl;
+			paquet >> message;
+			cout << "[SERVEUR] " << message << endl;
 			break;
 	}
 }
