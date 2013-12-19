@@ -16,6 +16,8 @@ class SceneOptionsMenu :
 		enum Boutons
 		{
 			Musique,
+			AugmenterMusique,
+			BaisserMusique,
 			Retour
 		};
 
