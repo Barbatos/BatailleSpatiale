@@ -4,7 +4,6 @@ PlateauServeur::PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY) :
 		tailleX(_tailleX),
 		tailleY(_tailleY)
 {
-
 	cellule.resize(tailleX, std::vector<CelluleServeur>(tailleY));
 
 	for (sf::Int16 x = 0; x < tailleX; ++x)
@@ -279,6 +278,19 @@ sf::Int16 PlateauServeur::getTailleX()
 sf::Int16 PlateauServeur::getTailleY()
 {
 	return tailleY;
+}
+
+void PlateauServeur::setJoueurs(std::vector<JoueurServeur> *_joueurs) {
+    joueurs = _joueurs;
+}
+
+PlateauServeur& PlateauServeur::operator=(const PlateauServeur& plateau2) {
+    cellule = plateau2.cellule;
+    
+    tailleX = plateau2.tailleX;
+    tailleY = plateau2.tailleY;
+    
+    return *this;
 }
 
 sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau)

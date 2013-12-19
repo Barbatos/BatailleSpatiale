@@ -134,8 +134,19 @@ public:
      * \return la taille du plateau à la verticale
      */
     sf::Int16 getTailleY();
+    
+    /**
+     * \brief Setter listeJoueur
+     * 
+     * \param joueurs référence vers la liste des joueurs
+     */
+    void setJoueurs(std::vector<JoueurServeur> *_joueurs);
+    
+    PlateauServeur& operator=(const PlateauServeur& plateau2);
 
 private:
+    /// Liste des joueurs
+    std::vector<JoueurServeur> *joueurs;
     /// Les cellules du plateau
     std::vector<std::vector<CelluleServeur>> cellule;
     /// La taille du plateau à l'horizontal

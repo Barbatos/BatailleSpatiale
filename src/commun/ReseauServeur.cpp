@@ -2,8 +2,10 @@
 
 ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : 
 	plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this) {
-
-	// On écoute sur le port défini plus haut
+        
+    plateau.setJoueurs(&joueurs);
+    
+    // On écoute sur le port défini plus haut
 	if (listener.listen(port) != sf::Socket::Done){
 		cout << "[RESEAU] Impossible d'écouter sur le port " << port << endl;
 		return;
@@ -258,7 +260,8 @@ void ReseauServeur::EcouterReseau(void)
 }
 
 void ReseauServeur::setPlateau(PlateauServeur& _plateau){
-	plateau = _plateau;
+    plateau = _plateau;
+    plateau.setJoueurs(&joueurs);
 }
 
 void ReseauServeur::threadReseau(){
