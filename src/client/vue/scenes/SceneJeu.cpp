@@ -40,6 +40,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 	new BoutonDeplacementPlateau(&gui, Bas, 30,
 									0.7 * jeu.lireAffichage().getSize().y - 30,
 									jeu.lireAffichage().getSize().x - 60, 30);
+	new Bouton(&gui, Menu, "Menu",jeu.lireAffichage().getSize().x-40 , jeu.lireAffichage().getSize().y-40,40, 40);
 }
 
 SceneJeu::~SceneJeu()
@@ -51,7 +52,7 @@ void SceneJeu::surMessage(int id)
 {
 	switch (id)
 	{
-		case Pause:
+		case Menu:
 			jeu.changer(Scene::SceneJeuMenu);
 			break;
 		case Plateau:

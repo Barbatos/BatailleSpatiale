@@ -23,6 +23,11 @@ class SceneJeuOptions :
 		enum Boutons
 		{
 			Musique,
+			AugmenterMusique,
+			BaisserMusique,
+			Son,
+			AugmenterSon,
+			BaisserSon,
 			Retour
 		};
 

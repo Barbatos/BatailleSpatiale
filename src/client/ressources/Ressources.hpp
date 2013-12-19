@@ -122,6 +122,8 @@ class Ressources
 		/**
 		 * \brief Fonction de chargement, appelée dans un thread
 		 */
+
+		bool silenceSonsEtat;
 		void threadChargement();
 
 		/**
@@ -327,6 +329,11 @@ class Ressources
 		 ressources.changerVolumeSons(30);
 		 \endcode
 		 */
+		float obtenirVolumeSons();
+		float obtenirVolumeMusiques();
+		void silenceSons();
+		void nonSilenceSons();
+		bool estSilencieuxSons();
 };
 
 #endif /* RESSOURCES_HPP_ */

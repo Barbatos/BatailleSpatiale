@@ -28,7 +28,7 @@ class SceneJeu :
 		 */
 		enum Elements
 		{
-			Pause, //!<
+			Menu, //!<
 			Plateau, //!<
 			Droite, //!<
 			Gauche, //!<

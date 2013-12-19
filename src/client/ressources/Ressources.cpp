@@ -19,8 +19,9 @@
  */
 
 Ressources::Ressources() :
-		volumeSons(0),
-		volumeMusiques(0)
+		volumeSons(10),
+		volumeMusiques(10),
+		silenceSonsEtat(false)
 {
 }
 
@@ -285,4 +286,34 @@ void Ressources::changerVolumeGlobal(int volume)
 {
 	changerVolumeSons(volume);
 	changerVolumeMusiques(volume);
+}
+
+float Ressources::obtenirVolumeSons()
+{
+	return volumeSons;
+}
+
+float Ressources::obtenirVolumeMusiques()
+{
+	return volumeMusiques;
+}
+
+void Ressources::silenceSons()
+{
+	for (std::pair<std::string, SoundPair> paire : sons)
+		{
+			sons[paire.first].second.setVolume(0);
+		}
+}
+
+void Ressources::nonSilenceSons()
+{
+	for (std::pair<std::string, SoundPair> paire : sons)
+			{
+				sons[paire.first].second.setVolume(volumeSons);
+			}
+}
+
+bool Ressources::estSilencieuxSons(){
+	return silenceSonsEtat;
 }
