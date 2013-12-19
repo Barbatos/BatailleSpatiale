@@ -19,8 +19,8 @@ Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
-	sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
-	sprite.setPosition(lirePosition().x, lirePosition().y);
+	this->sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
+	this->sprite.setPosition(lirePosition().x, lirePosition().y);
 	Utile::redimensionnerImage(sprite, lireTaille().x, lireTaille().y, false);
 }
 
