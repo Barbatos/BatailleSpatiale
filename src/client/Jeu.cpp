@@ -79,7 +79,7 @@ void Jeu::threadReseau()
 	while (true)
 	{
 		reseau->TraiterPaquetServeur();
-		sf::sleep(sf::milliseconds(10));
+		sf::sleep(sf::milliseconds(100));
 	}
 }
 
