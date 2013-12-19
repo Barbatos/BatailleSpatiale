@@ -21,6 +21,8 @@ class Splash
 		static Splash instance;
 
 		sf::RenderWindow fenetre;
+		sf::Texture texture;
+		sf::Sprite sprite;
 		sf::Font police;
 		sf::Text label;
 

@@ -47,11 +47,10 @@ void SceneLancerServeur::surMessage(int id)
 		case Retour:
 			jeu.changer(Scene::SceneMenuPrincipal);
 			break;
-
 		case Serveur:
 			jeu.lancerServeurGUI(atoi(port->lireTexte().c_str()));
+			jeu.changer(Scene::SceneMenuPrincipal);
 			break;
-
 		default:
 			break;
 	}

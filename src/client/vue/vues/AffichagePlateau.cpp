@@ -23,10 +23,7 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 	enregistrerSouris(ObservateurSouris::Ptr(this));
 
 	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
-}
 
-void AffichagePlateau::initialiserCases()
-{
 	int taille = 25;
 	int k = 0;
 
@@ -77,11 +74,6 @@ AffichagePlateau::~AffichagePlateau()
 
 void AffichagePlateau::actualiser(float)
 {
-	if (lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX() != 0 && !charge)
-	{
-		initialiserCases();
-		charge = true;
-	}
 }
 
 void AffichagePlateau::bougerPlateau(float x, float y)

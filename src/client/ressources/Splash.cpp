@@ -9,10 +9,14 @@
 
 #include <sstream>
 
+#include <client/utile/Utile.hpp>
+
 Splash Splash::instance;
 
 Splash::Splash() :
 		fenetre(),
+		texture(),
+		sprite(),
 		police(),
 		label(),
 		texte("Bataille Spatiale"),
@@ -21,15 +25,19 @@ Splash::Splash() :
 		fin(false)
 {
 	police.loadFromFile("ressources/polices/grand9k.ttf");
+	texture.loadFromFile("ressources/images/Interface/splash_screen.png");
+	texture.setSmooth(true);
+
+	sprite.setTexture(texture);
+	Utile::redimensionnerImage(sprite, 576, 324, true);
+	sprite.setPosition((576 - sprite.getGlobalBounds().width) / 2,
+						(324 - sprite.getGlobalBounds().height) / 2);
 
 	label.setFont(police);
-
 	label.setCharacterSize(14);
+	label.setPosition(0, 324 - label.getCharacterSize());
 
-	label.setPosition(0, 300 - label.getCharacterSize());
-
-	fenetre.create(sf::VideoMode(300, 300), "Splash", sf::Style::None);
-
+	fenetre.create(sf::VideoMode(576, 324), "Splash", sf::Style::None);
 	fenetre.setVerticalSyncEnabled(true);
 }
 
@@ -73,6 +81,7 @@ void Splash::actualiser()
 
 void Splash::dessiner()
 {
+	fenetre.draw(sprite);
 	fenetre.draw(label);
 }
 

@@ -21,5 +21,6 @@
 #include "scenes/SceneOptionsMenu.hpp"
 #include "scenes/SceneMenuMultijoueur.hpp"
 #include "scenes/SceneLancerServeur.hpp"
+#include "scenes/SceneChargementReseau.hpp"
 
-#endif /* SCENES_HPP_ */
+#endif /* SCENES_HPP */
