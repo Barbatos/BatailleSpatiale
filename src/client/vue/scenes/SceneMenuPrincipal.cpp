@@ -26,6 +26,10 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 				jeu.lireAffichage().getSize().y,
 				jeu.lireRessources().lireImage("fond.png"));
 
+	new Animation(
+			&gui, -1, 50, 100, 200, 200, true,
+			jeu.lireRessources().lireImage("Environnement/comete2.png"));
+
 	new Bouton(&gui, Solo, "Partie Solo", x, y, largeur, hauteur);
 
 	new Bouton(&gui, Multi, "Partie Multi", x, 2 * y, largeur, hauteur);
@@ -35,12 +39,6 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 	new Bouton(&gui, Options, "Options", x, 4 * y, largeur, hauteur);
 
 	new Bouton(&gui, Quitter, "Quitter", x, 5 * y, largeur, hauteur);
-
-
-	new Animation(
-			&gui, -1, 50, 100, 200, 200, true,
-			jeu.lireRessources().lireImage("Environnement/comete2.png"));
-
 }
 
 SceneMenuPrincipal::~SceneMenuPrincipal()
