@@ -38,11 +38,6 @@ class ZoneTexte :
 		Label label;
 
 		/**
-		 * \brief Si la zone est survolée
-		 */
-		bool survole;
-
-		/**
 		 * \brief Si la zone est selectionnée
 		 */
 		bool selectionne;

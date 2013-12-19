@@ -26,7 +26,7 @@ class SceneJeuOptions :
 			Retour
 		};
 
-		MusicPtr musique;
+		Ressources::MusicPtr musique;
 
 	public:
 		/**

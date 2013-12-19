@@ -15,11 +15,10 @@ class SceneOptionsMenu :
 	private:
 		enum Boutons
 		{
-			Musique,
-			Retour
+			Musique, Retour
 		};
 
-		MusicPtr musique;
+		Ressources::MusicPtr musique;
 
 	public:
 		/**

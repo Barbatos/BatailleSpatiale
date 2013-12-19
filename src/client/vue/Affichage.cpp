@@ -14,13 +14,18 @@
 Affichage::Affichage() :
 		sf::RenderWindow()
 {
-	create(sf::VideoMode(HAUTEUR_FENETRE, LARGEUR_FENETRE), TITRE_FENETRE,
-			sf::Style::Close);
 
-	setVerticalSyncEnabled(true);
 }
 
 Affichage::~Affichage()
 {
 
+}
+
+void Affichage::creer()
+{
+	create(sf::VideoMode(HAUTEUR_FENETRE, LARGEUR_FENETRE), TITRE_FENETRE,
+			sf::Style::Close);
+
+	setVerticalSyncEnabled(true);
 }

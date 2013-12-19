@@ -12,13 +12,39 @@
 #include <client/utile/Utile.hpp>
 #include <client/utile/Log.hpp>
 
+#include <iostream>
+
 /**
  * Constructeur/Destructeur
  */
 
-Ressources::Ressources()
+Ressources::Ressources() :
+		volumeSons(0),
+		volumeMusiques(0)
+{
+}
+
+Ressources::~Ressources()
+{
+}
+
+void Ressources::charger()
+{
+	sf::Thread thread(&Ressources::threadChargement, this);
+
+	thread.launch();
+
+	Splash::lireInstance().lancer();
+}
+
+void Ressources::threadChargement()
 {
 	Archive archive("ressources/ressources.txt");
+
+	int maxi = archive.lireImages().size() + archive.lirePolices().size() + archive
+			.lireSons().size() + archive.lireMusiques().size();
+
+	Splash::lireInstance().changerMaxi(maxi);
 
 	fichierLog.ajouterLigne("Chargement des images :");
 
@@ -37,15 +63,9 @@ Ressources::Ressources()
 	chargerMusiques(archive.lireMusiques());
 
 	fichierLog.ajouterLigne("");
-}
 
-Ressources::~Ressources()
-{
+	Splash::lireInstance().fermer();
 }
-
-/*
- *		Images
- */
 
 void Ressources::chargerImage(std::string nomImage)
 {
@@ -67,9 +87,14 @@ void Ressources::chargerImages(std::vector<std::string> fichiers)
 {
 	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++)
 	{
+		Splash::lireInstance().changerTexte(fichiers[i]);
+
 		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
 		chargerImage(fichiers[i]);
+
+		Splash::lireInstance().changerValeur(
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
@@ -106,9 +131,14 @@ void Ressources::chargerPolices(std::vector<std::string> fichiers)
 {
 	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++)
 	{
+		Splash::lireInstance().changerTexte(fichiers[i]);
+
 		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
 		chargerPolice(fichiers[i]);
+
+		Splash::lireInstance().changerValeur(
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
@@ -153,9 +183,14 @@ void Ressources::chargerSons(std::vector<std::string> fichiers)
 {
 	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++)
 	{
+		Splash::lireInstance().changerTexte(fichiers[i]);
+
 		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
 		chargerSon(fichiers[i]);
+
+		Splash::lireInstance().changerValeur(
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
@@ -199,13 +234,18 @@ void Ressources::chargerMusiques(std::vector<std::string> fichiers)
 {
 	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++)
 	{
+		Splash::lireInstance().changerTexte(fichiers[i]);
+
 		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
 		chargerMusique(fichiers[i]);
+
+		Splash::lireInstance().changerValeur(
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
-MusicPtr Ressources::lireMusique(std::string nomMusique)
+Ressources::MusicPtr Ressources::lireMusique(std::string nomMusique)
 {
 	fichierLog.ajouterLigne("Recherche de : " + nomMusique);
 
