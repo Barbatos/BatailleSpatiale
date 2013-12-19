@@ -38,6 +38,9 @@ Jeu::~Jeu()
 
 	if (reseau != nullptr)
 		reseau.release();
+
+	if(serveur != nullptr)
+		serveur->fermerReseau();
 }
 
 void Jeu::changer(Scene::Type nouvelleScene)
@@ -129,7 +132,6 @@ void Jeu::lancer()
 	}
 
 	reseauThread.terminate();
-	serveur->fermerReseau();
 }
 
 void Jeu::quitter()
