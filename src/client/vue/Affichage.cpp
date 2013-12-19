@@ -24,8 +24,12 @@ Affichage::~Affichage()
 
 void Affichage::creer()
 {
-	create(sf::VideoMode(HAUTEUR_FENETRE, LARGEUR_FENETRE), TITRE_FENETRE,
-			sf::Style::Close);
+	sf::VideoMode mode = sf::VideoMode::getDesktopMode();
+
+	mode.width = mode.width * 0.9;
+	mode.height = mode.height * 0.9;
+
+	create(mode, TITRE_FENETRE, sf::Style::Close);
 
 	setVerticalSyncEnabled(true);
 }

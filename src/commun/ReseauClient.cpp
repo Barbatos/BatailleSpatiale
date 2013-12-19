@@ -58,9 +58,12 @@ void ReseauClient::TraiterPaquetServeur(void){
 			break;
 
 		case TypePaquet::MessageEchoServeur:
-		default:
 			paquet >> message;
 			cout << "[SERVEUR] " << message << endl;
+			break;
+
+		default:
+			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
 			break;
 	}
 }

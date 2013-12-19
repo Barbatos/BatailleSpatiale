@@ -39,7 +39,7 @@ Jeu::~Jeu()
 	if (reseau != nullptr)
 		reseau.release();
 
-	if(serveur != nullptr)
+	if (serveur != nullptr)
 		serveur->fermerReseau();
 }
 
@@ -74,6 +74,9 @@ void Jeu::changer(Scene::Type nouvelleScene)
 		case Scene::SceneLancerServeur:
 			scene = Scene::Ptr(new SceneLancerServeur(*this));
 			break;
+		case Scene::SceneChargementReseau:
+			scene = Scene::Ptr(new SceneChargementReseau(*this));
+			break;
 		default:
 			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
 			break;
@@ -93,7 +96,7 @@ void Jeu::lancerServeurGUI(unsigned int port)
 {
 	//sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
-	plateauServeur = PlateauServeurPtr(new PlateauServeur(300, 250));
+	plateauServeur = PlateauServeurPtr(new PlateauServeur(10, 10));
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
 
 	serveur->lancerReseau();
