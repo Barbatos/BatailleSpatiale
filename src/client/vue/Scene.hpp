@@ -63,7 +63,7 @@ class Scene
 			SceneJeuOptions, //!< Scène des Options en Jeu
 			SceneOptionsMenu, //!< Scène du menu des options
 			SceneLancerServeur, //!< Scène du lancement d'un serveur de jeu
-			SceneChargementReseau //!< Scène lors de l'attente du chargement du réseau
+			SceneChargementJeu //!< Scène lors de l'attente du chargement du réseau
 		};
 
 		/**

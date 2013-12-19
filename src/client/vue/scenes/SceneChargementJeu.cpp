@@ -5,25 +5,25 @@
  *      Author: Soinou
  */
 
-#include "SceneChargementReseau.hpp"
+#include "SceneChargementJeu.hpp"
 
-#include <client/vue/gui/elements/ChargementReseau.hpp>
+#include <client/vue/gui/elements/ChargementJeu.hpp>
 
-SceneChargementReseau::SceneChargementReseau(Jeu& jeu) :
+SceneChargementJeu::SceneChargementJeu(Jeu& jeu) :
 		Scene(jeu)
 {
 	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
 				jeu.lireAffichage().getSize().y,
 				jeu.lireRessources().lireImage("fond.png"));
 
-	new ChargementReseau(&gui, 0);
+	new ChargementJeu(&gui, 0);
 }
 
-SceneChargementReseau::~SceneChargementReseau()
+SceneChargementJeu::~SceneChargementJeu()
 {
 }
 
-void SceneChargementReseau::surMessage(int id)
+void SceneChargementJeu::surMessage(int id)
 {
 	switch (id)
 	{

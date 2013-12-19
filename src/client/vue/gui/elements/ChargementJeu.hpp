@@ -1,25 +1,25 @@
 /*
- * ChargementReseau.hpp
+ * ChargementJeu.hpp
  *
  *  Created on: 19 déc. 2013
  *      Author: Soinou
  */
 
 #ifndef CHARGEMENTRESEAU_HPP
-#define CHARGEMENTRESEAU_HPP
+#define CHARGEMENTJEU_HPP
 
 #include "ElementPack.hpp"
 
-class ChargementReseau :
+class ChargementJeu :
 	public Element
 {
 	public:
-		ChargementReseau(Gui* gui, int id);
-		virtual ~ChargementReseau();
+		ChargementJeu(Gui* gui, int id);
+		virtual ~ChargementJeu();
 
 		void actualiser(float delta);
 		void afficher(sf::RenderWindow& affichage);
 		bool contient(sf::Vector2i position);
 };
 
-#endif /* CHARGEMENTRESEAU_HPP */
+#endif /* CHARGEMENTJEU_HPP */

@@ -74,8 +74,8 @@ void Jeu::changer(Scene::Type nouvelleScene)
 		case Scene::SceneLancerServeur:
 			scene = Scene::Ptr(new SceneLancerServeur(*this));
 			break;
-		case Scene::SceneChargementReseau:
-			scene = Scene::Ptr(new SceneChargementReseau(*this));
+		case Scene::SceneChargementJeu:
+			scene = Scene::Ptr(new SceneChargementJeu(*this));
 			break;
 		default:
 			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
