@@ -17,24 +17,7 @@
 #include <string>
 #include <memory>
 
-// Typedefs
-
-// Textures
-typedef std::pair<std::string, sf::Texture> TexturePair;
-typedef std::map<std::string, sf::Texture> TextureMap;
-
-// Polices
-typedef std::pair<std::string, sf::Font> FontPair;
-typedef std::map<std::string, sf::Font> FontMap;
-
-// Sons
-typedef std::pair<sf::SoundBuffer, sf::Sound> SoundPair;
-typedef std::map<std::string, SoundPair> SoundMap;
-
-// Musiques
-typedef std::shared_ptr<sf::Music> MusicPtr;
-typedef std::pair<std::string, MusicPtr> MusicPair;
-typedef std::map<std::string, MusicPtr> MusicMap;
+#include "Splash.hpp"
 
 /**
  * \brief Contient toutes les ressources du jeu
@@ -43,6 +26,56 @@ typedef std::map<std::string, MusicPtr> MusicMap;
  */
 class Ressources
 {
+	public:
+		//////////////////////////////////////
+		/// <!-- Typedefs -->
+		//////////////////////////////////////
+
+		/**
+		 * \brief Typedef d'un std::pair associant un std::string à une sf::Texture
+		 */
+		typedef std::pair<std::string, sf::Texture> TexturePair;
+
+		/**
+		 * \brief Typedef d'une std::map associant un std::string à une sf::Texture
+		 */
+		typedef std::map<std::string, sf::Texture> TextureMap;
+
+		/**
+		 * \brief Typedef d'une std::pair associant un std::string à une sf::Font
+		 */
+		typedef std::pair<std::string, sf::Font> FontPair;
+
+		/**
+		 * \brief Typedef d'une std::map associant un std::string à une sf::Font
+		 */
+		typedef std::map<std::string, sf::Font> FontMap;
+
+		/**
+		 * \brief Typedef d'une version shared_ptr d'une sf::Music
+		 */
+		typedef std::shared_ptr<sf::Music> MusicPtr;
+
+		/**
+		 * \brief Typedef d'une std::pair associant un std::string à un MusicPtr
+		 */
+		typedef std::pair<std::string, MusicPtr> MusicPair;
+
+		/**
+		 * \brief Typedef d'une std::map associant un std::string à un MusicPtr
+		 */
+		typedef std::map<std::string, MusicPtr> MusicMap;
+
+		/**
+		 * \brief Typedef d'une std::pair associant un sf::SoundBuffer à un sf::Sound
+		 */
+		typedef std::pair<sf::SoundBuffer, sf::Sound> SoundPair;
+
+		/**
+		 * \brief Typedef d'une std::map associant un std::string à une SoundPair
+		 */
+		typedef std::map<std::string, SoundPair> SoundMap;
+
 	private:
 		/**
 		 * \brief Liste de textures
@@ -85,6 +118,11 @@ class Ressources
 		 * Le volume des musiques
 		 */
 		int volumeMusiques;
+
+		/**
+		 * \brief Fonction de chargement, appelée dans un thread
+		 */
+		void threadChargement();
 
 		/**
 		 * \brief Charge l'image passée en paramètre
@@ -172,6 +210,11 @@ class Ressources
 		 * Détruit une instance précédemment créée
 		 */
 		virtual ~Ressources();
+
+		/**
+		 * \brief Charge les ressources
+		 */
+		void charger();
 
 		/**
 		 * \brief Récupère l'image demandée, et la charge si elle n'existe pas

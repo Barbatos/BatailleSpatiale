@@ -23,6 +23,9 @@ Jeu::Jeu() :
 		horloge(),
 		reseau(nullptr)
 {
+	ressources.charger();
+	affichage.creer();
+
 	changer(Scene::SceneMenuPrincipal);
 	reseau = ReseauPtr(new ReseauClient(modele));
 	reseauActif = false;
@@ -35,6 +38,9 @@ Jeu::~Jeu()
 
 	if (reseau != nullptr)
 		reseau.release();
+
+	if(serveur != nullptr)
+		serveur->fermerReseau();
 }
 
 void Jeu::changer(Scene::Type nouvelleScene)
@@ -103,12 +109,6 @@ void Jeu::lancer()
 
 	while (affichage.isOpen())
 	{
-		if (reseau->getActif() && !reseauActif)
-		{
-			reseauActif = true;
-			changer(Scene::SceneJeu);
-		}
-
 		while (affichage.pollEvent(evenement))
 		{
 			if (evenement.type == sf::Event::Closed)
@@ -132,7 +132,6 @@ void Jeu::lancer()
 	}
 
 	reseauThread.terminate();
-	serveur->fermerReseau();
 }
 
 void Jeu::quitter()

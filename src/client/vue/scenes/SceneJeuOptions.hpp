@@ -9,6 +9,7 @@
 #define SCENEJEUOPTIONS_HPP
 
 #include <client/vue/Scene.hpp>
+#include <client/ressources/Ressources.hpp>
 
 /**
  * \brief Scène du menu des options depuis le jeu
@@ -21,8 +22,11 @@ class SceneJeuOptions :
 	private:
 		enum Boutons
 		{
+			Musique,
 			Retour
 		};
+
+		Ressources::MusicPtr musique;
 
 	public:
 		/**
