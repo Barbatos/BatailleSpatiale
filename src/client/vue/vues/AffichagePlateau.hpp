@@ -42,6 +42,8 @@ class AffichagePlateau :
 		 */
 		sf::View vuePlateau;
 
+		bool charge;
+
 	public:
 		/**
 		 * \brief Version unique_ptr du plateau
@@ -69,6 +71,11 @@ class AffichagePlateau :
 		 * Détruit l'instance précédemment créée d'affichage plateau
 		 */
 		virtual ~AffichagePlateau();
+
+		/**
+		 * \brief Initialise les cases
+		 */
+		void initialiserCases();
 
 		/**
 		 * \brief Déplace la vue plateau

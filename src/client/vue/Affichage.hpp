@@ -15,7 +15,8 @@
  *
  * Représente la fenêtre qui affiche le jeu
  */
-class Affichage : public sf::RenderWindow
+class Affichage :
+	public sf::RenderWindow
 {
 	public:
 		/**
@@ -24,12 +25,18 @@ class Affichage : public sf::RenderWindow
 		 * Créé une nouvelle instance d'Affichage
 		 */
 		Affichage();
+
 		/**
 		 * \brief Destructeur
 		 *
 		 * Détruit une instance précédemment créé d'Affichage
 		 */
 		virtual ~Affichage();
+
+		/**
+		 * \brief Créé l'affichage
+		 */
+		void creer();
 };
 
 #endif /* AFFICHAGE_HPP */

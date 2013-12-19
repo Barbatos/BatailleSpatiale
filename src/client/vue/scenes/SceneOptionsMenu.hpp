@@ -15,13 +15,17 @@ class SceneOptionsMenu :
 	private:
 		enum Boutons
 		{
+<<<<<<< HEAD
 			Musique,
 			AugmenterMusique,
 			BaisserMusique,
 			Retour
+=======
+			Musique, Retour
+>>>>>>> e1a1bbb2c0a11047a1b1672b636b26ef8319ba24
 		};
 
-		MusicPtr musique;
+		Ressources::MusicPtr musique;
 
 	public:
 		/**

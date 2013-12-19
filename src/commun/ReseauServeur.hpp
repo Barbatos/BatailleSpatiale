@@ -91,6 +91,8 @@ class ReseauServeur
 		PlateauServeur& plateau;
 
 		sf::Thread reseauThread;
+
+		bool actif;
 };
 
 typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;

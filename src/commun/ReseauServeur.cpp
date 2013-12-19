@@ -1,7 +1,7 @@
 #include "ReseauServeur.hpp"
 
 ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : 
-	plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this) {
+	plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
 
 	// On écoute sur le port défini plus haut
 	if (listener.listen(port) != sf::Socket::Done){
@@ -132,7 +132,7 @@ void ReseauServeur::EcouterReseau(void)
 {
 
 	// On attend qu'il se passe quelque chose sur le réseau
-	if (selector.wait()){
+	if (selector.wait(sf::milliseconds(50))){
 
 		// On teste s'il y a une nouvelle connexion en attente sur le serveur
 		if (selector.isReady(listener)){
@@ -262,17 +262,18 @@ void ReseauServeur::setPlateau(PlateauServeur& _plateau){
 }
 
 void ReseauServeur::threadReseau(){
-	while(true){
+	while(actif){
 		EcouterReseau();
 		sf::sleep(sf::milliseconds(100));
 	}
 }
 
 void ReseauServeur::lancerReseau(){
+	actif = true;
 	reseauThread.launch();
 }
 
 void ReseauServeur::fermerReseau(){
-	reseauThread.terminate();
+	actif = false;
 }
 
