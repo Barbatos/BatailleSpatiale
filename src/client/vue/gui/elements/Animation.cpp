@@ -8,9 +8,10 @@
 #include "Animation.hpp"
 
 Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-	bool add, sf::Sprite sprite) :
+	bool add, std::string nomImage) :
 		Element(gui, id),
-		sprite(sprite),
+		sprite(gui->lireScene()->lireJeu().lireRessources().lireImage(
+				nomImage)),
 		selection(),
 		time(0),
 		ajout(add),
@@ -19,8 +20,8 @@ Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
-	this->sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
-	this->sprite.setPosition(lirePosition().x, lirePosition().y);
+	sprite.setTextureRect(sf::IntRect(0, 0, 480, 480));
+	sprite.setPosition(lirePosition().x, lirePosition().y);
 	Utile::redimensionnerImage(sprite, lireTaille().x, lireTaille().y, false);
 }
 
