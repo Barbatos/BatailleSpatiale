@@ -8,9 +8,7 @@
 #include "SceneMenuPrincipal.hpp"
 
 #include <iostream>
-#include <client/vue/gui/elements/Image.hpp>
-#include <client/vue/gui/elements/Animation.hpp>
-#include <client/vue/gui/elements/Bouton.hpp>
+
 #include <client/Jeu.hpp>
 
 SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :

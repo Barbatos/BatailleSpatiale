@@ -9,8 +9,8 @@
 #define BOUTONDEPLACEMENTPLATEAU_HPP
 
 // Includes de nos classes
-#include "ElementPack.hpp"
-#include "Label.hpp"
+#include "VuesPack.hpp"
+#include <client/vue/gui/elements/generiques/Label.hpp>
 
 /**
  * \brief Bouton simple permettant de déplacer le plateau

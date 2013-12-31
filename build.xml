@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- Project -->
+<project basedir="." default="Doc" name="BatailleSpatiale">
+
+	<!-- Folders -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="bin" location="bin" />
+
+	<!-- Init folders -->
+	<target name="Init">
+		<mkdir dir="${build}/Debug" />
+		<mkdir dir="${build}/Release" />
+	</target>
+
+	<!-- Generate CMake Debug makefiles -->
+	<target name="CMake Debug" depends="Init">
+		<exec dir="${build}/Debug" executable="cmake">
+			<arg value="${basedir}" />
+			<arg value="-GNinja" />
+			<arg value="-DCMAKE_BUILD_TYPE:STRING=Debug" />
+		</exec>
+	</target>
+
+	<!-- Generate CMake Release makefiles -->
+	<target name="CMake Release" depends="Init">
+		<exec dir="${build}/Release" executable="cmake">
+			<arg value="${basedir}" />
+			<arg value="-GNinja" />
+			<arg value="-DCMAKE_BUILD_TYPE:STRING=Release" />
+		</exec>
+	</target>
+
+	<!-- Compile Debug makefiles -->
+	<target name="Compile Debug" depends="CMake Debug">
+		<exec dir="${build}/Debug" executable="ninja" />
+	</target>
+
+	<!-- Compile Release makefiles -->
+	<target name="Compile Release" depends="CMake Release">
+		<exec dir="${build}/Release" executable="ninja" />
+	</target>
+
+	<!-- Generate Documentation -->
+	<target name="Doc">
+		<exec dir="${basedir}" executable="doxygen">
+			<arg value="DoxyfileClient" />
+		</exec>
+	</target>
+
+	<!-- Clean the project -->
+	<target name="Clean">
+		<delete dir="${build}" />
+	</target>
+</project>

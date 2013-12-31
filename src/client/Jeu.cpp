@@ -8,7 +8,6 @@
 #include "Jeu.hpp"
 
 #include <iostream>
-#include <client/vue/vues/AffichageDetails.hpp>
 #include <serveur/plateau/PlateauServeur.hpp>
 
 #define FPS 60

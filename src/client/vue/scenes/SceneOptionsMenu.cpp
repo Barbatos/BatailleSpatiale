@@ -6,8 +6,6 @@
  */
 #include "SceneOptionsMenu.hpp"
 
-#include <client/vue/gui/elements/Image.hpp>
-#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneOptionsMenu::SceneOptionsMenu(Jeu& jeu) :

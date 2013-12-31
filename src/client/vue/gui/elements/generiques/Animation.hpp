@@ -10,7 +10,7 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 
-#include "ElementPack.hpp"
+#include "GeneriquesPack.hpp"
 
 /**
  * \brief Représente une animation

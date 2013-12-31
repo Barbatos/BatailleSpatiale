@@ -19,6 +19,7 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
+	ecrireVue(&vuePlateau);
 
 	enregistrerSouris(ObservateurSouris::Ptr(this));
 
@@ -55,11 +56,7 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 	else
 		taille = xc;
 
-	std::cout
-		<< lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX()
-		<< std::endl;
-
-	vuePlateau.setSize(taille * 0.9, taille * 0.9);
+	vuePlateau.setSize(largeur, hauteur);
 	vuePlateau.move(taille / 2, taille / 2);
 }
 

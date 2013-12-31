@@ -8,13 +8,20 @@
 #ifndef CHARGEMENTRESEAU_HPP
 #define CHARGEMENTJEU_HPP
 
-#include "ElementPack.hpp"
+#include "ChargementPack.hpp"
+
+#include <client/vue/gui/elements/generiques/Animation.hpp>
+#include <client/vue/gui/elements/generiques/Label.hpp>
 
 class ChargementJeu :
 	public Element
 {
+	private:
+		Label texte;
+		Animation image;
+
 	public:
-		ChargementJeu(Gui* gui, int id);
+		ChargementJeu(Gui* gui, int id, int x, int y, int largeur, int hauteur);
 		virtual ~ChargementJeu();
 
 		void actualiser(float delta);

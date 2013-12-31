@@ -14,7 +14,7 @@
 // Includes du 'pack' vues
 #include "VuesPack.hpp"
 
-#include <client/vue/gui/elements/Label.hpp>
+#include <client/vue/gui/elements/generiques/Label.hpp>
 
 /**
  * \brief Affiche les détails de la case selectionnée

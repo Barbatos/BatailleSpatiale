@@ -1,14 +1,14 @@
 /*
- * ElementPack.hpp
+ * VuesPack.hpp
  *
  *  Created on: 16 déc. 2013
  *      Author: Soinou
  */
 
-#ifndef ELEMENTPACK_HPP
-#define ELEMENTPACK_HPP
+#ifndef VUESPACK_HPP
+#define VUESPACK_HPP
 
-// Inclus toutes les classes dont on pourrait avoir besoin pour créer un élement
+// Inclus toutes les classes dont on pourrait avoir besoin pour créer une vue
 
 ///////////////////////////////////////////
 ///	SFML
@@ -17,15 +17,10 @@
 #include <SFML/Graphics.hpp>
 
 ///////////////////////////////////////////
-///	Gui
+///	Gui/Element
 ///////////////////////////////////////////
 
 #include <client/vue/gui/Gui.hpp>
-
-///////////////////////////////////////////
-///	Element
-///////////////////////////////////////////
-
 #include <client/vue/gui/Element.hpp>
 
 ///////////////////////////////////////////
@@ -36,10 +31,21 @@
 #include <client/vue/gui/evenements/ObservateurClavier.hpp>
 
 ///////////////////////////////////////////
+///	Modèles
+///////////////////////////////////////////
+
+#include <commun/utile/Position.hpp>
+
+///////////////////////////////////////////
 ///	Utiles
 ///////////////////////////////////////////
 
 #include <client/utile/Utile.hpp>
-#include <client/Jeu.hpp>
 
-#endif /* ELEMENTPACK_HPP */
+///////////////////////////////////////////
+///	Scene
+///////////////////////////////////////////
+
+#include <client/vue/Scene.hpp>
+
+#endif /* VUESPACK_HPP */
