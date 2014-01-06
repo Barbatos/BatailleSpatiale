@@ -10,7 +10,7 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 
-#include "ElementPack.hpp"
+#include "GeneriquesPack.hpp"
 
 /**
  * \brief Représente une animation
@@ -55,10 +55,10 @@ class Animation :
 		 * \param largeur la largeur de l'animation
 		 * \param hauteur la hauteur de l'animation
 		 * \param ajout si l'animation doit être en mode ajout ou non
-		 * \param sprite le sprite de l'animation
+		 * \param nomImage le nom de l'image à charger
 		 */
 		Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-			bool ajout, sf::Sprite sprite);
+			bool ajout, std::string nomImage);
 
 		/**
 		 * \brief Destructeur

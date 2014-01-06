@@ -14,5 +14,5 @@ int main()
 
 	jeu.lancer();
 
-	return(0);
+	return (0);
 }

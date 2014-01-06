@@ -1,14 +1,14 @@
 /*
- * VuesPack.hpp
+ * GeneriquesPack.hpp
  *
- *  Created on: 16 déc. 2013
+ *  Created on: 20 déc. 2013
  *      Author: Soinou
  */
 
-#ifndef VUESPACK_HPP
-#define VUESPACK_HPP
+#ifndef GENERIQUESPACK_HPP
+#define GENERIQUESPACK_HPP
 
-// Inclus toutes les classes dont on pourrait avoir besoin pour créer une vue
+// Inclus toutes les classes dont on pourrait avoir besoin pour créer un élement
 
 ///////////////////////////////////////////
 ///	SFML
@@ -36,9 +36,10 @@
 #include <client/vue/gui/evenements/ObservateurClavier.hpp>
 
 ///////////////////////////////////////////
-///	Modèles
+///	Utiles
 ///////////////////////////////////////////
 
-#include <commun/utile/Position.hpp>
+#include <client/utile/Utile.hpp>
+#include <client/Jeu.hpp>
 
-#endif /* VUESPACK_HPP */
+#endif /* GENERIQUESPACK_HPP */

@@ -7,8 +7,6 @@
 
 #include "SceneJeuMenu.hpp"
 
-#include <client/vue/gui/elements/Image.hpp>
-#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneJeuMenu::SceneJeuMenu(Jeu& jeu) :

@@ -7,9 +7,6 @@
 
 #include "SceneMenuSolo.hpp"
 
-#include <client/vue/gui/elements/ZoneTexte.hpp>
-#include <client/vue/gui/elements/Image.hpp>
-#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneMenuSolo::SceneMenuSolo(Jeu& jeu) :
@@ -40,9 +37,12 @@ void SceneMenuSolo::surMessage(int id)
 	switch (id)
 	{
 		case Solo:
-			jeu.lancerServeurGUI(1337);
-			jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1337);
-			jeu.changer(Scene::SceneChargementReseau);
+			if (!jeu.lireReseau()->getActif())
+			{
+				jeu.lancerServeurGUI(1337);
+				jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1337);
+			}
+			jeu.changer(Scene::SceneChargementJeu);
 			break;
 		case Retour:
 			jeu.changer(Scene::SceneMenuPrincipal);

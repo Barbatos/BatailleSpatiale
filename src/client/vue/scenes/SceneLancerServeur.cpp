@@ -7,9 +7,6 @@
 
 #include "SceneLancerServeur.hpp"
 
-#include <client/vue/gui/elements/ZoneTexte.hpp>
-#include <client/vue/gui/elements/Image.hpp>
-#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 #include <commun/ReseauServeur.hpp>

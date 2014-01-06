@@ -7,8 +7,6 @@
 
 #include "AffichageCase.hpp"
 
-#include <client/utile/Utile.hpp>
-#include <client/vue/Affichage.hpp>
 #include <client/Jeu.hpp>
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,

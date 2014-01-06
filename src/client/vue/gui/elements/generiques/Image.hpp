@@ -8,7 +8,7 @@
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
 
-#include "ElementPack.hpp"
+#include "GeneriquesPack.hpp"
 
 /**
  * \brief Simple image à afficher

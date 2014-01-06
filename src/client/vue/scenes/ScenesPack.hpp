@@ -18,11 +18,11 @@
 ///	Elements
 ////////////////////////////////////////////////////
 
-#include <client/vue/gui/elements/Bouton.hpp>
-#include <client/vue/gui/elements/Label.hpp>
-#include <client/vue/gui/elements/ZoneTexte.hpp>
-#include <client/vue/gui/elements/Animation.hpp>
-#include <client/vue/gui/elements/CaseACocher.hpp>
-#include <client/vue/gui/elements/Image.hpp>
+#include <client/vue/gui/elements/generiques/Bouton.hpp>
+#include <client/vue/gui/elements/generiques/Label.hpp>
+#include <client/vue/gui/elements/generiques/ZoneTexte.hpp>
+#include <client/vue/gui/elements/generiques/Animation.hpp>
+#include <client/vue/gui/elements/generiques/CaseACocher.hpp>
+#include <client/vue/gui/elements/generiques/Image.hpp>
 
 #endif /* SCENESPACK_HPP */

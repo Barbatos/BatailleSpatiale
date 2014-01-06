@@ -8,9 +8,10 @@
 #include "Animation.hpp"
 
 Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-	bool add, sf::Sprite sprite) :
+	bool add, std::string nomImage) :
 		Element(gui, id),
-		sprite(sprite),
+		sprite(gui->lireScene()->lireJeu().lireRessources().lireImage(
+				nomImage)),
 		selection(),
 		time(0),
 		ajout(add),

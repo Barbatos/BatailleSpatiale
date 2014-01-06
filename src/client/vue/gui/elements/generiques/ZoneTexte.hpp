@@ -12,7 +12,7 @@
 #include <string>
 
 // Includes du pack element
-#include "ElementPack.hpp"
+#include "GeneriquesPack.hpp"
 #include "Label.hpp"
 
 /**

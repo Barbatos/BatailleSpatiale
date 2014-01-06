@@ -7,8 +7,6 @@
 
 #include "SceneMenuMultijoueur.hpp"
 
-#include <client/vue/gui/elements/Image.hpp>
-#include <client/vue/gui/elements/Bouton.hpp>
 #include <client/Jeu.hpp>
 
 SceneMenuMultijoueur::SceneMenuMultijoueur(Jeu& jeu) :

@@ -11,7 +11,7 @@
 #define BOUTON_HPP
 
 // Includes de nos classes
-#include "ElementPack.hpp"
+#include "GeneriquesPack.hpp"
 #include "Label.hpp"
 
 // Pré-déclarations

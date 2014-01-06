@@ -8,7 +8,6 @@
 #include "Jeu.hpp"
 
 #include <iostream>
-#include <client/vue/vues/AffichageDetails.hpp>
 #include <serveur/plateau/PlateauServeur.hpp>
 
 #define FPS 60
@@ -74,8 +73,8 @@ void Jeu::changer(Scene::Type nouvelleScene)
 		case Scene::SceneLancerServeur:
 			scene = Scene::Ptr(new SceneLancerServeur(*this));
 			break;
-		case Scene::SceneChargementReseau:
-			scene = Scene::Ptr(new SceneChargementReseau(*this));
+		case Scene::SceneChargementJeu:
+			scene = Scene::Ptr(new SceneChargementJeu(*this));
 			break;
 		default:
 			scene = Scene::Ptr(new SceneMenuPrincipal(*this));

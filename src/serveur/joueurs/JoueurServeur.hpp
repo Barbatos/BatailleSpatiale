@@ -74,20 +74,26 @@ public:
      * \return Les materiaux du joueur
      */
     sf::Int32 getMateriaux(void);
-    
+
     /**
      * \brief Ajoute un vaisseau au joueur
-     * 
+     *
      * \param vaisseau Le vaisseau a ajouter
      */
-     void ajouterVaisseau(VaisseauServeurPtr vaisseau);
-    
+    void ajouterVaisseau(VaisseauServeurPtr vaisseau);
+
     /**
      * \brief Ajoute un batiment au joueur
-     * 
+     *
      * \param batiment Le batiment a ajouter
      */
-     void ajouterBatiment(BatimentServeurPtr batiment);
+    void ajouterBatiment(BatimentServeurPtr batiment);
+
+    /**
+     * \brief Retire les pointeurs des vaisseaux et batiments inutiles
+     *
+     */
+    void ajournerListeStructures();
 
     /// Setters
     void setSocket(sf::TcpSocket* _socket);
@@ -103,16 +109,16 @@ protected:
 private:
     /// La technologie du joueur pour les structures
     TechnologieStructure techS;
-    
+
     /// La technologie du joueur pour les vaisseaux
     TechnologieVaisseau techV;
-    
+
     /// La technologie du joueur pour les batiments
     TechnologieBatiment techB;
-    
+
     /// La liste des batiments du joueurs
     std::list<std::weak_ptr<BatimentServeur>> listeBatiments;
-    
+
     /// La liste des vaisseaux du joueurs
     std::list<std::weak_ptr<VaisseauServeur>> listeVaisseaux;
 

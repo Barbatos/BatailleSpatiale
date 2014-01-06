@@ -18,6 +18,9 @@ class SceneOptionsMenu :
 			Musique,
 			AugmenterMusique,
 			BaisserMusique,
+			Son,
+			AugmenterSon,
+			BaisserSon,
 			Retour
 		};
 

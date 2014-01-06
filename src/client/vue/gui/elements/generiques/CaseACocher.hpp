@@ -8,7 +8,7 @@
 #ifndef CASEACOCHER_HPP
 #define CASEACOCHER_HPP
 
-#include "ElementPack.hpp"
+#include "GeneriquesPack.hpp"
 
 /**
  * Case à cocher, indique qu'un élément est selectioné

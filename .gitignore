@@ -14,12 +14,14 @@ bin/*
 
 # Eclipse settings
 .settings/*
+.externalToolBuilders/*
 
 # Documentation
 doc/client/html/*.*
 
 # Fichiers .o
 *.o
+*.obj
 
 # Fichiers .log
 *.log

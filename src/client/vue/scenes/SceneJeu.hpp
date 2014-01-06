@@ -10,9 +10,9 @@
 
 #include <client/vue/Scene.hpp>
 
-#include <client/vue/vues/AffichagePlateau.hpp>
+#include <client/vue/gui/elements/vues/AffichagePlateau.hpp>
 
-#include <client/vue/vues/AffichageDetails.hpp>
+#include <client/vue/gui/elements/vues/AffichageDetails.hpp>
 
 /**
  * \brief Scène en jeu
@@ -28,7 +28,7 @@ class SceneJeu :
 		 */
 		enum Elements
 		{
-			Pause, //!<
+			Menu, //!<
 			Plateau, //!<
 			Droite, //!<
 			Gauche, //!<
