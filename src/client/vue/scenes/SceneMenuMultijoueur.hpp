@@ -24,7 +24,8 @@ class SceneMenuMultijoueur :
 		 */
 		enum Boutons
 		{
-			Multijoueur //!< Lancer une partie multijoueur
+			Multijoueur, //!< Lancer une partie multijoueur
+			Retour
 		};
 
 	public:
