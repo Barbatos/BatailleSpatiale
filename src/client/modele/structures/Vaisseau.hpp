@@ -3,13 +3,11 @@
 #include "DetailVaisseau.hpp"
 #include <memory>
 #include <SFML/Network.hpp>
-
 /**
  * Classe qui définit les differents attributs
  * que possèdent les vaisseaux.
  */
 class Vaisseau {
-
 public:
     /**
      * \brief Constructeur vide
@@ -35,16 +33,10 @@ public:
      * \param _detail Les nouveaux détails
      */
     void setDetail(DetailVaisseau _detail);
-
 private:
     /// Les détails du vaisseau
     DetailVaisseau detail;
-
 };
-
 sf::Packet& operator >>(sf::Packet& paquet, Vaisseau& vaisseau);
-
 typedef std::shared_ptr<Vaisseau> VaisseauPtr;
-
-
 #endif // VAISSEAU_HPP

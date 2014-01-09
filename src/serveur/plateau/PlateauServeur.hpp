@@ -25,6 +25,14 @@ public:
     PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY);
 
     /**
+     * \brief Initialisation de test
+     * Cette methode est juste pour faire un plateau de test qui 
+     * ne seras pas utilisé lors de la release
+     *
+     */
+    void initialisationTest();
+
+    /**
      * \brief Informe si la cellule a la position p possède un évènement
      *
      * \param p La position
@@ -134,14 +142,14 @@ public:
      * \return la taille du plateau à la verticale
      */
     sf::Int16 getTailleY();
-    
+
     /**
      * \brief Setter listeJoueur
-     * 
+     *
      * \param joueurs référence vers la liste des joueurs
      */
     void setJoueurs(std::vector<JoueurServeur> *_joueurs);
-    
+
     PlateauServeur& operator=(const PlateauServeur& plateau2);
 
 private:
