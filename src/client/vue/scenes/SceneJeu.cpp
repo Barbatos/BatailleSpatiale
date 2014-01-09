@@ -18,14 +18,15 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 				jeu.lireAffichage().getSize().y,
 				jeu.lireRessources().lireImage("fond.png"));
 
-	plateau = AffichagePlateau::Ptr(
-			new AffichagePlateau(&gui, Plateau, 30, 30, 580, 316));
-
 	details = AffichageDetails::Ptr(
 			new AffichageDetails(&gui, Details, 0,
 									0.7 * jeu.lireAffichage().getSize().y,
 									jeu.lireAffichage().getSize().x / 3,
 									0.3 * jeu.lireAffichage().getSize().y));
+
+	plateau = AffichagePlateau::Ptr(
+			new AffichagePlateau(&gui, Plateau, 30, 30, 580, 316,
+									details));
 
 	new BoutonDeplacementPlateau(&gui, Droite,
 									jeu.lireAffichage().getSize().x - 30, 30,
@@ -75,6 +76,9 @@ void SceneJeu::surMessage(int id)
 			if (plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize()
 					.y / 2)
 				plateau->bougerPlateau(0, 5);
+			break;
+		case Case:
+			plateau->appuiCase();
 			break;
 		default:
 			break;

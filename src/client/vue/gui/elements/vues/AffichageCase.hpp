@@ -42,7 +42,7 @@ class AffichageCase :
 		/**
 		 * \brief Version unique_ptr de l'affichage case
 		 */
-		typedef std::unique_ptr<AffichageCase> Ptr;
+		typedef std::shared_ptr<AffichageCase> Ptr;
 
 		/**
 		 * \brief Constructeur
@@ -61,6 +61,12 @@ class AffichageCase :
 		 * \return la position sur le plateau de la case
 		 */
 		Position lirePositionPlateau();
+
+		/**
+		 *
+		 * @return
+		 */
+		bool lireSelectionne();
 
 		/**
 		 * \brief Change la position sur le plateau de la case

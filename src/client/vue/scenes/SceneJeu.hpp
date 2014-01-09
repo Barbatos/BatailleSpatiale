@@ -26,20 +26,6 @@ class SceneJeu :
 		/**
 		 *
 		 */
-		enum Elements
-		{
-			Menu, //!<
-			Plateau, //!<
-			Droite, //!<
-			Gauche, //!<
-			Haut, //!<
-			Bas, //!<
-			Details //!<
-		};
-
-		/**
-		 *
-		 */
 		AffichagePlateau::Ptr plateau;
 
 		/**
@@ -48,6 +34,21 @@ class SceneJeu :
 		AffichageDetails::Ptr details;
 
 	public:
+		/**
+		 *
+		 */
+		enum Elements
+		{
+			Menu, //!<
+			Plateau, //!<
+			Droite, //!<
+			Gauche, //!<
+			Haut, //!<
+			Bas, //!<
+			Details, //!<
+			Case //!<
+		};
+
 		/**
 		 * \brief Constructeur
 		 *

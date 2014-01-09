@@ -59,7 +59,7 @@ class AffichageDetails :
 		/**
 		 * \brief Version typedef des détails
 		 */
-		typedef std::unique_ptr<AffichageDetails> Ptr;
+		typedef std::shared_ptr<AffichageDetails> Ptr;
 
 		/**
 		 * \brief Constructeur

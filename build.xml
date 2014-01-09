@@ -16,7 +16,7 @@
 
 	<!-- Generate CMake Debug makefiles -->
 	<target name="CMake Debug" depends="Init">
-		<exec dir="${build}/Debug" executable="cmake">
+		<exec dir="build/Debug" executable="cmake">
 			<arg value="${basedir}" />
 			<arg value="-GNinja" />
 			<arg value="-DCMAKE_BUILD_TYPE:STRING=Debug" />

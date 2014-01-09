@@ -10,12 +10,14 @@
 #include <client/Jeu.hpp>
 
 AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
-	int hauteur) :
+	int hauteur, AffichageDetails::Ptr details) :
 		Element(gui, id),
 		ObservateurSouris(),
+		details(details),
 		cases(),
 		vuePlateau(sf::FloatRect(0, 0, 0, 0)),
 		charge(false)
+
 {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
@@ -26,7 +28,6 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
 
 	int taille = 25;
-	int k = 0;
 
 	int xc = 0;
 	int yc = 0;
@@ -44,8 +45,8 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 			if (i % 2 == 1)
 				yc += taille * 3 / 5;
 
-			AffichageCase* c = new AffichageCase(lireGui(), k++, xc, yc, taille,
-													Position(i, j),
+			AffichageCase* c = new AffichageCase(lireGui(), SceneJeu::Case, xc,
+													yc, taille, Position(i, j),
 													&vuePlateau);
 
 			cases.push_back(AffichageCase::Ptr(c));
@@ -64,7 +65,7 @@ AffichagePlateau::~AffichagePlateau()
 {
 	for (std::vector<AffichageCase::Ptr>::size_type i = 0; i < cases.size();
 			i++)
-		cases[i].release();
+		cases[i].reset();
 
 	cases.clear();
 }
@@ -76,6 +77,24 @@ void AffichagePlateau::actualiser(float)
 void AffichagePlateau::bougerPlateau(float x, float y)
 {
 	vuePlateau.move(x, y);
+}
+
+void AffichagePlateau::appuiCase()
+{
+	bool selection = false;
+
+	for (std::vector<AffichageCase::Ptr>::size_type i = 0;
+			!selection && i < cases.size(); i++)
+	{
+		if (cases[i]->lireSelectionne())
+		{
+			details->selectionner(cases[i]->lirePositionPlateau());
+			selection = true;
+		}
+	}
+
+	if (!selection)
+		details->selectionner();
 }
 
 void AffichagePlateau::afficher(sf::RenderWindow&)

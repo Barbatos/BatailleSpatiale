@@ -92,19 +92,26 @@ bool AffichageCase::contient(sf::Vector2i position)
 			.getPosition().y + fond.getRadius() * 0.9;
 }
 
-void AffichageCase::ecrirePositionPlateau(Position position)
-{
-	this->position = position;
-}
-
 Position AffichageCase::lirePositionPlateau()
 {
 	return position;
 }
 
+bool AffichageCase::lireSelectionne()
+{
+	return selectionne;
+}
+
+void AffichageCase::ecrirePositionPlateau(Position position)
+{
+	this->position = position;
+}
+
 void AffichageCase::clicSouris()
 {
 	selectionne = true;
+
+	this->envoyerMessage();
 }
 
 void AffichageCase::pressionSouris(sf::Mouse::Button)

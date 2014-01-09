@@ -5,10 +5,12 @@
  *      Author: Kowah
  */
 
-#ifndef SCENEMENUMULTIJOUEUR_HPP_
-#define SCENEMENUMULTIJOUEUR_HPP_
+#ifndef SCENEMENUMULTIJOUEUR_HPP
+#define SCENEMENUMULTIJOUEUR_HPP
 
 #include <client/vue/Scene.hpp>
+
+class ZoneTexte;
 
 /**
  * \brief Scène du menu de création de partie Multijoueur
@@ -27,6 +29,10 @@ class SceneMenuMultijoueur :
 			Multijoueur, //!< Lancer une partie multijoueur
 			Retour
 		};
+
+		ZoneTexte* ip;
+		ZoneTexte* port;
+		ZoneTexte* pseudo;
 
 	public:
 		/**
@@ -49,4 +55,4 @@ class SceneMenuMultijoueur :
 		void surMessage(int id);
 };
 
-#endif /* SCENEMENUMULTIJOUEUR_HPP_ */
+#endif /* SCENEMENUMULTIJOUEUR_HPP */

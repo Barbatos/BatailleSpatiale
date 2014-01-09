@@ -16,6 +16,7 @@
 #include "VuesPack.hpp"
 
 #include "AffichageCase.hpp"
+#include "AffichageDetails.hpp"
 
 /**
  * \brief Affiche le plateau dans son intégralité
@@ -30,6 +31,12 @@ class AffichagePlateau :
 	public Element, public ObservateurSouris, public ObservateurClavier
 {
 	private:
+
+		/**
+		 *
+		 */
+		AffichageDetails::Ptr details;
+
 		/**
 		 * \brief Les cases affichées
 		 *
@@ -61,9 +68,10 @@ class AffichagePlateau :
 		 * \param y la position en y du plateau
 		 * \param largeur la largeur du plateau
 		 * \param hauteur la hauteur du plateau
+		 * \param details l'affichage des détails
 		 */
 		AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
-			int hauteur);
+			int hauteur, AffichageDetails::Ptr details);
 
 		/**
 		 * \brief Destructeur
@@ -84,6 +92,11 @@ class AffichagePlateau :
 		 * \param y nombre de pixels à déplacer en y
 		 */
 		void bougerPlateau(float x, float y);
+
+		/**
+		 *
+		 */
+		void appuiCase();
 
 		// Héritées d'ElementSouris
 		void clicSouris();

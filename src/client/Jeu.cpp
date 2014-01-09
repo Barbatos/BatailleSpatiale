@@ -76,6 +76,9 @@ void Jeu::changer(Scene::Type nouvelleScene)
 		case Scene::SceneChargementJeu:
 			scene = Scene::Ptr(new SceneChargementJeu(*this));
 			break;
+		case Scene::SceneChargementJeuMulti:
+			scene = Scene::Ptr(new SceneChargementJeuMulti(*this));
+			break;
 		default:
 			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
 			break;
@@ -96,6 +99,7 @@ void Jeu::lancerServeurGUI(unsigned int port)
 	//sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
 	plateauServeur = PlateauServeurPtr(new PlateauServeur(10, 10));
+	plateauServeur->initialisationTest();
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
 
 	serveur->lancerReseau();

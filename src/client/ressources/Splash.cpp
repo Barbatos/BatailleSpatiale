@@ -9,6 +9,8 @@
 
 #include <sstream>
 
+#include <iostream>
+
 #include <client/utile/Utile.hpp>
 
 Splash Splash::instance;
