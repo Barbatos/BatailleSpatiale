@@ -5,7 +5,7 @@
  *      Author: Soinou
  */
 
-#include "C:ChargementJeuMulti.hpp"
+#include "ChargementJeuMulti.hpp"
 
 ChargementJeuMulti::ChargementJeuMulti()
 {
