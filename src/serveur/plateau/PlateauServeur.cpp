@@ -12,10 +12,10 @@ PlateauServeur::PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY) :
 }
 
 void PlateauServeur::initialisationTest() {
-    cellule[1][1].creerVaisseauTest();
-    cellule[2][3].creerBatimentBaseTest();
-    cellule[3][5].creerBatimentBaseTest();
-    cellule[2][1].creerVaisseauConstructeurTest();
+    cellule[0][0].creerVaisseauTest();
+    cellule[0][1].creerBatimentBaseTest();
+    cellule[1][0].creerVaisseauTest();
+    cellule[1][1].creerBatimentBaseTest();
 }
 
 bool PlateauServeur::possedeBatiment(Position p)
