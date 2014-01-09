@@ -26,3 +26,6 @@ doc/client/html/*.*
 # Fichiers .log
 *.log
 /Release
+
+# Others
+*.db

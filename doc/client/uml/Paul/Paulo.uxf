@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.SequenceDiagram</type>
+    <coordinates>
+      <x>340</x>
+      <y>130</y>
+      <w>550</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>title: Déplacer un vaisseau
+Joueur~id0|Vue~id1|Controleur~id2|Modèle~id3
+id0-&gt;&gt;id1:id0,id1:clic sur vaisseau
+id1-&gt;&gt;id1:id1,id1:selection vaisseau
+id0-&gt;&gt;id1:id0,id1:clic sur case vide
+id1-&gt;&gt;id2:id1,id2:déplacer vaisseau
+id2-&gt;&gt;id2:id2,id2:vérif. déplac.
+id2-&gt;&gt;id3:id2,id3:[OK]déplac. vaiss.
+id1-/&gt;id3:id1,id3:lecture modèle
+id3.&gt;id1:id3,id1:actualisation de la vue
+id1.&gt;id0:id1,id0:aff. nouvel état</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
