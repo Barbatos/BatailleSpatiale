@@ -96,6 +96,7 @@ void Jeu::lancerServeurGUI(unsigned int port)
 	//sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
 	plateauServeur = PlateauServeurPtr(new PlateauServeur(10, 10));
+    plateauServeur->initialisationTest();
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
 
 	serveur->lancerReseau();
