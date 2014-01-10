@@ -48,30 +48,45 @@ void AffichageDetails::actualiser(float)
 		if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
 				position))
 		{
+			DetailVaisseau details = lireGui()->lireScene()->lireJeu()
+					.lirePlateau().getVaisseau(position);
+
 			stream
+				<< "Type : "
+				<< Utile::convertir(details.type)
+				<< "\n"
 				<< "Vie : "
-				<< lireGui()->lireScene()->lireJeu().lirePlateau().getVaisseau(
-						position).vie
+				<< details.vie
 				<< "/"
-				<< lireGui()->lireScene()->lireJeu().lirePlateau().getVaisseau(
-						position).vieMax
+				<< details.vieMax
 				<< "\n";
 		}
 		else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(
 				position))
 		{
+			DetailBatiment details = lireGui()->lireScene()->lireJeu()
+					.lirePlateau().getBatiment(position);
+
 			stream
+				<< "Type : "
+				<< Utile::convertir(details.type)
+				<< "\n"
 				<< "Vie : "
-				<< lireGui()->lireScene()->lireJeu().lirePlateau().getBatiment(
-						position).vie
+				<< details.vie
 				<< "/"
-				<< lireGui()->lireScene()->lireJeu().lirePlateau().getBatiment(
-						position).vieMax
+				<< details.vieMax
 				<< "\n";
 		}
 		else if (lireGui()->lireScene()->lireJeu().lirePlateau()
 				.possedeEvenement(position))
 		{
+			DetailEvenement details = lireGui()->lireScene()->lireJeu()
+					.lirePlateau().getEvenement(position);
+
+			stream
+				<< "Type : "
+				<< Utile::convertir(details.type)
+				<< "\n";
 		}
 		else
 		{

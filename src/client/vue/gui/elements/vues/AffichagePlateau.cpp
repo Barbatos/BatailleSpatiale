@@ -72,6 +72,52 @@ AffichagePlateau::~AffichagePlateau()
 
 void AffichagePlateau::actualiser(float)
 {
+	bool selection = false;
+	Position position;
+
+	// Pour toutes les cases, et tant que rien n'a été selectionné
+	for (std::vector<AffichageCase::Ptr>::size_type i = 0;
+			!selection && i < cases.size(); i++)
+	{
+		// Si la case est selectionnée
+		if (cases[i]->lireSelectionne())
+		{
+			// On sauvegarde la position actuellement selectionnée
+			position = details->lirePosition();
+			// On selectionne la nouvelle
+			details->selectionner(cases[i]->lirePositionPlateau());
+			// On dit que quelque chose a été selectionné
+			selection = true;
+		}
+	}
+
+	// Si rien n'a été selectionné
+	if (!selection)
+		// Ne rien selectionner
+		details->selectionner();
+	// Sinon
+	else
+	{
+		// Si une case était précédemment selectionnée
+		if (position.x != -1 && position.y != -1)
+		{
+			// On récupère la nouvelle position
+			// Position nouvelle = details->lirePosition();
+
+			// Si la précédente case selectionnée contenait un vaisseau
+			if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
+					position))
+			{
+				// On déplace ce vaisseau
+			}
+			// Sinon, si c'était un bâtiment
+			else if (lireGui()->lireScene()->lireJeu().lirePlateau()
+					.possedeBatiment(position))
+			{
+				// Faire quelque chose
+			}
+		}
+	}
 }
 
 void AffichagePlateau::bougerPlateau(float x, float y)
@@ -81,20 +127,7 @@ void AffichagePlateau::bougerPlateau(float x, float y)
 
 void AffichagePlateau::appuiCase()
 {
-	bool selection = false;
 
-	for (std::vector<AffichageCase::Ptr>::size_type i = 0;
-			!selection && i < cases.size(); i++)
-	{
-		if (cases[i]->lireSelectionne())
-		{
-			details->selectionner(cases[i]->lirePositionPlateau());
-			selection = true;
-		}
-	}
-
-	if (!selection)
-		details->selectionner();
 }
 
 void AffichagePlateau::afficher(sf::RenderWindow&)
@@ -110,24 +143,24 @@ bool AffichagePlateau::contient(sf::Vector2i)
 // Héritées d'ElementSouris
 void AffichagePlateau::clicSouris()
 {
-
+	/* Ne rien faire ici */
 }
 
 void AffichagePlateau::pressionSouris(sf::Mouse::Button)
 {
-
 }
+
 void AffichagePlateau::relachementSouris(sf::Mouse::Button)
 {
 
 }
 void AffichagePlateau::entreeSouris(sf::Vector2f)
 {
-
+	/* Ne rien faire ici */
 }
 void AffichagePlateau::sortieSouris(sf::Vector2f)
 {
-
+	/* Ne rien faire ici */
 }
 void AffichagePlateau::moletteSouris(int delta)
 {
@@ -140,7 +173,7 @@ void AffichagePlateau::moletteSouris(int delta)
 // Héritées d'ElementClavier
 void AffichagePlateau::pressionTouche(sf::Keyboard::Key)
 {
-
+	/* Ne rien faire ici */
 }
 void AffichagePlateau::relachementTouche(sf::Keyboard::Key)
 {
@@ -148,5 +181,5 @@ void AffichagePlateau::relachementTouche(sf::Keyboard::Key)
 }
 void AffichagePlateau::entreeTexte(sf::Uint32)
 {
-
+	/* Ne rien faire ici */
 }
