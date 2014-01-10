@@ -1,22 +1,21 @@
-# Project files
-bataille2.*
+# Fichiers de projet (IDE)
 .codelite/*
 .project
 .cproject
 
-# Build files
+# Dossiers de Build
 build/*
 Debug/*
 Release/*
 
-# Binary files
+# Fichiers binaires
 bin/*
 
 # Eclipse settings
 .settings/*
 .externalToolBuilders/*
 
-# Documentation
+# Documentation (Seulement les fichiers du répertoire html)
 doc/client/html/*.*
 
 # Fichiers .o
@@ -25,7 +24,6 @@ doc/client/html/*.*
 
 # Fichiers .log
 *.log
-/Release
 
 # Others
 *.db
