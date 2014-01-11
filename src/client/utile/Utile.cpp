@@ -21,7 +21,6 @@ namespace Utile
 		exit(-1);
 	}
 
-
 	string nomFichier(const string& cheminFichier)
 	{
 		size_t fin = cheminFichier.find_last_of('.');
@@ -61,7 +60,8 @@ namespace Utile
 		return (buffer);
 	}
 
-	void redimensionnerImage(sf::Sprite& image, float largeur, float hauteur, bool proportions)
+	void redimensionnerImage(sf::Sprite& image, float largeur, float hauteur,
+		bool proportions)
 	{
 		float largeurImage = image.getLocalBounds().width;
 		float hauteurImage = image.getLocalBounds().height;
@@ -71,11 +71,70 @@ namespace Utile
 		coeffX = largeur / largeurImage;
 		coeffY = hauteur / hauteurImage;
 
-		if(hauteur < largeur && proportions)
+		if (hauteur < largeur && proportions)
 			image.scale(coeffX, coeffX);
 		else if (proportions)
 			image.scale(coeffY, coeffY);
 		else
 			image.scale(coeffX, coeffY);
+	}
+
+	std::string convertir(TypeVaisseau type)
+	{
+		switch (type)
+		{
+			case TypeVaisseau::Inexistant:
+				return "Inexistant";
+			case TypeVaisseau::Simple:
+				return "Simple";
+			case TypeVaisseau::Constructeur:
+				return "Constructeur";
+			case TypeVaisseau::Bombardier:
+				return "Bombardier";
+			case TypeVaisseau::Chasseur:
+				return "Chasseur";
+			case TypeVaisseau::Croiseur:
+				return "Croiseur";
+			case TypeVaisseau::Destructeur:
+				return "Destructeur";
+			case TypeVaisseau::ChasseurLourd:
+				return "Chasseur Lourd";
+			case TypeVaisseau::Traqueur:
+				return "Traqueur";
+			case TypeVaisseau::Leger:
+				return "Léger";
+			default:
+				return "";
+		}
+	}
+
+	std::string convertir(TypeBatiment type)
+	{
+		switch (type)
+		{
+			case TypeBatiment::Base:
+				return "Base";
+			default:
+				return "";
+		}
+	}
+
+	std::string convertir(TypeEvenement type)
+	{
+		switch (type)
+		{
+			case TypeEvenement::ChampMeteor:
+				return "Champ de Météore";
+			case TypeEvenement::Epave:
+				return "Epave";
+			case TypeEvenement::InfluenceTrouNoir:
+				return "Influence trou noir";
+			case TypeEvenement::NuageGaz:
+				return "Nuage de gaz";
+			case TypeEvenement::StationSpatialeAbandonnee:
+				return "Station spatiale abandonnée";
+			default:
+				return "";
+		}
 	}
 }

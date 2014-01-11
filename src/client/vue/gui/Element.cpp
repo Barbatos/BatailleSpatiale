@@ -10,161 +10,161 @@
 #include "Gui.hpp"
 
 Element::Element(Gui* gui, int id) :
-		id(id),
-		gui(gui),
-		souris(false),
-		clavier(false),
-		observateurSouris(nullptr),
-		observateurClavier(nullptr),
-		survol(false),
-		appui(false),
-		vue(nullptr)
+    id(id),
+    gui(gui),
+    souris(false),
+    clavier(false),
+    observateurSouris(nullptr),
+    observateurClavier(nullptr),
+    survol(false),
+    appui(false),
+    vue(nullptr)
 {
-	gui->ajouter(Ptr(this));
+    gui->ajouter(Ptr(this));
 }
 
 Element::~Element()
 {
-	if (gui != nullptr)
-		delete gui;
+    if(gui != nullptr)
+        delete gui;
 
-	if (vue != nullptr)
-		delete vue;
+    if(vue != nullptr)
+        delete vue;
 
-	observateurSouris.reset();
+    observateurSouris.reset();
 
-	observateurClavier.reset();
+    observateurClavier.reset();
 }
 
 ObservateurSouris::Ptr Element::lireSouris()
 {
-	return observateurSouris;
+    return observateurSouris;
 }
 
 ObservateurClavier::Ptr Element::lireClavier()
 {
-	return observateurClavier;
+    return observateurClavier;
 }
 
 void Element::enregistrerSouris(ObservateurSouris::Ptr observateur)
 {
-	if (observateur == nullptr)
-		return;
+    if(observateur == nullptr)
+        return;
 
-	observateurSouris = observateur;
-	souris = true;
+    observateurSouris = observateur;
+    souris = true;
 }
 void Element::enregistrerClavier(ObservateurClavier::Ptr observateur)
 {
-	if (observateur == nullptr)
-		return;
+    if(observateur == nullptr)
+        return;
 
-	observateurClavier = observateur;
-	clavier = true;
+    observateurClavier = observateur;
+    clavier = true;
 }
 
 bool Element::observeSouris()
 {
-	return souris;
+    return souris;
 }
 
 bool Element::observeClavier()
 {
-	return clavier;
+    return clavier;
 }
 
 int Element::lireId()
 {
-	return id;
+    return id;
 }
 
 Gui* Element::lireGui()
 {
-	return gui;
+    return gui;
 }
 
 void Element::ecrireId(int id)
 {
-	this->id = id;
+    this->id = id;
 }
 
 void Element::ecrireGui(Gui* gui)
 {
-	this->gui = gui;
+    this->gui = gui;
 }
 
 sf::Vector2f Element::lireTaille()
 {
-	return taille;
+    return taille;
 }
 
 sf::Vector2f Element::lirePosition()
 {
-	return position;
+    return position;
 }
 
 void Element::ecrireTaille(sf::Vector2f taille)
 {
-	this->taille = taille;
+    this->taille = taille;
 }
 
 void Element::ecrireTaille(float largeur, float hauteur)
 {
-	ecrireTaille(sf::Vector2f(largeur, hauteur));
+    ecrireTaille(sf::Vector2f(largeur, hauteur));
 }
 
 void Element::ecrirePosition(sf::Vector2f position)
 {
-	this->position = position;
+    this->position = position;
 }
 
 void Element::ecrirePosition(float x, float y)
 {
-	ecrirePosition(sf::Vector2f(x, y));
+    ecrirePosition(sf::Vector2f(x, y));
 }
 
 void Element::ecrireZone(sf::FloatRect zone)
 {
-	ecrirePosition(zone.left, zone.top);
-	ecrireTaille(zone.width, zone.height);
+    ecrirePosition(zone.left, zone.top);
+    ecrireTaille(zone.width, zone.height);
 }
 
 bool Element::lireSurvol()
 {
-	return survol;
+    return survol;
 }
 
 bool Element::lireAppui()
 {
-	return appui;
+    return appui;
 }
 
 sf::View* Element::lireVue()
 {
-	return vue;
+    return vue;
 }
 
 bool Element::possedeVue()
 {
-	return vue != nullptr;
+    return vue != nullptr;
 }
 
 void Element::ecrireSurvol(bool survol)
 {
-	this->survol = survol;
+    this->survol = survol;
 }
 
 void Element::ecrireAppui(bool appui)
 {
-	this->appui = appui;
+    this->appui = appui;
 }
 
 void Element::ecrireVue(sf::View* vue)
 {
-	this->vue = vue;
+    this->vue = vue;
 }
 
 void Element::envoyerMessage()
 {
-	gui->ajouterMessage(id);
+    gui->ajouterMessage(id);
 }

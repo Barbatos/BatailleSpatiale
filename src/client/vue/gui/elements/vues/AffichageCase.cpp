@@ -8,6 +8,7 @@
 #include "AffichageCase.hpp"
 
 #include <client/Jeu.hpp>
+#include <iostream>
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
 	Position position, sf::View* vuePlateau) :
@@ -38,35 +39,96 @@ AffichageCase::~AffichageCase()
 
 void AffichageCase::actualiser(float)
 {
+	std::string fichier = "";
+
 	// Si la case contient un vaisseau
 	if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
 			position))
 	{
-		// On met l'image du vaisseau correspondant
-		image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(
-				"Vaisseaux/sprite_bombardier_1.png");
-		image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
-		image.setPosition(lirePosition().x, lirePosition().y);
-		Utile::redimensionnerImage(image, lireTaille().x, lireTaille().y,
-									false);
+		DetailVaisseau details = lireGui()->lireScene()->lireJeu().lirePlateau()
+				.getVaisseau(position);
+
+		switch (details.type)
+		{
+			case TypeVaisseau::Inexistant:
+				break;
+			case TypeVaisseau::Simple:
+				break;
+			case TypeVaisseau::Constructeur:
+				fichier = "Vaisseaux/sprite_constructeur_1.png";
+				break;
+			case TypeVaisseau::Bombardier:
+				fichier = "Vaisseaux/sprite_bombardier_1.png";
+				break;
+			case TypeVaisseau::Chasseur:
+				fichier = "Vaisseaux/sprite_chasseur_1.png";
+				break;
+			case TypeVaisseau::Croiseur:
+				fichier = "Vaisseaux/sprite_croiseur_1.png";
+				break;
+			case TypeVaisseau::Destructeur:
+				fichier = "Vaisseaux/sprite_destoyer_1.png";
+				break;
+			case TypeVaisseau::ChasseurLourd:
+				break;
+			case TypeVaisseau::Traqueur:
+				break;
+			case TypeVaisseau::Leger:
+				break;
+			default:
+				break;
+		}
 	}
 	// Si elle contient un batiment
 	else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(
 			position))
 	{
-		// On met l'image du bâtiment correspondant
+		DetailBatiment details = lireGui()->lireScene()->lireJeu().lirePlateau()
+				.getBatiment(position);
+
+		switch (details.type)
+		{
+			case TypeBatiment::Base:
+				break;
+			default:
+				break;
+		}
 	}
 	// Si elle contient un évènement
 	else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeEvenement(
 			position))
 	{
-		// On met l'image de l'évènement correspondantz
+		DetailEvenement details = lireGui()->lireScene()->lireJeu().lirePlateau()
+				.getEvenement(position);
+
+		switch (details.type)
+		{
+			case TypeEvenement::ChampMeteor:
+				break;
+			case TypeEvenement::Epave:
+				break;
+			case TypeEvenement::InfluenceTrouNoir:
+				break;
+			case TypeEvenement::NuageGaz:
+				break;
+			case TypeEvenement::StationSpatialeAbandonnee:
+				break;
+			default:
+				break;
+		}
 	}
-	// Sinon, case vide
+
+	if (fichier == "")
+		image = sf::Sprite();
 	else
 	{
-		// On réinitialise l'image
-		image = sf::Sprite();
+		// On met l'image du vaisseau correspondant
+		image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(
+				fichier);
+		image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
+		image.setPosition(lirePosition().x, lirePosition().y);
+		Utile::redimensionnerImage(image, lireTaille().x, lireTaille().y,
+									false);
 	}
 
 	// Selon que la case soit selectionnée, survolée, ou rien du tout, on change la couleur de la bordure
@@ -110,19 +172,19 @@ void AffichageCase::ecrirePositionPlateau(Position position)
 void AffichageCase::clicSouris()
 {
 	selectionne = true;
-
-	this->envoyerMessage();
 }
 
 void AffichageCase::pressionSouris(sf::Mouse::Button)
 {
-	if (!lireSurvol())
-		selectionne = false;
+
 }
 
 void AffichageCase::relachementSouris(sf::Mouse::Button)
 {
-
+	if (!lireSurvol() && selectionne)
+	{
+		selectionne = false;
+	}
 }
 
 void AffichageCase::entreeSouris(sf::Vector2f)

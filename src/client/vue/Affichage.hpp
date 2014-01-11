@@ -18,25 +18,25 @@
 class Affichage :
 	public sf::RenderWindow
 {
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance d'Affichage
-		 */
-		Affichage();
+public:
+	/**
+	 * \brief Constructeur
+	 *
+	 * Créé une nouvelle instance d'Affichage
+	 */
+	Affichage();
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit une instance précédemment créé d'Affichage
-		 */
-		virtual ~Affichage();
+	/**
+	 * \brief Destructeur
+	 *
+	 * Détruit une instance précédemment créé d'Affichage
+	 */
+	virtual ~Affichage();
 
-		/**
-		 * \brief Créé l'affichage
-		 */
-		void creer();
+	/**
+	 * \brief Créé l'affichage
+	 */
+	void creer();
 };
 
 #endif /* AFFICHAGE_HPP */

@@ -16,6 +16,8 @@
 
 #include <client/vue/gui/elements/generiques/Label.hpp>
 
+#include <commun/enum/TypeVaisseau.hpp>
+
 /**
  * \brief Affiche les détails de la case selectionnée
  *

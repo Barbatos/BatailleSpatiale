@@ -14,6 +14,10 @@
 // Includes de la SFML
 #include <SFML/Graphics.hpp>
 
+#include <commun/enum/TypeVaisseau.hpp>
+#include <commun/enum/TypeBatiment.hpp>
+#include <commun/enum/TypeEvenement.hpp>
+
 /**
  * \brief Boîte à outils
  *
@@ -78,6 +82,30 @@ namespace Utile
 	 */
 	void redimensionnerImage(sf::Sprite& image, float largeur, float hauteur,
 		bool proportions);
+
+	/**
+	 * @brief Retourne le type du vaisseau donné sous forme d'un std::string
+	 *
+	 * @param type le type du vaisseau
+	 * @return le type sous forme d'un std::string
+	 */
+	std::string convertir(TypeVaisseau type);
+
+	/**
+	 * @brief Retourne le type du bâtiment donné sous forme d'un std::string
+	 *
+	 * @param type le type du bâtiment
+	 * @return le type sous forme d'un std::string
+	 */
+	std::string convertir(TypeBatiment type);
+
+	/**
+	 * @brief Retourne le type d'évènement donné sous forme d'un std::string
+	 *
+	 * @param type le type de l'évènement
+	 * @return le type sous forme d'un std::string
+	 */
+	std::string convertir(TypeEvenement type);
 }
 
 #endif /* UTILE_HPP */
