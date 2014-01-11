@@ -41,7 +41,6 @@ class Structure{
 
 
     protected:
-		static sf::Int32 taille;
         sf::Int32 vie;
         sf::Int32 vieMax;
         sf::Int32 bouclier;
