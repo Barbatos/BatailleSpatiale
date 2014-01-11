@@ -7,7 +7,7 @@
 
 
 /*
- * Classe qui définit les differents attributs
+ * Classe qui définit les différents attributs
  * que possèdent les constructeurs.
  */
 class Constructeur : public VaisseauServeur {
