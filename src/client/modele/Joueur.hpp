@@ -23,8 +23,8 @@ class Joueur
 		 * \param _materiaux
 		 */
 		Joueur(string _pseudo = "Anonymous", string _ip = "",
-			sf::Uint16 _id = -1, sf::Int16 _commandement = 0,
-			sf::Int16 _requisition = 0, sf::Int32 _energie = 0,
+			sf::Uint16 _id = -1, sf::Int32 _commandement = 0,
+			sf::Int32 _requisition = 0, sf::Int32 _energie = 0,
 			sf::Int32 _materiaux = 0);
 
 		/**
@@ -48,8 +48,8 @@ class Joueur
 		 */
 		sf::Uint16 getId(void);
 
-		sf::Int16 getCommandement(void);
-		sf::Int16 getRequisition(void);
+		sf::Int32 getCommandement(void);
+		sf::Int32 getRequisition(void);
 		sf::Int32 getEnergie(void);
 		sf::Int32 getMateriaux(void);
 
@@ -65,9 +65,9 @@ class Joueur
 		/// L'identifiant (nombre positif) du joueur sur le serveur
 		sf::Uint16 id;
 
-		sf::Int16 commandement;
+		sf::Int32 commandement;
 
-		sf::Int16 requisition;
+		sf::Int32 requisition;
 
 		sf::Int32 energie;
 

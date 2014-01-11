@@ -1,13 +1,13 @@
 #include "PlateauServeur.hpp"
 
-PlateauServeur::PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY) :
+PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
 		tailleX(_tailleX),
 		tailleY(_tailleY)
 {
 	cellule.resize(tailleX, std::vector<CelluleServeur>(tailleY));
 
-	for (sf::Int16 x = 0; x < tailleX; ++x)
-		for (sf::Int16 y = 0; y < tailleY; ++y)
+	for (sf::Int32 x = 0; x < tailleX; ++x)
+		for (sf::Int32 y = 0; y < tailleY; ++y)
 			cellule[x][y] = CelluleServeur();
 }
 
@@ -277,12 +277,12 @@ bool PlateauServeur::celluleAccessible(Position p)
 	return cellule[p.x][p.y].estAccessible();
 }
 
-sf::Int16 PlateauServeur::getTailleX()
+sf::Int32 PlateauServeur::getTailleX()
 {
 	return tailleX;
 }
 
-sf::Int16 PlateauServeur::getTailleY()
+sf::Int32 PlateauServeur::getTailleY()
 {
 	return tailleY;
 }
@@ -306,8 +306,8 @@ sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau)
 		<< plateau.tailleX
 		<< plateau.tailleY;
 
-	for (sf::Int16 x = 0; x < plateau.tailleX; ++x)
-		for (sf::Int16 y = 0; y < plateau.tailleY; ++y)
+	for (sf::Int32 x = 0; x < plateau.tailleX; ++x)
+		for (sf::Int32 y = 0; y < plateau.tailleY; ++y)
 			paquet
 				<< plateau.cellule[x][y];
 

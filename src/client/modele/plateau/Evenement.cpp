@@ -19,7 +19,7 @@ void Evenement::setDetail(DetailEvenement _detail) {
 
 sf::Packet& operator >>(sf::Packet& paquet, Evenement& evenement) {
     DetailEvenement detail;
-    sf::Int16 typeEvenement;
+    sf::Int32 typeEvenement;
     paquet >> typeEvenement >> detail.coutDeplacement
            >> detail.multiplicateurDommage >> detail.multiplicateurDegat
            >> detail.destructible;

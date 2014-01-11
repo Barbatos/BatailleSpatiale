@@ -69,21 +69,21 @@ class Plateau
 		 *
 		 * \return La taille horizontalement
 		 */
-		const sf::Int16& getTailleX() const;
+		const sf::Int32& getTailleX() const;
 
 		/**
 		 * \brief Getter tailleY
 		 *
 		 * \return La taille verticalement
 		 */
-		const sf::Int16& getTailleY() const;
+		const sf::Int32& getTailleY() const;
 
 	private:
 		bool positionValide(Position p);
 		/// Les cellules du plateau
 		std::vector<std::vector<Cellule>> cellule;
-		sf::Int16 tailleX; ///< Taille du plateau en X
-		sf::Int16 tailleY; ///< Taille du plateau en Y
+		sf::Int32 tailleX; ///< Taille du plateau en X
+		sf::Int32 tailleY; ///< Taille du plateau en Y
 
 		friend sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
 };

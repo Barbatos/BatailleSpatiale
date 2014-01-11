@@ -52,14 +52,14 @@ public:
      *
      * \return Les points de commandements du joueur
      */
-    sf::Int16 getCommandement(void);
+    sf::Int32 getCommandement(void);
 
     /**
      * \brief Recuperation des points de réquisitions du joueur
      *
      * \return Les points de réquisitions du joueur
      */
-    sf::Int16 getRequisition(void);
+    sf::Int32 getRequisition(void);
 
     /**
      * \brief Recuperation de l'énergie du joueur
@@ -100,8 +100,8 @@ public:
     void setPseudo(string _pseudo);
     void setIp(string _ip);
     void setId(sf::Uint16 _id);
-    void setCommandement(sf::Int16 _commandement);
-    void setRequisition(sf::Int16 _requisition);
+    void setCommandement(sf::Int32 _commandement);
+    void setRequisition(sf::Int32 _requisition);
     void setEnergie(sf::Int32 _energie);
     void setMateriaux(sf::Int32 _materiaux);
 protected:
@@ -134,9 +134,9 @@ private:
     /// L'identifiant (nombre positif) du joueur sur le serveur
     sf::Uint16 id;
 
-    sf::Int16 commandement;
+    sf::Int32 commandement;
 
-    sf::Int16 requisition;
+    sf::Int32 requisition;
 
     sf::Int32 energie;
 

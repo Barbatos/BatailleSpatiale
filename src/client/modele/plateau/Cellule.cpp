@@ -67,7 +67,7 @@ void Cellule::setType(TypeCellule _type) {
 }
 
 sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
-    sf::Int16 typeCellule;
+    sf::Uint16 typeCellule;
     paquet >> typeCellule;
     cellule.setType(static_cast<TypeCellule>(typeCellule));
     

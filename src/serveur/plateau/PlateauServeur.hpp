@@ -22,7 +22,7 @@ public:
      * \param _tailleX Taille du plateau en X
      * \param _tailleY Taille du plateau en Y
      */
-    PlateauServeur(sf::Int16 _tailleX, sf::Int16 _tailleY);
+    PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY);
 
     /**
      * \brief Initialisation de test
@@ -134,14 +134,14 @@ public:
      *
      * \return la taille du plateau à l'horizontal
      */
-    sf::Int16 getTailleX();
+    sf::Int32 getTailleX();
 
     /**
      * \brief Getter tailleY
      *
      * \return la taille du plateau à la verticale
      */
-    sf::Int16 getTailleY();
+    sf::Int32 getTailleY();
 
     /**
      * \brief Setter listeJoueur
@@ -158,9 +158,9 @@ private:
     /// Les cellules du plateau
     std::vector<std::vector<CelluleServeur>> cellule;
     /// La taille du plateau à l'horizontal
-    sf::Int16 tailleX;
+    sf::Int32 tailleX;
     /// La taille du plateau à la verticale
-    sf::Int16 tailleY;
+    sf::Int32 tailleY;
 
     friend sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);
 };

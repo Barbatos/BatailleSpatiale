@@ -36,12 +36,12 @@ const DetailVaisseau& Plateau::getVaisseau(Position p)
 	return cellule[p.x][p.y].getVaisseau();
 }
 
-const sf::Int16& Plateau::getTailleX() const
+const sf::Int32& Plateau::getTailleX() const
 {
 	return tailleX;
 }
 
-const sf::Int16& Plateau::getTailleY() const
+const sf::Int32& Plateau::getTailleY() const
 {
 	return tailleY;
 }
@@ -59,8 +59,8 @@ sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau)
 	plateau.cellule.resize(plateau.tailleX,
 							std::vector<Cellule>(plateau.tailleY));
 
-	for (sf::Int16 x = 0; x < plateau.tailleX; ++x)
-		for (sf::Int16 y = 0; y < plateau.tailleY; ++y)
+	for (sf::Int32 x = 0; x < plateau.tailleX; ++x)
+		for (sf::Int32 y = 0; y < plateau.tailleY; ++y)
 			paquet >> plateau.cellule[x][y];
 
 	return paquet;

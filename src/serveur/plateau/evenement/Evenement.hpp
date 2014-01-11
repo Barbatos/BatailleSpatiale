@@ -13,7 +13,7 @@
 class Evenement {
     
 public:
-    Evenement(TypeEvenement typeEvenement, bool destructible = false, sf::Int16 _coutDeplacement = 1, sf::Int16 _multiplicateurDommage = 1, sf::Int16 _multiplicateurDegat = 1);
+    Evenement(TypeEvenement typeEvenement, bool destructible = false, sf::Int32 _coutDeplacement = 1, sf::Int32 _multiplicateurDommage = 1, sf::Int32 _multiplicateurDegat = 1);
     //Setters
     virtual void activer(BatimentServeur*) {}
     virtual void desactiver(BatimentServeur*) {}
@@ -25,9 +25,9 @@ public:
     bool estAccessible();
     bool tirPossible();
     bool ciblePossible();
-    sf::Int16 getCoutDeplacement();
-    sf::Int16 getMultiplicateurDommage();
-    sf::Int16 getMultiplicateurDegat();
+    sf::Int32 getCoutDeplacement();
+    sf::Int32 getMultiplicateurDommage();
+    sf::Int32 getMultiplicateurDegat();
     
 private:
     // Nature de l'évènements.
@@ -35,11 +35,11 @@ private:
     // l'évenement est destructible, on remonte une structure qui prend sa place.
     bool destructible;
     // nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible
-    sf::Int16 coutDeplacement;
+    sf::Int32 coutDeplacement;
     // paramètre à prendre en compte lors du calcul des dommages infligés par la structure présente.
-    sf::Int16 multiplicateurDommage;
+    sf::Int32 multiplicateurDommage;
     // paramètre à prendre en compte lors du calcul des dommages subits par la structure présente.
-    sf::Int16 multiplicateurDegat;
+    sf::Int32 multiplicateurDegat;
 
     friend sf::Packet& operator <<(sf::Packet& paquet, const Evenement& evenement);
 };

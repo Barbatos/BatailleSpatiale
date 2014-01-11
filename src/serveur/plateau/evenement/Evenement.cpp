@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Evenement.hpp"
 
-Evenement::Evenement(TypeEvenement _typeEvenement, bool _destructible, sf::Int16 _coutDeplacement, sf::Int16 _multiplicateurDommage, sf::Int16 _multiplicateurDegat) {
+Evenement::Evenement(TypeEvenement _typeEvenement, bool _destructible, sf::Int32 _coutDeplacement, sf::Int32 _multiplicateurDommage, sf::Int32 _multiplicateurDegat) {
     type = _typeEvenement;
     destructible = _destructible;
     coutDeplacement = _coutDeplacement;
@@ -29,15 +29,15 @@ bool Evenement::ciblePossible() {
     return multiplicateurDegat != 0;
 }
 
-sf::Int16 Evenement::getCoutDeplacement() {
+sf::Int32 Evenement::getCoutDeplacement() {
     return coutDeplacement;
 }
 
-sf::Int16 Evenement::getMultiplicateurDommage() {
+sf::Int32 Evenement::getMultiplicateurDommage() {
     return multiplicateurDommage;
 }
 
-sf::Int16 Evenement::getMultiplicateurDegat() {
+sf::Int32 Evenement::getMultiplicateurDegat() {
     return multiplicateurDegat;
 }
 

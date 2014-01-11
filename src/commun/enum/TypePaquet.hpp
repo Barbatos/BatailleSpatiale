@@ -24,13 +24,13 @@ enum class TypePaquet : sf::Uint16 {
     // TypePaquet
     PONG,
     /// Informe le client du numero de joueur(id du client)
-    // TypePaquet, idJoueur(sf::Int16)
+    // TypePaquet, idJoueur(sf::Int32)
     NumeroJoueur,
     /// Informe le client du changement d'un joueur
-    // TypePaquet, idJoueur(sf::Int16), joueur(Joueur)
+    // TypePaquet, idJoueur(sf::Int32), joueur(Joueur)
     ActualiserJoueur,
     /// Informe le client de la suppression d'un joueur
-    // TypePaquet, idJoueur(sf::Int16)
+    // TypePaquet, idJoueur(sf::Int32)
     SupprimerJoueur,
     /// Informe le client du changement du plateau
     // TypePaquet, plateau(Plateau)

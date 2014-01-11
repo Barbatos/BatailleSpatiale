@@ -4,7 +4,7 @@ Constructeur::Constructeur() : VaisseauServeur(){
 	materiaux = this->materiauxMax;
 }
 
-Constructeur::Constructeur(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int _materiauxMax ) :
+Constructeur::Constructeur(int vieMax, int bouclierMax, double bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int _materiauxMax ) :
     VaisseauServeur(vieMax, bouclierMax, bouclierTaux, visibilite, attaque, energieMax, consommationMax), materiaux(_materiauxMax), materiauxMax(_materiauxMax) {
 
 }

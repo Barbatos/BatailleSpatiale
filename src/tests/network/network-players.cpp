@@ -40,7 +40,7 @@ void GetMessageFromServer(){
 	for(;;){
 		sf::Packet paquet;
 		string message;
-		sf::Int16 packetType;
+		sf::Int32 packetType;
 
 		ReseauGlobal::ReceptionPaquet(client->socket, paquet, sf::seconds(0.01f));
 		client->TraiterPaquetServeur(paquet);

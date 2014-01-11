@@ -5,19 +5,19 @@ BatimentServeur::BatimentServeur() : Structure() {
 
 }
 
-BatimentServeur::BatimentServeur(sf::Int16 vieMax, sf::Int16 bouclierMax, float bouclierTaux, sf::Int16 visibilite, sf::Int16 attaque, sf::Int16 niveau, TypeBatiment _type) :
+BatimentServeur::BatimentServeur(sf::Int32 vieMax, sf::Int32 bouclierMax, double bouclierTaux, sf::Int32 visibilite, sf::Int32 attaque, sf::Int32 niveau, TypeBatiment _type) :
     Structure(vieMax, bouclierMax, bouclierTaux, visibilite, attaque) {
     this->niveau = niveau;
     type = _type;
 
 }
 
-sf::Int16 BatimentServeur::getNiveau() {
+sf::Int32 BatimentServeur::getNiveau() {
     return niveau;
 
 }
 
-void BatimentServeur::setNiveau(sf::Int16 niveau) {
+void BatimentServeur::setNiveau(sf::Int32 niveau) {
     this->niveau = niveau;
 
 }

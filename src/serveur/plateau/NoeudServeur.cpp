@@ -6,7 +6,7 @@ NoeudServeur::NoeudServeur(Position _position) {
 	positionParent.setNull();
 }
 
-NoeudServeur::NoeudServeur(Position& _position, sf::Int16 g, Position _positionParent) {
+NoeudServeur::NoeudServeur(Position& _position, sf::Int32 g, Position _positionParent) {
 	position = _position;
 	distanceG = g;
 	positionParent = _positionParent;
@@ -16,7 +16,7 @@ bool NoeudServeur::gInferieur(const NoeudServeur& noeud){
 	return distanceG < noeud.distanceG;
 }
 
-sf::Int16 NoeudServeur::getG(){
+sf::Int32 NoeudServeur::getG(){
 	return distanceG;
 }
 

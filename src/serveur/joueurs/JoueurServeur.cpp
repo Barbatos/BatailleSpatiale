@@ -25,11 +25,11 @@ sf::Uint16 JoueurServeur::getId(void) {
     return this->id;
 }
 
-sf::Int16 JoueurServeur::getCommandement(void) {
+sf::Int32 JoueurServeur::getCommandement(void) {
     return this->commandement;
 }
 
-sf::Int16 JoueurServeur::getRequisition(void) {
+sf::Int32 JoueurServeur::getRequisition(void) {
     return this->requisition;
 }
 
@@ -57,11 +57,11 @@ void JoueurServeur::setId(sf::Uint16 _id) {
     this->id = _id;
 }
 
-void JoueurServeur::setCommandement(sf::Int16 _commandement) {
+void JoueurServeur::setCommandement(sf::Int32 _commandement) {
     this->commandement = _commandement;
 }
 
-void JoueurServeur::setRequisition(sf::Int16 _requisition) {
+void JoueurServeur::setRequisition(sf::Int32 _requisition) {
     this->requisition = _requisition;
 }
 

@@ -1,7 +1,7 @@
 #include "Joueur.hpp"
 
 Joueur::Joueur(string _pseudo, string _ip, sf::Uint16 _id,
-	sf::Int16 _commandement, sf::Int16 _requisition, sf::Int32 _energie,
+	sf::Int32 _commandement, sf::Int32 _requisition, sf::Int32 _energie,
 	sf::Int32 _materiaux) :
 		pseudo(_pseudo),
 		ip(_ip),
@@ -29,12 +29,12 @@ sf::Uint16 Joueur::getId(void)
 	return this->id;
 }
 
-sf::Int16 Joueur::getCommandement(void)
+sf::Int32 Joueur::getCommandement(void)
 {
 	return this->commandement;
 }
 
-sf::Int16 Joueur::getRequisition(void)
+sf::Int32 Joueur::getRequisition(void)
 {
 	return this->requisition;
 }

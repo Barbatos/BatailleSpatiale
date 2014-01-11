@@ -9,9 +9,9 @@ VaisseauServeur::VaisseauServeur() :
 {
 }
 
-VaisseauServeur::VaisseauServeur(sf::Int16 _vieMax, sf::Int16 _bouclierMax, float _bouclierTaux,
-                   sf::Int16 _visibilite, sf::Int16 _attaque, sf::Int16 _distanceMax,
-                   sf::Int16 _consommation, TypeVaisseau _type) :
+VaisseauServeur::VaisseauServeur(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux,
+                   sf::Int32 _visibilite, sf::Int32 _attaque, sf::Int32 _distanceMax,
+                   sf::Int32 _consommation, TypeVaisseau _type) :
     Structure(_vieMax, _bouclierMax, _bouclierTaux, _visibilite, _attaque),
     type(_type),
     distanceMax(_distanceMax),
@@ -20,13 +20,13 @@ VaisseauServeur::VaisseauServeur(sf::Int16 _vieMax, sf::Int16 _bouclierMax, floa
 {
 }
 
-sf::Int16 VaisseauServeur::getConsommation() const {
+sf::Int32 VaisseauServeur::getConsommation() const {
     return consommation;
 }
 
 // Setters
 
-void VaisseauServeur::setConsommation(const sf::Int16 _consommation) {
+void VaisseauServeur::setConsommation(const sf::Int32 _consommation) {
     consommation = _consommation;
 }
 
@@ -145,7 +145,7 @@ VaisseauServeur VaisseauServeur::cloner(VaisseauServeur const& modele, Technolog
 
 }
 
-sf::Int16 VaisseauServeur::getDistanceMax() const {
+sf::Int32 VaisseauServeur::getDistanceMax() const {
     return distanceMax;
 }
 

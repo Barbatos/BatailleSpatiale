@@ -11,6 +11,7 @@
  *
  */
 enum class TypeCellule :sf::Uint16 {
+    Inexistant,
     Vide,
     Minerais,
     Energie,

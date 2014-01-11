@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Structure.hpp"
 
-int Structure::taille = 100;
+sf::Int32 Structure::taille = 100;
 
 // Constructeur
-Structure::Structure(int _vieMax, int _bouclierMax, float _bouclierTaux, int _visibilite, int _attaque){
+Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux, sf::Int32 _visibilite, sf::Int32 _attaque){
 
     vie = vieMax = _vieMax;
 
@@ -18,35 +18,35 @@ Structure::Structure(int _vieMax, int _bouclierMax, float _bouclierTaux, int _vi
 
 }
 
- int Structure::getVie() const{
+ sf::Int32 Structure::getVie() const{
     return vie;
 }
 
- int Structure::getVieMax() const{
+ sf::Int32 Structure::getVieMax() const{
     return vieMax;
 }
 
- int Structure::getBouclier() const{
+ sf::Int32 Structure::getBouclier() const{
     return bouclier;
 }
 
- int Structure::getBouclierMax() const{
+ sf::Int32 Structure::getBouclierMax() const{
     return bouclierMax;
 }
 
- float Structure::getBouclierTaux() const{
+ double Structure::getBouclierTaux() const{
     return bouclierTaux;
 }
 
- int Structure::getVisibilite() const{
+ sf::Int32 Structure::getVisibilite() const{
     return visibilite;
 }
 
- int Structure::getAttaque() const{
+ sf::Int32 Structure::getAttaque() const{
     return attaque;
 }
 
-void Structure::setVie(int const _vie){
+void Structure::setVie(sf::Int32 const _vie){
 
     if(vie < 0) vie = 0;
     else if(_vie <= vieMax) vie = _vie;
@@ -54,7 +54,7 @@ void Structure::setVie(int const _vie){
 
 }
 
-void Structure::setVieMax(int const _vieMax){
+void Structure::setVieMax(sf::Int32 const _vieMax){
 
     vieMax = _vieMax;
 
@@ -66,7 +66,7 @@ void Structure::setVieMax(int const _vieMax){
  *  des degats
  */
 
-int Structure::setBouclier(int const _bouclier){
+sf::Int32 Structure::setBouclier(sf::Int32 const _bouclier){
 
     if(_bouclier < 0){
         std::cout << -_bouclier << " degats n'ont pas pu etre absorbes par le bouclier, qui est de " << bouclier << std::endl<< std::endl;
@@ -83,25 +83,25 @@ int Structure::setBouclier(int const _bouclier){
 }
 
 
-void Structure::setBouclierMax(int const _bouclierMax){
+void Structure::setBouclierMax(sf::Int32 const _bouclierMax){
 
     bouclierMax = _bouclierMax;
 
 }
 
-void Structure::setBouclierTaux(float const _bouclierTaux){
+void Structure::setBouclierTaux(double const _bouclierTaux){
 
     bouclierTaux = _bouclierTaux;
 
 }
 
-void Structure::setVisibilite(int const _visibilite){
+void Structure::setVisibilite(sf::Int32 const _visibilite){
 
     visibilite = _visibilite;
 
 }
 
-void Structure::setAttaque(int const _attaque){
+void Structure::setAttaque(sf::Int32 const _attaque){
 
     attaque = _attaque;
 
@@ -109,7 +109,7 @@ void Structure::setAttaque(int const _attaque){
 
 /* Cette methode sert a ajouter ou a retirer un certain
  * nombre de points de vie a une structure ciblee    */
-void Structure::modifierVie(int const valeur){
+void Structure::modifierVie(sf::Int32 const valeur){
     if(vie + valeur < vieMax){
         setVie(vie + valeur);
 

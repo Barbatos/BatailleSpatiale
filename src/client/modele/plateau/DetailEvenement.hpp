@@ -13,11 +13,11 @@ struct DetailEvenement {
     // l'évenement est destructible, on remonte une structure qui prend sa place.
     bool destructible;
     // nombre de deplacement a utiliser pour passer par cette case 1 par défaut -1 pour impossible
-    sf::Int16 coutDeplacement;
+    sf::Int32 coutDeplacement;
     // paramètre à prendre en compte lors du calcul des dommages infligés par la structure présente.
-    sf::Int16 multiplicateurDommage;
+    sf::Int32 multiplicateurDommage;
     // paramètre à prendre en compte lors du calcul des dommages subits par la structure présente.
-    sf::Int16 multiplicateurDegat;
+    sf::Int32 multiplicateurDegat;
 };
 
 #endif

@@ -91,22 +91,6 @@ int CelluleServeur::getCoutDeplacement() const {
 
     else
         return 10000;
-
-    if((evenement) && (evenement->getCoutDeplacement() != -1)) {
-        if(type == TypeCellule::Minerais)
-            if(evenement)
-                return evenement->getCoutDeplacement() + 1;
-            else
-                return 2;
-        else if(evenement)
-            return evenement->getCoutDeplacement();
-        else
-            return 1;
-    }
-
-    else
-        return 10000;
-
 }
 
 /**
@@ -167,6 +151,8 @@ int CelluleServeur::distanceMaximale() const {
  * \return True pour accessible, False sinon.
  */
 bool CelluleServeur::estAccessible() const {
+    if(type == TypeCellule::Inexistant)
+        return false;
     if(evenement)
         return (evenement->estAccessible() && !vaisseau && !batiment);
     else

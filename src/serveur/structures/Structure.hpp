@@ -1,6 +1,7 @@
 #ifndef STRUCTURE_HPP
 #define STRUCTURE_HPP
 #include "TechnologieStructure.hpp"
+#include <SFML/System.hpp>
 #include <memory>
 
 /*
@@ -13,41 +14,41 @@ class Structure{
 
     public:
 
-        Structure(int _vieMax = 100, int _bouclierMax = 0, float _bouclierTaux = 0, int _visibilite = 0, int _attaque = 10);
+        Structure(sf::Int32 _vieMax = 100, sf::Int32 _bouclierMax = 0, double _bouclierTaux = 0, sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10);
 
         // Getter
-        int getVie() const;
-        int getVieMax() const;
-        int getBouclier() const;
-        int getBouclierMax() const;
-        float getBouclierTaux() const;
-        int getVisibilite() const;
-        int getAttaque() const;
+        sf::Int32 getVie() const;
+        sf::Int32 getVieMax() const;
+        sf::Int32 getBouclier() const;
+        sf::Int32 getBouclierMax() const;
+        double getBouclierTaux() const;
+        sf::Int32 getVisibilite() const;
+        sf::Int32 getAttaque() const;
 
         // Setter
-        void setVie( int const _vie);
-        int  setBouclier(int const _bouclier);
-        void setVieMax( int const _vieMax);
-        void setBouclierMax( int const _bouclierMax);
-        void setBouclierTaux(float const _bouclierTaux);
-        void setVisibilite( int const _visibilite);
-        void setAttaque( int const _attaque);
+        void setVie( sf::Int32 const _vie);
+        sf::Int32  setBouclier(sf::Int32 const _bouclier);
+        void setVieMax( sf::Int32 const _vieMax);
+        void setBouclierMax( sf::Int32 const _bouclierMax);
+        void setBouclierTaux(double const _bouclierTaux);
+        void setVisibilite( sf::Int32 const _visibilite);
+        void setAttaque( sf::Int32 const _attaque);
 
         void subir(Structure const& attaquant);
         void attaquer(Structure& cible) const;
-        void modifierVie(int const valeur);
+        void modifierVie(sf::Int32 const valeur);
         static Structure cloner(Structure const& modele, TechnologieStructure techS);
 
 
     protected:
-		static int taille;
-        int vie;
-        int vieMax;
-        int bouclier;
-        int bouclierMax;
-        float bouclierTaux;
-        int visibilite;
-        int attaque;
+		static sf::Int32 taille;
+        sf::Int32 vie;
+        sf::Int32 vieMax;
+        sf::Int32 bouclier;
+        sf::Int32 bouclierMax;
+        double bouclierTaux;
+        sf::Int32 visibilite;
+        sf::Int32 attaque;
 	
 	private:
 		friend std::ostream& operator<< (std::ostream& fluxSortant, Structure const& Structure);

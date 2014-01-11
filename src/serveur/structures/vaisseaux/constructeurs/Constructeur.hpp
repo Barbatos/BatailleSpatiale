@@ -7,14 +7,14 @@
 
 
 /*
- * Classe qui définit les differents attributs
- * que possèdent les constructeurs.
+ * Classe qui dÃ©finit les differents attributs
+ * que possÃ¨dent les constructeurs.
  */
 class Constructeur : public VaisseauServeur {
 
     public:
     Constructeur();
-    Constructeur(int vieMax, int bouclierMax, float bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int materiauxMax);
+    Constructeur(int vieMax, int bouclierMax, double bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int materiauxMax);
 
     int getMateriaux();
     void setMateriaux(int materiaux);
