@@ -129,6 +129,19 @@ void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau)
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
+void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, sf::Int32 tailleZone, std::list<NoeudServeur> noeuds){
+	sf::Packet paquet;
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneParcourable);
+	std::list<NoeudServeur>::iterator noeudIterator;
+
+	paquet << typePaquet << tailleZone;
+
+	for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++){
+		paquet << noeudIterator->getPosition();
+	}
+
+	ReseauGlobal::EnvoiPaquet(client, paquet);
+}
 
 void ReseauServeur::EcouterReseau(void)
 {

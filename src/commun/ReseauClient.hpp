@@ -5,6 +5,7 @@
 #include "ReseauGlobal.hpp"
 #include "enum/TypePaquet.hpp"
 #include "../client/modele/Plateau.hpp"
+#include "../commun/utile/Position.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à
@@ -60,6 +61,8 @@ class ReseauClient
 		void setPort(unsigned short _port);
 
 		void EnvoyerPseudoServeur(string pseudo);
+
+		void getZoneParcourable(Position p);
 
 	private:
 

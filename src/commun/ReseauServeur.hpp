@@ -77,6 +77,8 @@ class ReseauServeur
 
 		void fermerReseau();
 
+		void EnvoiZoneParcourable(sf::TcpSocket& client, sf::Int32 tailleZone, std::list<NoeudServeur> noeuds);
+
 	private:
 
 		/// La socket du serveur

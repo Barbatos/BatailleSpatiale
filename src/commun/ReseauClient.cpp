@@ -62,6 +62,19 @@ void ReseauClient::TraiterPaquetServeur(void){
 			cout << "[SERVEUR] " << message << endl;
 			break;
 
+		case TypePaquet::ZoneParcourable:
+			sf::Int32 tailleZone;
+			std::list<Position> pos;
+			Position p;
+
+			paquet >> tailleZone;
+
+			for(sf::Int32 i = 0; i < tailleZone; i++){
+				paquet >> p;
+				pos.push_back(p);
+			}
+			break;
+
 		default:
 			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
 			break;
@@ -75,6 +88,15 @@ void ReseauClient::EnvoyerPseudoServeur(string pseudo){
 	sf::Packet paquet;
 
 	paquet << typePaquet << pseudo;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getZoneParcourable(Position p){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
+	sf::Packet paquet;
+
+	paquet << typePaquet;
 
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
