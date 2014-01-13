@@ -1,5 +1,7 @@
 #ifndef POSITION_HPP
 #define POSITION_HPP
+#include <SFML/Network.hpp>
+#include <SFML/System.hpp>
 
 /**
  * \brief Cette classe défini une position dans un repère 2D
