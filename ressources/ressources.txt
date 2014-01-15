@@ -39,7 +39,7 @@ Interface/Bouton/bouton_clic.png
 Environnement/comete2.png
 
 # Batiments
-Batiments/sprite_vaisseau_mere_1.png
+# Batiments/sprite_vaisseau_mere_1.png
 
 # Vaisseaux
 Vaisseaux/sprite_bombardier_1.png

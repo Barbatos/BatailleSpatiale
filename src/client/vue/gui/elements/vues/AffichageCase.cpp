@@ -93,7 +93,9 @@ void AffichageCase::actualiser(float)
 		switch (details.type)
 		{
 			case TypeBatiment::Base:
-				fichier = "Batiments/sprite_vaisseau_mere_1.png";
+				// Erreur ici, le jeu crash lorsqu'on essaie de charger cette image
+				// fichier = "Batiments/sprite_vaisseau_mere_1.png";
+				fichier = "Vaisseaux/sprite_destroyeur_1.png";
 				break;
 			default:
 				break;
