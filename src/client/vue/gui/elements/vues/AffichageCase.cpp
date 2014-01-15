@@ -53,6 +53,7 @@ void AffichageCase::actualiser(float)
 			case TypeVaisseau::Inexistant:
 				break;
 			case TypeVaisseau::Simple:
+				fichier = "Vaisseaux/sprite_chasseur_1.png";
 				break;
 			case TypeVaisseau::Constructeur:
 				fichier = "Vaisseaux/sprite_constructeur_1.png";
@@ -67,13 +68,16 @@ void AffichageCase::actualiser(float)
 				fichier = "Vaisseaux/sprite_croiseur_1.png";
 				break;
 			case TypeVaisseau::Destructeur:
-				fichier = "Vaisseaux/sprite_destoyer_1.png";
+				fichier = "Vaisseaux/sprite_destroyer_1.png";
 				break;
 			case TypeVaisseau::ChasseurLourd:
+				fichier = "Vaisseaux/sprite_chasseur_1.png";
 				break;
 			case TypeVaisseau::Traqueur:
+				fichier = "Vaisseaux/sprite_chasseur_1.png";
 				break;
 			case TypeVaisseau::Leger:
+				fichier = "Vaisseaux/sprite_chasseur_1.png";
 				break;
 			default:
 				break;
@@ -89,6 +93,7 @@ void AffichageCase::actualiser(float)
 		switch (details.type)
 		{
 			case TypeBatiment::Base:
+				fichier = "Batiments/sprite_vaisseau_mere_1.png";
 				break;
 			default:
 				break;

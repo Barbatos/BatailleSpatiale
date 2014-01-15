@@ -1,23 +1,62 @@
-##################################################################
-##
-##  Fichier TOC du projet BattleStar
-##      Contient les chemins vers toutes les ressources du projet
-##
-##################################################################
+##########################################
+##                                      ##
+## Ressources du projet BattleStar      ##
+##                                      ##
+##########################################
 
-## Images
-Interface/Bouton/bouton.png
-Interface/Bouton/bouton_dessus.png
-Interface/Bouton/bouton_clic.png
-Environnement/comete2.png
-fond.png
+##################################
+## Polices                      ##
+##################################
 
-## Polices
 grand9k.ttf
 
-## Sons
+##################################
+## Sons                         ##
+##################################
+
 menuclick.wav
 menuhit.wav
 
-## Musiques
+##################################
+## Musiques                     ##
+##################################
+
 Clearness.ogg
+
+##################################
+## Images                       ##
+##################################
+
+# Fonds
+fond.png
+
+# Interface
+Interface/Bouton/bouton.png
+Interface/Bouton/bouton_dessus.png
+Interface/Bouton/bouton_clic.png
+
+# Environnement
+Environnement/comete2.png
+
+# Batiments
+Batiments/sprite_vaisseau_mere_1.png
+
+# Vaisseaux
+Vaisseaux/sprite_bombardier_1.png
+Vaisseaux/sprite_bombardier_2.png
+Vaisseaux/sprite_bombardier_3.png
+Vaisseaux/sprite_bombardier_4.png
+Vaisseaux/sprite_chasseur_1.png
+Vaisseaux/sprite_chasseur_2.png
+Vaisseaux/sprite_chasseur_3.png
+Vaisseaux/sprite_chasseur_4.png
+Vaisseaux/sprite_croiseur_1.png
+Vaisseaux/sprite_croiseur_2.png
+Vaisseaux/sprite_croiseur_3.png
+Vaisseaux/sprite_croiseur_4.png
+Vaisseaux/sprite_destroyeur_1.png
+Vaisseaux/sprite_destroyeur_2.png
+Vaisseaux/sprite_destroyeur_3.png
+Vaisseaux/sprite_destroyeur_4.png
+Vaisseaux/sprite_ravitailleur_1.png
+Vaisseaux/sprite_constructeur_1.png
