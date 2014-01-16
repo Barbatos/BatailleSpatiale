@@ -85,8 +85,6 @@ namespace Utile
 		{
 			case TypeVaisseau::Inexistant:
 				return "Inexistant";
-			case TypeVaisseau::Simple:
-				return "Simple";
 			case TypeVaisseau::Constructeur:
 				return "Constructeur";
 			case TypeVaisseau::Bombardier:

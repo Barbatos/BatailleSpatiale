@@ -9,7 +9,6 @@
  */
 enum class TypeVaisseau :sf::Uint16 {
     Inexistant,
-    Simple,
     Constructeur,
     Bombardier,
     Chasseur,
@@ -17,8 +16,7 @@ enum class TypeVaisseau :sf::Uint16 {
     Destructeur,
     ChasseurLourd,
     Traqueur,
-    Leger,
-    Nombre
+    Leger
 };
 
 #endif

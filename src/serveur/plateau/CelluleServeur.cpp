@@ -107,7 +107,7 @@ TypeBatiment CelluleServeur::typeBatiment() const {
 }
 
 void CelluleServeur::creerVaisseauTest() {
-    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Simple));
+    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 5, 25, TypeVaisseau::Chasseur));
 }
 
 void CelluleServeur::creerVaisseauConstructeurTest() {

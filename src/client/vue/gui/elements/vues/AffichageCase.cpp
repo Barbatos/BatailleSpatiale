@@ -51,9 +51,6 @@ void AffichageCase::actualiser(float)
 		{
 			case TypeVaisseau::Inexistant:
 				break;
-			case TypeVaisseau::Simple:
-				fichier = "Vaisseaux/sprite_chasseur_1.png";
-				break;
 			case TypeVaisseau::Constructeur:
 				fichier = "Vaisseaux/sprite_constructeur_1.png";
 				break;

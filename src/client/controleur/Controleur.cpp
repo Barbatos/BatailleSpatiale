@@ -19,7 +19,7 @@ Controleur::~Controleur()
 
 }
 
-void Controleur::action(Position ancien, Position nouveau)
+void Controleur::action(Position, Position)
 {
 
 }
