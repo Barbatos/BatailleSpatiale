@@ -10,8 +10,9 @@
  * l'énergie, du minerais, ...
  *
  */
-enum class TypeCellule :sf::Uint16 {
-    Inexistant,
+enum class TypeCellule
+    : sf::Uint16 {
+        Inexistant,
     Vide,
     Minerais,
     Energie,

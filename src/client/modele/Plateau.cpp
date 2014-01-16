@@ -1,11 +1,10 @@
 #include "Plateau.hpp"
 
 Plateau::Plateau() :
-    tailleX(0),
-    tailleY(0) {
+    tailleX(0), tailleY(0) {
     for(sf::Int32 i = 0; i < tailleX; ++i) {
         for(sf::Int32 j = 0; j < tailleX; ++j) {
-            cellule.setParcourable(false);
+            cellule[i][j].setParcourable(false);
         }
     }
 }
@@ -50,12 +49,17 @@ const Cellule& Plateau::getCellule(Position p) {
     return cellule[p.x][p.y];
 }
 
+void Plateau::viderZoneParcourable() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++)
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++)
+            cellule[i][j].setParcourable(false);
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
 
     paquet >> plateau.tailleX >> plateau.tailleY;
 
-    plateau.cellule.resize(plateau.tailleX,
-                           std::vector<Cellule>(plateau.tailleY));
+    plateau.cellule.resize(plateau.tailleX, std::vector<Cellule>(plateau.tailleY));
 
     for (sf::Int32 x = 0; x < plateau.tailleX; ++x)
         for (sf::Int32 y = 0; y < plateau.tailleY; ++y)
