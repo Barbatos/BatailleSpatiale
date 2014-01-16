@@ -167,6 +167,14 @@ VaisseauServeurPtr CelluleServeur::getVaisseau() const {
     return vaisseau;
 }
 
+VaisseauServeurPtr& CelluleServeur::getVaisseauPtr() {
+    return vaisseau;
+}
+
+void CelluleServeur::echangerVaisseau(CelluleServeur& cellule) {
+    std::swap(vaisseau, cellule.getVaisseauPtr());
+}
+
 EvenementPtr CelluleServeur::getEvenement() const {
     return evenement;
 }

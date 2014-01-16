@@ -44,6 +44,8 @@ public:
     
     void retirerVaisseau();
     VaisseauServeurPtr getVaisseau() const;
+    VaisseauServeurPtr& getVaisseauPtr();
+    void echangerVaisseau(CelluleServeur& cellule);
     void setVaisseau(VaisseauServeurPtr _vaisseau);
     int distanceMaximale() const;
 
