@@ -159,6 +159,8 @@ void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Posit
 	for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++) {
 		paquet << *cheminIterator;
 	}
+
+	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
 void ReseauServeur::ecouterReseau(void) {
