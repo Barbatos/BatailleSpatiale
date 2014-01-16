@@ -3,6 +3,11 @@
 Plateau::Plateau() :
     tailleX(0),
     tailleY(0) {
+    for(sf::Int32 i = 0; i < tailleX; ++i) {
+        for(sf::Int32 j = 0; j < tailleX; ++j) {
+            cellule.setParcourable(false);
+        }
+    }
 }
 
 bool Plateau::possedeEvenement(Position p) {
