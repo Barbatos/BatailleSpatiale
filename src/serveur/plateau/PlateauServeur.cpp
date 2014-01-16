@@ -214,7 +214,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneParcourable(
 	return zoneParcourable;
 }
 
-std::list<Position> obtenirChemin(Position p,
+std::list<Position> PlateauServeur::obtenirChemin(Position p,
 	std::list<NoeudServeur> zoneParcourable)
 {
 	//Le chemin à retourner

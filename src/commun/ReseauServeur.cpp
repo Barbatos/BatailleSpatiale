@@ -151,15 +151,13 @@ void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Posit
 
 	tailleZone = noeuds.size();
 
-	/*chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
+	chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
 
 	paquet << typePaquet << tailleZone;
 
 	for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++){
 		paquet << *cheminIterator;
 	}
-
-	*/
 }
 
 void ReseauServeur::EcouterReseau(void)
