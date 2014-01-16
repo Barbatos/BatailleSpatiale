@@ -8,88 +8,86 @@
 #include "../serveur/plateau/PlateauServeur.hpp"
 
 /**
- * Classe permettant de démarrer un serveur de jeu 
+ * Classe permettant de démarrer un serveur de jeu
  * et de gérer les clients qui s'y connectent.
  */
-class ReseauServeur
-{
+class ReseauServeur {
 
-	public:
+public:
 
-		/**
-		 * \brief Constructeur par défaut
-		 * 
-		 * \param port le port du serveur
-		 * \param plateau le plateau de jeu
-		 */
-		ReseauServeur(unsigned short port, PlateauServeur& plateau);
-		/**
-		 * \brief Fonction gérant les paquets envoyés au serveur par des 
-		 * clients extérieurs.
-		 */
-		void EcouterReseau(void);
+	/**
+	 * \brief Constructeur par défaut
+	 *
+	 * \param port le port du serveur
+	 * \param plateau le plateau de jeu
+	 */
+	ReseauServeur(unsigned short port, PlateauServeur& plateau);
+	/**
+	 * \brief Fonction gérant les paquets envoyés au serveur par des
+	 * clients extérieurs.
+	 */
+	void EcouterReseau(void);
 
-		/**
-		 * \brief Fonction permettant de traiter un paquet reçu d'un client.
-		 * 
-		 * \param paquet le paquet reçu
-		 */
-		void TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet);
+	/**
+	 * \brief Fonction permettant de traiter un paquet reçu d'un client.
+	 *
+	 * \param paquet le paquet reçu
+	 */
+	void TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet);
 
-		/**
-		 * \brief Envoi d'un message par le serveur à tous les clients
-		 * 
-		 * \param message le message à envoyer
-		 */
-		void EnvoiATous(string& message);
+	/**
+	 * \brief Envoi d'un message par le serveur à tous les clients
+	 *
+	 * \param message le message à envoyer
+	 */
+	void EnvoiATous(string& message);
 
-		/**
-		 * \brief Envoi d'un message par le serveur à un unique client
-		 * 
-		 * \param client la socket du client
-		 * \param message le message à envoyer
-		 */
-		void EnvoiUnique(sf::TcpSocket& client, string& message);
+	/**
+	 * \brief Envoi d'un message par le serveur à un unique client
+	 *
+	 * \param client la socket du client
+	 * \param message le message à envoyer
+	 */
+	void EnvoiUnique(sf::TcpSocket& client, string& message);
 
-		/**
-		 * \brief Envoi du plateau à un client
-		 * 
-		 * \param client la socket du client
-		 * \param plateau le plateau
-		 */
-		void EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
+	/**
+	 * \brief Envoi du plateau à un client
+	 *
+	 * \param client la socket du client
+	 * \param plateau le plateau
+	 */
+	void EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
 
-		void setPlateau(PlateauServeur& plateau);
+	void setPlateau(PlateauServeur& plateau);
 
-		void threadReseau();
+	void threadReseau();
 
-		void lancerReseau();
+	void lancerReseau();
 
-		void fermerReseau();
+	void fermerReseau();
 
-		void EnvoiZoneParcourable(sf::TcpSocket& client, Position pos);
+	void EnvoiZoneParcourable(sf::TcpSocket& client, Position pos);
 
-		void EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
+	void EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
 
-	private:
+private:
 
-		/// La socket du serveur
-		sf::TcpListener listener;
+	/// La socket du serveur
+	sf::TcpListener listener;
 
-		/// Le sélecteur qui permet d'écouter toutes les sockets ouvertes
-		sf::SocketSelector selector;
+	/// Le sélecteur qui permet d'écouter toutes les sockets ouvertes
+	sf::SocketSelector selector;
 
-		/// Liste des joueurs connectés
-		vector<JoueurServeur> joueurs;
+	/// Liste des joueurs connectés
+	vector<JoueurServeur> joueurs;
 
-		PlateauServeur& plateau;
+	PlateauServeur& plateau;
 
-		sf::Thread reseauThread;
+	sf::Thread reseauThread;
 
-		bool actif;
+	bool actif;
 };
 
 typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;
 
 #endif
-

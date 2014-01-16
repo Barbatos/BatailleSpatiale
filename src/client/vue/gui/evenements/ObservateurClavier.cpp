@@ -7,14 +7,11 @@
 
 #include "ObservateurClavier.hpp"
 
-ObservateurClavier::ObservateurClavier()
-{
+ObservateurClavier::ObservateurClavier() {
 	// TODO Auto-generated constructor stub
 
 }
 
-ObservateurClavier::~ObservateurClavier()
-{
+ObservateurClavier::~ObservateurClavier() {
 	// TODO Auto-generated destructor stub
 }
-

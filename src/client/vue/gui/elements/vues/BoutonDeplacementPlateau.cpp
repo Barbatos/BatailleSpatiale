@@ -15,11 +15,10 @@
 #include <iostream>
 
 BoutonDeplacementPlateau::BoutonDeplacementPlateau(Gui* gui, int id, float x,
-	float y, float largeur, float hauteur) :
-		Element(gui, id),
-		ObservateurSouris(),
-		fond()
-{
+        float y, float largeur, float hauteur) :
+	Element(gui, id),
+	ObservateurSouris(),
+	fond() {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
@@ -30,55 +29,45 @@ BoutonDeplacementPlateau::BoutonDeplacementPlateau(Gui* gui, int id, float x,
 	fond.setFillColor(sf::Color(50, 50, 50, 150));
 }
 
-BoutonDeplacementPlateau::~BoutonDeplacementPlateau()
-{
+BoutonDeplacementPlateau::~BoutonDeplacementPlateau() {
 
 }
 
-void BoutonDeplacementPlateau::actualiser(float)
-{
+void BoutonDeplacementPlateau::actualiser(float) {
 	if (lireSurvol())
 		envoyerMessage();
 }
 
-void BoutonDeplacementPlateau::afficher(sf::RenderWindow& affichage)
-{
+void BoutonDeplacementPlateau::afficher(sf::RenderWindow& affichage) {
 	affichage.draw(fond);
 }
 
-bool BoutonDeplacementPlateau::contient(sf::Vector2i position)
-{
+bool BoutonDeplacementPlateau::contient(sf::Vector2i position) {
 	return fond.getGlobalBounds().contains(position.x, position.y);
 }
 
-void BoutonDeplacementPlateau::clicSouris()
-{
+void BoutonDeplacementPlateau::clicSouris() {
 
 }
-void BoutonDeplacementPlateau::pressionSouris(sf::Mouse::Button)
-{
+void BoutonDeplacementPlateau::pressionSouris(sf::Mouse::Button) {
 
 }
 
-void BoutonDeplacementPlateau::relachementSouris(sf::Mouse::Button)
-{
+void BoutonDeplacementPlateau::relachementSouris(sf::Mouse::Button) {
 
 }
 
-void BoutonDeplacementPlateau::entreeSouris(sf::Vector2f)
-{
+void BoutonDeplacementPlateau::entreeSouris(sf::Vector2f) {
 	fond.setFillColor(sf::Color(50, 50, 50, 200));
 
 	lireGui()->lireScene()->lireJeu().lireRessources().jouerSon("menuhit.wav");
 	envoyerMessage();
 }
 
-void BoutonDeplacementPlateau::sortieSouris(sf::Vector2f)
-{
+void BoutonDeplacementPlateau::sortieSouris(sf::Vector2f) {
 	fond.setFillColor(sf::Color(50, 50, 50, 150));
 }
 
-void BoutonDeplacementPlateau::moletteSouris(int)
-{
+void BoutonDeplacementPlateau::moletteSouris(int) {
 
 }

@@ -17,46 +17,44 @@
  * Scène du Menu Principal, premier écran montré
  */
 class SceneMenuPrincipal :
-	public Scene
-{
-	private:
-		/**
-		 * \brief Petite musique à jouer
-		 *
-		 * Une musique jouée pendant la scène
-		 */
+	public Scene {
+private:
+	/**
+	 * \brief Petite musique à jouer
+	 *
+	 * Une musique jouée pendant la scène
+	 */
 
-		/**
-		 * \brief Les différents boutons de la scène
-		 */
-		enum Boutons
-		{
-			Solo, //!< Lancer une partie Solo
-			Multi, //!< Lancer une partie Multi
-			Quitter, //!< Quitter la partie
-			Options, //!< Options du jeu
-			Serveur //!< Lancer un serveur 
-		};
+	/**
+	 * \brief Les différents boutons de la scène
+	 */
+	enum Boutons {
+	    Solo, //!< Lancer une partie Solo
+	    Multi, //!< Lancer une partie Multi
+	    Quitter, //!< Quitter la partie
+	    Options, //!< Options du jeu
+	    Serveur //!< Lancer un serveur
+	};
 
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance de menu principal avec le jeu actuel
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneMenuPrincipal(Jeu& jeu);
+public:
+	/**
+	 * \brief Constructeur
+	 *
+	 * Créé une nouvelle instance de menu principal avec le jeu actuel
+	 *
+	 * \param jeu le jeu actuel
+	 */
+	SceneMenuPrincipal(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée du Menu Principal
-		 */
-		virtual ~SceneMenuPrincipal();
+	/**
+	 * \brief Destructeur
+	 *
+	 * Détruit l'instance précédemment créée du Menu Principal
+	 */
+	virtual ~SceneMenuPrincipal();
 
-		// Héritée de Scene
-		void surMessage(int id);
+	// Héritée de Scene
+	void surMessage(int id);
 };
 
 #endif /* SCENEMENUPRINCIPAL_HPP */

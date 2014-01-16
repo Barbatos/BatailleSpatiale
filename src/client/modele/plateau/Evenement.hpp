@@ -10,32 +10,32 @@
 class Evenement {
 
 public:
-    /**
-     * \brief Constructeur vide
-     * Attention ce constructeur ne met pas de valeur par défaut
-     */
-    Evenement();
-    /**
-     * \brief Constructeur par défaut
-     *
-     * \param _detail les détails de l'évenement
-     */
-    Evenement(DetailEvenement _detail);
-    /**
-     * \brief Getter Détail
-     *
-     * \return les détails de l'évenement
-     */
-    const DetailEvenement& getDetail();
-    /**
-     * \brief change les détails de l'évenement
-     *
-     * \param _detail Les nouveaux détails
-     */
-    void setDetail(DetailEvenement _detail);
+	/**
+	 * \brief Constructeur vide
+	 * Attention ce constructeur ne met pas de valeur par défaut
+	 */
+	Evenement();
+	/**
+	 * \brief Constructeur par défaut
+	 *
+	 * \param _detail les détails de l'évenement
+	 */
+	Evenement(DetailEvenement _detail);
+	/**
+	 * \brief Getter Détail
+	 *
+	 * \return les détails de l'évenement
+	 */
+	const DetailEvenement& getDetail();
+	/**
+	 * \brief change les détails de l'évenement
+	 *
+	 * \param _detail Les nouveaux détails
+	 */
+	void setDetail(DetailEvenement _detail);
 
 private:
-    DetailEvenement detail;
+	DetailEvenement detail;
 };
 
 sf::Packet& operator >>(sf::Packet& paquet, Evenement& evenement);

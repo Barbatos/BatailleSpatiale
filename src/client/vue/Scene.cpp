@@ -11,36 +11,29 @@
 #include <client/Jeu.hpp>
 
 Scene::Scene(Jeu& jeu) :
-		jeu(jeu),
-		gui(&jeu.lireAffichage(), this)
-{
+	jeu(jeu),
+	gui(&jeu.lireAffichage(), this) {
 }
 
-Scene::~Scene()
-{
+Scene::~Scene() {
 }
 
-void Scene::actualiser()
-{
+void Scene::actualiser() {
 	gui.actualiser();
 }
 
-void Scene::afficher()
-{
+void Scene::afficher() {
 	gui.afficher();
 }
 
-void Scene::traiter(sf::Event& evenement)
-{
+void Scene::traiter(sf::Event& evenement) {
 	gui.traiter(evenement);
 }
 
-Jeu& Scene::lireJeu()
-{
+Jeu& Scene::lireJeu() {
 	return jeu;
 }
 
-Gui& Scene::lireGui()
-{
+Gui& Scene::lireGui() {
 	return gui;
 }

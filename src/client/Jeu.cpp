@@ -14,14 +14,13 @@
 #define TEMPS_FRAME 1000/FPS
 
 Jeu::Jeu() :
-		affichage(),
-		modele(),
-		controleur(modele),
-		scene(nullptr),
-		ressources(),
-		horloge(),
-		reseau(nullptr)
-{
+	affichage(),
+	modele(),
+	controleur(modele),
+	scene(nullptr),
+	ressources(),
+	horloge(),
+	reseau(nullptr) {
 	ressources.charger();
 	affichage.creer();
 
@@ -30,8 +29,7 @@ Jeu::Jeu() :
 	reseauActif = false;
 }
 
-Jeu::~Jeu()
-{
+Jeu::~Jeu() {
 	if (scene != nullptr)
 		scene.release();
 
@@ -42,60 +40,55 @@ Jeu::~Jeu()
 		serveur->fermerReseau();
 }
 
-void Jeu::changer(Scene::Type nouvelleScene)
-{
+void Jeu::changer(Scene::Type nouvelleScene) {
 	if (scene != nullptr)
 		scene.release();
 
-	switch (nouvelleScene)
-	{
-		case Scene::SceneMenuPrincipal:
-			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
-			break;
-		case Scene::SceneJeu:
-			scene = Scene::Ptr(new SceneJeu(*this));
-			break;
-		case Scene::SceneJeuMenu:
-			scene = Scene::Ptr(new SceneJeuMenu(*this));
-			break;
-		case Scene::SceneJeuOptions:
-			scene = Scene::Ptr(new SceneJeuOptions(*this));
-			break;
-		case Scene::SceneMenuSolo:
-			scene = Scene::Ptr(new SceneMenuSolo(*this));
-			break;
-		case Scene::SceneMenuMulti:
-			scene = Scene::Ptr(new SceneMenuMultijoueur(*this));
-			break;
-		case Scene::SceneOptionsMenu:
-			scene = Scene::Ptr(new SceneOptionsMenu(*this));
-			break;
-		case Scene::SceneLancerServeur:
-			scene = Scene::Ptr(new SceneLancerServeur(*this));
-			break;
-		case Scene::SceneChargementJeu:
-			scene = Scene::Ptr(new SceneChargementJeu(*this));
-			break;
-		case Scene::SceneChargementJeuMulti:
-			scene = Scene::Ptr(new SceneChargementJeuMulti(*this));
-			break;
-		default:
-			scene = Scene::Ptr(new SceneMenuPrincipal(*this));
-			break;
+	switch (nouvelleScene) {
+	case Scene::SceneMenuPrincipal:
+		scene = Scene::Ptr(new SceneMenuPrincipal(*this));
+		break;
+	case Scene::SceneJeu:
+		scene = Scene::Ptr(new SceneJeu(*this));
+		break;
+	case Scene::SceneJeuMenu:
+		scene = Scene::Ptr(new SceneJeuMenu(*this));
+		break;
+	case Scene::SceneJeuOptions:
+		scene = Scene::Ptr(new SceneJeuOptions(*this));
+		break;
+	case Scene::SceneMenuSolo:
+		scene = Scene::Ptr(new SceneMenuSolo(*this));
+		break;
+	case Scene::SceneMenuMulti:
+		scene = Scene::Ptr(new SceneMenuMultijoueur(*this));
+		break;
+	case Scene::SceneOptionsMenu:
+		scene = Scene::Ptr(new SceneOptionsMenu(*this));
+		break;
+	case Scene::SceneLancerServeur:
+		scene = Scene::Ptr(new SceneLancerServeur(*this));
+		break;
+	case Scene::SceneChargementJeu:
+		scene = Scene::Ptr(new SceneChargementJeu(*this));
+		break;
+	case Scene::SceneChargementJeuMulti:
+		scene = Scene::Ptr(new SceneChargementJeuMulti(*this));
+		break;
+	default:
+		scene = Scene::Ptr(new SceneMenuPrincipal(*this));
+		break;
 	}
 }
 
-void Jeu::threadReseau()
-{
-	while (true)
-	{
+void Jeu::threadReseau() {
+	while (true) {
 		reseau->TraiterPaquetServeur();
 		sf::sleep(sf::milliseconds(100));
 	}
 }
 
-void Jeu::lancerServeurGUI(unsigned int port)
-{
+void Jeu::lancerServeurGUI(unsigned int port) {
 	//sf::Thread threadServeur(&ReseauServeur::EcouterReseau, serveur.get());
 
 	plateauServeur = PlateauServeurPtr(new PlateauServeur(10, 10));
@@ -105,26 +98,22 @@ void Jeu::lancerServeurGUI(unsigned int port)
 	serveur->lancerReseau();
 }
 
-void Jeu::lancer()
-{
+void Jeu::lancer() {
 	sf::Event evenement;
 	int message;
 	sf::Thread reseauThread(&Jeu::threadReseau, this);
 
 	reseauThread.launch();
 
-	while (affichage.isOpen())
-	{
-		while (affichage.pollEvent(evenement))
-		{
+	while (affichage.isOpen()) {
+		while (affichage.pollEvent(evenement)) {
 			if (evenement.type == sf::Event::Closed)
 				affichage.close();
 
 			scene->traiter(evenement);
 		}
 
-		while (scene->lireGui().obtenirMessage(&message))
-		{
+		while (scene->lireGui().obtenirMessage(&message)) {
 			scene->surMessage(message);
 		}
 
@@ -140,32 +129,26 @@ void Jeu::lancer()
 	reseauThread.terminate();
 }
 
-void Jeu::quitter()
-{
+void Jeu::quitter() {
 	affichage.close();
 }
 
-Affichage& Jeu::lireAffichage()
-{
+Affichage& Jeu::lireAffichage() {
 	return (affichage);
 }
 
-Plateau& Jeu::lirePlateau()
-{
+Plateau& Jeu::lirePlateau() {
 	return (modele);
 }
 
-Controleur& Jeu::lireControleur()
-{
+Controleur& Jeu::lireControleur() {
 	return (controleur);
 }
 
-Ressources& Jeu::lireRessources()
-{
+Ressources& Jeu::lireRessources() {
 	return (ressources);
 }
 
-ReseauPtr& Jeu::lireReseau()
-{
+ReseauPtr& Jeu::lireReseau() {
 	return (reseau);
 }

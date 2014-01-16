@@ -16,38 +16,38 @@
 class Cellule {
 
 public:
-    /// Constructeur par défaut
-    Cellule();
-    bool possedeEvenement();
-    const DetailEvenement& getEvenement();
+	/// Constructeur par défaut
+	Cellule();
+	bool possedeEvenement();
+	const DetailEvenement& getEvenement();
 
-    bool possedeBatiment();
-    const DetailBatiment& getBatiment();
+	bool possedeBatiment();
+	const DetailBatiment& getBatiment();
 
-    bool possedeVaisseau();
-    const DetailVaisseau& getVaisseau();
-    void setVaisseau(Vaisseau* _vaisseau);
-    void echangerVaisseau(Cellule& cellule);
+	bool possedeVaisseau();
+	const DetailVaisseau& getVaisseau();
+	void setVaisseau(Vaisseau* _vaisseau);
+	void echangerVaisseau(Cellule& cellule);
 
-    void setType(TypeCellule _type);
+	void setType(TypeCellule _type);
 
-    void setParcourable(bool parcourable);
-    bool getParcourable();
+	void setParcourable(bool parcourable);
+	bool getParcourable();
 
 private:
-    friend sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule);
-    void setEvenement(Evenement* _evenement);
-    void retirerEvenement();
-    void setBatiment(Batiment* _batiment);
-    void retirerBatiment();
-    void retirerVaisseau();
+	friend sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule);
+	void setEvenement(Evenement* _evenement);
+	void retirerEvenement();
+	void setBatiment(Batiment* _batiment);
+	void retirerBatiment();
+	void retirerVaisseau();
 
-    VaisseauPtr& getReferenceVaisseau();
-    EvenementPtr evenement;
-    BatimentPtr batiment;
-    VaisseauPtr vaisseau;
-    TypeCellule type;
-    CelluleBits bits;
+	VaisseauPtr& getReferenceVaisseau();
+	EvenementPtr evenement;
+	BatimentPtr batiment;
+	VaisseauPtr vaisseau;
+	TypeCellule type;
+	CelluleBits bits;
 
 };
 

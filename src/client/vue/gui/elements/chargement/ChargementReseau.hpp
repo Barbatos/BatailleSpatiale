@@ -14,20 +14,19 @@
 #include <client/vue/gui/elements/generiques/Label.hpp>
 
 class ChargementReseau :
-	public Element
-{
-	private:
-		Label texte;
-		Animation image;
+	public Element {
+private:
+	Label texte;
+	Animation image;
 
-	public:
-		ChargementReseau(Gui* gui, int id, int x, int y, int largeur,
-			int hauteur);
-		virtual ~ChargementReseau();
+public:
+	ChargementReseau(Gui* gui, int id, int x, int y, int largeur,
+	                 int hauteur);
+	virtual ~ChargementReseau();
 
-		void actualiser(float delta);
-		void afficher(sf::RenderWindow& affichage);
-		bool contient(sf::Vector2i position);
+	void actualiser(float delta);
+	void afficher(sf::RenderWindow& affichage);
+	bool contient(sf::Vector2i position);
 };
 
 #endif /* CHARGEMENTRESEAU_HPP */

@@ -14,35 +14,30 @@
 
 Log Log::instance;
 
-Log::Log()
-{
+Log::Log() {
 	fichier = OutputStreamPtr(new std::ofstream(FICHIER, std::ios::in | std::ios::app));
 
 	if(fichier->good())
 		*fichier
-			<< "##################################################"
-			<< std::endl
-			<< Utile::dateActuelle()
-			<< std::endl
-			<< std::endl;
+		        << "##################################################"
+		        << std::endl
+		        << Utile::dateActuelle()
+		        << std::endl
+		        << std::endl;
 	else
 		Utile::erreur("initialiserLog()", "Impossible d'ouvrir le fichier BattleStar.log");
 }
 
-Log::~Log()
-{
+Log::~Log() {
 
 }
 
-Log& Log::lireInstance()
-{
+Log& Log::lireInstance() {
 	return instance;
 }
 
-void Log::ajouterLigne(std::string ligne)
-{
-	if(fichier->good())
-	{
+void Log::ajouterLigne(std::string ligne) {
+	if(fichier->good()) {
 		*fichier << ligne << std::endl;
 	}
 }

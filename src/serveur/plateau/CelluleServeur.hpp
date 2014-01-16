@@ -13,56 +13,56 @@
 class CelluleServeur {
 
 public:
-    CelluleServeur(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
-    TypeCellule getType() const;
-    
-    bool possedeEvenement() const;
-    bool possedeBatiment() const;
-    bool possedeVaisseau() const;
-    bool possedeEmplacement(TypeCellule _type) const;
-    
-    TypeCellule statutEmplacement() const;
-    void setType(TypeCellule _type);
-    
-    /**
-     * \brief Retourne le cout de déplacement dans la cellule
-     * Si un vaisseau veut passer a travers cette cellule quel est 
-     * le facteur du cout de deplacement ici?
-     * 
-     *  \return Le cout de deplacement
-     */
-    int getCoutDeplacement() const;
-    
-    //void subir(Structure const& attaquant);
-    Structure getAttaquant();
-    TypeBatiment typeBatiment() const;
-    bool estAccessible() const;
-    
-    BatimentServeurPtr getBatiment() const;
-    
-    EvenementPtr getEvenement() const;
-    
-    void retirerVaisseau();
-    VaisseauServeurPtr getVaisseau() const;
-    VaisseauServeurPtr& getVaisseauPtr();
-    void echangerVaisseau(CelluleServeur& cellule);
-    void setVaisseau(VaisseauServeurPtr _vaisseau);
-    int distanceMaximale() const;
+	CelluleServeur(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
+	TypeCellule getType() const;
 
-    //Multiple fonctions de test
-    void creerVaisseauTest();
-    void creerVaisseauConstructeurTest();
-    void creerBatimentBaseTest();
-    void attaquer(CelluleServeur *cCible);
-    void defendre(int degat);
+	bool possedeEvenement() const;
+	bool possedeBatiment() const;
+	bool possedeVaisseau() const;
+	bool possedeEmplacement(TypeCellule _type) const;
+
+	TypeCellule statutEmplacement() const;
+	void setType(TypeCellule _type);
+
+	/**
+	 * \brief Retourne le cout de déplacement dans la cellule
+	 * Si un vaisseau veut passer a travers cette cellule quel est
+	 * le facteur du cout de deplacement ici?
+	 *
+	 *  \return Le cout de deplacement
+	 */
+	int getCoutDeplacement() const;
+
+	//void subir(Structure const& attaquant);
+	Structure getAttaquant();
+	TypeBatiment typeBatiment() const;
+	bool estAccessible() const;
+
+	BatimentServeurPtr getBatiment() const;
+
+	EvenementPtr getEvenement() const;
+
+	void retirerVaisseau();
+	VaisseauServeurPtr getVaisseau() const;
+	VaisseauServeurPtr& getVaisseauPtr();
+	void echangerVaisseau(CelluleServeur& cellule);
+	void setVaisseau(VaisseauServeurPtr _vaisseau);
+	int distanceMaximale() const;
+
+	//Multiple fonctions de test
+	void creerVaisseauTest();
+	void creerVaisseauConstructeurTest();
+	void creerBatimentBaseTest();
+	void attaquer(CelluleServeur *cCible);
+	void defendre(int degat);
 
 protected:
 
 private:
-    EvenementPtr evenement;
-    BatimentServeurPtr batiment;
-    VaisseauServeurPtr vaisseau;
-    TypeCellule type;
+	EvenementPtr evenement;
+	BatimentServeurPtr batiment;
+	VaisseauServeurPtr vaisseau;
+	TypeCellule type;
 
 };
 

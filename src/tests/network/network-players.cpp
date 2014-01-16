@@ -8,15 +8,15 @@
 ReseauClient* 	client;
 ReseauServeur* 	serveur;
 
-void WaitForInput(void){
+void WaitForInput(void) {
 
-	for(;;){
+	for(;;) {
 		string s;
 		sf::Packet paquet;
 		sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEcho);
 
 		getline(cin, s);
-		
+
 		paquet << typePaquet << s;
 
 		ReseauGlobal::EnvoiPaquet(client->socket, paquet);
@@ -26,30 +26,30 @@ void WaitForInput(void){
 
 }
 
-void RunServer(unsigned short port){
+void RunServer(unsigned short port) {
 
 	serveur = new ReseauServeur(port);
 
-	for(;;){
+	for(;;) {
 		serveur->EcouterReseau();
 		sf::sleep(sf::milliseconds(50));
 	}
 }
 
-void GetMessageFromServer(){
-	for(;;){
+void GetMessageFromServer() {
+	for(;;) {
 		sf::Packet paquet;
 		string message;
 		sf::Int32 packetType;
 
 		ReseauGlobal::ReceptionPaquet(client->socket, paquet, sf::seconds(0.01f));
 		client->TraiterPaquetServeur(paquet);
-		
+
 		sf::sleep(sf::milliseconds(50));
 	}
 }
 
-void RunClient(string ip, unsigned short port){
+void RunClient(string ip, unsigned short port) {
 
 	sf::Thread clientCinThread(&WaitForInput);
 	sf::Thread fromServerThread(&GetMessageFromServer);
@@ -61,7 +61,7 @@ void RunClient(string ip, unsigned short port){
 
 }
 
-int main(){
+int main() {
 	unsigned short port = 1337;
 	string selection;
 	string p;
@@ -76,7 +76,7 @@ int main(){
 	getline(cin, p);
 	port = atoi(p.c_str());
 
-	if(selection == "s"){
+	if(selection == "s") {
 
 		RunServer(port);
 	}

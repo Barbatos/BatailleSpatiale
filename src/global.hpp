@@ -1,4 +1,4 @@
-﻿#ifndef GLOBAL_HPP
+#ifndef GLOBAL_HPP
 #define GLOBAL_HPP
 
 #include <iostream>
@@ -30,4 +30,4 @@ using namespace std;
 #define DEBUG 		1
 
 
-#endif 
+#endif

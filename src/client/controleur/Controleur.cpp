@@ -9,17 +9,14 @@
 
 #include <client/modele/Plateau.hpp>
 
-Controleur::Controleur(Plateau& modele) : modele(modele)
-{
+Controleur::Controleur(Plateau& modele) : modele(modele) {
 
 }
 
-Controleur::~Controleur()
-{
+Controleur::~Controleur() {
 
 }
 
-void Controleur::action(Position, Position)
-{
+void Controleur::action(Position, Position) {
 
 }

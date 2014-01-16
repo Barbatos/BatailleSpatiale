@@ -3,7 +3,7 @@
 NetworkClient* client;
 NetworkServer* server;
 
-void WaitForInput(void){
+void WaitForInput(void) {
 	string s;
 	sf::Packet packet;
 
@@ -15,25 +15,25 @@ void WaitForInput(void){
 
 }
 
-void RunServer(unsigned short port){
+void RunServer(unsigned short port) {
 
 	server = new NetworkServer(port);
 
-	for(;;){
+	for(;;) {
 		server->acceptNewClient();
 		usleep(1000*100); // 100ms
 	}
 }
 
-void RunClient(string ip, unsigned short port){
+void RunClient(string ip, unsigned short port) {
 	client = new NetworkClient(ip, port);
 
-	for(;;){
+	for(;;) {
 		WaitForInput();
 	}
 }
 
-int main(){
+int main() {
 	unsigned short port = 1337;
 	char selection;
 	string ip = "localhost";
@@ -46,7 +46,7 @@ int main(){
 	cout << "Which port ?" << endl;
 	cin >> port;
 
-	if(selection == 's'){
+	if(selection == 's') {
 
 		RunServer(port);
 	}

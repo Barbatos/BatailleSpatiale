@@ -12,20 +12,17 @@
 #define LARGEUR_FENETRE 675
 
 Affichage::Affichage() :
-		sf::RenderWindow()
-{
+	sf::RenderWindow() {
 
 }
 
-Affichage::~Affichage()
-{
+Affichage::~Affichage() {
 
 }
 
-void Affichage::creer()
-{
+void Affichage::creer() {
 	create(sf::VideoMode::getFullscreenModes()[0], TITRE_FENETRE,
-			sf::Style::Fullscreen);
+	       sf::Style::Fullscreen);
 
 	setVerticalSyncEnabled(true);
 }

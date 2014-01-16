@@ -7,15 +7,15 @@
 
 ReseauClient* 	client;
 
-void WaitForInput(void){
+void WaitForInput(void) {
 
-	for(;;){
+	for(;;) {
 		string s;
 		sf::Packet paquet;
 		sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEcho);
 
 		getline(cin, s);
-		
+
 		paquet << typePaquet << s;
 
 		ReseauGlobal::EnvoiPaquet(client->getSocket(), paquet);
@@ -25,16 +25,16 @@ void WaitForInput(void){
 
 }
 
-void GetMessageFromServer(){
-	for(;;){
+void GetMessageFromServer() {
+	for(;;) {
 
 		client->TraiterPaquetServeur();
-		
+
 		sf::sleep(sf::milliseconds(50));
 	}
 }
 
-void RunClient(string ip, unsigned short port, string pseudo){
+void RunClient(string ip, unsigned short port, string pseudo) {
 
 	sf::Thread clientCinThread(&WaitForInput);
 	sf::Thread fromServerThread(&GetMessageFromServer);
@@ -48,7 +48,7 @@ void RunClient(string ip, unsigned short port, string pseudo){
 
 }
 
-int main(){
+int main() {
 	unsigned short port = 1337;
 	string selection;
 	string p;
@@ -60,7 +60,7 @@ int main(){
 	cout << "Quelle IP? (" << ip << ")" << endl;
 	getline(cin, selection);
 
-	if(!selection.empty()){
+	if(!selection.empty()) {
 		ip = selection;
 	}
 
@@ -69,14 +69,14 @@ int main(){
 	cout << "Quel port ? (" << port << ")" << endl;
 	getline(cin, selection);
 
-	if(!selection.empty()){
+	if(!selection.empty()) {
 		port = atoi(selection.c_str());
 	}
 
 	cout << "Quel est ton pseudo ?" << endl;
 	getline(cin, selection);
 
-	if(!selection.empty()){
+	if(!selection.empty()) {
 		pseudo = selection;
 	}
 

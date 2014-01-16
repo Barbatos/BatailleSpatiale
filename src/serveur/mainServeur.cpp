@@ -1,7 +1,6 @@
 #include "mainServeur.hpp"
 
-int main()
-{
+int main() {
 	ReseauServeurPtr serveur;
 	PlateauServeur* plateau;
 	unsigned int port = 1337;
@@ -11,15 +10,15 @@ int main()
 	cout << "Veuillez entrer le port sur lequel lancer le serveur [" << port << "]" << endl;
 
 	getline(cin, msg);
-	
-	if(!msg.empty()){
+
+	if(!msg.empty()) {
 		port = atoi(msg.c_str());
 	}
 
 	plateau = new PlateauServeur(300, 250);
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
 
-	while(true){
+	while(true) {
 		serveur->EcouterReseau();
 		sf::sleep(sf::milliseconds(50));
 	}

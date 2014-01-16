@@ -10,13 +10,13 @@
 #include <client/Jeu.hpp>
 
 AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
-	int hauteur, AffichageDetails::Ptr details) :
-		Element(gui, id),
-		ObservateurSouris(),
-		details(details),
-		cases(),
-		vuePlateau(sf::FloatRect(0, 0, 0, 0)),
-		charge(false)
+                                   int hauteur, AffichageDetails::Ptr details) :
+	Element(gui, id),
+	ObservateurSouris(),
+	details(details),
+	cases(),
+	vuePlateau(sf::FloatRect(0, 0, 0, 0)),
+	charge(false)
 
 {
 	// Pour initialiser l'élément
@@ -43,16 +43,15 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 
 	// On parcoure les cases du plateau
 	for (int i = 0; i < maxx; i++)
-		for (int j = 0; j < maxy; j++)
-		{
+		for (int j = 0; j < maxy; j++) {
 			// On calcule la position en x et y
 			xc = (i * 2 + j) * taille * 3 / 5;
 			yc = j * taille;
 
 			// On initialise l'affichage de la case
 			AffichageCase* c = new AffichageCase(lireGui(), SceneJeu::Case, xc,
-													yc, taille, Position(i, j),
-													&vuePlateau);
+			                                     yc, taille, Position(i, j),
+			                                     &vuePlateau);
 
 			// On ajoute la case à la liste de cases
 			cases.push_back(AffichageCase::Ptr(c));
@@ -68,27 +67,23 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 	vuePlateau.move(taille / 2, taille / 2);
 }
 
-AffichagePlateau::~AffichagePlateau()
-{
+AffichagePlateau::~AffichagePlateau() {
 	for (std::vector<AffichageCase::Ptr>::size_type i = 0; i < cases.size();
-			i++)
+	        i++)
 		cases[i].reset();
 
 	cases.clear();
 }
 
-void AffichagePlateau::actualiser(float)
-{
+void AffichagePlateau::actualiser(float) {
 	bool selection = false;
 	Position position;
 
 	// Pour toutes les cases, et tant que rien n'a été selectionné
 	for (std::vector<AffichageCase::Ptr>::size_type i = 0;
-			!selection && i < cases.size(); i++)
-	{
+	        !selection && i < cases.size(); i++) {
 		// Si la case est selectionnée
-		if (cases[i]->lireSelectionne())
-		{
+		if (cases[i]->lireSelectionne()) {
 			// On sauvegarde la position actuellement selectionnée
 			position = details->lirePosition();
 			// On selectionne la nouvelle
@@ -103,74 +98,60 @@ void AffichagePlateau::actualiser(float)
 		// Ne rien selectionner
 		details->selectionner();
 	// Sinon
-	else
-	{
+	else {
 		// Si une case était précédemment selectionnée
-		if (position.x != -1 && position.y != -1)
-		{
+		if (position.x != -1 && position.y != -1) {
 			// On récupère la nouvelle position
 			// Position nouvelle = details->lirePosition();
 
 			// Si la précédente case selectionnée contenait un vaisseau
 			if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
-					position))
-			{
+			            position)) {
 				// On déplace ce vaisseau
 			}
 			// Sinon, si c'était un bâtiment
 			else if (lireGui()->lireScene()->lireJeu().lirePlateau()
-					.possedeBatiment(position))
-			{
+			         .possedeBatiment(position)) {
 				// Faire quelque chose
 			}
 		}
 	}
 }
 
-void AffichagePlateau::bougerPlateau(float x, float y)
-{
+void AffichagePlateau::bougerPlateau(float x, float y) {
 	vuePlateau.move(x, y);
 }
 
-void AffichagePlateau::appuiCase()
-{
+void AffichagePlateau::appuiCase() {
 
 }
 
-void AffichagePlateau::afficher(sf::RenderWindow&)
-{
+void AffichagePlateau::afficher(sf::RenderWindow&) {
 
 }
 
-bool AffichagePlateau::contient(sf::Vector2i)
-{
+bool AffichagePlateau::contient(sf::Vector2i) {
 	return false;
 }
 
 // Héritées d'ElementSouris
-void AffichagePlateau::clicSouris()
-{
+void AffichagePlateau::clicSouris() {
 	/* Ne rien faire ici */
 }
 
-void AffichagePlateau::pressionSouris(sf::Mouse::Button)
-{
+void AffichagePlateau::pressionSouris(sf::Mouse::Button) {
 }
 
-void AffichagePlateau::relachementSouris(sf::Mouse::Button)
-{
+void AffichagePlateau::relachementSouris(sf::Mouse::Button) {
 
 }
-void AffichagePlateau::entreeSouris(sf::Vector2f)
-{
+void AffichagePlateau::entreeSouris(sf::Vector2f) {
 	/* Ne rien faire ici */
 }
-void AffichagePlateau::sortieSouris(sf::Vector2f)
-{
+void AffichagePlateau::sortieSouris(sf::Vector2f) {
 	/* Ne rien faire ici */
 }
-void AffichagePlateau::moletteSouris(int delta)
-{
+void AffichagePlateau::moletteSouris(int delta) {
 	if (delta <= 0 && vuePlateau.getSize().x < 2000)
 		vuePlateau.zoom(1.1);
 	else if (delta >= 0 && vuePlateau.getSize().x > 100)
@@ -178,15 +159,12 @@ void AffichagePlateau::moletteSouris(int delta)
 }
 
 // Héritées d'ElementClavier
-void AffichagePlateau::pressionTouche(sf::Keyboard::Key)
-{
+void AffichagePlateau::pressionTouche(sf::Keyboard::Key) {
 	/* Ne rien faire ici */
 }
-void AffichagePlateau::relachementTouche(sf::Keyboard::Key)
-{
+void AffichagePlateau::relachementTouche(sf::Keyboard::Key) {
 
 }
-void AffichagePlateau::entreeTexte(sf::Uint32)
-{
+void AffichagePlateau::entreeTexte(sf::Uint32) {
 	/* Ne rien faire ici */
 }

@@ -8,9 +8,8 @@
 #include "Image.hpp"
 
 Image::Image(Gui* gui, int id, int x, int y, int largeur, int hauteur) :
-		Element(gui, id),
-		sprite()
-{
+	Element(gui, id),
+	sprite() {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
@@ -19,10 +18,9 @@ Image::Image(Gui* gui, int id, int x, int y, int largeur, int hauteur) :
 }
 
 Image::Image(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-	sf::Sprite sprite) :
-		Element(gui, id),
-		sprite(sprite)
-{
+             sf::Sprite sprite) :
+	Element(gui, id),
+	sprite(sprite) {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
@@ -30,31 +28,25 @@ Image::Image(Gui* gui, int id, int x, int y, int largeur, int hauteur,
 	Utile::redimensionnerImage(sprite, lireTaille().x, lireTaille().y, false);
 }
 
-Image::~Image()
-{
+Image::~Image() {
 }
 
-void Image::ecrireSprite(sf::Sprite sprite)
-{
+void Image::ecrireSprite(sf::Sprite sprite) {
 	this->sprite = sprite;
 }
 
-sf::Sprite& Image::lireSprite()
-{
+sf::Sprite& Image::lireSprite() {
 	return sprite;
 }
 
-void Image::actualiser(float)
-{
+void Image::actualiser(float) {
 
 }
 
-void Image::afficher(sf::RenderWindow& affichage)
-{
+void Image::afficher(sf::RenderWindow& affichage) {
 	affichage.draw(sprite);
 }
 
-bool Image::contient(sf::Vector2i position)
-{
+bool Image::contient(sf::Vector2i position) {
 	return sprite.getGlobalBounds().contains(position.x, position.y);
 }

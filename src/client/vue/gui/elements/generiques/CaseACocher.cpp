@@ -13,9 +13,8 @@
  * @brief Constructeur de l'objet
  */
 CaseACocher::CaseACocher(Gui* gui, int id, int x, int y, float hauteur,
-		float largeur) :
-		Element(gui, id), boite(), clique(false)
-{
+                         float largeur) :
+	Element(gui, id), boite(), clique(false) {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
@@ -27,67 +26,52 @@ CaseACocher::CaseACocher(Gui* gui, int id, int x, int y, float hauteur,
 /**
  * Destructeur de l'objet
  */
-CaseACocher::~CaseACocher()
-{
+CaseACocher::~CaseACocher() {
 
 }
 
-void CaseACocher::actualiser(float)
-{
+void CaseACocher::actualiser(float) {
 
 }
 
-void CaseACocher::afficher(sf::RenderWindow& affichage)
-{
+void CaseACocher::afficher(sf::RenderWindow& affichage) {
 	affichage.draw(boite);
 }
 
-bool CaseACocher::contient(sf::Vector2i position)
-{
+bool CaseACocher::contient(sf::Vector2i position) {
 	return boite.getGlobalBounds().contains(position.x, position.y);
 }
 
-bool CaseACocher::estCoche()
-{
+bool CaseACocher::estCoche() {
 	return clique;
 }
 
-void CaseACocher::clicSouris()
-{
-	if (boite.getFillColor() == sf::Color::Cyan)
-	{
+void CaseACocher::clicSouris() {
+	if (boite.getFillColor() == sf::Color::Cyan) {
 		clique = false;
 		boite.setFillColor(sf::Color::White);
-	}
-	else
-	{
+	} else {
 		clique = true;
 		boite.setFillColor(sf::Color::Cyan);
 	}
 }
-void CaseACocher::pressionSouris(sf::Mouse::Button)
-{
+void CaseACocher::pressionSouris(sf::Mouse::Button) {
 
 }
 
-void CaseACocher::relachementSouris(sf::Mouse::Button)
-{
+void CaseACocher::relachementSouris(sf::Mouse::Button) {
 
 }
 
-void CaseACocher::entreeSouris(sf::Vector2f)
-{
+void CaseACocher::entreeSouris(sf::Vector2f) {
 	sf::Color color(120, 120, 120);
 	boite.setFillColor(color);
 }
 
-void CaseACocher::sortieSouris(sf::Vector2f)
-{
+void CaseACocher::sortieSouris(sf::Vector2f) {
 
 }
 
-void CaseACocher::moletteSouris(int)
-{
+void CaseACocher::moletteSouris(int) {
 
 }
-

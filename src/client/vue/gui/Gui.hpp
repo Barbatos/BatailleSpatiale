@@ -28,90 +28,89 @@ class Scene;
  *
  * TODO: Documenter le gui
  */
-class Gui
-{
-	private:
-		/**
-		 *
-		 */
-		std::vector<Element::Ptr> elements;
+class Gui {
+private:
+	/**
+	 *
+	 */
+	std::vector<Element::Ptr> elements;
 
-		/**
-		 *
-		 */
-		std::queue<int> messages;
+	/**
+	 *
+	 */
+	std::queue<int> messages;
 
-		/**
-		 *
-		 */
-		sf::Clock horloge;
+	/**
+	 *
+	 */
+	sf::Clock horloge;
 
-		/**
-		 *
-		 */
-		sf::RenderWindow* fenetre;
+	/**
+	 *
+	 */
+	sf::RenderWindow* fenetre;
 
-		/**
-		 *
-		 */
-		Scene* scene;
+	/**
+	 *
+	 */
+	Scene* scene;
 
-	public:
-		/**
-		 *
-		 */
-		typedef std::shared_ptr<Gui> Ptr;
+public:
+	/**
+	 *
+	 */
+	typedef std::shared_ptr<Gui> Ptr;
 
-		/**
-		 *
-		 */
-		Gui(sf::RenderWindow* fenetre, Scene* scene);
+	/**
+	 *
+	 */
+	Gui(sf::RenderWindow* fenetre, Scene* scene);
 
-		/**
-		 *
-		 */
-		virtual ~Gui();
+	/**
+	 *
+	 */
+	virtual ~Gui();
 
-		/**
-		 *
-		 * @return
-		 */
-		Scene* lireScene();
+	/**
+	 *
+	 * @return
+	 */
+	Scene* lireScene();
 
-		/**
-		 *
-		 * @param element
-		 */
-		void ajouter(Element::Ptr element);
+	/**
+	 *
+	 * @param element
+	 */
+	void ajouter(Element::Ptr element);
 
-		/**
-		 *
-		 * @param element
-		 */
-		void ajouter(Element* element);
+	/**
+	 *
+	 * @param element
+	 */
+	void ajouter(Element* element);
 
-		/**
-		 *
-		 * @param id
-		 */
-		void ajouterMessage(int id);
+	/**
+	 *
+	 * @param id
+	 */
+	void ajouterMessage(int id);
 
-		/**
-		 *
-		 * @param evenement
-		 */
-		void traiter(sf::Event evenement);
+	/**
+	 *
+	 * @param evenement
+	 */
+	void traiter(sf::Event evenement);
 
-		void actualiser();
+	void actualiser();
 
-		void afficher();
+	void afficher();
 
-		/**
-		 *
-		 * @param id
-		 * @return
-		 */
-		bool obtenirMessage(int* id);
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
+	bool obtenirMessage(int* id);
 };
 
 #endif /* GUI_HPP */

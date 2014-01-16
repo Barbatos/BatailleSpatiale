@@ -10,41 +10,39 @@
 #include <client/ressources/Ressources.hpp>
 
 class SceneOptionsMenu :
-	public Scene
-{
-	private:
-		enum Boutons
-		{
-			Musique,
-			AugmenterMusique,
-			BaisserMusique,
-			Son,
-			AugmenterSon,
-			BaisserSon,
-			Retour
-		};
+	public Scene {
+private:
+	enum Boutons {
+	    Musique,
+	    AugmenterMusique,
+	    BaisserMusique,
+	    Son,
+	    AugmenterSon,
+	    BaisserSon,
+	    Retour
+	};
 
-		Ressources::MusicPtr musique;
+	Ressources::MusicPtr musique;
 
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance de scène jeu options avec le jeu actuel
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneOptionsMenu(Jeu& jeu);
+public:
+	/**
+	 * \brief Constructeur
+	 *
+	 * Créé une nouvelle instance de scène jeu options avec le jeu actuel
+	 *
+	 * \param jeu le jeu actuel
+	 */
+	SceneOptionsMenu(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée de scène jeu options
-		 */
-		virtual ~SceneOptionsMenu();
+	/**
+	 * \brief Destructeur
+	 *
+	 * Détruit l'instance précédemment créée de scène jeu options
+	 */
+	virtual ~SceneOptionsMenu();
 
-		// Héritée de Scene
-		void surMessage(int id);
+	// Héritée de Scene
+	void surMessage(int id);
 };
 
 #endif /* SCENEOPTIONSMENU_HPP */

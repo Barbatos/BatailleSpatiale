@@ -13,49 +13,48 @@
 
 #include <SFML/Graphics.hpp>
 
-class Splash
-{
-	private:
-		Splash();
+class Splash {
+private:
+	Splash();
 
-		static Splash instance;
+	static Splash instance;
 
-		sf::RenderWindow fenetre;
-		sf::Texture texture;
-		sf::Sprite sprite;
-		sf::Font police;
-		sf::Text label;
+	sf::RenderWindow fenetre;
+	sf::Texture texture;
+	sf::Sprite sprite;
+	sf::Font police;
+	sf::Text label;
 
-		std::string texte;
-		int valeur;
-		int maxi;
+	std::string texte;
+	int valeur;
+	int maxi;
 
-		bool fin;
+	bool fin;
 
-	public:
-		virtual ~Splash();
+public:
+	virtual ~Splash();
 
-		void lancer();
+	void lancer();
 
-		void fermer();
+	void fermer();
 
-		void actualiser();
+	void actualiser();
 
-		void dessiner();
+	void dessiner();
 
-		std::string lireTexte();
+	std::string lireTexte();
 
-		int lireValeur();
+	int lireValeur();
 
-		int lireMaxi();
+	int lireMaxi();
 
-		void changerTexte(std::string texte);
+	void changerTexte(std::string texte);
 
-		void changerValeur(int valeur);
+	void changerValeur(int valeur);
 
-		void changerMaxi(int maxi);
+	void changerMaxi(int maxi);
 
-		static Splash& lireInstance();
+	static Splash& lireInstance();
 };
 
 #endif /* SPLASH_HPP */

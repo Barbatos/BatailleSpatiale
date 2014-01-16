@@ -18,37 +18,35 @@ class ZoneTexte;
  * Écran de création d'une partie Solo
  */
 class SceneMenuSolo :
-	public Scene
-{
-	private:
-		/**
-		 * \brief Les différents boutons de la scène
-		 */
-		enum Boutons
-		{
-			Solo, //!< Lancer une partie Solo
-			Retour
-		};
+	public Scene {
+private:
+	/**
+	 * \brief Les différents boutons de la scène
+	 */
+	enum Boutons {
+	    Solo, //!< Lancer une partie Solo
+	    Retour
+	};
 
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance de scène menu solo avec le jeu actuel
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneMenuSolo(Jeu& jeu);
+public:
+	/**
+	 * \brief Constructeur
+	 *
+	 * Créé une nouvelle instance de scène menu solo avec le jeu actuel
+	 *
+	 * \param jeu le jeu actuel
+	 */
+	SceneMenuSolo(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée de scène menu solo
-		 */
-		virtual ~SceneMenuSolo();
+	/**
+	 * \brief Destructeur
+	 *
+	 * Détruit l'instance précédemment créée de scène menu solo
+	 */
+	virtual ~SceneMenuSolo();
 
-		// Héritée de Scene
-		void surMessage(int id);
+	// Héritée de Scene
+	void surMessage(int id);
 };
 
 #endif /* SCENEMENUSOLO_HPP */

@@ -13,12 +13,11 @@
 #include <iostream>
 
 AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
-	float largeur, float hauteur) :
-		Element(gui, id),
-		fond(),
-		label("", x + 5, y + 5),
-		position(-1, -1)
-{
+                                   float largeur, float hauteur) :
+	Element(gui, id),
+	fond(),
+	label("", x + 5, y + 5),
+	position(-1, -1) {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
@@ -30,115 +29,96 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 	fond.setOutlineThickness(2);
 
 	label.setFont(
-			lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
-					"grand9k.ttf"));
+	    lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
+	        "grand9k.ttf"));
 }
 
-AffichageDetails::~AffichageDetails()
-{
+AffichageDetails::~AffichageDetails() {
 
 }
 
-void AffichageDetails::actualiser(float)
-{
+void AffichageDetails::actualiser(float) {
 	std::stringstream stream;
 
-	if (position.x != -1 && position.y != -1)
-	{
+	if (position.x != -1 && position.y != -1) {
 		if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(
-				position))
-		{
+		            position)) {
 			DetailVaisseau details = lireGui()->lireScene()->lireJeu()
-					.lirePlateau().getVaisseau(position);
+			                         .lirePlateau().getVaisseau(position);
 
 			stream
-				<< "Type : "
-				<< Utile::convertir(details.type)
-				<< "\n"
-				<< "Vie : "
-				<< details.vie
-				<< "/"
-				<< details.vieMax
-				<< "\n";
-		}
-		else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(
-				position))
-		{
+			        << "Type : "
+			        << Utile::convertir(details.type)
+			        << "\n"
+			        << "Vie : "
+			        << details.vie
+			        << "/"
+			        << details.vieMax
+			        << "\n";
+		} else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(
+		               position)) {
 			DetailBatiment details = lireGui()->lireScene()->lireJeu()
-					.lirePlateau().getBatiment(position);
+			                         .lirePlateau().getBatiment(position);
 
 			stream
-				<< "Type : "
-				<< Utile::convertir(details.type)
-				<< "\n"
-				<< "Vie : "
-				<< details.vie
-				<< "/"
-				<< details.vieMax
-				<< "\n";
-		}
-		else if (lireGui()->lireScene()->lireJeu().lirePlateau()
-				.possedeEvenement(position))
-		{
+			        << "Type : "
+			        << Utile::convertir(details.type)
+			        << "\n"
+			        << "Vie : "
+			        << details.vie
+			        << "/"
+			        << details.vieMax
+			        << "\n";
+		} else if (lireGui()->lireScene()->lireJeu().lirePlateau()
+		           .possedeEvenement(position)) {
 			DetailEvenement details = lireGui()->lireScene()->lireJeu()
-					.lirePlateau().getEvenement(position);
+			                          .lirePlateau().getEvenement(position);
 
 			stream
-				<< "Type : "
-				<< Utile::convertir(details.type)
-				<< "\n";
-		}
-		else
-		{
+			        << "Type : "
+			        << Utile::convertir(details.type)
+			        << "\n";
+		} else {
 			stream
-				<< "Case vide"
-				<< "Position : "
-				<< position.x
-				<< " : "
-				<< position.y;
+			        << "Case vide"
+			        << "Position : "
+			        << position.x
+			        << " : "
+			        << position.y;
 		}
-	}
-	else
-	{
+	} else {
 		stream
-			<< "Aucune case n'est selectionnee";
+		        << "Aucune case n'est selectionnee";
 	}
 
 	label.setString(stream.str());
 }
 
-void AffichageDetails::afficher(sf::RenderWindow& affichage)
-{
+void AffichageDetails::afficher(sf::RenderWindow& affichage) {
 	affichage.draw(fond);
 	affichage.draw(label);
 }
 
-bool AffichageDetails::contient(sf::Vector2i)
-{
+bool AffichageDetails::contient(sf::Vector2i) {
 	return false;
 }
 
-void AffichageDetails::selectionner(int i, int j)
-{
+void AffichageDetails::selectionner(int i, int j) {
 	position = Position(i, j);
 }
 
-void AffichageDetails::selectionner(Position position)
-{
+void AffichageDetails::selectionner(Position position) {
 	this->position = position;
 }
 
-void AffichageDetails::selectionner()
-{
+void AffichageDetails::selectionner() {
 	position = Position(-1, -1);
 }
 
-bool AffichageDetails::estSelectionne()
-{
+bool AffichageDetails::estSelectionne() {
 	return position.x != -1 && position.y != -1;
 }
 
-Position AffichageDetails::lirePosition()
-{
+Position AffichageDetails::lirePosition() {
 	return position;
 }

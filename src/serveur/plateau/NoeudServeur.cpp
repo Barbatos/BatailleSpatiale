@@ -12,22 +12,22 @@ NoeudServeur::NoeudServeur(Position& _position, sf::Int32 g, Position _positionP
 	positionParent = _positionParent;
 }
 
-bool NoeudServeur::gInferieur(const NoeudServeur& noeud){
+bool NoeudServeur::gInferieur(const NoeudServeur& noeud) {
 	return distanceG < noeud.distanceG;
 }
 
-sf::Int32 NoeudServeur::getG(){
+sf::Int32 NoeudServeur::getG() {
 	return distanceG;
 }
 
-bool NoeudServeur::operator==(const NoeudServeur& noeud){
+bool NoeudServeur::operator==(const NoeudServeur& noeud) {
 	return noeud.position.x == position.x && position.y == noeud.position.y;
 }
 
-Position NoeudServeur::getPosition(){
+Position NoeudServeur::getPosition() {
 	return position;
 }
 
-Position NoeudServeur::getPositionParent(){
+Position NoeudServeur::getPositionParent() {
 	return positionParent;
 }

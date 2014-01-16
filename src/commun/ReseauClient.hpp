@@ -11,78 +11,77 @@
  * Classe qui permet à un client de se connecter à
  * un serveur de jeu et d'envoyer/recevoir des infos.
  */
-class ReseauClient
-{
+class ReseauClient {
 
-	public:
-		/**
-		 * \brief Constructeur par défaut
-		 * 
-		 */
-		ReseauClient(Plateau& _plateau);
+public:
+	/**
+	 * \brief Constructeur par défaut
+	 *
+	 */
+	ReseauClient(Plateau& _plateau);
 
-		/**
-		 * \brief Destructeur par défaut
-		 */
-		~ReseauClient(void);
-		
-		/**
-		 * \brief Connexion à un serveur
-		 * 
-		 * \param ip l'ip du serveur sur lequel on veut se connecter
-		 * \param port le port du serveur
-		 */
-		void ConnexionServeur(string ip, unsigned short port);
+	/**
+	 * \brief Destructeur par défaut
+	 */
+	~ReseauClient(void);
 
-		/**
-		 * \brief Traite un paquet reçu de la part du serveur
-		 *
-		 */
-		void TraiterPaquetServeur(void);
+	/**
+	 * \brief Connexion à un serveur
+	 *
+	 * \param ip l'ip du serveur sur lequel on veut se connecter
+	 * \param port le port du serveur
+	 */
+	void ConnexionServeur(string ip, unsigned short port);
 
-		/**
-		 * \brief Récupère l'état d'activité du client sur le réseau
-		 *
-		 * \return si le client est actif ou non
-		 */
-		bool getActif(void);
+	/**
+	 * \brief Traite un paquet reçu de la part du serveur
+	 *
+	 */
+	void TraiterPaquetServeur(void);
 
-		/**
-		 * \brief Définit l'état d'activité du client sur le réseau
-		 *
-		 * \param _actif l'état d'activité
-		 */
-		void setActif(bool _actif);
+	/**
+	 * \brief Récupère l'état d'activité du client sur le réseau
+	 *
+	 * \return si le client est actif ou non
+	 */
+	bool getActif(void);
 
-		sf::TcpSocket& getSocket(void);
+	/**
+	 * \brief Définit l'état d'activité du client sur le réseau
+	 *
+	 * \param _actif l'état d'activité
+	 */
+	void setActif(bool _actif);
 
-		void setIp(string _ip);
+	sf::TcpSocket& getSocket(void);
 
-		void setPort(unsigned short _port);
+	void setIp(string _ip);
 
-		void EnvoyerPseudoServeur(string pseudo);
+	void setPort(unsigned short _port);
 
-		void getZoneParcourable(Position p);
+	void EnvoyerPseudoServeur(string pseudo);
 
-		void parseZoneParcourable(sf::Packet paquet);
+	void getZoneParcourable(Position p);
 
-		void getChemin(Position depart, Position arrivee);
+	void parseZoneParcourable(sf::Packet paquet);
 
-		void parseChemin(sf::Packet paquet);
+	void getChemin(Position depart, Position arrivee);
 
-	private:
+	void parseChemin(sf::Packet paquet);
 
-		/// La socket du client
-		sf::TcpSocket socket;
+private:
 
-		/// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
-		bool actif;
+	/// La socket du client
+	sf::TcpSocket socket;
 
-		string ip;
+	/// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
+	bool actif;
 
-		unsigned short port;
+	string ip;
 
-		Plateau& plateau;
+	unsigned short port;
+
+	Plateau& plateau;
 };
 
 #endif

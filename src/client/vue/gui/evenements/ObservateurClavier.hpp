@@ -15,17 +15,16 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/String.hpp>
 
-class ObservateurClavier
-{
-	public:
-		typedef std::shared_ptr<ObservateurClavier> Ptr;
+class ObservateurClavier {
+public:
+	typedef std::shared_ptr<ObservateurClavier> Ptr;
 
-		ObservateurClavier();
-		virtual ~ObservateurClavier();
+	ObservateurClavier();
+	virtual ~ObservateurClavier();
 
-		virtual void pressionTouche(sf::Keyboard::Key touche) = 0;
-		virtual void relachementTouche(sf::Keyboard::Key touche) = 0;
-		virtual void entreeTexte(sf::Uint32 texte) = 0;
+	virtual void pressionTouche(sf::Keyboard::Key touche) = 0;
+	virtual void relachementTouche(sf::Keyboard::Key touche) = 0;
+	virtual void entreeTexte(sf::Uint32 texte) = 0;
 };
 
 #endif /* OBSERVATEURCLAVIER_HPP */

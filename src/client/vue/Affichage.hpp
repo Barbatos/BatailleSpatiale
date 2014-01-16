@@ -16,8 +16,7 @@
  * Représente la fenêtre qui affiche le jeu
  */
 class Affichage :
-	public sf::RenderWindow
-{
+	public sf::RenderWindow {
 public:
 	/**
 	 * \brief Constructeur

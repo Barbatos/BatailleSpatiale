@@ -16,16 +16,15 @@
 Splash Splash::instance;
 
 Splash::Splash() :
-		fenetre(),
-		texture(),
-		sprite(),
-		police(),
-		label(),
-		texte("Bataille Spatiale"),
-		valeur(0),
-		maxi(100),
-		fin(false)
-{
+	fenetre(),
+	texture(),
+	sprite(),
+	police(),
+	label(),
+	texte("Bataille Spatiale"),
+	valeur(0),
+	maxi(100),
+	fin(false) {
 	police.loadFromFile("ressources/polices/grand9k.ttf");
 	texture.loadFromFile("ressources/images/Interface/splash_screen.png");
 	texture.setSmooth(true);
@@ -33,7 +32,7 @@ Splash::Splash() :
 	sprite.setTexture(texture);
 	Utile::redimensionnerImage(sprite, 576, 324, true);
 	sprite.setPosition((576 - sprite.getGlobalBounds().width) / 2,
-						(324 - sprite.getGlobalBounds().height) / 2);
+	                   (324 - sprite.getGlobalBounds().height) / 2);
 
 	label.setFont(police);
 	label.setCharacterSize(14);
@@ -43,14 +42,11 @@ Splash::Splash() :
 	fenetre.setVerticalSyncEnabled(true);
 }
 
-Splash::~Splash()
-{
+Splash::~Splash() {
 }
 
-void Splash::lancer()
-{
-	while (!fin)
-	{
+void Splash::lancer() {
+	while (!fin) {
 		fenetre.clear();
 
 		actualiser();
@@ -63,61 +59,51 @@ void Splash::lancer()
 	fenetre.close();
 }
 
-void Splash::fermer()
-{
+void Splash::fermer() {
 	this->fin = true;
 }
 
-void Splash::actualiser()
-{
+void Splash::actualiser() {
 	std::stringstream stream;
 
 	stream
-		<< texte
-		<< " "
-		<< (valeur * 100 / maxi)
-		<< "%";
+	        << texte
+	        << " "
+	        << (valeur * 100 / maxi)
+	        << "%";
 
 	label.setString(stream.str());
 }
 
-void Splash::dessiner()
-{
+void Splash::dessiner() {
 	fenetre.draw(sprite);
 	fenetre.draw(label);
 }
 
-std::string Splash::lireTexte()
-{
+std::string Splash::lireTexte() {
 	return texte;
 }
 
-int Splash::lireValeur()
-{
+int Splash::lireValeur() {
 	return valeur;
 }
 
-int Splash::lireMaxi()
-{
+int Splash::lireMaxi() {
 	return maxi;
 }
 
-void Splash::changerTexte(std::string texte)
-{
+void Splash::changerTexte(std::string texte) {
 	this->texte = texte;
 }
 
-void Splash::changerValeur(int valeur)
-{
+void Splash::changerValeur(int valeur) {
 	this->valeur = valeur;
 }
 
-void Splash::changerMaxi(int maxi)
-{
+void Splash::changerMaxi(int maxi) {
 	this->maxi = maxi;
 }
 
-Splash& Splash::lireInstance()
-{
+Splash& Splash::lireInstance() {
 	return instance;
 }

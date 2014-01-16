@@ -8,8 +8,7 @@
 #include <iostream>
 #include "Jeu.hpp"
 
-int main()
-{
+int main() {
 	Jeu jeu;
 
 	jeu.lancer();

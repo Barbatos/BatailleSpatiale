@@ -7,14 +7,11 @@
 
 #include "ObservateurSouris.hpp"
 
-ObservateurSouris::ObservateurSouris()
-{
+ObservateurSouris::ObservateurSouris() {
 	// TODO Auto-generated constructor stub
 
 }
 
-ObservateurSouris::~ObservateurSouris()
-{
+ObservateurSouris::~ObservateurSouris() {
 	// TODO Auto-generated destructor stub
 }
-

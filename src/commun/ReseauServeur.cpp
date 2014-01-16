@@ -1,12 +1,12 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) : 
+ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
 	plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
-        
-    plateau.setJoueurs(&joueurs);
+
+	plateau.setJoueurs(&joueurs);
 
 	// On écoute sur le port défini plus haut
-	if (listener.listen(port) != sf::Socket::Done){
+	if (listener.listen(port) != sf::Socket::Done) {
 		cout << "[RESEAU] Impossible d'écouter sur le port " << port << endl;
 		return;
 	}
@@ -20,7 +20,7 @@ ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
 	cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
 
-void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet){
+void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet) {
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 	sf::TcpSocket* client = joueur.getSocket();
 	ostringstream id;
@@ -30,71 +30,71 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 
 	paquet >> typePaquet;
 
-	switch(static_cast<TypePaquet>(typePaquet)){
+	switch(static_cast<TypePaquet>(typePaquet)) {
 
 		// Message à envoyer à tout le monde
-		case TypePaquet::MessageEcho:
+	case TypePaquet::MessageEcho:
 
-			paquet >> msg;
-			msgFinal = "<" + joueur.getPseudo() + "> " + msg;
+		paquet >> msg;
+		msgFinal = "<" + joueur.getPseudo() + "> " + msg;
 
-			EnvoiATous(msgFinal);
-			break;
+		EnvoiATous(msgFinal);
+		break;
 
 
 		// Le client veut changer de pseudo
-		case TypePaquet::ChangementDeNom:
-			id << joueur.getId();
+	case TypePaquet::ChangementDeNom:
+		id << joueur.getId();
 
-			paquet >> msg;
-			msgFinal = "Le joueur " + joueur.getPseudo() + " (#" +id.str() + ") a change son pseudo en " + msg;
+		paquet >> msg;
+		msgFinal = "Le joueur " + joueur.getPseudo() + " (#" +id.str() + ") a change son pseudo en " + msg;
 
-			joueur.setPseudo(msg);
-			EnvoiATous(msgFinal);
-			break;
+		joueur.setPseudo(msg);
+		EnvoiATous(msgFinal);
+		break;
 
 
 		// Récupération de la liste des joueurs
-		case TypePaquet::GetListeJoueurs:
-			msgFinal = "Liste des joueurs connectés:\n";
+	case TypePaquet::GetListeJoueurs:
+		msgFinal = "Liste des joueurs connectés:\n";
 
-			for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
-				JoueurServeur& j = *it;
-				ostringstream id;
+		for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+			JoueurServeur& j = *it;
+			ostringstream id;
 
-				id << j.getId();
+			id << j.getId();
 
-				msgFinal.append(j.getPseudo() + " (#" + id.str() + ")\n");
-			}
+			msgFinal.append(j.getPseudo() + " (#" + id.str() + ")\n");
+		}
 
-			EnvoiUnique(*client, msgFinal);
-			break;
+		EnvoiUnique(*client, msgFinal);
+		break;
 
 		// Envoi de la zone parcourable au client
-		case TypePaquet::GetZoneParcourable:
-			paquet >> pos;
-			EnvoiZoneParcourable(*client, pos);
-			break;
+	case TypePaquet::GetZoneParcourable:
+		paquet >> pos;
+		EnvoiZoneParcourable(*client, pos);
+		break;
 
 		// Envoi au client du chemin entre un poont 1 et un point 2
-		case TypePaquet::GetChemin:
-			paquet >> pos >> pos2;
-			EnvoiChemin(*client, pos, pos2);
-			break;
+	case TypePaquet::GetChemin:
+		paquet >> pos >> pos2;
+		EnvoiChemin(*client, pos, pos2);
+		break;
 
-		default:
-			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
-			break;
+	default:
+		cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
+		break;
 	}
 }
 
-void ReseauServeur::EnvoiATous(string& message){
+void ReseauServeur::EnvoiATous(string& message) {
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
 	paquet << typePaquet << message;
 
-	for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+	for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
 		// On récupère les infos du client dans la liste
 		JoueurServeur& j = *it;
 		sf::TcpSocket* client = j.getSocket();
@@ -103,7 +103,7 @@ void ReseauServeur::EnvoiATous(string& message){
 	}
 }
 
-void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
+void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message) {
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
@@ -111,7 +111,7 @@ void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message){
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau){
+void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau) {
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
 
@@ -119,7 +119,7 @@ void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau)
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos){
+void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos) {
 	sf::Packet paquet;
 	std::list<NoeudServeur> noeuds;
 	std::list<NoeudServeur>::iterator noeudIterator;
@@ -132,14 +132,14 @@ void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos){
 
 	paquet << typePaquet << tailleZone;
 
-	for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++){
+	for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
 		paquet << noeudIterator->getPosition();
 	}
 
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee){
+void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
 	sf::Packet paquet;
 	std::list<NoeudServeur> noeuds;
 	std::list<Position>::iterator cheminIterator;
@@ -155,24 +155,23 @@ void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Posit
 
 	paquet << typePaquet << tailleZone;
 
-	for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++){
+	for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++) {
 		paquet << *cheminIterator;
 	}
 }
 
-void ReseauServeur::EcouterReseau(void)
-{
+void ReseauServeur::EcouterReseau(void) {
 
 	// On attend qu'il se passe quelque chose sur le réseau
-	if (selector.wait(sf::milliseconds(50))){
+	if (selector.wait(sf::milliseconds(50))) {
 
 		// On teste s'il y a une nouvelle connexion en attente sur le serveur
-		if (selector.isReady(listener)){
+		if (selector.isReady(listener)) {
 			// Nouveau client
 			sf::TcpSocket* client = new sf::TcpSocket;
 
 			// Le nouveau client a été accepté
-			if (listener.accept(*client) == sf::Socket::Done){
+			if (listener.accept(*client) == sf::Socket::Done) {
 				JoueurServeur* j = new JoueurServeur();
 				string msgGlobal;
 				ostringstream c;
@@ -192,7 +191,7 @@ void ReseauServeur::EcouterReseau(void)
 				EnvoiPlateau(*client, plateau);
 
 				cout << "[RESEAU] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
-				
+
 				c << j->getId();
 
 				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
@@ -211,17 +210,17 @@ void ReseauServeur::EcouterReseau(void)
 			}
 		}
 
-		// Pas de nouvelle connexion, on vérifie si on a reçu un message 
+		// Pas de nouvelle connexion, on vérifie si on a reçu un message
 		// d'un des clients
 		else {
 			// On parcours la liste de tous les clients
-			for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+			for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
 				// On récupère les infos du client dans la liste
 				JoueurServeur& j = *it;
 				sf::TcpSocket* client = j.getSocket();
 
 				// Si le client a envoyé un message
-				if (selector.isReady(*client)){
+				if (selector.isReady(*client)) {
 					sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 					sf::Packet packet;
 					sf::Socket::Status status;
@@ -229,30 +228,30 @@ void ReseauServeur::EcouterReseau(void)
 					status = client->receive(packet);
 
 					// Le message s'est envoyé correctement
-					if (status == sf::Socket::Done){
+					if (status == sf::Socket::Done) {
 						string msg;
 
-						if(msg.empty()){
+						if(msg.empty()) {
 							return;
 						}
 
 						TraiterPaquetClient(j, packet);
 
-						cout << "[RESEAU] Message du client " 
-							 << j.getPseudo()
-							 << " "
-							 << client->getRemoteAddress() 
-							 << ":" 
-							 << client->getRemotePort() 
-							 << " : " << typePaquet << " : " << msg << endl;
+						cout << "[RESEAU] Message du client "
+						     << j.getPseudo()
+						     << " "
+						     << client->getRemoteAddress()
+						     << ":"
+						     << client->getRemotePort()
+						     << " : " << typePaquet << " : " << msg << endl;
 
 						return;
 					}
 
 					else {
-						
+
 						// Si c'est une déconnexion, on le fait savoir au serveur
-						if(status == sf::Socket::Disconnected){
+						if(status == sf::Socket::Disconnected) {
 							string msgGlobal;
 							ostringstream c;
 
@@ -272,7 +271,7 @@ void ReseauServeur::EcouterReseau(void)
 						}
 
 						// S'il y a eu une erreur lors de la réception du paquet
-						if(status == sf::Socket::Error){
+						if(status == sf::Socket::Error) {
 							cout << "[RESEAU] Erreur lors de la reception d'un paquet du client " << client->getRemoteAddress() << endl;
 						}
 					}
@@ -282,24 +281,23 @@ void ReseauServeur::EcouterReseau(void)
 	}
 }
 
-void ReseauServeur::setPlateau(PlateauServeur& _plateau){
-    plateau = _plateau;
-    plateau.setJoueurs(&joueurs);
+void ReseauServeur::setPlateau(PlateauServeur& _plateau) {
+	plateau = _plateau;
+	plateau.setJoueurs(&joueurs);
 }
 
-void ReseauServeur::threadReseau(){
-	while(actif){
+void ReseauServeur::threadReseau() {
+	while(actif) {
 		EcouterReseau();
 		sf::sleep(sf::milliseconds(100));
 	}
 }
 
-void ReseauServeur::lancerReseau(){
+void ReseauServeur::lancerReseau() {
 	actif = true;
 	reseauThread.launch();
 }
 
-void ReseauServeur::fermerReseau(){
+void ReseauServeur::fermerReseau() {
 	actif = false;
 }
-
