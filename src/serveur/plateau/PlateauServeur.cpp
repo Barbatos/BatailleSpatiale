@@ -12,6 +12,9 @@ PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
 
 void PlateauServeur::initialisationTest() {
     cellule[6][4].creerVaisseauTest();
+    cellule[5][6].setType(TypeCellule::Inexistant);
+    cellule[6][6].setType(TypeCellule::Inexistant);
+    cellule[6][5].setType(TypeCellule::Inexistant);
     cellule[0][1].creerBatimentBaseTest();
     cellule[1][0].creerVaisseauTest();
     cellule[1][1].creerBatimentBaseTest();
