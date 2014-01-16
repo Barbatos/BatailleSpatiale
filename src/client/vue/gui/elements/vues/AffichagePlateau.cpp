@@ -78,18 +78,25 @@ void AffichagePlateau::appuiCase() {
     bool selection = false;
     Position position;
 
+    lireGui()->lireScene()->lireJeu().lirePlateau().viderZoneParcourable();
+
     // Pour toutes les cases, et tant que rien n'a été selectionné
     for (std::vector<AffichageCase::Ptr>::size_type i = 0; !selection && i < cases.size(); i++) {
         // Si la case est selectionnée
         if (cases[i]->lireSelectionne()) {
+            Position selection = cases[i]->lirePositionPlateau();
+
             // On sauvegarde la position actuellement selectionnée
             position = details->lirePosition();
             // On selectionne la nouvelle
-            details->selectionner(cases[i]->lirePositionPlateau());
+            details->selectionner(selection);
             // On dit que quelque chose a été selectionné
             selection = true;
 
-            lireGui()->lireScene()->lireJeu().lireReseau()->getZoneParcourable(cases[i]->lirePositionPlateau());
+            TypeCellule c = lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(selection).statutEmplacement();
+
+            if (c == TypeCellule::Vaisseau)
+                lireGui()->lireScene()->lireJeu().lireReseau()->getZoneParcourable(selection);
         }
     }
 
@@ -97,8 +104,6 @@ void AffichagePlateau::appuiCase() {
     if (!selection) {
         // Ne rien selectionner
         details->selectionner();
-
-        lireGui()->lireScene()->lireJeu().lirePlateau().viderZoneParcourable();
     }
     // Sinon
     else {
