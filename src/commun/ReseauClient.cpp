@@ -120,13 +120,13 @@ void ReseauClient::EnvoyerPseudoServeur(string pseudo)
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
-void ReseauClient::getZoneParcourable(Position)
+void ReseauClient::getZoneParcourable(Position p)
 {
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
 	sf::Packet paquet;
 
 	paquet
-		<< typePaquet;
+		<< typePaquet << p;
 
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }

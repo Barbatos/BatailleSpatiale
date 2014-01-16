@@ -30,13 +30,11 @@ class ReseauServeur
 		void EcouterReseau(void);
 
 		/**
-		 * \brief Fonction permettant de traiter un paquet reçu d'un client
-		 * en fonction du type de paquet.
+		 * \brief Fonction permettant de traiter un paquet reçu d'un client.
 		 * 
-		 * \param typePaquet le type de paquet reçu
-		 * \param msg le contenu du paquet
+		 * \param paquet le paquet reçu
 		 */
-		void TraiterPaquetClient(JoueurServeur& joueur, sf::Uint16 typePaquet, string& msg);
+		void TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet);
 
 		/**
 		 * \brief Envoi d'un message par le serveur à tous les clients
@@ -69,7 +67,7 @@ class ReseauServeur
 
 		void fermerReseau();
 
-		void EnvoiZoneParcourable(sf::TcpSocket& client, sf::Int32 tailleZone, std::list<NoeudServeur> noeuds);
+		void EnvoiZoneParcourable(sf::TcpSocket& client, Position pos);
 
 	private:
 
