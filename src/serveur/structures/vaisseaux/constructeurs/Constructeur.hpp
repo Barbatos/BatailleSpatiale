@@ -13,20 +13,20 @@
 class Constructeur : public VaisseauServeur {
 
 public:
-	Constructeur();
-	Constructeur(int vieMax, int bouclierMax, double bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int materiauxMax);
+    Constructeur();
+    Constructeur(int vieMax, int bouclierMax, double bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int materiauxMax);
 
-	int getMateriaux();
-	void setMateriaux(int materiaux);
-	int getMateriauxMax();
-	void setMateriauxMax(int materiauxMax);
-	void ajouterBatiment(BatimentServeur batiment);
-	void retirerBatiment();
+    int getMateriaux();
+    void setMateriaux(int materiaux);
+    int getMateriauxMax();
+    void setMateriauxMax(int materiauxMax);
+    void ajouterBatiment(BatimentServeur batiment);
+    void retirerBatiment();
 
 private:
-	int materiaux;
-	int materiauxMax;
-	std::vector<BatimentServeur> listeConstruction;
+    int materiaux;
+    int materiauxMax;
+    std::vector<BatimentServeur> listeConstruction;
 
 
 };
