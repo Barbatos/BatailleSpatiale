@@ -26,7 +26,7 @@ public:
 
     /**
      * \brief Initialisation de test
-     * Cette methode est juste pour faire un plateau de test qui 
+     * Cette methode est juste pour faire un plateau de test qui
      * ne seras pas utilisé lors de la release
      *
      */
@@ -149,6 +149,15 @@ public:
      * \param joueurs référence vers la liste des joueurs
      */
     void setJoueurs(std::vector<JoueurServeur> *_joueurs);
+
+    /**
+     * \brief Permet de déplacer un vaisseau d'une position a une autre
+     *
+     * \param p1 Position d'une cellule
+     * \param p2 Position d'une cellule
+     * \return Vrai si au moins une cellule contient un vaisseau et l'autre non
+     */
+    bool deplacerVaisseau(Position p1, Position p2);
 
     PlateauServeur& operator=(const PlateauServeur& plateau2);
 
