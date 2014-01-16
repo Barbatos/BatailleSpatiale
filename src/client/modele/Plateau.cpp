@@ -1,12 +1,8 @@
 #include "Plateau.hpp"
 
 Plateau::Plateau()
-                : tailleX(0), tailleY(0) {
-    for (sf::Int32 i = 0; i < tailleX; ++i) {
-        for (sf::Int32 j = 0; j < tailleX; ++j) {
-            cellule[i][j].setParcourable(false);
-        }
-    }
+    : tailleX(0), tailleY(0) {
+    viderZoneParcourable();
 }
 
 bool Plateau::possedeEvenement(Position p) {
@@ -61,9 +57,12 @@ sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
 
     plateau.cellule.resize(plateau.tailleX, std::vector<Cellule>(plateau.tailleY));
 
+
     for (sf::Int32 x = 0; x < plateau.tailleX; ++x)
         for (sf::Int32 y = 0; y < plateau.tailleY; ++y)
             paquet >> plateau.cellule[x][y];
+    
+    plateau.viderZoneParcourable();
 
     return paquet;
 }

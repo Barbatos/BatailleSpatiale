@@ -89,7 +89,7 @@ void Jeu::threadReseau() {
 }
 
 void Jeu::lancerServeurGUI(unsigned int port) {
-	plateauServeur = PlateauServeurPtr(new PlateauServeur(10, 10));
+	plateauServeur = PlateauServeurPtr(new PlateauServeur(30, 30));
 	plateauServeur->initialisationTest();
 	serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
 

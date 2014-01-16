@@ -134,7 +134,6 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
 	paquet << typePaquet << tailleZone;
 
 	for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
-		cout << "position: " << noeudIterator->getPosition().x << ", " << noeudIterator->getPosition().y << endl;
 		paquet << noeudIterator->getPosition();
 	}
 
