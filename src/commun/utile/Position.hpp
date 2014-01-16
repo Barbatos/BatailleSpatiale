@@ -17,9 +17,9 @@ public:
      * \param _x la position en x
      * \param _y la position en y
      */
-    Position(int _x = 0, int _y = 0);
-    int x; ///< La position en x
-    int y; ///< La position en y
+    Position(sf::Int32 _x = 0, sf::Int32 _y = 0);
+    sf::Int32 x; ///< La position en x
+    sf::Int32 y; ///< La position en y
 
     /**
      * \brief Retourne si la position actuelle est egale a la position p
@@ -63,7 +63,7 @@ public:
      * \param _x Le nouveau x
      * \param _y Le nouveau y
      */
-    void set(int _x, int _y);
+    void set(sf::Int32 _x, sf::Int32 _y);
 
     /**
      * \brief Met la position a NULL

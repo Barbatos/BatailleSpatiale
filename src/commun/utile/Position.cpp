@@ -1,5 +1,5 @@
 #include "Position.hpp"
-Position::Position(int _x, int _y) :
+Position::Position(sf::Int32 _x, sf::Int32 _y) :
     x(_x),
     y(_y) {
 }
@@ -30,7 +30,7 @@ Position operator-(Position& p1, Position& p2) {
 void Position::operator=(Position p) {
     set(p.x, p.y);
 }
-void Position::set(int _x, int _y) {
+void Position::set(sf::Int32 _x, sf::Int32 _y) {
     x = _x;
     y = _y;
 }
