@@ -72,12 +72,12 @@ public:
 
 	friend Position operator+(Position& p1, Position& p2);
 	friend Position operator-(Position& p1, Position& p2);
-	friend sf::Packet& operator >>(sf::Packet& paquet, const Position& position);
+	friend sf::Packet& operator >>(sf::Packet& paquet, Position& position);
 	friend sf::Packet& operator <<(sf::Packet& paquet, const Position& position);
 };
 
 sf::Packet& operator <<(sf::Packet& paquet, const Position& position);
-sf::Packet& operator >>(sf::Packet& paquet, const Position& position);
+sf::Packet& operator >>(sf::Packet& paquet, Position& position);
 
 Position operator+(Position& p1, Position& p2);
 Position operator-(Position& p1, Position& p2);

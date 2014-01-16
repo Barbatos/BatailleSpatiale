@@ -42,7 +42,7 @@ sf::Packet& operator <<(sf::Packet& paquet, const Position& pos) {
 	paquet << pos.x << pos.y;
 	return paquet;
 }
-sf::Packet& operator >>(sf::Packet& paquet, const Position& pos) {
+sf::Packet& operator >>(sf::Packet& paquet, Position& pos) {
 	paquet >> pos.x >> pos.y;
 	return paquet;
 }

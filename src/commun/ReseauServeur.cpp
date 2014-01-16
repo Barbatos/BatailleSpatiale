@@ -134,6 +134,7 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
 	paquet << typePaquet << tailleZone;
 
 	for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+		cout << "position: " << noeudIterator->getPosition().x << ", " << noeudIterator->getPosition().y << endl;
 		paquet << noeudIterator->getPosition();
 	}
 
@@ -224,7 +225,6 @@ void ReseauServeur::ecouterReseau(void) {
 
 				// Si le client a envoyé un message
 				if (selector.isReady(*client)) {
-					sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 					sf::Packet packet;
 					sf::Socket::Status status;
 
@@ -232,11 +232,6 @@ void ReseauServeur::ecouterReseau(void) {
 
 					// Le message s'est envoyé correctement
 					if (status == sf::Socket::Done) {
-						string msg;
-
-						if(msg.empty()) {
-							return;
-						}
 
 						traiterPaquetClient(j, packet);
 
@@ -246,7 +241,7 @@ void ReseauServeur::ecouterReseau(void) {
 						     << client->getRemoteAddress()
 						     << ":"
 						     << client->getRemotePort()
-						     << " : " << typePaquet << " : " << msg << endl;
+						     << endl;
 
 						return;
 					}
