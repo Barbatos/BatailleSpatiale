@@ -124,7 +124,6 @@ void ReseauServeur::EcouterReseau(void)
 		if (selector.isReady(listener)){
 			// Nouveau client
 			sf::TcpSocket* client = new sf::TcpSocket;
-			string s = "Salut ! Merci de changer ton pseudo avec la commande /nick <tonpseudo>";
 
 			// Le nouveau client a été accepté
 			if (listener.accept(*client) == sf::Socket::Done){
@@ -142,9 +141,6 @@ void ReseauServeur::EcouterReseau(void)
 				// On ajoute également le client au selecteur afin qu'il puisse
 				// recevoir ses messages
 				selector.add(*client);
-
-				// On envoie un paquet de bienvenue au client
-				EnvoiUnique(*client, s);
 
 				// On envoie le plateau
 				EnvoiPlateau(*client, plateau);
