@@ -78,13 +78,15 @@ void AffichagePlateau::appuiCase() {
     bool selection = false;
     Position position;
 
+    // On vide la zone parcourable du plateau
     lireGui()->lireScene()->lireJeu().lirePlateau().viderZoneParcourable();
 
     // Pour toutes les cases, et tant que rien n'a été selectionné
     for (std::vector<AffichageCase::Ptr>::size_type i = 0; !selection && i < cases.size(); i++) {
         // Si la case est selectionnée
         if (cases[i]->lireSelectionne()) {
-            Position selection = cases[i]->lirePositionPlateau();
+            // On stocke la position de la case selectionnée
+            Position posCase = cases[i]->lirePositionPlateau();
 
             // On sauvegarde la position actuellement selectionnée
             position = details->lirePosition();
@@ -93,10 +95,11 @@ void AffichagePlateau::appuiCase() {
             // On dit que quelque chose a été selectionné
             selection = true;
 
-            TypeCellule c = lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(selection).statutEmplacement();
-
+            // On stocke la case et on vérifie si c'est un vaisseau
+            TypeCellule c = lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(posCase).statutEmplacement();
             if (c == TypeCellule::Vaisseau)
-                lireGui()->lireScene()->lireJeu().lireReseau()->getZoneParcourable(selection);
+                // Si oui, on demande au serveur la zone parcourable
+                lireGui()->lireScene()->lireJeu().lireReseau()->getZoneParcourable(posCase);
         }
     }
 
