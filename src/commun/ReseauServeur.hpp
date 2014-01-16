@@ -69,6 +69,8 @@ class ReseauServeur
 
 		void EnvoiZoneParcourable(sf::TcpSocket& client, Position pos);
 
+		void EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
+
 	private:
 
 		/// La socket du serveur

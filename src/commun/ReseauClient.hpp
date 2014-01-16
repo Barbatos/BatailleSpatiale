@@ -64,6 +64,12 @@ class ReseauClient
 
 		void getZoneParcourable(Position p);
 
+		void parseZoneParcourable(sf::Packet paquet);
+
+		void getChemin(Position depart, Position arrivee);
+
+		void parseChemin(sf::Packet paquet);
+
 	private:
 
 		/// La socket du client

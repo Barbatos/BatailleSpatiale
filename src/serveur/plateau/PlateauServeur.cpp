@@ -215,7 +215,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneParcourable(
 }
 
 std::list<Position> obtenirChemin(Position p,
-	std::list<NoeudServeur>* zoneParcourable)
+	std::list<NoeudServeur> zoneParcourable)
 {
 	//Le chemin à retourner
 	std::list<Position> chemin;
@@ -227,8 +227,8 @@ std::list<Position> obtenirChemin(Position p,
 	bool noeudTrouve;
 
 	//On cherche si la position p est bien dans la zone parcourable
-	std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable->begin();
-	while (!pCourante.isNull() && noeudIterateur != zoneParcourable->end())
+	std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable.begin();
+	while (!pCourante.isNull() && noeudIterateur != zoneParcourable.end())
 	{
 		if (p == (noeudIterateur->getPosition()))
 		{
@@ -247,8 +247,8 @@ std::list<Position> obtenirChemin(Position p,
 
 		//On cherche le noeud qui correspond a la position courante
 		std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable
-				->begin();
-		while (!noeudTrouve && noeudIterateur != zoneParcourable->end())
+				.begin();
+		while (!noeudTrouve && noeudIterateur != zoneParcourable.end())
 		{
 			if (pCourante == (noeudIterateur->getPosition()))
 			{

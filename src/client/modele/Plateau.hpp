@@ -86,6 +86,7 @@ class Plateau
 		sf::Int32 tailleY; ///< Taille du plateau en Y
 
 		friend sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
+		friend class ReseauClient;
 };
 
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);

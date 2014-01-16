@@ -49,6 +49,10 @@ enum class TypePaquet : sf::Uint16 {
     ZoneParcourable,
     // Paquet envoyé au serveur pour connaître la liste des joueurs connectés
     GetListeJoueurs,
+    // Paquet envoyé au serveur pour connaître le chemin pour aller d'une position 1 à une position 2
+    GetChemin,
+    // Paquet envoyé par le serveur au client pour définir le chemin 
+    Chemin,
 };
 
 #endif

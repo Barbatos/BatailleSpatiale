@@ -1,6 +1,7 @@
 #ifndef CELLULE_HPP
 #define CELLULE_HPP
 #include "Evenement.hpp"
+#include "CelluleBits.hpp"
 #include "../structures/Batiment.hpp"
 #include "../structures/Vaisseau.hpp"
 #include "../../../commun/enum/TypeCellule.hpp"
@@ -30,6 +31,9 @@ public:
 
     void setType(TypeCellule _type);
 
+    void setParcourable(bool parcourable);
+    bool getParcourable();
+
 private:
     friend sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule);
     void setEvenement(Evenement* _evenement);
@@ -43,6 +47,7 @@ private:
     BatimentPtr batiment;
     VaisseauPtr vaisseau;
     TypeCellule type;
+    CelluleBits bits;
 
 };
 

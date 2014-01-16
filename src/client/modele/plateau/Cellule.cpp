@@ -66,6 +66,14 @@ void Cellule::setType(TypeCellule _type) {
     type = _type;
 }
 
+bool Cellule::getParcourable(){
+    return bits.estParcourable;
+}
+
+void Cellule::setParcourable(bool parcourable){
+    bits.estParcourable = parcourable;
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
     sf::Uint16 typeCellule;
     paquet >> typeCellule;

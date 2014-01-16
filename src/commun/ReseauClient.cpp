@@ -83,19 +83,13 @@ void ReseauClient::TraiterPaquetServeur(void)
 			break;
 
 		case TypePaquet::ZoneParcourable:
-		{
-			sf::Int32 tailleZone;
-			std::list<Position> pos;
-			Position p;
-			paquet >> tailleZone;
-
-			for (sf::Int32 i = 0; i < tailleZone; i++)
-			{
-				paquet >> p;
-				pos.push_back(p);
-			}
+			parseZoneParcourable(paquet);
 			break;
-		}
+
+		case TypePaquet::Chemin:
+			parseChemin(paquet);
+			break;
+
 		default:
 			cout
 				<< "[RESEAU] Erreur: paquet de type "
@@ -124,9 +118,47 @@ void ReseauClient::getZoneParcourable(Position p)
 {
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
 	sf::Packet paquet;
-
+	
 	paquet
 		<< typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::parseZoneParcourable(sf::Packet paquet){
+	sf::Int32 tailleZone;
+	Position p;
+
+	paquet >> tailleZone;
+
+	for (sf::Int32 i = 0; i < tailleZone; i++)
+	{
+		paquet >> p;
+		plateau.cellule[p.x][p.y].setParcourable(true);
+	}
+}
+
+void ReseauClient::parseChemin(sf::Packet paquet){
+	sf::Int32 tailleZone;
+	std::list<Position> pos;
+	Position p;
+
+	paquet >> tailleZone;
+
+	/*for (sf::Int32 i = 0; i < tailleZone; i++)
+	{
+		paquet >> p;
+		pos.push_back(p);
+	}*/
+	// TODO
+}
+
+void ReseauClient::getChemin(Position depart, Position arrivee){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetChemin);
+	sf::Packet paquet;
+
+	paquet 
+		<< typePaquet << depart << arrivee;
 
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }

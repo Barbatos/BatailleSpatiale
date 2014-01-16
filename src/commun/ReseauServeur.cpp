@@ -24,7 +24,7 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 	sf::TcpSocket* client = joueur.getSocket();
 	ostringstream id;
-	Position pos;
+	Position pos, pos2;
 	string msg;
 	string msgFinal;
 
@@ -76,6 +76,11 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 			EnvoiZoneParcourable(*client, pos);
 			break;
 
+		// Envoi au client du chemin entre un poont 1 et un point 2
+		case TypePaquet::GetChemin:
+			paquet >> pos >> pos2;
+			EnvoiChemin(*client, pos, pos2);
+			break;
 
 		default:
 			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
@@ -119,9 +124,11 @@ void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos){
 	std::list<NoeudServeur> noeuds;
 	std::list<NoeudServeur>::iterator noeudIterator;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneParcourable);
-	sf::Int32 tailleZone = 10; // FIXME
+	sf::Int32 tailleZone;
 
 	noeuds = plateau.getZoneParcourable(pos);
+
+	tailleZone = noeuds.size();
 
 	paquet << typePaquet << tailleZone;
 
@@ -130,6 +137,29 @@ void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos){
 	}
 
 	ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+
+void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee){
+	sf::Packet paquet;
+	std::list<NoeudServeur> noeuds;
+	std::list<Position>::iterator cheminIterator;
+	std::list<Position> chemin;
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Chemin);
+	sf::Int32 tailleZone;
+
+	noeuds = plateau.getZoneParcourable(posDepart);
+
+	tailleZone = noeuds.size();
+
+	/*chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
+
+	paquet << typePaquet << tailleZone;
+
+	for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++){
+		paquet << *cheminIterator;
+	}
+
+	*/
 }
 
 void ReseauServeur::EcouterReseau(void)

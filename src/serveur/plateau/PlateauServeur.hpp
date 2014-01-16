@@ -127,7 +127,7 @@ public:
      * \param zoneParcourable la zone recherché par le pathfinding
      * \return Le chemin à effectuer de la première à la dernière case
      */
-    static std::list<Position> obtenirChemin(Position p, std::list<NoeudServeur>* zoneParcourable);
+    static std::list<Position> obtenirChemin(Position p, std::list<NoeudServeur> zoneParcourable);
 
     /**
      * \brief Getter tailleX
