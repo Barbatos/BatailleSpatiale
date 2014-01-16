@@ -31,7 +31,7 @@ void RunServer(unsigned short port) {
 	serveur = new ReseauServeur(port);
 
 	for(;;) {
-		serveur->EcouterReseau();
+		serveur->ecouterReseau();
 		sf::sleep(sf::milliseconds(50));
 	}
 }

@@ -20,7 +20,7 @@ ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
 	cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
 
-void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet) {
+void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet) {
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
 	sf::TcpSocket* client = joueur.getSocket();
 	ostringstream id;
@@ -38,7 +38,7 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 		paquet >> msg;
 		msgFinal = "<" + joueur.getPseudo() + "> " + msg;
 
-		EnvoiATous(msgFinal);
+		envoiATous(msgFinal);
 		break;
 
 
@@ -50,7 +50,7 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 		msgFinal = "Le joueur " + joueur.getPseudo() + " (#" +id.str() + ") a change son pseudo en " + msg;
 
 		joueur.setPseudo(msg);
-		EnvoiATous(msgFinal);
+		envoiATous(msgFinal);
 		break;
 
 
@@ -67,19 +67,20 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 			msgFinal.append(j.getPseudo() + " (#" + id.str() + ")\n");
 		}
 
-		EnvoiUnique(*client, msgFinal);
+
+		envoiUnique(*client, msgFinal);
 		break;
 
 		// Envoi de la zone parcourable au client
 	case TypePaquet::GetZoneParcourable:
 		paquet >> pos;
-		EnvoiZoneParcourable(*client, pos);
+		envoiZoneParcourable(*client, pos);
 		break;
 
 		// Envoi au client du chemin entre un poont 1 et un point 2
 	case TypePaquet::GetChemin:
 		paquet >> pos >> pos2;
-		EnvoiChemin(*client, pos, pos2);
+		envoiChemin(*client, pos, pos2);
 		break;
 
 	default:
@@ -88,7 +89,7 @@ void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 	}
 }
 
-void ReseauServeur::EnvoiATous(string& message) {
+void ReseauServeur::envoiATous(string& message) {
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
@@ -103,7 +104,7 @@ void ReseauServeur::EnvoiATous(string& message) {
 	}
 }
 
-void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message) {
+void ReseauServeur::envoiUnique(sf::TcpSocket& client, string& message) {
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
 
@@ -111,7 +112,7 @@ void ReseauServeur::EnvoiUnique(sf::TcpSocket& client, string& message) {
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau) {
+void ReseauServeur::envoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau) {
 	sf::Packet paquet;
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
 
@@ -119,7 +120,7 @@ void ReseauServeur::EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau)
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos) {
+void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
 	sf::Packet paquet;
 	std::list<NoeudServeur> noeuds;
 	std::list<NoeudServeur>::iterator noeudIterator;
@@ -139,7 +140,7 @@ void ReseauServeur::EnvoiZoneParcourable(sf::TcpSocket& client, Position pos) {
 	ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
+void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
 	sf::Packet paquet;
 	std::list<NoeudServeur> noeuds;
 	std::list<Position>::iterator cheminIterator;
@@ -160,7 +161,7 @@ void ReseauServeur::EnvoiChemin(sf::TcpSocket& client, Position posDepart, Posit
 	}
 }
 
-void ReseauServeur::EcouterReseau(void) {
+void ReseauServeur::ecouterReseau(void) {
 
 	// On attend qu'il se passe quelque chose sur le réseau
 	if (selector.wait(sf::milliseconds(50))) {
@@ -188,14 +189,14 @@ void ReseauServeur::EcouterReseau(void) {
 				selector.add(*client);
 
 				// On envoie le plateau
-				EnvoiPlateau(*client, plateau);
+				envoiPlateau(*client, plateau);
 
 				cout << "[RESEAU] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 
 				c << j->getId();
 
 				msgGlobal = "Un nouveau joueur (#"  + c.str() + ") a rejoint le serveur";
-				EnvoiATous(msgGlobal);
+				envoiATous(msgGlobal);
 
 
 				delete j;
@@ -235,7 +236,7 @@ void ReseauServeur::EcouterReseau(void) {
 							return;
 						}
 
-						TraiterPaquetClient(j, packet);
+						traiterPaquetClient(j, packet);
 
 						cout << "[RESEAU] Message du client "
 						     << j.getPseudo()
@@ -267,7 +268,7 @@ void ReseauServeur::EcouterReseau(void) {
 							joueurs.erase(it);
 
 							// On envoie le message de déconnexion à tous les autres joueurs
-							EnvoiATous(msgGlobal);
+							envoiATous(msgGlobal);
 						}
 
 						// S'il y a eu une erreur lors de la réception du paquet
@@ -288,7 +289,8 @@ void ReseauServeur::setPlateau(PlateauServeur& _plateau) {
 
 void ReseauServeur::threadReseau() {
 	while(actif) {
-		EcouterReseau();
+		ecouterReseau();
+
 		sf::sleep(sf::milliseconds(100));
 	}
 }

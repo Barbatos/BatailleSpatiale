@@ -26,21 +26,21 @@ public:
 	 * \brief Fonction gérant les paquets envoyés au serveur par des
 	 * clients extérieurs.
 	 */
-	void EcouterReseau(void);
+	void ecouterReseau(void);
 
 	/**
 	 * \brief Fonction permettant de traiter un paquet reçu d'un client.
 	 *
 	 * \param paquet le paquet reçu
 	 */
-	void TraiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet);
+	void traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet);
 
 	/**
 	 * \brief Envoi d'un message par le serveur à tous les clients
 	 *
 	 * \param message le message à envoyer
 	 */
-	void EnvoiATous(string& message);
+	void envoiATous(string& message);
 
 	/**
 	 * \brief Envoi d'un message par le serveur à un unique client
@@ -48,7 +48,7 @@ public:
 	 * \param client la socket du client
 	 * \param message le message à envoyer
 	 */
-	void EnvoiUnique(sf::TcpSocket& client, string& message);
+	void envoiUnique(sf::TcpSocket& client, string& message);
 
 	/**
 	 * \brief Envoi du plateau à un client
@@ -56,7 +56,7 @@ public:
 	 * \param client la socket du client
 	 * \param plateau le plateau
 	 */
-	void EnvoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
+	void envoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
 
 	void setPlateau(PlateauServeur& plateau);
 
@@ -66,9 +66,9 @@ public:
 
 	void fermerReseau();
 
-	void EnvoiZoneParcourable(sf::TcpSocket& client, Position pos);
+	void envoiZoneParcourable(sf::TcpSocket& client, Position pos);
 
-	void EnvoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
+	void envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
 
 private:
 
