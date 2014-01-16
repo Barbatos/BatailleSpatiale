@@ -8,9 +8,9 @@
  *
  */
 enum class TypeBatiment :sf::Uint16 {
-	Inexistant,
-	Base,
-	Nombre
+    Inexistant,
+    Base,
+    Nombre
 };
 
 #endif
