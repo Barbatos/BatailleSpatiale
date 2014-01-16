@@ -109,9 +109,11 @@ void AffichageCase::ecrirePositionPlateau(Position position) {
 }
 
 void AffichageCase::clicSouris() {
-    selectionne = true;
+    if (!selectionne) {
+        selectionne = true;
 
-    envoyerMessage();
+        envoyerMessage();
+    }
 }
 
 void AffichageCase::pressionSouris(sf::Mouse::Button) {

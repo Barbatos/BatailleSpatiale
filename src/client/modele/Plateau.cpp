@@ -1,9 +1,9 @@
 #include "Plateau.hpp"
 
-Plateau::Plateau() :
-    tailleX(0), tailleY(0) {
-    for(sf::Int32 i = 0; i < tailleX; ++i) {
-        for(sf::Int32 j = 0; j < tailleX; ++j) {
+Plateau::Plateau()
+                : tailleX(0), tailleY(0) {
+    for (sf::Int32 i = 0; i < tailleX; ++i) {
+        for (sf::Int32 j = 0; j < tailleX; ++j) {
             cellule[i][j].setParcourable(false);
         }
     }
