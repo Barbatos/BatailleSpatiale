@@ -9,7 +9,8 @@
 
 #include <client/modele/Plateau.hpp>
 
-Controleur::Controleur(Plateau& modele) : modele(modele) {
+Controleur::Controleur(Plateau& modele)
+                : modele(modele) {
 
 }
 
