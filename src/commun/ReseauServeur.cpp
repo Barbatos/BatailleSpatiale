@@ -20,77 +20,48 @@ ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
 	cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
 
-void ReseauServeur::TraiterCommandeClient(JoueurServeur& joueur, string& commande){
-	sf::TcpSocket* client = joueur.getSocket();
-
-	// On récupère la commande exécutée
-	string cmd = commande.substr(0, commande.find_first_of(' '));
-
-	// Si c'est une commande pour changer de nom
-	if((cmd == "/nick") || (cmd == "/name") || (cmd == "/pseudo")){
-
-		if(commande.size() < cmd.size() + 2){
-			string msg = "Vous devez entrer un nouveau pseudo !";
-			EnvoiUnique(*client, msg);
-			return;
-		}
-
-		// On récupère l'argument de la commande, à savoir le nouveau pseudo
-		string newNick = commande.substr(commande.find_first_of(' ') + 1);
-
-		// On remplace l'ancien pseudo par le nouveau et on avertit tout le monde
-		if(!newNick.empty()){
-			string msg = "Le joueur " + joueur.getPseudo() + " a change son pseudo en " + newNick;
-
-			joueur.setPseudo(newNick);
-			EnvoiATous(msg);
-		}
-	}
-
-	// Retourne au client la liste des clients connectés
-	else if((cmd == "/list") || (cmd == "/clients") || (cmd == "/players") || (cmd == "/joueurs")){
-		string listeJoueurs = "Liste des joueurs connectés:\n";
-
-		for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
-			JoueurServeur& j = *it;
-			ostringstream id;
-
-			id << j.getId();
-
-			listeJoueurs.append(j.getPseudo() + " (#" + id.str() + ")\n");
-		}
-
-		EnvoiUnique(*client, listeJoueurs);
-	}
-
-}
-
 void ReseauServeur::TraiterPaquetClient(JoueurServeur& joueur, sf::Uint16 typePaquet, string& msg){
 
 	switch(static_cast<TypePaquet>(typePaquet)){
 
+		// Message à envoyer à tout le monde
 		case TypePaquet::MessageEcho:
+			string msgFinal;
 
-			// Si c'est une commande
-			if(msg.at(0) == '/'){
-				TraiterCommandeClient(joueur, msg);
-			}
+			msgFinal = "<" + joueur.getPseudo() + "> " + msg;
 
-			// TEMP: sinon, on dit que c'est un message à envoyer à tout le monde
-			else {
-				string msgFinal;
-
-				msgFinal = "<" + joueur.getPseudo() + "> " + msg;
-
-				EnvoiATous(msgFinal);
-			}
-
+			EnvoiATous(msgFinal);
 			break;
+
 
 		// Le client veut changer de pseudo
-		case TypePaquet::EnvoiPseudoServeur:
+		case TypePaquet::ChangementDeNom:
+			ostringstream id;
+			id << joueur.getId();
 
+			string msgRetour = "Le joueur " + joueur.getPseudo() + " (#" +id.str() + ") a change son pseudo en " + msg;
+
+			joueur.setPseudo(msg);
+			EnvoiATous(msgRetour);
 			break;
+
+
+		// Récupération de la liste des joueurs
+		case TypePaquet::GetListeJoueurs:
+			string listeJoueurs = "Liste des joueurs connectés:\n";
+
+			for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it){
+				JoueurServeur& j = *it;
+				ostringstream id;
+
+				id << j.getId();
+
+				listeJoueurs.append(j.getPseudo() + " (#" + id.str() + ")\n");
+			}
+
+			EnvoiUnique(*client, listeJoueurs);
+			break;
+
 
 		default:
 			cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;

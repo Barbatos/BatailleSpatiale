@@ -39,14 +39,6 @@ class ReseauServeur
 		void TraiterPaquetClient(JoueurServeur& joueur, sf::Uint16 typePaquet, string& msg);
 
 		/**
-		 * \brief Fonction traitant une commande client commençant par un tiret /
-		 * 
-		 * \param joueur le joueur ayant effectué la commande
-		 * \param commande la commande envoyée par le joueur
-		 */
-		void TraiterCommandeClient(JoueurServeur& joueur, string& commande);
-
-		/**
 		 * \brief Envoi d'un message par le serveur à tous les clients
 		 * 
 		 * \param message le message à envoyer

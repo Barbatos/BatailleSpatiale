@@ -43,12 +43,12 @@ enum class TypePaquet : sf::Uint16 {
     ChangementDeNom,
     /// Juste pour savoir le nombre de TypePaquet
     Nombre,
-
-    EnvoiPseudoServeur, /// Le premier paquet envoyé au serveur après la connexion, envoi du pseudo du joueur
-
+    // Paquet envoyé au serveur pour connaître la zone parcourable à partir d'une case
     GetZoneParcourable,
-
+    // Paquet envoyé par le serveur au client pour définir la zone parcourable
     ZoneParcourable,
+    // Paquet envoyé au serveur pour connaître la liste des joueurs connectés
+    GetListeJoueurs,
 };
 
 #endif
