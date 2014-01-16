@@ -7,7 +7,7 @@
 
 #include "SceneChargementJeu.hpp"
 
-#include <client/vue/gui/elements/chargement/ChargementJeu.hpp>
+#include <client/vue/gui/elements/chargement/ChargementReseau.hpp>
 
 SceneChargementJeu::SceneChargementJeu(Jeu& jeu) :
 		Scene(jeu)
@@ -22,7 +22,7 @@ SceneChargementJeu::SceneChargementJeu(Jeu& jeu) :
 	int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
 	int y = (jeu.lireAffichage().getSize().y - hauteur) / 2;
 
-	new ChargementJeu(&gui, 0, x, y, largeur, hauteur);
+	new ChargementReseau(&gui, 0, x, y, largeur, hauteur);
 }
 
 SceneChargementJeu::~SceneChargementJeu()

@@ -1,19 +1,19 @@
 /*
- * ChargementJeu.hpp
+ * ChargementReseau.hpp
  *
  *  Created on: 19 déc. 2013
  *      Author: Soinou
  */
 
 #ifndef CHARGEMENTRESEAU_HPP
-#define CHARGEMENTJEU_HPP
+#define CHARGEMENTRESEAU_HPP
 
 #include "ChargementPack.hpp"
 
 #include <client/vue/gui/elements/generiques/Animation.hpp>
 #include <client/vue/gui/elements/generiques/Label.hpp>
 
-class ChargementJeu :
+class ChargementReseau :
 	public Element
 {
 	private:
@@ -21,12 +21,13 @@ class ChargementJeu :
 		Animation image;
 
 	public:
-		ChargementJeu(Gui* gui, int id, int x, int y, int largeur, int hauteur);
-		virtual ~ChargementJeu();
+		ChargementReseau(Gui* gui, int id, int x, int y, int largeur,
+			int hauteur);
+		virtual ~ChargementReseau();
 
 		void actualiser(float delta);
 		void afficher(sf::RenderWindow& affichage);
 		bool contient(sf::Vector2i position);
 };
 
-#endif /* CHARGEMENTJEU_HPP */
+#endif /* CHARGEMENTRESEAU_HPP */

@@ -1,7 +1,8 @@
 # Fichiers de projet (IDE)
 .codelite/*
-*.project
-*.cproject
+.project
+.cproject
+bataille2.*
 
 # Dossiers de Build
 build/*

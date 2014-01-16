@@ -5,11 +5,11 @@
  *      Author: Soinou
  */
 
-#include "ChargementJeu.hpp"
+#include "ChargementReseau.hpp"
 
 #include <client/Jeu.hpp>
 
-ChargementJeu::ChargementJeu(Gui* gui, int id, int x, int y, int largeur,
+ChargementReseau::ChargementReseau(Gui* gui, int id, int x, int y, int largeur,
 	int hauteur) :
 		Element(gui, id),
 		texte(),
@@ -27,23 +27,23 @@ ChargementJeu::ChargementJeu(Gui* gui, int id, int x, int y, int largeur,
 						y + (hauteur - texte.getCharacterSize()));
 }
 
-ChargementJeu::~ChargementJeu()
+ChargementReseau::~ChargementReseau()
 {
 }
 
-void ChargementJeu::actualiser(float)
+void ChargementReseau::actualiser(float)
 {
 	if (lireGui()->lireScene()->lireJeu().lireReseau()->getActif() && lireGui()
 			->lireScene()->lireJeu().lirePlateau().getTailleX() != 0)
 		envoyerMessage();
 }
 
-void ChargementJeu::afficher(sf::RenderWindow& fenetre)
+void ChargementReseau::afficher(sf::RenderWindow& fenetre)
 {
 	fenetre.draw(texte);
 }
 
-bool ChargementJeu::contient(sf::Vector2i)
+bool ChargementReseau::contient(sf::Vector2i)
 {
 	return false;
 }
