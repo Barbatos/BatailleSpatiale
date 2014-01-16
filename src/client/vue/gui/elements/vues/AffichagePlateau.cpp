@@ -9,8 +9,10 @@
 
 #include <client/Jeu.hpp>
 
-AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, int hauteur, AffichageDetails::Ptr details)
-                : Element(gui, id), ObservateurSouris(), details(details), cases(), vuePlateau(sf::FloatRect(0, 0, 0, 0)), charge(false)
+AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, int hauteur,
+    AffichageDetails::Ptr details)
+                : Element(gui, id), ObservateurSouris(), details(details), cases(),
+                  vuePlateau(sf::FloatRect(0, 0, 0, 0)), charge(false)
 
 {
     // Pour initialiser l'élément
@@ -22,11 +24,14 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
     enregistrerSouris(ObservateurSouris::Ptr(this));
 
     // On change le viewport de la vue
-    vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
+    vuePlateau.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
+
+    // On récupère le plateau
+    Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
 
     // On récupère les tailles du plateau
-    int maxx = lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX();
-    int maxy = lireGui()->lireScene()->lireJeu().lirePlateau().getTailleY();
+    int maxx = p.getTailleX();
+    int maxy = p.getTailleY();
 
     // On initialise la taille des cellules
     int taille = 25;
@@ -43,10 +48,12 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
             yc = j * taille;
 
             // On initialise l'affichage de la case
-            AffichageCase* c = new AffichageCase(lireGui(), SceneJeu::Case, xc, yc, taille, Position(i, j), &vuePlateau);
+            if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
+                AffichageCase* c = new AffichageCase(lireGui(), SceneJeu::Case, xc, yc, taille, Position(i, j), &vuePlateau);
 
-            // On ajoute la case à la liste de cases
-            cases.push_back(AffichageCase::Ptr(c));
+                // On ajoute la case à la liste de cases
+                cases.push_back(AffichageCase::Ptr(c));
+            }
         }
 
     // On change la taille de la vue
@@ -91,7 +98,7 @@ void AffichagePlateau::appuiCase() {
             // On sauvegarde la position actuellement selectionnée
             position = details->lirePosition();
             // On selectionne la nouvelle
-            details->selectionner(selection);
+            details->selectionner(posCase);
             // On dit que quelque chose a été selectionné
             selection = true;
 

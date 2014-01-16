@@ -11,76 +11,59 @@
 
 #include <client/Jeu.hpp>
 
-SceneJeu::SceneJeu(Jeu& jeu) :
-		Scene(jeu)
-{
-	new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x,
-				jeu.lireAffichage().getSize().y,
-				jeu.lireRessources().lireImage("fond.png"));
+SceneJeu::SceneJeu(Jeu& jeu)
+                : Scene(jeu) {
+    int winx = jeu.lireAffichage().getSize().x;
+    int winy = jeu.lireAffichage().getSize().y;
 
-	details = AffichageDetails::Ptr(
-			new AffichageDetails(&gui, Details, 0,
-									0.7 * jeu.lireAffichage().getSize().y,
-									jeu.lireAffichage().getSize().x / 3,
-									0.3 * jeu.lireAffichage().getSize().y));
+    new Image(&gui, 100, 0, 0, winx, winy, jeu.lireRessources().lireImage("fond.png"));
 
-	plateau = AffichagePlateau::Ptr(
-			new AffichagePlateau(&gui, Plateau, 30, 30, 580, 316,
-									details));
+    float x = winx * 0.01f;
+    float y = winy * 0.01f;
 
-	new BoutonDeplacementPlateau(&gui, Droite,
-									jeu.lireAffichage().getSize().x - 30, 30,
-									30,
-									0.7 * jeu.lireAffichage().getSize().y - 60);
-	new BoutonDeplacementPlateau(&gui, Gauche, 0, 30, 30,
-									0.7 * jeu.lireAffichage().getSize().y - 60);
-	new BoutonDeplacementPlateau(&gui, Haut, 30, 0,
-									jeu.lireAffichage().getSize().x - 60, 30);
-	new BoutonDeplacementPlateau(&gui, Bas, 30,
-									0.7 * jeu.lireAffichage().getSize().y - 30,
-									jeu.lireAffichage().getSize().x - 60, 30);
-	new Bouton(&gui, Menu, "Menu", jeu.lireAffichage().getSize().x - 40,
-				jeu.lireAffichage().getSize().y - 40, 40, 40);
+    details = AffichageDetails::Ptr(new AffichageDetails(&gui, Details, x, 0.7 * winy, winx / 3 - x, 0.3 * winy - y));
+
+    plateau = AffichagePlateau::Ptr(new AffichagePlateau(&gui, Plateau, 0, 0, (winx - 2 * x) / 2, (winy - 2 * y) / 2, details));
+
+    new BoutonDeplacementPlateau(&gui, Droite, winx - x, y, x, winy - 2 * y);
+    new BoutonDeplacementPlateau(&gui, Gauche, 0, y, x, winy - 2 * y);
+    new BoutonDeplacementPlateau(&gui, Haut, 0, 0, winx, y);
+    new BoutonDeplacementPlateau(&gui, Bas, 0, winy - y, winx, y);
+
+    new Bouton(&gui, Menu, "Menu", (winx - 100) / 2, winy - 40 - y, 100, 40);
 }
 
-SceneJeu::~SceneJeu()
-{
+SceneJeu::~SceneJeu() {
 
 }
 
-void SceneJeu::surMessage(int id)
-{
-	switch (id)
-	{
-		case Menu:
-			jeu.changer(Scene::SceneJeuMenu);
-			break;
-		case Plateau:
-			break;
-		case Droite:
-			if (plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize()
-					.x / 2)
-				plateau->bougerPlateau(5, 0);
-			break;
-		case Gauche:
-			if (-plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize()
-					.x / 2)
-				plateau->bougerPlateau(-5, 0);
-			break;
-		case Haut:
-			if (-plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize()
-					.x / 2)
-				plateau->bougerPlateau(0, -5);
-			break;
-		case Bas:
-			if (plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize()
-					.y / 2)
-				plateau->bougerPlateau(0, 5);
-			break;
-		case Case:
-			plateau->appuiCase();
-			break;
-		default:
-			break;
-	}
+void SceneJeu::surMessage(int id) {
+    switch (id) {
+        case Menu:
+            jeu.changer(Scene::SceneJeuMenu);
+            break;
+        case Plateau:
+            break;
+        case Droite:
+            if (plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
+                plateau->bougerPlateau(5, 0);
+            break;
+        case Gauche:
+            if (-plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
+                plateau->bougerPlateau(-5, 0);
+            break;
+        case Haut:
+            if (-plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().x / 2)
+                plateau->bougerPlateau(0, -5);
+            break;
+        case Bas:
+            if (plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().y / 2)
+                plateau->bougerPlateau(0, 5);
+            break;
+        case Case:
+            plateau->appuiCase();
+            break;
+        default:
+            break;
+    }
 }

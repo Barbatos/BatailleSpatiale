@@ -10,7 +10,8 @@
 #include <client/Jeu.hpp>
 #include <iostream>
 
-AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position, sf::View* vuePlateau)
+AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
+    sf::View* vuePlateau)
                 : Element(gui, id), image(), fond(), position(position), selectionne(false) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
@@ -18,12 +19,10 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, P
 
     enregistrerSouris(ObservateurSouris::Ptr(this));
 
-    fond = sf::CircleShape(taille / 2, 6);
+    fond = sf::CircleShape(taille / 1.6, 6);
     fond.setPosition(x + taille / 2, y + taille / 2);
     fond.setOrigin(taille / 2, taille / 2);
-    fond.setFillColor(sf::Color(0, 0, 0, 0));
-    fond.setOutlineColor(sf::Color(255, 255, 255));
-    fond.setOutlineThickness(2);
+    fond.setFillColor(sf::Color(0, 0, 110, 60));
 }
 
 AffichageCase::~AffichageCase() {
@@ -70,21 +69,18 @@ void AffichageCase::actualiser(float) {
         image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(fichier);
         image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
         image.setPosition(lirePosition().x, lirePosition().y);
-        Utile::redimensionnerImage(image, lireTaille().x, lireTaille().y, false);
+        Utile::redimensionnerImage(image, lireTaille().x * 1.2, lireTaille().y * 1.2, true);
     }
 
     // Selon que la case soit selectionnée, survolée, ou rien du tout, on change la couleur de la bordure
     if (selectionne)
-        fond.setOutlineColor(sf::Color(255, 255, 0));
+        fond.setFillColor(sf::Color(255, 255, 0, 60));
     else if (lireSurvol())
-        fond.setOutlineColor(sf::Color(255, 0, 0));
+        fond.setFillColor(sf::Color(255, 0, 0, 60));
+    else if (p.getCellule(position).getParcourable())
+        fond.setFillColor(sf::Color(92, 185, 188, 60));
     else
-        fond.setOutlineColor(sf::Color(255, 255, 255));
-
-    if (p.getCellule(position).getParcourable())
-        fond.setFillColor(sf::Color(0, 255, 0));
-    else
-        fond.setFillColor(sf::Color(0, 0, 0, 0));
+        fond.setFillColor(sf::Color(0, 0, 110, 60));
 }
 
 void AffichageCase::afficher(sf::RenderWindow& affichage) {
