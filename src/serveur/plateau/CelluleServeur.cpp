@@ -77,7 +77,7 @@ TypeCellule CelluleServeur::statutEmplacement() const {
  * \return Le cout de de placement de la cellule.
  */
 int CelluleServeur::getCoutDeplacement() const {
-    if((evenement) && (evenement->getCoutDeplacement() != -1)) {
+    if(!evenement || (evenement->getCoutDeplacement() != -1)) {
         if(type == TypeCellule::Minerais)
             if(evenement)
                 return evenement->getCoutDeplacement() + 1;
