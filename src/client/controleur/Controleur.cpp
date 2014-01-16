@@ -19,3 +19,7 @@ Controleur::~Controleur()
 
 }
 
+void Controleur::action(Position ancien, Position nouveau)
+{
+
+}

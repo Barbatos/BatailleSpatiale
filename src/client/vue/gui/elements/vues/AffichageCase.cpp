@@ -30,7 +30,6 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
 	fond.setFillColor(sf::Color(0, 0, 0, 0));
 	fond.setOutlineColor(sf::Color(255, 255, 255));
 	fond.setOutlineThickness(2);
-	fond.rotate(30);
 }
 
 AffichageCase::~AffichageCase()

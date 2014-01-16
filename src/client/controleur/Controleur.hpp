@@ -11,6 +11,8 @@
 // Pré-Déclaration de la classe Modèle
 class Plateau;
 
+#include <commun/utile/Position.hpp>
+
 /**
  * \brief Fait le lien entre le modèle et la vue
  */
@@ -38,6 +40,17 @@ class Controleur
 		 * Détruit l'instance précédemment créée du Contrôleur
 		 */
 		virtual ~Controleur();
+
+		/**
+		 * @brief Tente d'éxécuter une action entre l'ancienne position et la nouvelle position
+		 *
+		 * L'action peut être un déplacement, une attaque,
+		 * une construction, ou diverses autres choses
+		 *
+		 * @param ancien l'ancienne position
+		 * @param nouveau la nouvelle position
+		 */
+		void action(Position ancien, Position nouveau);
 };
 
-#endif /* CONTROLEUR_HPP_ */
+#endif /* CONTROLEUR_HPP */

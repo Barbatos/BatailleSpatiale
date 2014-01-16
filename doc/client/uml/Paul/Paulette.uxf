@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.ActivityDiagramText</type>
+    <coordinates>
+      <x>310</x>
+      <y>50</y>
+      <w>402</w>
+      <h>528</h>
+    </coordinates>
+    <panel_attributes>title:Chargement d'une image
+Start
+Appel de chargerImage(std::string cheminFichier)
+Insertion d'une nouvelle paire associant un\             std::string à un sf::Texture
+Appel de loadFromFile(cheminFichier)	
+	
+	[réussite]
+	Appel de setSmooth(true)
+	End
+	
+	[échec]
+	Afficher l'erreur
+	Quitter l'application
+	End</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -19,39 +19,46 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur,
 		charge(false)
 
 {
+	// Pour initialiser l'élément
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 	ecrireVue(&vuePlateau);
 
+	// Pour dire que le plateau intéragit avec la souris
 	enregistrerSouris(ObservateurSouris::Ptr(this));
 
+	// On change le viewport de la vue
 	vuePlateau.setViewport(sf::FloatRect(0, 0, 1, 0.7f));
 
+	// On récupère les tailles du plateau
+	int maxx = lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX();
+	int maxy = lireGui()->lireScene()->lireJeu().lirePlateau().getTailleY();
+
+	// On initialise la taille des cellules
 	int taille = 25;
 
+	// On initialise les positions en x et y des cellules
 	int xc = 0;
 	int yc = 0;
 
-	for (int i = 0;
-			i < lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX();
-			i++)
-		for (int j = 0;
-				j < lireGui()->lireScene()->lireJeu().lirePlateau().getTailleY();
-				j++)
+	// On parcoure les cases du plateau
+	for (int i = 0; i < maxx; i++)
+		for (int j = 0; j < maxy; j++)
 		{
-			xc = i * taille;
-			yc = j * taille + j * 5;
+			// On calcule la position en x et y
+			xc = (i * 2 + j) * taille * 3 / 5;
+			yc = j * taille;
 
-			if (i % 2 == 1)
-				yc += taille * 3 / 5;
-
+			// On initialise l'affichage de la case
 			AffichageCase* c = new AffichageCase(lireGui(), SceneJeu::Case, xc,
 													yc, taille, Position(i, j),
 													&vuePlateau);
 
+			// On ajoute la case à la liste de cases
 			cases.push_back(AffichageCase::Ptr(c));
 		}
 
+	// On change la taille de la vue
 	if (xc > yc)
 		taille = yc;
 	else
