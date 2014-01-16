@@ -110,7 +110,7 @@ void ReseauClient::TraiterPaquetServeur(void)
 /// en lui donnant notre pseudo
 void ReseauClient::EnvoyerPseudoServeur(string pseudo)
 {
-	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::EnvoiPseudoServeur);
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ChangementDeNom);
 	sf::Packet paquet;
 
 	paquet
