@@ -10,8 +10,8 @@
 #include "Gui.hpp"
 
 Element::Element(Gui* gui, int id)
-                : id(id), gui(gui), souris(false), clavier(false), observateurSouris(nullptr),
-                  observateurClavier(nullptr), survol(false), appui(false), vue(nullptr) {
+: id(id), gui(gui), souris(false), clavier(false), observateurSouris(nullptr),
+observateurClavier(nullptr), survol(false), appui(false), vue(nullptr) {
     gui->ajouter(Ptr(this));
 }
 
@@ -111,6 +111,10 @@ bool Element::lireAppui() {
     return appui;
 }
 
+bool Element::lireAppuiDroit() {
+    return appuiDroit;
+}
+
 sf::View* Element::lireVue() {
     return vue;
 }
@@ -125,6 +129,10 @@ void Element::ecrireSurvol(bool survol) {
 
 void Element::ecrireAppui(bool appui) {
     this->appui = appui;
+}
+
+void Element::ecrireAppuiDroit(bool appuiDroit) {
+    this->appui = appuiDroit;
 }
 
 void Element::ecrireVue(sf::View* vue) {

@@ -23,9 +23,11 @@ SceneJeu::SceneJeu(Jeu& jeu)
     float x = winx * 0.01f;
     float y = winy * 0.01f;
 
-    details = AffichageDetails::Ptr(new AffichageDetails(&gui, Details, x, 0.7 * winy, winx / 3 - x, 0.3 * winy - y));
+    details = AffichageDetails::Ptr(new AffichageDetails(&gui, Details, x, 0.7 * winy, winx / 3 - x, 0.3
+                    * winy - y));
 
-    plateau = AffichagePlateau::Ptr(new AffichagePlateau(&gui, Plateau, 0, 0, (winx - 2 * x) / 2, (winy - 2 * y) / 2, details));
+    plateau = AffichagePlateau::Ptr(new AffichagePlateau(&gui, Plateau, 0, 0, (winx - 2 * x) / 2, (winy
+                    - 2 * y) / 2, details));
 
     new BoutonDeplacementPlateau(&gui, Droite, winx - x, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Gauche, 0, y, x, winy - 2 * y);
@@ -49,20 +51,16 @@ void SceneJeu::surMessage(Message message) {
                 case Plateau:
                     break;
                 case Droite:
-                    if (plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
-                        plateau->bougerPlateau(5, 0);
+                    plateau->bougerPlateau(5, 0);
                     break;
                 case Gauche:
-                    if (-plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
-                        plateau->bougerPlateau(-5, 0);
+                    plateau->bougerPlateau(-5, 0);
                     break;
                 case Haut:
-                    if (-plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().x / 2)
-                        plateau->bougerPlateau(0, -5);
+                    plateau->bougerPlateau(0, -5);
                     break;
                 case Bas:
-                    if (plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().y / 2)
-                        plateau->bougerPlateau(0, 5);
+                    plateau->bougerPlateau(0, 5);
                     break;
                 default:
                     break;

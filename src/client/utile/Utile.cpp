@@ -142,7 +142,7 @@ namespace Utile {
                 fichier = "Vaisseaux/sprite_croiseur_1.png";
                 break;
             case TypeVaisseau::Destructeur:
-                fichier = "Vaisseaux/sprite_destroyer_1.png";
+                fichier = "Vaisseaux/sprite_destroyeur_1.png";
                 break;
             case TypeVaisseau::ChasseurLourd:
                 fichier = "Vaisseaux/sprite_chasseur_1.png";

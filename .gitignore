@@ -28,3 +28,10 @@ doc/client/html/*.*
 
 # Others
 *.db
+
+# Visual Studio
+*.sln
+*.vcxproj*
+*.opensdf
+*.sdf
+*.suo

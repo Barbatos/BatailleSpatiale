@@ -12,7 +12,7 @@
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
     sf::View* vuePlateau)
-                : Element(gui, id), image(), fond(), position(position), selectionne(false) {
+    : Element(gui, id), image(), fond(), position(position), selectionne(false) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
@@ -40,26 +40,26 @@ void AffichageCase::actualiser(float) {
 
     // On change l'image selon ce type
     switch (cellule) {
-        case TypeCellule::Vaisseau: {
-            DetailVaisseau vaisseau = p.getVaisseau(position);
+    case TypeCellule::Vaisseau: {
+                                    DetailVaisseau vaisseau = p.getVaisseau(position);
 
-            fichier = Utile::lireFichier(vaisseau.type);
-            break;
-        }
-        case TypeCellule::Batiment: {
-            DetailBatiment batiment = p.getBatiment(position);
+                                    fichier = Utile::lireFichier(vaisseau.type);
+                                    break;
+    }
+    case TypeCellule::Batiment: {
+                                    DetailBatiment batiment = p.getBatiment(position);
 
-            fichier = Utile::lireFichier(batiment.type);
-            break;
-        }
-        case TypeCellule::Evenement: {
-            DetailEvenement evenement = p.getEvenement(position);
+                                    fichier = Utile::lireFichier(batiment.type);
+                                    break;
+    }
+    case TypeCellule::Evenement: {
+                                     DetailEvenement evenement = p.getEvenement(position);
 
-            fichier = Utile::lireFichier(evenement.type);
-            break;
-        }
-        default:
-            break;
+                                     fichier = Utile::lireFichier(evenement.type);
+                                     break;
+    }
+    default:
+        break;
     }
 
     if (fichier == "")
@@ -89,7 +89,16 @@ void AffichageCase::afficher(sf::RenderWindow& affichage) {
 }
 
 bool AffichageCase::contient(sf::Vector2i position) {
-    return position.x >= fond.getPosition().x - fond.getRadius() * 0.9 && position.x <= fond.getPosition().x + fond.getRadius() * 0.9 && position.y >= fond.getPosition().y - fond.getRadius() * 0.9 && position.y <= fond.getPosition().y + fond.getRadius() * 0.9;
+    // On teste en x
+    bool x = position.x >= fond.getPosition().x - fond.getRadius() * 0.6;
+    x &= position.x <= fond.getPosition().x + fond.getRadius();
+
+    // On teste en y
+    bool y = position.y >= fond.getPosition().y - fond.getRadius() * 0.6;
+    y &= position.y <= fond.getPosition().y + fond.getRadius();
+
+    // On retourne le résultat
+    return x && y;
 }
 
 Position AffichageCase::lirePositionPlateau() {
@@ -105,19 +114,40 @@ void AffichageCase::ecrirePositionPlateau(Position position) {
 }
 
 void AffichageCase::clicSouris(bool clicDroit) {
-    if (!selectionne) {
-        selectionne = true;
-
+    if (clicDroit)
+    {
         Message message;
 
         message.type = Message::Cellule;
+
         message.cellule.x = position.x;
         message.cellule.y = position.y;
-        message.cellule.selection = true;
-        message.cellule.clicDroit = clicDroit;
+        message.cellule.selection = false;
+        message.cellule.clicDroit = true;
 
         envoyerMessage(message);
     }
+    else
+    {
+        Message message;
+
+        message.type = Message::Cellule;
+
+        message.cellule.x = position.x;
+        message.cellule.y = position.y;
+
+        if (!selectionne) {
+            selectionne = true;
+            message.cellule.selection = true;
+        }
+        else
+            message.cellule.selection = false;
+
+        message.cellule.clicDroit = false;
+
+        envoyerMessage(message);
+    }
+
 }
 
 void AffichageCase::pressionSouris(sf::Mouse::Button) {
