@@ -11,13 +11,16 @@ PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
 }
 
 void PlateauServeur::initialisationTest() {
-    cellule[6][4].creerVaisseauTest();
+    cellule[6][4].creerVaisseauTest(TypeVaisseau::Bombardier);
     cellule[5][6].setType(TypeCellule::Inexistant);
     cellule[6][6].setType(TypeCellule::Inexistant);
     cellule[6][5].setType(TypeCellule::Inexistant);
+    cellule[4][7].setType(TypeCellule::Inexistant);
+    cellule[7][4].setType(TypeCellule::Inexistant);
+    cellule[8][3].setType(TypeCellule::Inexistant);
     cellule[0][1].creerBatimentBaseTest();
-    cellule[1][0].creerVaisseauTest();
-    cellule[1][1].creerBatimentBaseTest();
+    cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
+    cellule[1][1].creerVaisseauTest();
 }
 
 bool PlateauServeur::possedeBatiment(Position p) {

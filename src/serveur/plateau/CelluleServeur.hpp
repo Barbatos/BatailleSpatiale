@@ -50,7 +50,7 @@ public:
     int distanceMaximale() const;
 
     //Multiple fonctions de test
-    void creerVaisseauTest();
+    void creerVaisseauTest(TypeVaisseau type = TypeVaisseau::Chasseur);
     void creerVaisseauConstructeurTest();
     void creerBatimentBaseTest();
     void attaquer(CelluleServeur *cCible);
