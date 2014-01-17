@@ -19,6 +19,7 @@
 #include "Element.hpp"
 #include "evenements/ObservateurSouris.hpp"
 #include "evenements/ObservateurClavier.hpp"
+#include "evenements/Message.hpp"
 
 // Pré déclarations
 class Scene;
@@ -38,7 +39,7 @@ class Gui {
         /**
          * \brief La file des messages envoyés dans ce gui
          */
-        std::queue<int> messages;
+        std::queue<Message> messages;
 
         /**
          * \brief L'horloge interne utilisée pour la méthode d'actualisation
@@ -102,9 +103,9 @@ class Gui {
         /**
          * \brief Ajoute le message à la file de message du gui
          *
-         * \param id l'id de l'élement ayant déclenché le message
+         * \param message le message généré
          */
-        void ajouterMessage(int id);
+        void ajouterMessage(Message message);
 
         /**
          * \brief Traite l'évènement donné
@@ -129,10 +130,10 @@ class Gui {
          * Place le dernier message de la file dans le pointeur passé en paramètre,
          * et renvoie true si il reste des messages, et false si il n'en reste pas
          *
-         * \param id pointeur vers l'objet où placer le message
+         * \param message pointeur vers l'objet où placer le message
          * \return true si il reste des messages, false sinon
          */
-        bool obtenirMessage(int* id);
+        bool obtenirMessage(Message* message);
 };
 
 #endif /* GUI_HPP */

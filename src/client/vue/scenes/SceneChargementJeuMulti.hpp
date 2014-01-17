@@ -10,20 +10,17 @@
 
 #include "ScenesPack.hpp"
 
-class SceneChargementJeuMulti :
-	public Scene
-{
-	private:
-		enum Elements
-		{
+class SceneChargementJeuMulti : public Scene {
+    private:
+        enum Elements {
 
-		};
+        };
 
-	public:
-		SceneChargementJeuMulti(Jeu& jeu);
-		virtual ~SceneChargementJeuMulti();
+    public:
+        SceneChargementJeuMulti(Jeu& jeu);
+        virtual ~SceneChargementJeuMulti();
 
-		void surMessage(int id);
+        void surMessage(Message message);
 };
 
 #endif /* SCENECHARGEMENTJEUMULTI_HPP */

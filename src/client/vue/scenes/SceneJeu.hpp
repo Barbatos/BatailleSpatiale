@@ -19,54 +19,51 @@
  *
  * Scène affichant le plateau
  */
-class SceneJeu :
-	public Scene
-{
-	private:
-		/**
-		 *
-		 */
-		AffichagePlateau::Ptr plateau;
+class SceneJeu : public Scene {
+    private:
+        /**
+         *
+         */
+        AffichagePlateau::Ptr plateau;
 
-		/**
-		 *
-		 */
-		AffichageDetails::Ptr details;
+        /**
+         *
+         */
+        AffichageDetails::Ptr details;
 
-	public:
-		/**
-		 *
-		 */
-		enum Elements
-		{
-			Menu, //!<
-			Plateau, //!<
-			Droite, //!<
-			Gauche, //!<
-			Haut, //!<
-			Bas, //!<
-			Details, //!<
-			Case //!<
-		};
+    public:
+        /**
+         *
+         */
+        enum Elements {
+            Menu, //!<
+            Plateau, //!<
+            Droite, //!<
+            Gauche, //!<
+            Haut, //!<
+            Bas, //!<
+            Details, //!<
+            Case //!<
+        };
 
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance de scène de jeu
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneJeu(Jeu& jeu);
+        /**
+         * \brief Constructeur
+         *
+         * Créé une nouvelle instance de scène de jeu
+         *
+         * \param jeu le jeu actuel
+         */
+        SceneJeu(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée de scène de jeu
-		 */
-		virtual ~SceneJeu();
+        /**
+         * \brief Destructeur
+         *
+         * Détruit l'instance précédemment créée de scène de jeu
+         */
+        virtual ~SceneJeu();
 
-		// Héritée de Scene
-		void surMessage(int nom);
+        // Héritée de Scene
+        void surMessage(Message message);
 };
 
 #endif /* SCENEJEU_HPP */

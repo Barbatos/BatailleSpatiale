@@ -17,42 +17,39 @@ class ZoneTexte;
  *
  * Écran de création d'une partie Multijoueur
  */
-class SceneMenuMultijoueur :
-	public Scene
-{
-	private:
-		/**
-		 * \brief Les différents boutons de la scène
-		 */
-		enum Boutons
-		{
-			Multijoueur, //!< Lancer une partie multijoueur
-			Retour
-		};
+class SceneMenuMultijoueur : public Scene {
+    private:
+        /**
+         * \brief Les différents boutons de la scène
+         */
+        enum Boutons {
+            Multijoueur, //!< Lancer une partie multijoueur
+            Retour
+        };
 
-		ZoneTexte* ip;
-		ZoneTexte* port;
-		ZoneTexte* pseudo;
+        ZoneTexte* ip;
+        ZoneTexte* port;
+        ZoneTexte* pseudo;
 
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance de scène menu multijoueur avec le jeu actuel
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneMenuMultijoueur(Jeu& jeu);
+    public:
+        /**
+         * \brief Constructeur
+         *
+         * Créé une nouvelle instance de scène menu multijoueur avec le jeu actuel
+         *
+         * \param jeu le jeu actuel
+         */
+        SceneMenuMultijoueur(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée de scène menu multijoueur
-		 */
-		virtual ~SceneMenuMultijoueur();
+        /**
+         * \brief Destructeur
+         *
+         * Détruit l'instance précédemment créée de scène menu multijoueur
+         */
+        virtual ~SceneMenuMultijoueur();
 
-		// Héritée de Scene
-		void surMessage(int id);
+        // Héritée de Scene
+        void surMessage(Message message);
 };
 
 #endif /* SCENEMENUMULTIJOUEUR_HPP */

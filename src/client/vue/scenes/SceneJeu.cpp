@@ -13,6 +13,8 @@
 
 SceneJeu::SceneJeu(Jeu& jeu)
                 : Scene(jeu) {
+    jeu.lirePlateau().viderZoneParcourable();
+
     int winx = jeu.lireAffichage().getSize().x;
     int winy = jeu.lireAffichage().getSize().y;
 
@@ -37,31 +39,37 @@ SceneJeu::~SceneJeu() {
 
 }
 
-void SceneJeu::surMessage(int id) {
-    switch (id) {
-        case Menu:
-            jeu.changer(Scene::SceneJeuMenu);
+void SceneJeu::surMessage(Message message) {
+    switch (message.type) {
+        case Message::Element:
+            switch (message.element.id) {
+                case Menu:
+                    jeu.changer(Scene::SceneJeuMenu);
+                    break;
+                case Plateau:
+                    break;
+                case Droite:
+                    if (plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
+                        plateau->bougerPlateau(5, 0);
+                    break;
+                case Gauche:
+                    if (-plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
+                        plateau->bougerPlateau(-5, 0);
+                    break;
+                case Haut:
+                    if (-plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().x / 2)
+                        plateau->bougerPlateau(0, -5);
+                    break;
+                case Bas:
+                    if (plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().y / 2)
+                        plateau->bougerPlateau(0, 5);
+                    break;
+                default:
+                    break;
+            }
             break;
-        case Plateau:
-            break;
-        case Droite:
-            if (plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
-                plateau->bougerPlateau(5, 0);
-            break;
-        case Gauche:
-            if (-plateau->lireVue()->getCenter().x < jeu.lireAffichage().getSize().x / 2)
-                plateau->bougerPlateau(-5, 0);
-            break;
-        case Haut:
-            if (-plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().x / 2)
-                plateau->bougerPlateau(0, -5);
-            break;
-        case Bas:
-            if (plateau->lireVue()->getCenter().y < jeu.lireAffichage().getSize().y / 2)
-                plateau->bougerPlateau(0, 5);
-            break;
-        case Case:
-            plateau->appuiCase();
+        case Message::Cellule:
+            plateau->appuiCase(message.cellule);
             break;
         default:
             break;

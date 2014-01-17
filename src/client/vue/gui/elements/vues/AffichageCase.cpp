@@ -104,11 +104,19 @@ void AffichageCase::ecrirePositionPlateau(Position position) {
     this->position = position;
 }
 
-void AffichageCase::clicSouris() {
+void AffichageCase::clicSouris(bool clicDroit) {
     if (!selectionne) {
         selectionne = true;
 
-        envoyerMessage();
+        Message message;
+
+        message.type = Message::Cellule;
+        message.cellule.x = position.x;
+        message.cellule.y = position.y;
+        message.cellule.selection = true;
+        message.cellule.clicDroit = clicDroit;
+
+        envoyerMessage(message);
     }
 }
 

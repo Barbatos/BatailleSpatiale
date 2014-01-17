@@ -16,34 +16,36 @@
  *
  * Scène du menu pause
  */
-class SceneJeuMenu :
-	public Scene
-{
-	private:
-		enum Boutons
-		{
-			Retour, Sauvegarder, Charger, Options, QuitterPartie, QuitterJeu
-		};
+class SceneJeuMenu : public Scene {
+    private:
+        enum Boutons {
+            Retour,
+            Sauvegarder,
+            Charger,
+            Options,
+            QuitterPartie,
+            QuitterJeu
+        };
 
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance du menu pause
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneJeuMenu(Jeu& jeu);
+    public:
+        /**
+         * \brief Constructeur
+         *
+         * Créé une nouvelle instance du menu pause
+         *
+         * \param jeu le jeu actuel
+         */
+        SceneJeuMenu(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée du menu pause
-		 */
-		virtual ~SceneJeuMenu();
+        /**
+         * \brief Destructeur
+         *
+         * Détruit l'instance précédemment créée du menu pause
+         */
+        virtual ~SceneJeuMenu();
 
-		// Héritée de Scene
-		void surMessage(int id);
+        // Héritée de Scene
+        void surMessage(Message message);
 };
 
 #endif /* SCENEJEUMENU_HPP */

@@ -18,6 +18,7 @@
 // Includes de nos classes
 #include "evenements/ObservateurSouris.hpp"
 #include "evenements/ObservateurClavier.hpp"
+#include "evenements/Message.hpp"
 
 // Pré-déclarations
 class Gui;
@@ -321,8 +322,10 @@ class Element {
 
         /**
          * \brief Envoie un message au gui contenant l'élement
+         *
+         * \param message le message à envoyer
          */
-        void envoyerMessage();
+        void envoyerMessage(Message message);
 
         /**
          * \brief Retourne si l'élement contient ou non la position donnée

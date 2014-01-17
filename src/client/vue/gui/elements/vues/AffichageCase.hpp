@@ -45,7 +45,8 @@ class AffichageCase : public Element, public ObservateurSouris {
         /**
          * \brief Constructeur
          */
-        AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position, sf::View* vuePlateau);
+        AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
+            sf::View* vuePlateau);
 
         /**
          * \brief Destructeur
@@ -79,7 +80,7 @@ class AffichageCase : public Element, public ObservateurSouris {
         bool contient(sf::Vector2i position);
 
         // Héritées d'observateur souris
-        void clicSouris();
+        void clicSouris(bool clicDroit);
         void pressionSouris(sf::Mouse::Button bouton);
         void relachementSouris(sf::Mouse::Button bouton);
         void entreeSouris(sf::Vector2f position);

@@ -131,6 +131,6 @@ void Element::ecrireVue(sf::View* vue) {
     this->vue = vue;
 }
 
-void Element::envoyerMessage() {
-    gui->ajouterMessage(id);
+void Element::envoyerMessage(Message message) {
+    gui->ajouterMessage(message);
 }

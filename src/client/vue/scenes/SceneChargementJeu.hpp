@@ -9,21 +9,19 @@
 #define SCENECHARGEMENTJEU_HPP
 
 #include "ScenesPack.hpp"
+#include <client/vue/gui/evenements/Message.hpp>
 
-class SceneChargementJeu :
-	public Scene
-{
-	private:
-		enum Elements
-		{
+class SceneChargementJeu : public Scene {
+    private:
+        enum Elements {
 
-		};
+        };
 
-	public:
-		SceneChargementJeu(Jeu& jeu);
-		virtual ~SceneChargementJeu();
+    public:
+        SceneChargementJeu(Jeu& jeu);
+        virtual ~SceneChargementJeu();
 
-		void surMessage(int id);
+        void surMessage(Message message);
 };
 
 #endif /* SCENECHARGEMENTJEU_HPP */

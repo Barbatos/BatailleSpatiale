@@ -49,7 +49,7 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
 
             // On initialise l'affichage de la case
             if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
-                AffichageCase* c = new AffichageCase(lireGui(), SceneJeu::Case, xc, yc, taille, Position(i, j), &vuePlateau);
+                AffichageCase* c = new AffichageCase(lireGui(), -1, xc, yc, taille, Position(i, j), &vuePlateau);
 
                 // On ajoute la case à la liste de cases
                 cases.push_back(AffichageCase::Ptr(c));
@@ -81,57 +81,30 @@ void AffichagePlateau::bougerPlateau(float x, float y) {
     vuePlateau.move(x, y);
 }
 
-void AffichagePlateau::appuiCase() {
-    bool selection = false;
-    Position position;
+void AffichagePlateau::appuiCase(Message::MessageCellule message) {
+    Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
+    ReseauClient* r = lireGui()->lireScene()->lireJeu().lireReseau().get();
+    Position ancienne = details->lirePosition();
+    Position position = Position(message.x, message.y);
 
-    // On vide la zone parcourable du plateau
-    lireGui()->lireScene()->lireJeu().lirePlateau().viderZoneParcourable();
-
-    // Pour toutes les cases, et tant que rien n'a été selectionné
-    for (std::vector<AffichageCase::Ptr>::size_type i = 0; !selection && i < cases.size(); i++) {
-        // Si la case est selectionnée
-        if (cases[i]->lireSelectionne()) {
-            // On stocke la position de la case selectionnée
-            Position posCase = cases[i]->lirePositionPlateau();
-
-            // On sauvegarde la position actuellement selectionnée
-            position = details->lirePosition();
-            // On selectionne la nouvelle
-            details->selectionner(posCase);
-            // On dit que quelque chose a été selectionné
-            selection = true;
-
-            // On stocke la case et on vérifie si c'est un vaisseau
-            TypeCellule c = lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(posCase).statutEmplacement();
-            if (c == TypeCellule::Vaisseau)
-                // Si oui, on demande au serveur la zone parcourable
-                lireGui()->lireScene()->lireJeu().lireReseau()->getZoneParcourable(posCase);
-        }
-    }
-
-    // Si rien n'a été selectionné
-    if (!selection) {
-        // Ne rien selectionner
-        details->selectionner();
-    }
-    // Sinon
-    else {
-        // Si une case était précédemment selectionnée
-        if (position.x != -1 && position.y != -1) {
-            // On récupère la nouvelle position
-            // Position nouvelle = details->lirePosition();
-
-            // Si la précédente case selectionnée contenait un vaisseau
-            if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeVaisseau(position)) {
-                // On déplace ce vaisseau
+    // Si une case était précédemment selectionnée
+    if (ancienne.x != -1 && ancienne.y != -1) {
+        if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
+            if (message.clicDroit) {
+                r->getChemin(ancienne, position);
             }
-            // Sinon, si c'était un bâtiment
-            else if (lireGui()->lireScene()->lireJeu().lirePlateau().possedeBatiment(position)) {
-                // Faire quelque chose
+            else {
+                // Déplacement, Attaque, etc
             }
         }
     }
+
+    p.viderZoneParcourable();
+
+    details->selectionner(position);
+
+    if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
+        r->getZoneParcourable(position);
 }
 
 void AffichagePlateau::afficher(sf::RenderWindow&) {
@@ -143,7 +116,7 @@ bool AffichagePlateau::contient(sf::Vector2i) {
 }
 
 // Héritées d'ElementSouris
-void AffichagePlateau::clicSouris() {
+void AffichagePlateau::clicSouris(bool) {
     /* Ne rien faire ici */
 }
 

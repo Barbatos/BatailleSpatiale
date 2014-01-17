@@ -16,42 +16,39 @@
  *
  * Écran des options du jeu
  */
-class SceneJeuOptions :
-	public Scene
-{
-	private:
-		enum Boutons
-		{
-			Musique,
-			AugmenterMusique,
-			BaisserMusique,
-			Son,
-			AugmenterSon,
-			BaisserSon,
-			Retour
-		};
+class SceneJeuOptions : public Scene {
+    private:
+        enum Boutons {
+            Musique,
+            AugmenterMusique,
+            BaisserMusique,
+            Son,
+            AugmenterSon,
+            BaisserSon,
+            Retour
+        };
 
-		Ressources::MusicPtr musique;
+        Ressources::MusicPtr musique;
 
-	public:
-		/**
-		 * \brief Constructeur
-		 *
-		 * Créé une nouvelle instance de scène jeu options avec le jeu actuel
-		 *
-		 * \param jeu le jeu actuel
-		 */
-		SceneJeuOptions(Jeu& jeu);
+    public:
+        /**
+         * \brief Constructeur
+         *
+         * Créé une nouvelle instance de scène jeu options avec le jeu actuel
+         *
+         * \param jeu le jeu actuel
+         */
+        SceneJeuOptions(Jeu& jeu);
 
-		/**
-		 * \brief Destructeur
-		 *
-		 * Détruit l'instance précédemment créée de scène jeu options
-		 */
-		virtual ~SceneJeuOptions();
+        /**
+         * \brief Destructeur
+         *
+         * Détruit l'instance précédemment créée de scène jeu options
+         */
+        virtual ~SceneJeuOptions();
 
-		// Héritée de Scene
-		void surMessage(int id);
+        // Héritée de Scene
+        void surMessage(Message message);
 };
 
 #endif /* SCENEJEUOPTIONS_HPP_ */
