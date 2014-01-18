@@ -10,7 +10,7 @@
 #include "Gui.hpp"
 
 Element::Element(Gui* gui, int id)
-: id(id), gui(gui), souris(false), clavier(false), observateurSouris(nullptr),
+: id(id), gui(gui), observateurSouris(nullptr),
 observateurClavier(nullptr), survol(false), appui(false), vue(nullptr) {
     gui->ajouter(Ptr(this));
 }
@@ -21,41 +21,35 @@ Element::~Element() {
 
     if (vue != nullptr)
         delete vue;
-
-    observateurSouris.reset();
-
-    observateurClavier.reset();
 }
 
-ObservateurSouris::Ptr Element::lireSouris() {
+ObservateurSouris* Element::lireSouris() {
     return observateurSouris;
 }
 
-ObservateurClavier::Ptr Element::lireClavier() {
+ObservateurClavier* Element::lireClavier() {
     return observateurClavier;
 }
 
-void Element::enregistrerSouris(ObservateurSouris::Ptr observateur) {
+void Element::enregistrerSouris(ObservateurSouris* observateur) {
     if (observateur == nullptr)
         return;
 
     observateurSouris = observateur;
-    souris = true;
 }
-void Element::enregistrerClavier(ObservateurClavier::Ptr observateur) {
+void Element::enregistrerClavier(ObservateurClavier* observateur) {
     if (observateur == nullptr)
         return;
 
     observateurClavier = observateur;
-    clavier = true;
 }
 
 bool Element::observeSouris() {
-    return souris;
+    return observateurSouris != nullptr;
 }
 
 bool Element::observeClavier() {
-    return clavier;
+    return observateurClavier != nullptr;
 }
 
 int Element::lireId() {

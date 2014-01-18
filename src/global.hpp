@@ -6,15 +6,18 @@
 #include <sstream>
 #include <cstring>
 #include <vector>
+#include <stdio.h>
+#include <time.h>
+#include <map>
+#include <list>
+#include <memory>
+
+// Changement de librairie si on compile sous Visual Studio
 #ifdef _WIN32
 #include <io.h>
 #else
 #include <unistd.h>
 #endif
-#include <stdio.h>
-#include <map>
-#include <list>
-#include <memory>
 
 #ifdef WIN32
 #pragma comment(lib, "sfml-network.lib")

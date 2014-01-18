@@ -9,6 +9,9 @@
 
 #include <client/vue/gui/elements/vues/BoutonDeplacementPlateau.hpp>
 
+#include <client/vue/gui/elements/vues/AffichageDetails.hpp>
+#include <client/vue/gui/elements/vues/AffichagePlateau.hpp>
+
 #include <client/Jeu.hpp>
 
 SceneJeu::SceneJeu(Jeu& jeu)
@@ -23,11 +26,11 @@ SceneJeu::SceneJeu(Jeu& jeu)
     float x = winx * 0.01f;
     float y = winy * 0.01f;
 
-    details = AffichageDetails::Ptr(new AffichageDetails(&gui, Details, x, 0.7 * winy, winx / 3 - x, 0.3
-                    * winy - y));
+    details = new AffichageDetails(&gui, Details, x, 0.7 * winy, winx / 3 - x, 0.3
+                    * winy - y);
 
-    plateau = AffichagePlateau::Ptr(new AffichagePlateau(&gui, Plateau, 0, 0, (winx - 2 * x) / 2, (winy
-                    - 2 * y) / 2, details));
+    plateau = new AffichagePlateau(&gui, Plateau, 0, 0, (winx - 2 * x) / 2, (winy
+                    - 2 * y) / 2, details);
 
     new BoutonDeplacementPlateau(&gui, Droite, winx - x, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Gauche, 0, y, x, winy - 2 * y);

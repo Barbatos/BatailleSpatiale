@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AffichageDetails.cpp
  *
  *  Created on: 18 oct. 2013
@@ -14,7 +14,9 @@
 // Includes de nos classes
 #include <client/vue/Affichage.hpp>
 #include <client/Jeu.hpp>
-#include <client/utile/Utile.hpp>
+
+// Includes des classes utiles
+#include <utiles.hpp>
 
 AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y, float largeur, float hauteur)
 : Element(gui, id), fond(), label("", x + 5, y + 5), position(-1, -1) {
@@ -38,26 +40,27 @@ AffichageDetails::~AffichageDetails() {
 void AffichageDetails::actualiser(float) {
     if (position.x == -1 && position.y == -1)
     {
-        label.setString("Aucune case n'est selectionee");
+        label.setString(std::wstring(L"Aucune case n'est selectionée"));
+
         return;
     }
 
     Plateau p = lireGui()->lireScene()->lireJeu().lirePlateau();
     TypeCellule cellule = p.getCellule(position).statutEmplacement();
-    std::string texte;
+    std::wstring texte;
 
     switch (cellule) {
     case TypeCellule::Vaisseau:
-        texte = Utile::to_string(p.getVaisseau(position));
+        texte = Utile::toString(p.getVaisseau(position));
         break;
     case TypeCellule::Batiment:
-        texte = Utile::to_string(p.getBatiment(position));
+        texte = Utile::toString(p.getBatiment(position));
         break;
     case TypeCellule::Evenement:
-        texte = Utile::to_string(p.getEvenement(position));
+        texte = Utile::toString(p.getEvenement(position));
         break;
     default:
-        texte = Utile::to_string(position);
+        texte = Utile::toString(position);
         break;
     }
 

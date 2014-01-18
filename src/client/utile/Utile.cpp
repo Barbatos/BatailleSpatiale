@@ -73,54 +73,54 @@ namespace Utile {
             image.scale(coeffX, coeffY);
     }
 
-    std::string convertir(TypeVaisseau type) {
+    std::wstring convertir(TypeVaisseau type) {
         switch (type) {
         case TypeVaisseau::Inexistant:
-            return "Inexistant";
+            return L"Inexistant";
         case TypeVaisseau::Constructeur:
-            return "Constructeur";
+            return L"Constructeur";
         case TypeVaisseau::Bombardier:
-            return "Bombardier";
+            return L"Bombardier";
         case TypeVaisseau::Chasseur:
-            return "Chasseur";
+            return L"Chasseur";
         case TypeVaisseau::Croiseur:
-            return "Croiseur";
+            return L"Croiseur";
         case TypeVaisseau::Destructeur:
-            return "Destructeur";
+            return L"Destructeur";
         case TypeVaisseau::ChasseurLourd:
-            return "Chasseur Lourd";
+            return L"Chasseur Lourd";
         case TypeVaisseau::Traqueur:
-            return "Traqueur";
+            return L"Traqueur";
         case TypeVaisseau::Leger:
-            return "Léger";
+            return L"Léger";
         default:
-            return "";
+            return L"";
         }
     }
 
-    std::string convertir(TypeBatiment type) {
+    std::wstring convertir(TypeBatiment type) {
         switch (type) {
         case TypeBatiment::Base:
-            return "Base";
+            return L"Base";
         default:
-            return "";
+            return L"";
         }
     }
 
-    std::string convertir(TypeEvenement type) {
+    std::wstring convertir(TypeEvenement type) {
         switch (type) {
         case TypeEvenement::ChampMeteor:
-            return "Champ de Météore";
+            return L"Champ de Météore";
         case TypeEvenement::Epave:
-            return "Epave";
+            return L"Epave";
         case TypeEvenement::InfluenceTrouNoir:
-            return "Influence trou noir";
+            return L"Influence trou noir";
         case TypeEvenement::NuageGaz:
-            return "Nuage de gaz";
+            return L"Nuage de gaz";
         case TypeEvenement::StationSpatialeAbandonnee:
-            return "Station spatiale abandonnée";
+            return L"Station spatiale abandonnée";
         default:
-            return "";
+            return L"";
         }
     }
 
@@ -198,9 +198,9 @@ namespace Utile {
         return fichier;
     }
 
-    std::string to_string(DetailBatiment details)
+    std::wstring toString(DetailBatiment details)
     {
-        std::stringstream stream;
+        std::wstringstream stream;
 
         stream << "Niveau : " << details.niveau << "\n";
 
@@ -215,9 +215,9 @@ namespace Utile {
         return stream.str();
     }
 
-    std::string to_string(DetailVaisseau details)
+    std::wstring toString(DetailVaisseau details)
     {
-        std::stringstream stream;
+        std::wstringstream stream;
 
         stream << "Type : " << Utile::convertir(details.type) << "\n";
 
@@ -227,25 +227,25 @@ namespace Utile {
 
         stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : " << details.bouclierTaux << "\n";
 
-        stream << "Déplacement : " << details.distanceMax << ". Consommation : " << details.consommation << "\n";
+        stream << L"Déplacement : " << details.distanceMax << ". Consommation : " << details.consommation << "\n";
 
         return stream.str();
     }
 
-    std::string to_string(DetailEvenement details)
+    std::wstring toString(DetailEvenement details)
     {
-        std::stringstream stream;
+        std::wstringstream stream;
 
         stream << "Type : " << Utile::convertir(details.type) << "\n";
 
-        stream << "Cout déplacement : " << details.coutDeplacement << "\n";
+        stream << L"Cout déplacement : " << details.coutDeplacement << "\n";
 
         return stream.str();
     }
 
-    std::string to_string(Position position)
+    std::wstring toString(Position position)
     {
-        std::stringstream stream;
+        std::wstringstream stream;
 
         stream << "Position : " << position.x << "," << position.y;
 

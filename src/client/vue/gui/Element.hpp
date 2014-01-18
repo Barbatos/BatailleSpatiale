@@ -16,12 +16,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 // Includes de nos classes
-#include "evenements/ObservateurSouris.hpp"
-#include "evenements/ObservateurClavier.hpp"
 #include "evenements/Message.hpp"
 
 // Pré-déclarations
 class Gui;
+class ObservateurSouris;
+class ObservateurClavier;
 
 /**
  * \brief Représente un élément graphique, appartenant à un Gui, et affiché à l'écran
@@ -59,28 +59,18 @@ private:
     ///////////////////////////////////////////////////
 
     /**
-     * \brief Si l'élement observe les évènements de la souris
-     */
-    bool souris;
-
-    /**
-     * \brief Si l'élement observe les évènements du clavier
-     */
-    bool clavier;
-
-    /**
      * \brief Observateur de la souris
      *
      * \see ObservateurSouris
      */
-    ObservateurSouris::Ptr observateurSouris;
+    ObservateurSouris* observateurSouris;
 
     /**
      * \brief Observateur du clavier
      *
      * \see ObservateurClavier
      */
-    ObservateurClavier::Ptr observateurClavier;
+    ObservateurClavier* observateurClavier;
 
 protected:
     ///////////////////////////////////////////////////
@@ -143,28 +133,28 @@ public:
      *
      * \return l'observateur souris de l'élement, ou nullptr si il n'y en a pas
      */
-    ObservateurSouris::Ptr lireSouris();
+    ObservateurSouris* lireSouris();
 
     /**
      * \brief Retourne un pointeur vers l'observateur clavier de l'élement
      *
      * \return l'observateur clavier de l'élement, ou nullptr si il n'y en a pas
      */
-    ObservateurClavier::Ptr lireClavier();
+    ObservateurClavier* lireClavier();
 
     /**
      * \brief Change l'observateur souris de l'élement
      *
      * \param observateur le nouvel observateur souris de l'élement
      */
-    void enregistrerSouris(ObservateurSouris::Ptr observateur);
+    void enregistrerSouris(ObservateurSouris* observateur);
 
     /**
      * \brief Change l'observateur clavier de l'élement
      *
      * \param observateur le nouvel observateur clavier de l'élement
      */
-    void enregistrerClavier(ObservateurClavier::Ptr observateur);
+    void enregistrerClavier(ObservateurClavier* observateur);
 
     /**
      * \brief Retourne si l'élement a défini l'observateur souris ou non
@@ -328,7 +318,7 @@ public:
     /**
     * \brief Change si l'élement est appuyé ou non par le bouton droit de la souris
     *
-    * \param appui si l'élement est appuyé ou non
+    * \param appuiDroit si l'élement est appuyé ou non
     */
     void ecrireAppuiDroit(bool appuiDroit);
 

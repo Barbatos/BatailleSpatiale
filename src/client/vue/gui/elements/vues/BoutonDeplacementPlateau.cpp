@@ -20,7 +20,7 @@ BoutonDeplacementPlateau::BoutonDeplacementPlateau(Gui* gui, int id, float x, fl
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
 
-    enregistrerSouris(ObservateurSouris::Ptr(this));
+    enregistrerSouris(this);
 
     fond.setPosition(x, y);
     fond.setSize(sf::Vector2f(largeur, hauteur));

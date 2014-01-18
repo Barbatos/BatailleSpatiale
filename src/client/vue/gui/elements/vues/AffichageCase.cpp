@@ -17,7 +17,7 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, P
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
 
-    enregistrerSouris(ObservateurSouris::Ptr(this));
+    enregistrerSouris(this);
 
     fond = sf::CircleShape(taille / 1.6, 6);
     fond.setPosition(x + taille / 2, y + taille / 2);

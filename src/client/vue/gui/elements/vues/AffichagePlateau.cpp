@@ -9,10 +9,13 @@
 
 #include <client/Jeu.hpp>
 
+#include "AffichageDetails.hpp"
+#include "AffichageCase.hpp"
+
 AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-    AffichageDetails::Ptr details)
-                : Element(gui, id), ObservateurSouris(), details(details), cases(),
-                  vuePlateau(sf::FloatRect(0, 0, 0, 0)), charge(false)
+    AffichageDetails* details)
+    : Element(gui, id), ObservateurSouris(), details(details), cases(),
+    vuePlateau(sf::FloatRect(0, 0, 0, 0)), charge(false)
 
 {
     // Pour initialiser l'élément
@@ -21,7 +24,7 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
     ecrireVue(&vuePlateau);
 
     // Pour dire que le plateau intéragit avec la souris
-    enregistrerSouris(ObservateurSouris::Ptr(this));
+    enregistrerSouris(this);
 
     // On change le viewport de la vue
     vuePlateau.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
@@ -42,19 +45,19 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
 
     // On parcoure les cases du plateau
     for (int i = 0; i < maxx; i++)
-        for (int j = 0; j < maxy; j++) {
-            // On calcule la position en x et y
-            xc = (i * 2 + j) * taille * 3 / 5;
-            yc = j * taille;
+    for (int j = 0; j < maxy; j++) {
+        // On calcule la position en x et y
+        xc = (i * 2 + j) * taille * 3 / 5;
+        yc = j * taille;
 
-            // On initialise l'affichage de la case
-            if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
-                AffichageCase* c = new AffichageCase(lireGui(), -1, xc, yc, taille, Position(i, j), &vuePlateau);
+        // On initialise l'affichage de la case
+        if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
+            AffichageCase* c = new AffichageCase(lireGui(), -1, xc, yc, taille, Position(i, j), &vuePlateau);
 
-                // On ajoute la case à la liste de cases
-                cases.push_back(AffichageCase::Ptr(c));
-            }
+            // On ajoute la case à la liste de cases
+            cases.push_back(c);
         }
+    }
 
     // On change la taille de la vue
     if (xc > yc)
@@ -67,8 +70,8 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
 }
 
 AffichagePlateau::~AffichagePlateau() {
-    for (std::vector<AffichageCase::Ptr>::size_type i = 0; i < cases.size(); i++)
-        cases[i].reset();
+    for (std::vector<AffichageCase*>::size_type i = 0; i < cases.size(); i++)
+        delete cases[i];
 
     cases.clear();
 }

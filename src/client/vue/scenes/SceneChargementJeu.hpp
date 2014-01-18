@@ -9,19 +9,26 @@
 #define SCENECHARGEMENTJEU_HPP
 
 #include "ScenesPack.hpp"
-#include <client/vue/gui/evenements/Message.hpp>
 
+/**
+ * \brief Scène affichée lors du chargement d'une partie solo
+ */
 class SceneChargementJeu : public Scene {
-    private:
-        enum Elements {
+public:
+    /**
+     * \brief Constructeur
+     *
+     * \param jeu le jeu actuel
+     */
+    SceneChargementJeu(Jeu& jeu);
 
-        };
+    /**
+     * \brief Destructeur
+     */
+    virtual ~SceneChargementJeu();
 
-    public:
-        SceneChargementJeu(Jeu& jeu);
-        virtual ~SceneChargementJeu();
-
-        void surMessage(Message message);
+    // Héritée de Scene
+    void surMessage(Message message);
 };
 
 #endif /* SCENECHARGEMENTJEU_HPP */

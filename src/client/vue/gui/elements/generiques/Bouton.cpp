@@ -8,11 +8,11 @@
 #include "Bouton.hpp"
 
 Bouton::Bouton(Gui* gui, int id, std::string texte, float x, float y, float largeur, float hauteur)
-                : Element(gui, id), ObservateurSouris(), label(texte, x, y) {
+: Element(gui, id), ObservateurSouris(), label(texte, x, y) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
 
-    enregistrerSouris(ObservateurSouris::Ptr(this));
+    enregistrerSouris(this);
 
     normal = lireGui()->lireScene()->lireJeu().lireRessources().lireImage("Interface/Bouton/bouton.png");
     survol = lireGui()->lireScene()->lireJeu().lireRessources().lireImage("Interface/Bouton/bouton_dessus.png");

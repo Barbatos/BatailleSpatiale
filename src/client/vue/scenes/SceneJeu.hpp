@@ -8,11 +8,11 @@
 #ifndef SCENEJEU_HPP
 #define SCENEJEU_HPP
 
-#include <client/vue/Scene.hpp>
+#include "ScenesPack.hpp"
 
-#include <client/vue/gui/elements/vues/AffichagePlateau.hpp>
-
-#include <client/vue/gui/elements/vues/AffichageDetails.hpp>
+// Pré-déclarations
+class AffichagePlateau;
+class AffichageDetails;
 
 /**
  * \brief Scène en jeu
@@ -20,50 +20,46 @@
  * Scène affichant le plateau
  */
 class SceneJeu : public Scene {
-    private:
-        /**
-         *
-         */
-        AffichagePlateau::Ptr plateau;
+private:
+    /**
+     * \brief L'affichage du plateau
+     */
+    AffichagePlateau* plateau;
 
-        /**
-         *
-         */
-        AffichageDetails::Ptr details;
+    /**
+     * \brief L'affichage des détails
+     */
+    AffichageDetails* details;
 
-    public:
-        /**
-         *
-         */
-        enum Elements {
-            Menu, //!<
-            Plateau, //!<
-            Droite, //!<
-            Gauche, //!<
-            Haut, //!<
-            Bas, //!<
-            Details, //!<
-            Case //!<
-        };
+public:
+    /**
+     * \brief Les différents éléments de la scène
+     */
+    enum Elements {
+        Menu, //!< Le bouton de menu
+        Plateau, //!< L'affichage du plateau
+        Droite, //!< Le bouton pour déplacer le plateau à droite
+        Gauche, //!< Le bouton pour déplacer le plateau à gauche
+        Haut, //!< Le bouton pour déplacer le plateau en haut
+        Bas, //!< Le bouton pour déplacer le plateau en bas
+        Details, //!< L'affichage des détails
+        Case //!< L'id générique pour l'affichage des cases
+    };
 
-        /**
-         * \brief Constructeur
-         *
-         * Créé une nouvelle instance de scène de jeu
-         *
-         * \param jeu le jeu actuel
-         */
-        SceneJeu(Jeu& jeu);
+    /**
+     * \brief Constructeur
+     *
+     * \param jeu le jeu actuel
+     */
+    SceneJeu(Jeu& jeu);
 
-        /**
-         * \brief Destructeur
-         *
-         * Détruit l'instance précédemment créée de scène de jeu
-         */
-        virtual ~SceneJeu();
+    /**
+     * \brief Destructeur
+     */
+    virtual ~SceneJeu();
 
-        // Héritée de Scene
-        void surMessage(Message message);
+    // Héritée de Scene
+    void surMessage(Message message);
 };
 
 #endif /* SCENEJEU_HPP */

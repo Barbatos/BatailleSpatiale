@@ -31,4 +31,6 @@ find_package(SFML 2 COMPONENTS ${SFML_COMPONENTS})
 if(SFML_FOUND)
     # On inclut les headers
     include_directories(${SFML_INCLUDE_DIR})
+    
+    message("${SFML_LIBRARIES}")
 endif()

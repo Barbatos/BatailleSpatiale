@@ -12,13 +12,13 @@
 
 ZoneTexte::ZoneTexte(Gui* gui, int id, int x, int y, int largeur, int hauteur,
     std::string remplacement)
-                : Element(gui, id), ObservateurSouris(), ObservateurClavier(), rectangle(),
-                  curseur(), label(), selectionne(false), texte(), remplacement(remplacement) {
+    : Element(gui, id), ObservateurSouris(), ObservateurClavier(), rectangle(),
+    curseur(), label(), selectionne(false), texte(), remplacement(remplacement) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
 
-    enregistrerSouris(ObservateurSouris::Ptr(this));
-    enregistrerClavier(ObservateurClavier::Ptr(this));
+    enregistrerSouris(this);
+    enregistrerClavier(this);
 
     // On configure le rectangle (bordure)
     rectangle.setPosition(x, y);
@@ -77,10 +77,10 @@ bool ZoneTexte::contient(sf::Vector2i position) {
 bool ZoneTexte::estAutorise(int unicode) {
     // Caractères autorisés : caractères alphanumériques, espaces et points
     return (unicode >= 65 && unicode <= 90) // A - Z
-    || (unicode >= 97 && unicode <= 122) // a - z
-    || (unicode >= 48 && unicode <= 57) // 0 - 9
-    || unicode == 46 // .
-    || unicode == 32; // Espace
+        || (unicode >= 97 && unicode <= 122) // a - z
+        || (unicode >= 48 && unicode <= 57) // 0 - 9
+        || unicode == 46 // .
+        || unicode == 32; // Espace
 }
 
 void ZoneTexte::clicSouris(bool clicDroit) {
@@ -132,7 +132,7 @@ void ZoneTexte::entreeTexte(sf::Uint32 unicode) {
         // Si le texte entré fait partie des caractères autorisé, et qu'on ne dépasse pas du rectangle
         if (estAutorise(unicode) && label.getGlobalBounds().width < rectangle.getSize().x - 20) {
             // On transforme le caractère entré depuis son format unicode
-            char c = (char) unicode;
+            char c = (char)unicode;
 
             // On l'ajoute au texte actuel
             std::stringstream stream;
@@ -162,7 +162,7 @@ void ZoneTexte::entreeTexte(sf::Uint32 unicode) {
         // Sinon (Temporaire, utilisé seulement pour du débug)
         else {
             // On affiche le caractère
-            std::cout << unicode << " : " << (char) unicode << std::endl;
+            std::cout << unicode << " : " << (char)unicode << std::endl;
         }
 
     }

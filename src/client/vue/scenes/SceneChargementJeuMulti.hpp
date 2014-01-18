@@ -10,17 +10,25 @@
 
 #include "ScenesPack.hpp"
 
+/**
+ * \brief Scène affichée lors du chargement d'une partie multijoueur
+ */
 class SceneChargementJeuMulti : public Scene {
-    private:
-        enum Elements {
+public:
+    /**
+     * \brief Constructeur par défaut
+     *
+     * \param jeu le jeu actuel
+     */
+    SceneChargementJeuMulti(Jeu& jeu);
 
-        };
+    /**
+     * \brief Destructeur
+     */
+    virtual ~SceneChargementJeuMulti();
 
-    public:
-        SceneChargementJeuMulti(Jeu& jeu);
-        virtual ~SceneChargementJeuMulti();
-
-        void surMessage(Message message);
+    // Héritée de Scene
+    void surMessage(Message message);
 };
 
 #endif /* SCENECHARGEMENTJEUMULTI_HPP */
