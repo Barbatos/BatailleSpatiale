@@ -46,7 +46,7 @@ void BatimentServeur::subir(BatimentServeur const& attaquant) {
 
 sf::Packet& operator <<(sf::Packet& paquet, const BatimentServeur& batiment) {
     return paquet << static_cast<sf::Uint16>(batiment.type) << batiment.attaque
-           << batiment.vie << batiment.vieMax << batiment.visibilite
+           << batiment.vie << batiment.vieMax << batiment.visibilite << batiment.rayonAttaque
            << batiment.bouclier << batiment.bouclierMax << batiment.bouclierTaux
            << batiment.niveau;
 }

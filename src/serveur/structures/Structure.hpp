@@ -14,7 +14,8 @@ class Structure {
 
 public:
 
-    Structure(sf::Int32 _vieMax = 100, sf::Int32 _bouclierMax = 0, double _bouclierTaux = 0, sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10);
+    Structure(sf::Int32 _vieMax = 100, sf::Int32 _bouclierMax = 0, double _bouclierTaux = 0,
+    sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10, sf::Int32 _rayonAttaque = 7);
 
     // Getter
     sf::Int32 getVie() const;
@@ -48,6 +49,7 @@ protected:
     double bouclierTaux;
     sf::Int32 visibilite;
     sf::Int32 attaque;
+    sf::Int32 rayonAttaque;
 
 private:
     friend std::ostream& operator<< (std::ostream& fluxSortant, Structure const& Structure);

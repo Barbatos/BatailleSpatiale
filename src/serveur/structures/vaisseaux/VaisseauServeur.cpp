@@ -196,7 +196,7 @@ TypeVaisseau VaisseauServeur::getType() const {
 
 sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau) {
     return paquet << static_cast<sf::Uint16>(vaisseau.type) << vaisseau.attaque
-           << vaisseau.vie << vaisseau.vieMax << vaisseau.visibilite
+           << vaisseau.vie << vaisseau.vieMax << vaisseau.visibilite << vaisseau.rayonAttaque
            << vaisseau.bouclier << vaisseau.bouclierMax << vaisseau.bouclierTaux
            << vaisseau.consommation << vaisseau.distanceMax;
 }

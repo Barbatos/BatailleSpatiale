@@ -2,17 +2,15 @@
 #include "Structure.hpp"
 
 // Constructeur
-Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux, sf::Int32 _visibilite, sf::Int32 _attaque) {
+Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux,
+                     sf::Int32 _visibilite, sf::Int32 _attaque, sf::Int32 _rayonAttaque) {
 
     vie = vieMax = _vieMax;
-
     bouclier = bouclierMax = _bouclierMax;
-
     bouclierTaux = _bouclierTaux;
-
     visibilite = _visibilite;
-
     attaque = _attaque;
+    rayonAttaque = _rayonAttaque;
 
 }
 
