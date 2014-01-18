@@ -1,4 +1,3 @@
-#include <iostream>
 #include "EvenementServeur.hpp"
 
 EvenementServeur::EvenementServeur(TypeEvenement _typeEvenement, bool _destructible,
