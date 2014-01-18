@@ -1,5 +1,5 @@
 # Les composants de la SFML
-set(SFML_COMPONENTS audio graphics window system network)
+set(SFML_COMPONENTS graphics audio network window system)
 
 # On lie la SFML de façon dynamique ou pas
 option(SFML_STATIC_LIBRARIES "Lier la SFML de façon statique" OFF)
@@ -14,7 +14,7 @@ if(WIN32)
             "C:/SFML-Static"
             "C:/Program Files/SFML-Static"
             "C:/Program Files (x86)/SFML-Static"
-            "D:/SFML")
+            "D:/SFML-Static")
     else()
         list(APPEND SFML_ROOT
             "C:/SFML"
@@ -31,6 +31,4 @@ find_package(SFML 2 COMPONENTS ${SFML_COMPONENTS})
 if(SFML_FOUND)
     # On inclut les headers
     include_directories(${SFML_INCLUDE_DIR})
-    
-    message("${SFML_LIBRARIES}")
 endif()

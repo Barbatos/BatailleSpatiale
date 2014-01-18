@@ -111,26 +111,26 @@ namespace Utile {
     /**
      * \brief Retourne le chemin vers l'image correspondant au vaisseau donné
      *
-     * \param type le type du vaisseau
+     * \param details le vaisseau
      * \return l'image associée
      */
-    std::string lireFichier(TypeVaisseau type);
+    std::string lireFichier(DetailVaisseau details);
 
     /**
      * \brief Retourne le chemin vers l'image correspondant au bâtiment donné
      *
-     * \param type le type du bâtiment
+     * \param details le bâtiment
      * \return l'image associée
      */
-    std::string lireFichier(TypeBatiment type);
+    std::string lireFichier(DetailBatiment details);
 
     /**
      * \brief Retourne le chemin vers l'image correspondant à l'évènement donné
      *
-     * \param type le type de l'évènement
+     * \param details l'évènement
      * \return l'image associée
      */
-    std::string lireFichier(TypeEvenement type);
+    std::string lireFichier(DetailEvenement details);
 
     /**
      * \brief Retourne les détails donnés sous forme d'un string

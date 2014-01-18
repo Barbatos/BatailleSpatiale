@@ -40,24 +40,18 @@ void AffichageCase::actualiser(float) {
 
     // On change l'image selon ce type
     switch (cellule) {
-    case TypeCellule::Vaisseau: {
-                                    DetailVaisseau vaisseau = p.getVaisseau(position);
+    case TypeCellule::Vaisseau:
+        fichier = Utile::lireFichier(p.getVaisseau(position));
+        break;
 
-                                    fichier = Utile::lireFichier(vaisseau.type);
-                                    break;
-    }
-    case TypeCellule::Batiment: {
-                                    DetailBatiment batiment = p.getBatiment(position);
+    case TypeCellule::Batiment:
+        fichier = Utile::lireFichier(p.getBatiment(position));
+        break;
 
-                                    fichier = Utile::lireFichier(batiment.type);
-                                    break;
-    }
-    case TypeCellule::Evenement: {
-                                     DetailEvenement evenement = p.getEvenement(position);
+    case TypeCellule::Evenement:
+        fichier = Utile::lireFichier(p.getEvenement(position));
+        break;
 
-                                     fichier = Utile::lireFichier(evenement.type);
-                                     break;
-    }
     default:
         break;
     }
@@ -154,8 +148,8 @@ void AffichageCase::pressionSouris(sf::Mouse::Button) {
 
 }
 
-void AffichageCase::relachementSouris(sf::Mouse::Button) {
-    if (!lireSurvol() && selectionne) {
+void AffichageCase::relachementSouris(sf::Mouse::Button bouton) {
+    if (!lireSurvol() && selectionne && bouton == sf::Mouse::Left) {
         selectionne = false;
     }
 }
