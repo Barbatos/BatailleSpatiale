@@ -26,13 +26,6 @@ bool CelluleServeur::possedeVaisseau() const {
     return vaisseau != 0;
 }
 
-/**
- * \brief Indique si la cellule est disponible au deplacement
- * Si un vaisseau ou un batiment est present, alors elle retourne faux.
- * De même si un evenement est present alors on indique s'il est accessible
- *
- * \return Si accessible ou non
- */
 bool CelluleServeur::possedeEmplacement(TypeCellule _type) const {
     if(_type == type)
         if(evenement)
@@ -43,13 +36,6 @@ bool CelluleServeur::possedeEmplacement(TypeCellule _type) const {
         return false;
 }
 
-/**
- * \brief Indique le type de la cellule
- * Si un vaisseau ou un batiment est present, alors elle retourne un type correspondant.
- * De même si un evenement est present.
- *
- * \return Le type de la cellule.
- */
 TypeCellule CelluleServeur::statutEmplacement() const {
     if(!vaisseau && !batiment)
         if(evenement)
@@ -68,14 +54,6 @@ TypeCellule CelluleServeur::statutEmplacement() const {
         return TypeCellule::Batiment;
 }
 
-/**
- * \brief Indique le cout de deplacement de la cellule
- * Si un vaisseau ou un batiment est present, alors elle retourne un grand nombre.
- * De même si un evenement est present et inaccessible.
- * Ainsi l'algorithme ne fera pas passer le vaisseau par cette cellule.
- *
- * \return Le cout de de placement de la cellule.
- */
 int CelluleServeur::getCoutDeplacement() const {
     if(!evenement || (evenement->getCoutDeplacement() != -1)) {
         if(type == TypeCellule::Minerais)
@@ -93,12 +71,6 @@ int CelluleServeur::getCoutDeplacement() const {
         return 10000;
 }
 
-/**
- * \brief Indique le type de batiment de la cellule s'il existe.
- * Si un batiment est present, alors elle retourne le type correspondant.
- *
- * \return Le type de batiment de la cellule.
- */
 TypeBatiment CelluleServeur::typeBatiment() const {
     if(batiment)
         return batiment->getType();
@@ -118,11 +90,6 @@ void CelluleServeur::creerBatimentBaseTest() {
     batiment.reset(new BatimentServeur(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
 }
 
-/**
- * \brief Indique la structure de la cellule
- *
- * \return La structure de la cellule.
- */
 Structure CelluleServeur::getAttaquant() {
     if(vaisseau)
         return *vaisseau;
@@ -130,12 +97,6 @@ Structure CelluleServeur::getAttaquant() {
         return *batiment;
 }
 
-/**
- * \brief Indique la distance maximale du vaisseau sur la cellule.
- * S'il n'y a pas de vaisseau, alors on retourne 0.
- *
- * \return La distance maximale du vaisseau sur la cellule.
- */
 int CelluleServeur::distanceMaximale() const {
     if(vaisseau)
         return vaisseau->getDistanceMax();
@@ -143,13 +104,6 @@ int CelluleServeur::distanceMaximale() const {
         return 0;
 }
 
-/**
- * \brief Indique si la cellule est accessible
- * S'il n'ya ni vaisseau ni batiment, la cellule est accesible
- * S'il y a un evenement, il peut laisser la cellule accesible
- *
- * \return True pour accessible, False sinon.
- */
 bool CelluleServeur::estAccessible() const {
     if(type == TypeCellule::Inexistant)
         return false;
@@ -205,16 +159,6 @@ sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
     return paquet;
 }
 
-
-/**
- * \brief Attaque une cellule cible.
- * Les degats sont calculés selon :
- * - une base qui provient de la structure attaquante sur la cellule.
- * - un coefficient multiplicateur par l'evement, s'il existe.
- * - un coefficient en fonction du type d'attaque par rapport à la cible.
- *
- * Ensuite, on appelle defendre qui va faire les modifications sur les parametres de la cible.
- */
 void CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
 
@@ -236,12 +180,6 @@ void CelluleServeur::attaquer(CelluleServeur *cCible) {
     cCible->defendre(degat);
 }
 
-/**
- * \brief Inflige les degats a la structure de la cellule.
- * Les degats sont calculés selon :
- * - une base qui provient de la cellule attaquante.
- * - un coefficient multiplicateur par l'evement, s'il existe.
- */
 void CelluleServeur::defendre(int degat) {
     int degatBouclier;
     int degatStructure;
@@ -255,9 +193,7 @@ void CelluleServeur::defendre(int degat) {
         degatStructure = degat - degatBouclier;
         vaisseau->setBouclier(vaisseau->getBouclier() - degatBouclier);
         vaisseau->setVie(vaisseau->getVie() - degatStructure);
-    }
-
-    if (batiment) {
+    } else if (batiment) {
         degatBouclier = degat - batiment->getBouclierTaux() * degat;
         degatStructure = degat - degatBouclier;
         batiment->setBouclier(batiment->getBouclier() - degatBouclier);
