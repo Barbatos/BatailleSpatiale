@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <sstream>
 
 namespace Utile {
     void erreur(string endroit, string erreur) {
@@ -74,52 +75,52 @@ namespace Utile {
 
     std::string convertir(TypeVaisseau type) {
         switch (type) {
-            case TypeVaisseau::Inexistant:
-                return "Inexistant";
-            case TypeVaisseau::Constructeur:
-                return "Constructeur";
-            case TypeVaisseau::Bombardier:
-                return "Bombardier";
-            case TypeVaisseau::Chasseur:
-                return "Chasseur";
-            case TypeVaisseau::Croiseur:
-                return "Croiseur";
-            case TypeVaisseau::Destructeur:
-                return "Destructeur";
-            case TypeVaisseau::ChasseurLourd:
-                return "Chasseur Lourd";
-            case TypeVaisseau::Traqueur:
-                return "Traqueur";
-            case TypeVaisseau::Leger:
-                return "Léger";
-            default:
-                return "";
+        case TypeVaisseau::Inexistant:
+            return "Inexistant";
+        case TypeVaisseau::Constructeur:
+            return "Constructeur";
+        case TypeVaisseau::Bombardier:
+            return "Bombardier";
+        case TypeVaisseau::Chasseur:
+            return "Chasseur";
+        case TypeVaisseau::Croiseur:
+            return "Croiseur";
+        case TypeVaisseau::Destructeur:
+            return "Destructeur";
+        case TypeVaisseau::ChasseurLourd:
+            return "Chasseur Lourd";
+        case TypeVaisseau::Traqueur:
+            return "Traqueur";
+        case TypeVaisseau::Leger:
+            return "Léger";
+        default:
+            return "";
         }
     }
 
     std::string convertir(TypeBatiment type) {
         switch (type) {
-            case TypeBatiment::Base:
-                return "Base";
-            default:
-                return "";
+        case TypeBatiment::Base:
+            return "Base";
+        default:
+            return "";
         }
     }
 
     std::string convertir(TypeEvenement type) {
         switch (type) {
-            case TypeEvenement::ChampMeteor:
-                return "Champ de Météore";
-            case TypeEvenement::Epave:
-                return "Epave";
-            case TypeEvenement::InfluenceTrouNoir:
-                return "Influence trou noir";
-            case TypeEvenement::NuageGaz:
-                return "Nuage de gaz";
-            case TypeEvenement::StationSpatialeAbandonnee:
-                return "Station spatiale abandonnée";
-            default:
-                return "";
+        case TypeEvenement::ChampMeteor:
+            return "Champ de Météore";
+        case TypeEvenement::Epave:
+            return "Epave";
+        case TypeEvenement::InfluenceTrouNoir:
+            return "Influence trou noir";
+        case TypeEvenement::NuageGaz:
+            return "Nuage de gaz";
+        case TypeEvenement::StationSpatialeAbandonnee:
+            return "Station spatiale abandonnée";
+        default:
+            return "";
         }
     }
 
@@ -127,34 +128,34 @@ namespace Utile {
         std::string fichier;
 
         switch (type) {
-            case TypeVaisseau::Inexistant:
-                break;
-            case TypeVaisseau::Constructeur:
-                fichier = "Vaisseaux/sprite_constructeur_1.png";
-                break;
-            case TypeVaisseau::Bombardier:
-                fichier = "Vaisseaux/sprite_bombardier_1.png";
-                break;
-            case TypeVaisseau::Chasseur:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
-                break;
-            case TypeVaisseau::Croiseur:
-                fichier = "Vaisseaux/sprite_croiseur_1.png";
-                break;
-            case TypeVaisseau::Destructeur:
-                fichier = "Vaisseaux/sprite_destroyeur_1.png";
-                break;
-            case TypeVaisseau::ChasseurLourd:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
-                break;
-            case TypeVaisseau::Traqueur:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
-                break;
-            case TypeVaisseau::Leger:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
-                break;
-            default:
-                break;
+        case TypeVaisseau::Inexistant:
+            break;
+        case TypeVaisseau::Constructeur:
+            fichier = "Vaisseaux/sprite_constructeur_1.png";
+            break;
+        case TypeVaisseau::Bombardier:
+            fichier = "Vaisseaux/sprite_bombardier_1.png";
+            break;
+        case TypeVaisseau::Chasseur:
+            fichier = "Vaisseaux/sprite_chasseur_1.png";
+            break;
+        case TypeVaisseau::Croiseur:
+            fichier = "Vaisseaux/sprite_croiseur_1.png";
+            break;
+        case TypeVaisseau::Destructeur:
+            fichier = "Vaisseaux/sprite_destroyeur_1.png";
+            break;
+        case TypeVaisseau::ChasseurLourd:
+            fichier = "Vaisseaux/sprite_chasseur_1.png";
+            break;
+        case TypeVaisseau::Traqueur:
+            fichier = "Vaisseaux/sprite_chasseur_1.png";
+            break;
+        case TypeVaisseau::Leger:
+            fichier = "Vaisseaux/sprite_chasseur_1.png";
+            break;
+        default:
+            break;
         }
 
         return fichier;
@@ -164,13 +165,13 @@ namespace Utile {
         std::string fichier;
 
         switch (type) {
-            case TypeBatiment::Base:
-                // Erreur ici, le jeu crash lorsqu'on essaie de charger cette image
-                // fichier = "Batiments/sprite_vaisseau_mere_1.png";
-                fichier = "Vaisseaux/sprite_destroyeur_1.png";
-                break;
-            default:
-                break;
+        case TypeBatiment::Base:
+            // Erreur ici, le jeu crash lorsqu'on essaie de charger cette image
+            // fichier = "Batiments/sprite_vaisseau_mere_1.png";
+            fichier = "Vaisseaux/sprite_destroyeur_1.png";
+            break;
+        default:
+            break;
         }
 
         return fichier;
@@ -180,20 +181,74 @@ namespace Utile {
         std::string fichier;
 
         switch (type) {
-            case TypeEvenement::ChampMeteor:
-                break;
-            case TypeEvenement::Epave:
-                break;
-            case TypeEvenement::InfluenceTrouNoir:
-                break;
-            case TypeEvenement::NuageGaz:
-                break;
-            case TypeEvenement::StationSpatialeAbandonnee:
-                break;
-            default:
-                break;
+        case TypeEvenement::ChampMeteor:
+            break;
+        case TypeEvenement::Epave:
+            break;
+        case TypeEvenement::InfluenceTrouNoir:
+            break;
+        case TypeEvenement::NuageGaz:
+            break;
+        case TypeEvenement::StationSpatialeAbandonnee:
+            break;
+        default:
+            break;
         }
 
         return fichier;
+    }
+
+    std::string to_string(DetailBatiment details)
+    {
+        std::stringstream stream;
+
+        stream << "Niveau : " << details.niveau << "\n";
+
+        stream << "Type : " << Utile::convertir(details.type) << "\n";
+
+        stream << "Vie : " << details.vie << "/" << details.vieMax << "\n";
+
+        stream << "Attaque : " << details.attaque << ". Rayon : " << details.rayonAttaque << "\n";
+
+        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : " << details.bouclierTaux << "\n";
+
+        return stream.str();
+    }
+
+    std::string to_string(DetailVaisseau details)
+    {
+        std::stringstream stream;
+
+        stream << "Type : " << Utile::convertir(details.type) << "\n";
+
+        stream << "Vie : " << details.vie << "/" << details.vieMax << "\n";
+
+        stream << "Attaque : " << details.attaque << ". Rayon : " << details.rayonAttaque << "\n";
+
+        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : " << details.bouclierTaux << "\n";
+
+        stream << "Déplacement : " << details.distanceMax << ". Consommation : " << details.consommation << "\n";
+
+        return stream.str();
+    }
+
+    std::string to_string(DetailEvenement details)
+    {
+        std::stringstream stream;
+
+        stream << "Type : " << Utile::convertir(details.type) << "\n";
+
+        stream << "Cout déplacement : " << details.coutDeplacement << "\n";
+
+        return stream.str();
+    }
+
+    std::string to_string(Position position)
+    {
+        std::stringstream stream;
+
+        stream << "Position : " << position.x << "," << position.y;
+
+        return stream.str();
     }
 }

@@ -1,7 +1,7 @@
 #ifndef CELLULESERVEUR_HPP
 #define CELLULESERVEUR_HPP
 #include "../../commun/enum/TypeCellule.hpp"
-#include "evenement/Evenement.hpp"
+#include "evenement/EvenementServeur.hpp"
 #include "../../commun/enum/TypeBatiment.hpp"
 #include "../structures/batiments/BatimentServeur.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
@@ -13,7 +13,7 @@
 class CelluleServeur {
 
 public:
-    CelluleServeur(EvenementPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
+    CelluleServeur(EvenementServeurPtr _evenement = 0, TypeCellule _type = TypeCellule::Vide);
     TypeCellule getType() const;
 
     bool possedeEvenement() const;
@@ -40,7 +40,7 @@ public:
 
     BatimentServeurPtr getBatiment() const;
 
-    EvenementPtr getEvenement() const;
+    EvenementServeurPtr getEvenement() const;
 
     void retirerVaisseau();
     VaisseauServeurPtr getVaisseau() const;
@@ -59,7 +59,7 @@ public:
 protected:
 
 private:
-    EvenementPtr evenement;
+    EvenementServeurPtr evenement;
     BatimentServeurPtr batiment;
     VaisseauServeurPtr vaisseau;
     TypeCellule type;

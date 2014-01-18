@@ -43,7 +43,7 @@ BatimentServeurPtr PlateauServeur::getBatiment(Position p) {
     return cellule[p.x][p.y].getBatiment();
 }
 
-EvenementPtr PlateauServeur::getEvenement(Position p) {
+EvenementServeurPtr PlateauServeur::getEvenement(Position p) {
     return cellule[p.x][p.y].getEvenement();
 }
 

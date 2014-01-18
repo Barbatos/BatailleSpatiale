@@ -78,7 +78,7 @@ public:
      * \param p La position
      * \return Les détails de l'évènement
      */
-    EvenementPtr getEvenement(Position p);
+    EvenementServeurPtr getEvenement(Position p);
 
     /**
      * \brief Retourne le cout de deplacement d'une cellule

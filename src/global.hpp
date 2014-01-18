@@ -6,7 +6,11 @@
 #include <sstream>
 #include <cstring>
 #include <vector>
+#ifdef _WIN32
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 #include <stdio.h>
 #include <map>
 #include <list>

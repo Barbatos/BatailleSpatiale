@@ -17,6 +17,10 @@
 #include <commun/enum/TypeVaisseau.hpp>
 #include <commun/enum/TypeBatiment.hpp>
 #include <commun/enum/TypeEvenement.hpp>
+#include <client/modele/structures/DetailBatiment.hpp>
+#include <client/modele/structures/DetailVaisseau.hpp>
+#include <client/modele/plateau/DetailEvenement.hpp>
+#include <commun/utile/Position.hpp>
 
 /**
  * \brief Boîte à outils
@@ -128,6 +132,14 @@ namespace Utile {
      * @return l'image associée
      */
     std::string lireFichier(TypeEvenement type);
+
+    std::string to_string(DetailBatiment details);
+
+    std::string to_string(DetailVaisseau details);
+
+    std::string to_string(DetailEvenement details);
+
+    std::string to_string(Position position);
 }
 
 #endif /* UTILE_HPP */

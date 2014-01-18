@@ -2,7 +2,7 @@
 #include "../structures/batiments/BatimentServeur.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
 
-CelluleServeur::CelluleServeur(EvenementPtr _evenement, TypeCellule _type) :
+CelluleServeur::CelluleServeur(EvenementServeurPtr _evenement, TypeCellule _type) :
     evenement(_evenement), type(_type) {
 }
 
@@ -175,7 +175,7 @@ void CelluleServeur::echangerVaisseau(CelluleServeur& cellule) {
     std::swap(vaisseau, cellule.getVaisseauPtr());
 }
 
-EvenementPtr CelluleServeur::getEvenement() const {
+EvenementServeurPtr CelluleServeur::getEvenement() const {
     return evenement;
 }
 

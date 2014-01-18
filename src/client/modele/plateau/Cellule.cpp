@@ -1,8 +1,8 @@
 #include "Cellule.hpp"
 #include <memory>
 
-Cellule::Cellule() :
-    type(TypeCellule::Vide) {
+Cellule::Cellule()
+                : type(TypeCellule::Vide) {
 
 }
 
@@ -66,7 +66,7 @@ void Cellule::setType(TypeCellule _type) {
     type = _type;
 }
 
-bool Cellule::getParcourable() const{
+bool Cellule::getParcourable() const {
     return bits.estParcourable;
 }
 
@@ -81,46 +81,49 @@ sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
 
     bool existeEvenement;
     paquet >> existeEvenement;
-    if(existeEvenement) {
+    if (existeEvenement) {
         Evenement* evenement = new Evenement();
         paquet >> *evenement;
         cellule.setEvenement(evenement);
-    } else {
+    }
+    else {
         cellule.retirerEvenement();
     }
 
     bool existeVaisseau;
     paquet >> existeVaisseau;
-    if(existeVaisseau) {
+    if (existeVaisseau) {
         Vaisseau* vaisseau = new Vaisseau();
         paquet >> *vaisseau;
         cellule.setVaisseau(vaisseau);
-    } else {
+    }
+    else {
         cellule.retirerVaisseau();
     }
 
     bool existeBatiment;
     paquet >> existeBatiment;
-    if(existeBatiment) {
+    if (existeBatiment) {
         Batiment* batiment = new Batiment();
         paquet >> *batiment;
         cellule.setBatiment(batiment);
-    } else {
+    }
+    else {
         cellule.retirerBatiment();
     }
 
     return paquet;
 }
 
-TypeCellule Cellule::statutEmplacement() const{
-    if(!vaisseau && !batiment)
-        if(evenement)
+TypeCellule Cellule::statutEmplacement() const {
+    if (!vaisseau && !batiment)
+        if (evenement)
             // Si il n'y a pas de structure mais un evenement qui bloque
             return TypeCellule::Evenement;
         else
             // Si il n'y a pas de structure ni d'évenement
             return type;
-    else if(vaisseau)
+    else if (vaisseau)
         return TypeCellule::Vaisseau;
     else
         return TypeCellule::Batiment;

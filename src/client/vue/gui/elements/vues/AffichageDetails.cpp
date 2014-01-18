@@ -14,9 +14,10 @@
 // Includes de nos classes
 #include <client/vue/Affichage.hpp>
 #include <client/Jeu.hpp>
+#include <client/utile/Utile.hpp>
 
 AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y, float largeur, float hauteur)
-                : Element(gui, id), fond(), label("", x + 5, y + 5), position(-1, -1) {
+: Element(gui, id), fond(), label("", x + 5, y + 5), position(-1, -1) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
 
@@ -35,43 +36,32 @@ AffichageDetails::~AffichageDetails() {
 }
 
 void AffichageDetails::actualiser(float) {
-    std::stringstream stream;
+    if (position.x == -1 && position.y == -1)
+    {
+        label.setString("Aucune case n'est selectionee");
+        return;
+    }
 
     Plateau p = lireGui()->lireScene()->lireJeu().lirePlateau();
+    TypeCellule cellule = p.getCellule(position).statutEmplacement();
+    std::string texte;
 
-    if (position.x != -1 && position.y != -1) {
-
-        TypeCellule cellule = p.getCellule(position).statutEmplacement();
-
-        switch (cellule) {
-            case TypeCellule::Vaisseau: {
-                DetailVaisseau details = lireGui()->lireScene()->lireJeu().lirePlateau().getVaisseau(position);
-
-                stream << "Type : " << Utile::convertir(details.type) << "\n" << "Vie : " << details.vie << "/" << details.vieMax << "\n";
-                break;
-            }
-            case TypeCellule::Batiment: {
-                DetailBatiment details = lireGui()->lireScene()->lireJeu().lirePlateau().getBatiment(position);
-
-                stream << "Type : " << Utile::convertir(details.type) << "\n" << "Vie : " << details.vie << "/" << details.vieMax << "\n";
-                break;
-            }
-            case TypeCellule::Evenement: {
-                DetailEvenement details = lireGui()->lireScene()->lireJeu().lirePlateau().getEvenement(position);
-
-                stream << "Type : " << Utile::convertir(details.type) << "\n";
-                break;
-            }
-            default:
-                stream << "Case vide" << "Position : " << position.x << " : " << position.y;
-                break;
-        }
-    }
-    else {
-        stream << "Aucune case n'est selectionnee";
+    switch (cellule) {
+    case TypeCellule::Vaisseau:
+        texte = Utile::to_string(p.getVaisseau(position));
+        break;
+    case TypeCellule::Batiment:
+        texte = Utile::to_string(p.getBatiment(position));
+        break;
+    case TypeCellule::Evenement:
+        texte = Utile::to_string(p.getEvenement(position));
+        break;
+    default:
+        texte = Utile::to_string(position);
+        break;
     }
 
-    label.setString(stream.str());
+    label.setString(texte);
 }
 
 void AffichageDetails::afficher(sf::RenderWindow& affichage) {
