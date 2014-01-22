@@ -4,9 +4,9 @@
 #include <iostream>
 
 /*
- * Classe qui définit les technologies sur les vaisseaux
+ * Classe qui définit les technologies sur les bâtiments
  * que possède le joueur.
- * Elle est utile lorsque l'on crée un nouveau vaisseau
+ * Elle est utile lorsque l'on crée un nouveau bâtiment
  */
 
 class TechnologieBatiment {

@@ -10,6 +10,9 @@
 enum class TypeBatiment :sf::Uint16 {
 	Inexistant,
 	Base,
+	Mine,
+	Raffinerie,
+	ChantierSpatial,
 	Nombre
 };
 
