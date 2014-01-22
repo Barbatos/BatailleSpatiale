@@ -34,6 +34,9 @@ public:
     void setParcourable(bool parcourable);
     bool getParcourable() const;
 
+    void setEstChemin(bool estChemin);
+    bool getEstChemin() const;
+
     /**
      * \brief Indique le type de la cellule
      * Si un vaisseau ou un batiment est present, alors elle retourne un type correspondant.

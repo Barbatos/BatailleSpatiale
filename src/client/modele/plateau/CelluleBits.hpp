@@ -3,6 +3,7 @@
 
 struct CelluleBits {
 	bool estParcourable : 1;
+	bool estChemin : 1;
 };
 
 #endif

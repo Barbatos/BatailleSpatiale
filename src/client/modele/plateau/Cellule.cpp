@@ -74,6 +74,14 @@ void Cellule::setParcourable(bool parcourable) {
     bits.estParcourable = parcourable;
 }
 
+bool Cellule::getEstChemin() const {
+    return bits.estChemin;
+}
+
+void Cellule::setEstChemin(bool estChemin){
+    bits.estChemin = estChemin;
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
     sf::Uint16 typeCellule;
     paquet >> typeCellule;
