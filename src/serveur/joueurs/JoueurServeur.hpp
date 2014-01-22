@@ -188,6 +188,11 @@ private:
 
     /// Les materiaux du joueur
     sf::Int32 materiaux;
+    
+    friend sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur);
 };
+
+
+sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur);
 
 #endif

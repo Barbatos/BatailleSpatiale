@@ -2,7 +2,7 @@
 
 JoueurServeur::JoueurServeur(void) :
     socket(NULL), pseudo("Anonymous"), ip(""), id(-1),
-    commandement(0), requisition(0), energie(0), materiaux(0) {
+    commandement(100), requisition(125), energie(200), materiaux(300) {
     techS = TechnologieStructure();
     techB = TechnologieBatiment();
     techV = TechnologieVaisseau();
@@ -91,4 +91,12 @@ void JoueurServeur::ajournerListeStructures() {
             vaisseau!=listeVaisseaux.end(); ++vaisseau)
         if(!vaisseau->expired())
             vaisseau = listeVaisseaux.erase(vaisseau);
+}
+
+sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur) {
+    paquet << joueur.commandement << joueur.requisition
+           << joueur.energie << joueur.materiaux;
+
+
+    return paquet;
 }
