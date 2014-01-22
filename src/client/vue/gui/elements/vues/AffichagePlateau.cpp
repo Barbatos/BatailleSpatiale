@@ -94,6 +94,7 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
 	if (ancienne.x != -1 && ancienne.y != -1) {
 		if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
 			if (message.clicDroit) {
+				p.viderChemin();
 				r->getChemin(ancienne, position);
 			}
 			else {
@@ -104,6 +105,7 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
 
 	if (!message.clicDroit)
 	{
+		p.viderChemin();
 		p.viderZoneParcourable();
 
 		details->selectionner(position);

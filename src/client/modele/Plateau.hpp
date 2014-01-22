@@ -81,6 +81,8 @@ class Plateau {
 
         void viderZoneParcourable();
 
+        void viderChemin();
+
     private:
         bool positionValide(Position p);
         /// Les cellules du plateau

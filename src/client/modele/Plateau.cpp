@@ -51,6 +51,12 @@ void Plateau::viderZoneParcourable() {
             cellule[i][j].setParcourable(false);
 }
 
+void Plateau::viderChemin() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++)
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++)
+            cellule[i][j].setEstChemin(false);
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
 
     paquet >> plateau.tailleX >> plateau.tailleY;
