@@ -41,8 +41,6 @@ enum class TypePaquet : sf::Uint16 {
     /// Paquet envoyé au serveur pour demander la modification du nom
     // TypePaquet, nom(std::string)
     ChangementDeNom,
-    /// Juste pour savoir le nombre de TypePaquet
-    Nombre,
     // Paquet envoyé au serveur pour connaître la zone parcourable à partir d'une case
     GetZoneParcourable,
     // Paquet envoyé par le serveur au client pour définir la zone parcourable
@@ -53,6 +51,8 @@ enum class TypePaquet : sf::Uint16 {
     GetChemin,
     // Paquet envoyé par le serveur au client pour définir le chemin
     Chemin,
+    /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
+    Nombre
 };
 
 #endif

@@ -9,7 +9,6 @@ BatimentServeur::BatimentServeur(sf::Int32 vieMax, sf::Int32 bouclierMax, double
     Structure(vieMax, bouclierMax, bouclierTaux, visibilite, attaque) {
     this->niveau = niveau;
     type = _type;
-
 }
 
 sf::Int32 BatimentServeur::getNiveau() {
