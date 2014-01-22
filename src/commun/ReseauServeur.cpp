@@ -77,7 +77,7 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 		envoiZoneParcourable(*client, pos);
 		break;
 
-		// Envoi au client du chemin entre un poont 1 et un point 2
+		// Envoi au client du chemin entre un point 1 et un point 2
 	case TypePaquet::GetChemin:
 		paquet >> pos >> pos2;
 		envoiChemin(*client, pos, pos2);

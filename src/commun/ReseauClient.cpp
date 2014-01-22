@@ -133,12 +133,11 @@ void ReseauClient::parseChemin(sf::Packet paquet) {
 
 	paquet >> tailleZone;
 
-	/*for (sf::Int32 i = 0; i < tailleZone; i++)
+	for (sf::Int32 i = 0; i < tailleZone; i++)
 	{
 		paquet >> p;
-		pos.push_back(p);
-	}*/
-	// TODO
+		plateau.cellule[p.x][p.y].setEstChemin(true);
+	}
 }
 
 void ReseauClient::getChemin(Position depart, Position arrivee) {
