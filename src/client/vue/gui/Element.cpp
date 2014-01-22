@@ -126,7 +126,7 @@ void Element::ecrireAppui(bool appui) {
 }
 
 void Element::ecrireAppuiDroit(bool appuiDroit) {
-    this->appui = appuiDroit;
+    this->appuiDroit = appuiDroit;
 }
 
 void Element::ecrireVue(sf::View* vue) {
