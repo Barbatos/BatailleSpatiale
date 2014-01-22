@@ -140,7 +140,7 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::envoiJoueursAdverses(sf::TcpSocket& client) {
+/*void ReseauServeur::envoiJoueursAdverses(sf::TcpSocket& client) {
     sf::Packet paquet;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueursAdverses);
 
@@ -152,6 +152,7 @@ void ReseauServeur::envoiJoueursAdverses(sf::TcpSocket& client) {
 
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
+*/
 
 void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
     sf::Packet paquet;

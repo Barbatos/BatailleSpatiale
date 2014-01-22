@@ -68,7 +68,7 @@ public:
 
     void envoiZoneParcourable(sf::TcpSocket& client, Position pos);
     
-    void envoiJoueursAdverses(sf::TcpSocket& client);
+    //void envoiJoueursAdverses(sf::TcpSocket& client);
 
     void envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
 
