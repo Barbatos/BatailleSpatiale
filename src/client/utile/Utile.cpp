@@ -233,7 +233,7 @@ namespace Utile {
 
         stream << "Type : " << Utile::convertir(details.type) << "\n";
 
-        stream << L"Cout déplacement : " << details.coutDeplacement << "\n";
+        stream << L"Coût déplacement : " << details.coutDeplacement << "\n";
 
         return stream.str();
     }

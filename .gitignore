@@ -35,3 +35,4 @@ doc/client/html/*.*
 *.opensdf
 *.sdf
 *.suo
+*.psess
