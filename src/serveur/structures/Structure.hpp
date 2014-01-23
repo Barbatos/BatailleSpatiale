@@ -15,7 +15,7 @@ class Structure {
 public:
 
     Structure(sf::Int32 _vieMax = 100, sf::Int32 _bouclierMax = 0, double _bouclierTaux = 0,
-    sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10, sf::Int32 _rayonAttaque = 7);
+              sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10, sf::Int32 _rayonAttaque = 7);
 
     // Getter
     sf::Int32 getVie() const;
@@ -28,6 +28,7 @@ public:
 
     // Setter
     void setVie( sf::Int32 const _vie);
+    void setIdJoueur( sf::Int32 const _id);
     sf::Int32  setBouclier(sf::Int32 const _bouclier);
     void setVieMax( sf::Int32 const _vieMax);
     void setBouclierMax( sf::Int32 const _bouclierMax);
@@ -42,6 +43,7 @@ public:
 
 
 protected:
+    sf::Int32 idJoueur;
     sf::Int32 vie;
     sf::Int32 vieMax;
     sf::Int32 bouclier;
