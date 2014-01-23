@@ -68,13 +68,13 @@ void AffichageCase::actualiser(float) {
 
     // Selon que la case soit selectionnée, survolée, ou rien du tout, on change la couleur de la bordure
     if (selectionne)
-        fond.setFillColor(sf::Color(255, 255, 0, 60));
-    else if (lireSurvol())
         fond.setFillColor(sf::Color(255, 0, 0, 60));
+    else if (lireSurvol())
+        fond.setFillColor(sf::Color(255, 255, 0, 60));
     else if (p.getCellule(position).getEstChemin())
-        fond.setFillColor(sf::Color(50, 50, 190, 60));
+        fond.setFillColor(sf::Color(153, 0, 51, 60));
     else if (p.getCellule(position).getParcourable())
-        fond.setFillColor(sf::Color(92, 185, 188, 60));
+        fond.setFillColor(sf::Color(102, 153, 102, 60));
     else
         fond.setFillColor(sf::Color(0, 0, 110, 60));
 }
