@@ -23,6 +23,8 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, P
     fond.setPosition(x + taille / 2, y + taille / 2);
     fond.setOrigin(taille / 2, taille / 2);
     fond.setFillColor(sf::Color(0, 0, 110, 60));
+    fond.setOutlineThickness(0.5f);
+    fond.setOutlineColor(sf::Color(100,100,100,40));
 }
 
 AffichageCase::~AffichageCase() {
@@ -80,7 +82,8 @@ void AffichageCase::actualiser(float) {
 }
 
 void AffichageCase::afficher(sf::RenderWindow& affichage) {
-    affichage.draw(fond);
+    //affichage.draw(contour);
+	affichage.draw(fond);
     affichage.draw(image);
 }
 
