@@ -6,26 +6,21 @@
 
 
 
+
 /*
- * Classe qui d√©finit les diff√©rents attributs
- * que poss√®dent les constructeurs.
+ * Classe qui dÈfinit les differents attributs
+ * que possËdent les constructeurs.
  */
 class Constructeur : public VaisseauServeur {
 
-public:
+    public:
     Constructeur();
-    Constructeur(int vieMax, int bouclierMax, double bouclierTaux, int visibilite, int attaque, int energieMax, int consommationMax, int materiauxMax);
-
-    int getMateriaux();
-    void setMateriaux(int materiaux);
-    int getMateriauxMax();
-    void setMateriauxMax(int materiauxMax);
+    Constructeur(sf::Int32 vieMax, sf::Int32 bouclierMax, float bouclierTaux, sf::Int32 visibilite, sf::Int32 attaque, sf::Int32 energieMax, sf::Int32 consommationMax, sf::Int32 rayonAttaque, sf::Int32 prixEnergie, sf::Int32 prixMateriaux);
+    BatimentServeur getBatiment(int index);
     void ajouterBatiment(BatimentServeur batiment);
     void retirerBatiment();
 
-private:
-    int materiaux;
-    int materiauxMax;
+    private:
     std::vector<BatimentServeur> listeConstruction;
 
 
@@ -34,3 +29,4 @@ private:
 std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& VaisseauServeur);
 
 #endif // CONSTRUCTEUR_HPP
+

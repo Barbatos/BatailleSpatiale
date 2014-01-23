@@ -13,8 +13,8 @@ typedef std::shared_ptr<VaisseauServeur> VaisseauServeurPtr;
 
 
 /*
-* Classe qui dÃ©finit les differents attributs
-* que possÃ¨dent les vaisseaux.
+* Classe qui définit les differents attributs
+* que possèdent les vaisseaux.
 */
 class VaisseauServeur : public Structure {
 
@@ -23,11 +23,14 @@ public:
     VaisseauServeur(
         sf::Int32 _vieMax,
         sf::Int32 _bouclierMax,
-        double _bouclierTaux,
+        float _bouclierTaux,
         sf::Int32 _visibilite,
         sf::Int32 _attaque,
+        sf::Int32 _rayonAttaque,
         sf::Int32 _distanceMax,
         sf::Int32 _consommation,
+        sf::Int32 _prixEnergie,
+        sf::Int32 _prixMateriaux,
         TypeVaisseau _type = TypeVaisseau::Inexistant
     );
 
@@ -58,3 +61,4 @@ private:
 sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau);
 
 #endif // VAISSEAUSERVEUR_HPP
+

@@ -7,6 +7,17 @@ JoueurServeur::JoueurServeur(void) :
     techB = TechnologieBatiment();
     techV = TechnologieVaisseau();
 
+
+
+
+    ajouterConstructionVaisseau(VaisseauServeur(700, 300, 0.4f, 150, 250, 400, 100, 100, 500, 1000, TypeVaisseau::Chasseur));
+    ajouterConstructionVaisseau(VaisseauServeur(500, 200, 0.2f, 200, 100, 600, 100, 100, 1000, 1000, TypeVaisseau::Constructeur));
+    ajouterConstructionVaisseau(VaisseauServeur(2000, 800, 0.7f, 150, 800, 200, 200, 300, 1500, 3000, TypeVaisseau::Bombardier));
+    ajouterConstructionVaisseau(VaisseauServeur(1300, 500, 0.6f, 150, 450, 350, 75, 200, 800, 1750, TypeVaisseau::Croiseur));
+    ajouterConstructionVaisseau(VaisseauServeur(5000, 2500, 0.8f, 200, 1200, 50, 350, 150, 2500, 7000, TypeVaisseau::Destructeur));
+    ajouterConstructionVaisseau(VaisseauServeur(1000, 500, 0.5f, 200, 375, 300, 150, 150,  800, 1500, TypeVaisseau::ChasseurLourd));
+    ajouterConstructionVaisseau(VaisseauServeur(1500, 100, 0.9f, 300, 700, 800, 200, 300,  1300, 3200, TypeVaisseau::Traqueur));
+
 }
 
 sf::TcpSocket* JoueurServeur::getSocket(void) {
@@ -39,6 +50,10 @@ sf::Int32 JoueurServeur::getEnergie(void) {
 
 sf::Int32 JoueurServeur::getMateriaux(void) {
     return this->materiaux;
+}
+
+VaisseauServeur JoueurServeur::getConstructionVaisseau(int index){
+    return listeConstructionVaisseau.at(index);
 }
 
 void JoueurServeur::setSocket(sf::TcpSocket* _socket) {
@@ -74,13 +89,24 @@ void JoueurServeur::setMateriaux(sf::Int32 _materiaux) {
 }
 
 void JoueurServeur::ajouterVaisseau(VaisseauServeurPtr vaisseau) {
-    vaisseau->setIdJoueur(id);
     listeVaisseaux.push_back(std::weak_ptr<VaisseauServeur>(vaisseau));
 }
 
 void JoueurServeur::ajouterBatiment(BatimentServeurPtr batiment) {
-    batiment->setIdJoueur(id);
     listeBatiments.push_back(std::weak_ptr<BatimentServeur>(batiment));
+}
+
+
+void JoueurServeur::ajouterConstructionVaisseau(VaisseauServeur vaisseau){
+    listeConstructionVaisseau.push_back(vaisseau);
+
+
+}
+
+void JoueurServeur::retirerConstructionVaisseau(){
+    if(!listeConstructionVaisseau.empty())
+        listeConstructionVaisseau.pop_back();
+
 }
 
 void JoueurServeur::ajournerListeStructures() {

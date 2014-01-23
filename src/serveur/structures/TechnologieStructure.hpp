@@ -4,41 +4,45 @@
 #include <iostream>
 
 /*
- * Classe qui dÃ©finit les technologies sur les structures
- * que possÃ¨de le joueur.
- * Elle est utile lorsque l'on crÃ©e une nouvelle structure
+ * Classe qui définit les technologies sur les structures
+ * que possède le joueur.
+ * Elle est utile lorsque l'on crée une nouvelle structure
  */
 
 class TechnologieStructure {
 
-public:
+	public:
 
-    TechnologieStructure();
+		TechnologieStructure();
 
-    // Getters
-    unsigned int getNiveauAttaque() const;
-    unsigned int getNiveauBouclier() const;
-    unsigned int getNiveauVie() const;
-    unsigned int getNiveauVisibilite() const;
+		// Getters
+		unsigned int getNiveauAttaque() const;
+		unsigned int getNiveauBouclier() const;
+		unsigned int getNiveauVie() const;
+		unsigned int getNiveauVisibilite() const;
+		unsigned int getNiveauMateriaux() const;
 
-    // Des mÃ©thodes pour augmenter les niveaux
-    bool augmenterNiveauAttaque(unsigned int const& gainNiveau);
-    bool augmenterNiveauBouclier(unsigned int const& gainNiveau);
-    bool augmenterNiveauVie(unsigned int const& gainNiveau);
-    bool augmenterNiveauVisibilite(unsigned int const& gainNiveau);
+		// Des méthodes pour augmenter les niveaux
+		bool augmenterNiveauAttaque(unsigned int const& gainNiveau);
+		bool augmenterNiveauBouclier(unsigned int const& gainNiveau);
+		bool augmenterNiveauVie(unsigned int const& gainNiveau);
+		bool augmenterNiveauVisibilite(unsigned int const& gainNiveau);
+		bool augmenterNiveauMateriaux(unsigned int const& gainNiveau);
 
 
-private:
+	private:
 
-    // Cette classe possÃ¨de diffÃ©rents niveaux utiles pour toutes les structures
-    unsigned int niveauAttaque;
-    unsigned int niveauBouclier;
-    unsigned int niveauVie;
-    unsigned int niveauVisibilite;
+		// Cette classe possède différents niveaux utiles pour toutes les structures
+		unsigned int niveauAttaque;
+		unsigned int niveauBouclier;
+		unsigned int niveauVie;
+		unsigned int niveauVisibilite;
+		unsigned int niveauMateriaux;
 
-    // Deux mÃ©thodes pour afficher notre structure
-    void changerFlux(std::ostream &fluxSortant) const;
-    friend std::ostream& operator<<(std::ostream& fluxSortant, TechnologieStructure const& technologieStructure);
+		// Deux méthodes pour afficher notre structure
+		void changerFlux(std::ostream &fluxSortant) const;
+		friend std::ostream& operator<<(std::ostream& fluxSortant, TechnologieStructure const& technologieStructure);
 };
 
 #endif // TECHNOLOGIE_STRUCTURE_HPP
+

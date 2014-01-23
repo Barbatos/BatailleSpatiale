@@ -10,41 +10,41 @@
 #include "../../global.hpp"
 
 /**
- * \brief Classe permettant de gÃ©rer les joueurs.
+ * \brief Classe permettant de gérer les joueurs.
  */
 class JoueurServeur {
 public:
     /**
-     * \brief Constructeur par dÃ©faut
+     * \brief Constructeur par défaut
      *
      */
     JoueurServeur(void);
 
     /**
-     * \brief RÃ©cupÃ©ration de la socket rÃ©seau du joueur
+     * \brief Récupération de la socket réseau du joueur
      *
      * \return un pointeur vers la socket de type sf::TcpSocket
      */
     sf::TcpSocket* getSocket(void);
 
     /**
-     * \brief RÃ©cupÃ©ration du pseudo du joueur
+     * \brief Récupération du pseudo du joueur
      *
-     * \return le pseudo sous forme de chaÃ®ne de caractÃ¨res
+     * \return le pseudo sous forme de chaîne de caractères
      */
     string getPseudo(void);
 
     /**
-     * \brief RÃ©cupÃ©ration de l'adresse IP du joueur
+     * \brief Récupération de l'adresse IP du joueur
      *
-     * \return l'adresse ip sous forme de chaÃ®ne de caractÃ¨res
+     * \return l'adresse ip sous forme de chaîne de caractères
      */
     string getIp(void);
 
     /**
-     * \brief RÃ©cupÃ©ration du numÃ©ro du joueur sur le serveur
+     * \brief Récupération du numéro du joueur sur le serveur
      *
-     * \return Le numÃ©ro du joueur
+     * \return Le numéro du joueur
      */
     sf::Uint16 getId(void);
 
@@ -56,16 +56,16 @@ public:
     sf::Int32 getCommandement(void);
 
     /**
-     * \brief Recuperation des points de rÃ©quisitions du joueur
+     * \brief Recuperation des points de réquisitions du joueur
      *
-     * \return Les points de rÃ©quisitions du joueur
+     * \return Les points de réquisitions du joueur
      */
     sf::Int32 getRequisition(void);
 
     /**
-     * \brief Recuperation de l'Ã©nergie du joueur
+     * \brief Recuperation de l'énergie du joueur
      *
-     * \return L'Ã©nergie du joueur
+     * \return L'énergie du joueur
      */
     sf::Int32 getEnergie(void);
 
@@ -75,6 +75,10 @@ public:
      * \return Les materiaux du joueur
      */
     sf::Int32 getMateriaux(void);
+
+
+    VaisseauServeur getConstructionVaisseau(int index);
+
 
     /**
      * \brief Ajoute un vaisseau au joueur
@@ -90,6 +94,13 @@ public:
      */
     void ajouterBatiment(BatimentServeurPtr batiment);
 
+
+    void ajouterConstructionVaisseau(VaisseauServeur vaisseau);
+
+
+    void retirerConstructionVaisseau();
+
+
     /**
      * \brief Retire les pointeurs des vaisseaux et batiments inutiles
      *
@@ -98,58 +109,60 @@ public:
 
     /**
      * \brief Ajoute ou modifie le socket du joueur
-     * 
+     *
      * \param _socket le nouveau socket
      */
     void setSocket(sf::TcpSocket* _socket);
 
     /**
      * \brief Ajoute ou modifie le pseudo du joueur
-     * 
+     *
      * \param _pseudo le nouveau pseudo
      */
     void setPseudo(string _pseudo);
     /**
      * \brief Ajoute ou modifie l'ip du joueur
-     * 
+     *
      * \param _ip la nouvelle ip
      */
     void setIp(string _ip);
     /**
      * \brief Ajoute ou modifie l'id du joueur
-     * 
+     *
      * \param _id le nouvel id
      */
     void setId(sf::Uint16 _id);
-    
+
     /**
      * \brief Modifie le nombre de points de commandement du joueur
-     * 
+     *
      * \param _commandement le nombre de points de commandement
      */
     void setCommandement(sf::Int32 _commandement);
-    
+
     /**
-     * \brief Modifie le nombre de points de rÃ©quisition du joueur
-     * 
-     * \param _requisition le nombre de points de rÃ©quisition
+     * \brief Modifie le nombre de points de réquisition du joueur
+     *
+     * \param _requisition le nombre de points de réquisition
      */
     void setRequisition(sf::Int32 _requisition);
-    
+
     /**
-     * \brief Modifie le nombre de points d'Ã©nergie du joueur
-     * 
-     * \param _energie le nombre de points d'Ã©nergie
+     * \brief Modifie le nombre de points d'énergie du joueur
+     *
+     * \param _energie le nombre de points d'énergie
      */
     void setEnergie(sf::Int32 _energie);
-    
+
     /**
      * \brief Modifie le nombre de materiaux du joueur
-     * 
+     *
      * \param _materiaux le nombre de materiaux
      */
     void setMateriaux(sf::Int32 _materiaux);
-    
+
+
+
 private:
     /// La technologie du joueur pour les structures
     TechnologieStructure techS;
@@ -166,6 +179,8 @@ private:
     /// La liste des vaisseaux du joueurs
     std::list<std::weak_ptr<VaisseauServeur>> listeVaisseaux;
 
+    std::vector<VaisseauServeur> listeConstructionVaisseau;
+
     /// La socket du joueur
     sf::TcpSocket* socket;
 
@@ -181,19 +196,20 @@ private:
     /// Les points de commandements du joueur
     sf::Int32 commandement;
 
-    /// Les points de rÃ©quisition du joueur
+    /// Les points de réquisition du joueur
     sf::Int32 requisition;
 
-    /// Les points d'Ã©nergie du joueur
+    /// Les points d'énergie du joueur
     sf::Int32 energie;
 
     /// Les materiaux du joueur
     sf::Int32 materiaux;
-    
+
     friend sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur);
 };
 
-
 sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur);
+
+
 
 #endif

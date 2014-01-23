@@ -9,10 +9,10 @@ VaisseauServeur::VaisseauServeur() :
 {
 }
 
-VaisseauServeur::VaisseauServeur(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux,
-                                 sf::Int32 _visibilite, sf::Int32 _attaque, sf::Int32 _distanceMax,
-                                 sf::Int32 _consommation, TypeVaisseau _type) :
-    Structure(_vieMax, _bouclierMax, _bouclierTaux, _visibilite, _attaque),
+VaisseauServeur::VaisseauServeur(sf::Int32 _vieMax, sf::Int32 _bouclierMax, float _bouclierTaux,
+                   sf::Int32 _visibilite, sf::Int32 _attaque, sf::Int32 _distanceMax,
+                   sf::Int32 _consommation, sf::Int32 _rayonAttaque, sf::Int32 _prixEnergie, sf::Int32 _prixMateriaux, TypeVaisseau _type) :
+    Structure(_vieMax, _bouclierMax, _bouclierTaux, _visibilite, _attaque, _rayonAttaque, _prixEnergie, _prixMateriaux),
     type(_type),
     distanceMax(_distanceMax),
     consommation(_consommation)
@@ -56,6 +56,12 @@ void VaisseauServeur::afficher(std::ostream& fluxSortant) const {
             << "Consommation : "
             << consommation
             << std::endl
+            << "Prix Energie : "
+            << prixEnergie
+            << std::endl
+            << "Prix Materiaux : "
+            << prixMateriaux
+            << std::endl
             << std::endl;
 
 }
@@ -68,7 +74,7 @@ std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& Vaiss
 }
 
 
-// il faut Ã©quilibrer les valeurs, rajouter les cas de certains types ...
+// il faut équilibrer les valeurs, rajouter les cas de certains types ...
 int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
 
     switch (vAttaquant->getType()) {
@@ -168,7 +174,7 @@ int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
  */
 
 VaisseauServeur VaisseauServeur::cloner(VaisseauServeur const& modele, TechnologieStructure techS,
-                                        TechnologieVaisseau techV) {
+                          TechnologieVaisseau techV) {
 
     Structure base = Structure::cloner(modele, techS);
 
@@ -178,6 +184,9 @@ VaisseauServeur VaisseauServeur::cloner(VaisseauServeur const& modele, Technolog
                base.getBouclierTaux(),
                base.getVisibilite(),
                base.getAttaque(),
+               base.getRayonAttaque(),
+               base.getPrixEnergie(),
+               base.getPrixMateriaux(),
                modele.getDistanceMax() + (modele.getDistanceMax() * 0.5 * techV
                                           .getNiveauDistance()),
                modele.getConsommation() - (modele.getConsommation() * 0.1 * techV
@@ -193,10 +202,11 @@ TypeVaisseau VaisseauServeur::getType() const {
     return type;
 }
 
-
 sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau) {
     return paquet << static_cast<sf::Uint16>(vaisseau.type) << vaisseau.attaque
            << vaisseau.vie << vaisseau.vieMax << vaisseau.visibilite << vaisseau.rayonAttaque
            << vaisseau.bouclier << vaisseau.bouclierMax << vaisseau.bouclierTaux
-           << vaisseau.consommation << vaisseau.distanceMax << vaisseau.idJoueur;
+           << vaisseau.consommation << vaisseau.distanceMax << vaisseau.prixEnergie << vaisseau.prixMateriaux;
 }
+
+

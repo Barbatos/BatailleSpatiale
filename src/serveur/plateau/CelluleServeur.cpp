@@ -79,15 +79,15 @@ TypeBatiment CelluleServeur::typeBatiment() const {
 }
 
 void CelluleServeur::creerVaisseauTest(TypeVaisseau type) {
-    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 5, 25, type));
+    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 5, 25, 10, 10, 10, type));
 }
 
 void CelluleServeur::creerVaisseauConstructeurTest() {
-    vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 0, 10, 10, 25, TypeVaisseau::Constructeur));
+    vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 0, 10, 10, 25, 10, 10, 10, TypeVaisseau::Constructeur));
 }
 
 void CelluleServeur::creerBatimentBaseTest() {
-    batiment.reset(new BatimentServeur(200, 50, 0.1f, 0, 0, 0, TypeBatiment::Base));
+    batiment.reset(new BatimentServeur(200, 50, 0.1f, 0, 0, 0, 10, 10, 10, TypeBatiment::Base));
 }
 
 Structure CelluleServeur::getAttaquant() {
