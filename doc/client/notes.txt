@@ -1,0 +1,13 @@
+permettre qu'en cliquant sur des vaisseaux => attaque 
+différencier les joueurs
+afficher la liste des vaisseaux pouvant être ataqué 
+ ... construits au début de partie
+clic sur vaisseau(constructeur) afficher constructible buildings
+
+argumenter dans le rapport avec n'importe quoi
+Bien contextualiser le projet, pour une équipe non habituée au projet
+
+Montrer la puissance du code
+
+Soigner le rapport
+Et après améliorer la démo

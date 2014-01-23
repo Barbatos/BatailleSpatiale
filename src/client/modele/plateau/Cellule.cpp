@@ -78,8 +78,32 @@ bool Cellule::getEstChemin() const {
     return bits.estChemin;
 }
 
-void Cellule::setEstChemin(bool estChemin){
+void Cellule::setEstChemin(bool estChemin) {
     bits.estChemin = estChemin;
+}
+
+bool Cellule::getEstConstructibleVaisseau() const {
+    return bits.estConstructibleVaisseau;
+}
+
+void Cellule::setEstConstructibleVaisseau(bool estConstructible) { 
+    bits.estConstructibleVaisseau = estConstructible;
+}
+
+bool Cellule::getEstConstructibleBatiment() const {
+    return bits.estConstructibleBatiment;
+}
+
+void Cellule::setEstConstructibleBatiment(bool estConstructible) {
+    bits.estConstructibleBatiment = estConstructible;
+}
+
+bool Cellule::getEstAttaquable() const {
+    return bits.estAttaquable;
+}
+
+void Cellule::setEstAttaquable(bool estAttaquable) {
+    bits.estAttaquable = estAttaquable;
 }
 
 sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {

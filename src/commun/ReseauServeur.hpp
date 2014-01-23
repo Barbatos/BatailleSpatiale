@@ -67,12 +67,18 @@ public:
     void fermerReseau();
 
     void envoiZoneParcourable(sf::TcpSocket& client, Position pos);
-    
-    //void envoiJoueursAdverses(sf::TcpSocket& client);
+
+    void envoiJoueursAdverses(JoueurServeur& joueur);
 
     void envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
 
     void deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee);
+
+    void envoiZoneConstructibleVaisseau(sf::TcpSocket& client, Position pos);
+
+    void envoiZoneConstructibleBatiment(sf::TcpSocket& client, Position pos);
+
+    void envoiZoneAttaquable(sf::TcpSocket& client, Position pos);
 
 private:
 

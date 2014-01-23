@@ -52,6 +52,9 @@ void AffichageDetails::actualiser(float) {
     infosJoueurs.setString(std::wstring(L"Informations joueurs (Pas encore disponible)"));
     infosJoueurs.setOrigin(infosJoueurs.getGlobalBounds().width, 0);
 
+    //Mechanisme pour lire ls infos du joueur(manque methode reseau)
+    //lireGui()->lireScene()->lireJeu().lireReseauServeur().lireJoueurs();
+
     // On vérifie si aucune case n'est selectionnée
     if (position.x == -1 && position.y == -1) {
         // Si oui, on change le message et on termine l'actualisation

@@ -11,6 +11,7 @@ Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclier
     visibilite = _visibilite;
     attaque = _attaque;
     rayonAttaque = _rayonAttaque;
+    idJoueur = 1;
 
 }
 
@@ -146,7 +147,6 @@ Structure Structure::cloner(Structure const& modele, TechnologieStructure techS)
     return copie;
 
 }
-
 
 std::ostream& operator<<(std::ostream& fluxSortant, Structure const&) {
     return fluxSortant;

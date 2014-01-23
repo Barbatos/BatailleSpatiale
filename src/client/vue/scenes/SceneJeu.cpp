@@ -16,8 +16,7 @@
 
 SceneJeu::SceneJeu(Jeu& jeu)
 : Scene(jeu) {
-    jeu.lirePlateau().viderZoneParcourable();
-    jeu.lirePlateau().viderChemin();
+    jeu.lirePlateau().viderZones();
 
     int winx = jeu.lireAffichage().getSize().x;
     int winy = jeu.lireAffichage().getSize().y;
@@ -55,15 +54,19 @@ void SceneJeu::surMessage(Message message) {
                 case Plateau:
                     break;
                 case Droite:
-                    plateau->bougerPlateau(5, 0);
+                	if(plateau->lireVue()->getCenter().x <= jeu.lireAffichage().getSize().x)
+                		plateau->bougerPlateau(5, 0);
                     break;
                 case Gauche:
-                    plateau->bougerPlateau(-5, 0);
+                	if(plateau->lireVue()->getCenter().x >= 0)
+                		plateau->bougerPlateau(-5, 0);
                     break;
                 case Haut:
+                if(plateau->lireVue()->getCenter().y >= 0)
                     plateau->bougerPlateau(0, -5);
                     break;
                 case Bas:
+                if(plateau->lireVue()->getCenter().y <= jeu.lireAffichage().getSize().y)
                     plateau->bougerPlateau(0, 5);
                     break;
                 default:

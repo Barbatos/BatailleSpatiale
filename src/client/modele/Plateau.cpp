@@ -57,6 +57,35 @@ void Plateau::viderChemin() {
             cellule[i][j].setEstChemin(false);
 }
 
+void Plateau::viderZoneConstructible() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++) {
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++) {
+            cellule[i][j].setEstConstructibleVaisseau(false);
+            cellule[i][j].setEstConstructibleBatiment(false);
+        }
+    }
+}
+
+void Plateau::viderZoneAttaquable() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++) {
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++) {
+            cellule[i][j].setEstAttaquable(false);
+        }
+    }
+}
+
+void Plateau::viderZones() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++) {
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++) {
+            cellule[i][j].setEstConstructibleVaisseau(false);
+            cellule[i][j].setEstConstructibleBatiment(false);
+            cellule[i][j].setEstChemin(false);
+            cellule[i][j].setParcourable(false);
+            cellule[i][j].setEstAttaquable(false);
+        }
+    }
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
 
     paquet >> plateau.tailleX >> plateau.tailleY;

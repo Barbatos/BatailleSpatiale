@@ -19,6 +19,7 @@ struct DetailVaisseau {
     sf::Int32 attaque; ///< L'attaque du vaisseau
     sf::Int32 consommation; /// La consommation en energie a chaque deplacement
     sf::Int32 distanceMax; ///< Le déplacement max pour un tour
+    sf::Int32 idJoueur; ///< L'id du joueur
 };
 
 #endif

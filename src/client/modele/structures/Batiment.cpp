@@ -23,7 +23,7 @@ sf::Packet& operator >>(sf::Packet& paquet, Batiment& batiment) {
     paquet >> typeBatiment >> detail.attaque
            >> detail.vie >> detail.vieMax >> detail.visibilite >> detail.rayonAttaque
            >> detail.bouclier >> detail.bouclierMax >> detail.bouclierTaux
-           >> detail.niveau;
+           >> detail.niveau >> detail.idJoueur;
     detail.type = static_cast<TypeBatiment>(typeBatiment);
 
     batiment.setDetail(detail);
