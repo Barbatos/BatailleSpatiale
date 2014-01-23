@@ -157,7 +157,7 @@ public:
      * \param p2 Position d'une cellule
      * \return Vrai si au moins une cellule contient un vaisseau et l'autre non
      */
-    bool deplacerVaisseau(Position p1, Position p2);
+    bool deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable);
 
     PlateauServeur& operator=(const PlateauServeur& plateau2);
 

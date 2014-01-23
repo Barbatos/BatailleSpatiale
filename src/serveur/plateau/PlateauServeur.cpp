@@ -235,11 +235,20 @@ std::list<Position> PlateauServeur::obtenirChemin(Position p,
     return chemin;
 }
 
-bool PlateauServeur::deplacerVaisseau(Position p1, Position p2) {
+bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable) {
+    std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable.begin();
+
     if(cellule[p1.x][p1.y].possedeVaisseau() != cellule[p2.x][p2.y].possedeVaisseau()) {
-        cellule[p1.x][p1.y].echangerVaisseau(cellule[p2.x][p2.y]);
-        return true;
+        while (noeudIterateur != zoneParcourable.end()) {
+            if (p2 == (noeudIterateur->getPosition())) {
+                cellule[p1.x][p1.y].echangerVaisseau(cellule[p2.x][p2.y]);
+                return true;
+            } else {
+                noeudIterateur++;
+            }
+        }
     }
+    
     return false;
 }
 

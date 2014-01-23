@@ -189,7 +189,7 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
     sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
     sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
 
-    if(plateau.deplacerVaisseau(posDepart, posArrivee)){
+    if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart))) {
         paquet << paquetDeplacerVaisseau;
         envoiPlateau(client, plateau);
     }
