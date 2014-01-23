@@ -19,7 +19,9 @@ void PlateauServeur::initialisationTest() {
     cellule[7][4].setType(TypeCellule::Inexistant);
     cellule[8][3].setType(TypeCellule::Inexistant);
     cellule[0][1].creerBatimentBaseTest();
+    (*joueurs)[0].ajouterBatiment(cellule[0][1].getBatiment());
     cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
+    cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
     cellule[1][1].creerVaisseauTest();
 }
 
@@ -68,7 +70,31 @@ std::list<Position> PlateauServeur::celluleAutour(Position p) {
     return autour;
 }
 
-std::list<NoeudServeur> PlateauServeur::getZoneParcourable(
+std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(int idJoueur) {
+    std::list<Position> zoneConstructible;
+    std::list<Position> pointAutour;
+    std::list<Position>::iterator p;
+
+    for (sf::Int32 x = 0; x < tailleX; ++x)
+        for (sf::Int32 y = 0; y < tailleY; ++y) {
+            if(cellule[x][y].possedeBatiment()
+                    && cellule[x][y].getBatiment()->getType() == TypeBatiment::Base
+                    && cellule[x][y].getBatiment()->getIdJoueur() == idJoueur) {
+                pointAutour = celluleAutour(Position(x, y));
+
+                //Pour chaque point autour
+                for (p = pointAutour.begin();
+                        p != pointAutour.end(); p++) {
+                    if(!cellule[p->x][p->y].estAccessible())
+                        zoneConstructible.push_back(*p);
+                }
+            }
+        }
+
+    return zoneConstructible;
+}
+
+std::list<NoeudServeur> PlateauServeur::getZoneParcourable (
     Position positionVaisseau) {
     //On créé une liste parcourable
     std::list<NoeudServeur> zoneParcourable;
@@ -248,7 +274,7 @@ bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudS
             }
         }
     }
-    
+
     return false;
 }
 

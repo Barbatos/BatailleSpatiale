@@ -5,6 +5,7 @@
 #include "../structures/batiments/BatimentServeur.hpp"
 #include "../structures/batiments/TechnologieBatiment.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
+#include "../../commun/utile/Position.hpp"
 
 #include "../../global.hpp"
 

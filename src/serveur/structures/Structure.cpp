@@ -15,6 +15,14 @@ Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclier
 
 }
 
+void Structure::setIdJoueur( sf::Int32 const _id) {
+    idJoueur = _id;
+}
+
+sf::Int32 Structure::getIdJoueur() {
+    return idJoueur;
+}
+
 sf::Int32 Structure::getVie() const {
     return vie;
 }

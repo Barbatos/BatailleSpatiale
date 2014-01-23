@@ -29,7 +29,8 @@ public:
     // Setter
     void setVie( sf::Int32 const _vie);
     void setIdJoueur( sf::Int32 const _id);
-    sf::Int32  setBouclier(sf::Int32 const _bouclier);
+    sf::Int32 getIdJoueur();
+    sf::Int32 setBouclier(sf::Int32 const _bouclier);
     void setVieMax( sf::Int32 const _vieMax);
     void setBouclierMax( sf::Int32 const _bouclierMax);
     void setBouclierTaux(double const _bouclierTaux);
@@ -40,7 +41,6 @@ public:
     void attaquer(Structure& cible) const;
     void modifierVie(sf::Int32 const valeur);
     static Structure cloner(Structure const& modele, TechnologieStructure techS);
-
 
 protected:
     sf::Int32 idJoueur;

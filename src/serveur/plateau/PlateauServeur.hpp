@@ -161,6 +161,14 @@ public:
 
     PlateauServeur& operator=(const PlateauServeur& plateau2);
 
+    /**
+     * \brief Retourne la zone construtible pour les vaisseaux du joueur
+     * 
+     * \param idJoueur l'id du joueur
+     * \return Une liste de Position où l'on peut construire des vaisseaux
+     */
+    std::list<Position> getZoneConstructibleVaisseau(int idJoueur);
+
 private:
     /// Liste des joueurs
     std::vector<JoueurServeur> *joueurs;

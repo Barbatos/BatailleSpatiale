@@ -74,10 +74,12 @@ void JoueurServeur::setMateriaux(sf::Int32 _materiaux) {
 }
 
 void JoueurServeur::ajouterVaisseau(VaisseauServeurPtr vaisseau) {
+    vaisseau->setIdJoueur(id);
     listeVaisseaux.push_back(std::weak_ptr<VaisseauServeur>(vaisseau));
 }
 
 void JoueurServeur::ajouterBatiment(BatimentServeurPtr batiment) {
+    batiment->setIdJoueur(id);
     listeBatiments.push_back(std::weak_ptr<BatimentServeur>(batiment));
 }
 
