@@ -7,8 +7,8 @@
 class VaisseauServeur;
 
 /*
-* Classe qui dÃ©finit les differents attributs
-* que possÃ¨dent les batiments.
+* Classe qui définit les differents attributs
+* que possèdent les batiments.
 */
 
 class BatimentServeur : public Structure {
@@ -18,10 +18,13 @@ public:
     BatimentServeur(
         sf::Int32 vieMax,
         sf::Int32 bouclierMax,
-        double bouclierTaux,
+        float bouclierTaux,
         sf::Int32 visibilite,
         sf::Int32 attaque,
         sf::Int32 niveau,
+        sf::Int32 rayonAttaque,
+        sf::Int32 prixEnergie,
+        sf::Int32 prixMateriaux,
         TypeBatiment _type = TypeBatiment::Inexistant
     );
     TypeBatiment getType() const;
@@ -44,3 +47,4 @@ sf::Packet& operator <<(sf::Packet& paquet, const BatimentServeur& batiment);
 typedef std::shared_ptr<BatimentServeur> BatimentServeurPtr;
 
 #endif // BATIMENTSERVEUR_HPP
+
