@@ -25,10 +25,10 @@ namespace Utile {
 
         size_t debut = cheminFichier.find_last_of('/');
 
-        if(fin == string::npos)
+        if (fin == string::npos)
             fin = cheminFichier.length();
 
-        if(debut == string::npos)
+        if (debut == string::npos)
             debut = 0;
         else
             debut++;
@@ -65,16 +65,16 @@ namespace Utile {
         coeffX = largeur / largeurImage;
         coeffY = hauteur / hauteurImage;
 
-        if(hauteur < largeur && proportions)
+        if (hauteur < largeur && proportions)
             image.scale(coeffX, coeffX);
-        else if(proportions)
+        else if (proportions)
             image.scale(coeffY, coeffY);
         else
             image.scale(coeffX, coeffY);
     }
 
     std::wstring convertir(TypeVaisseau type) {
-        switch(type) {
+        switch (type) {
             case TypeVaisseau::Inexistant:
                 return L"Inexistant";
             case TypeVaisseau::Constructeur:
@@ -99,7 +99,7 @@ namespace Utile {
     }
 
     std::wstring convertir(TypeBatiment type) {
-        switch(type) {
+        switch (type) {
             case TypeBatiment::Base:
                 return L"Base";
             default:
@@ -108,7 +108,7 @@ namespace Utile {
     }
 
     std::wstring convertir(TypeEvenement type) {
-        switch(type) {
+        switch (type) {
             case TypeEvenement::ChampMeteor:
                 return L"Champ de Météore";
             case TypeEvenement::Epave:
@@ -127,7 +127,7 @@ namespace Utile {
     std::string lireFichier(DetailVaisseau details) {
         std::string fichier;
 
-        switch(details.type) {
+        switch (details.type) {
             case TypeVaisseau::Inexistant:
                 break;
             case TypeVaisseau::Constructeur:
@@ -164,7 +164,7 @@ namespace Utile {
     std::string lireFichier(DetailBatiment details) {
         std::string fichier;
 
-        switch(details.type) {
+        switch (details.type) {
             case TypeBatiment::Base:
                 fichier = "Batiments/sprite_vaisseau_mere_1.png";
                 break;
@@ -178,7 +178,7 @@ namespace Utile {
     std::string lireFichier(DetailEvenement details) {
         std::string fichier;
 
-        switch(details.type) {
+        switch (details.type) {
             case TypeEvenement::ChampMeteor:
                 break;
             case TypeEvenement::Epave:

@@ -15,7 +15,7 @@
 #include <client/Jeu.hpp>
 
 SceneJeu::SceneJeu(Jeu& jeu)
-                : Scene(jeu) {
+: Scene(jeu) {
     jeu.lirePlateau().viderZoneParcourable();
     jeu.lirePlateau().viderChemin();
 
@@ -27,11 +27,11 @@ SceneJeu::SceneJeu(Jeu& jeu)
     float x = winx * 0.01f;
     float y = winy * 0.01f;
 
-    details = new AffichageDetails(&gui, Details, x, 0.7 * winy, winx / 3 - x, 0.3
-                    * winy - y);
+    details = new AffichageDetails(&gui, Details, x, 0.7 * winy, winx - 2 * x, 0.3
+                                   * winy - y);
 
     plateau = new AffichagePlateau(&gui, Plateau, 0, 0, (winx - 2 * x) / 2, (winy
-                    - 2 * y) / 2, details);
+        - 2 * y) / 2, details);
 
     new BoutonDeplacementPlateau(&gui, Droite, winx - x, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Gauche, 0, y, x, winy - 2 * y);
