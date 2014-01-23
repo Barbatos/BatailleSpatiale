@@ -102,6 +102,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiZoneConstructibleBatiment(*client, pos);
         break;
 
+        // Le client demande la zone attaquable
+    case TypePaquet::GetZoneAttaquable:
+        paquet >> pos;
+        envoiZoneAttaquable(*client, pos);
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -243,6 +249,28 @@ void ReseauServeur::envoiZoneConstructibleBatiment(sf::TcpSocket& client, Positi
 
     // TODO
     /*noeuds = plateau.getZoneConstructibleBatiment(pos);
+
+    tailleZone = noeuds.size();
+
+    paquet << typePaquet << tailleZone;
+
+    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+        paquet << noeudIterator->getPosition();
+    }
+
+    ReseauGlobal::EnvoiPaquet(client, paquet);
+    */
+}
+
+void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
+    sf::Packet paquet;
+    std::list<NoeudServeur> noeuds;
+    std::list<NoeudServeur>::iterator noeudIterator;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneAttaquable);
+    sf::Int32 tailleZone;
+
+    // TODO
+    /*noeuds = plateau.getZoneAttaquable(pos);
 
     tailleZone = noeuds.size();
 

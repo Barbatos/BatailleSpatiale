@@ -96,6 +96,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
 		parseZoneConstructibleBatiment(paquet);
 		break;
 
+	case TypePaquet::ZoneAttaquable:
+		parseZoneAttaquable(paquet);
+		break;
+
 	default:
 		cout
 		        << "[RESEAU] Erreur: paquet de type "
@@ -173,6 +177,20 @@ void ReseauClient::parseZoneConstructibleBatiment(sf::Packet paquet){
 	}
 }
 
+void ReseauClient::parseZoneAttaquable(sf::Packet paquet){
+	sf::Int32 tailleZone;
+	std::list<Position> pos;
+	Position p;
+
+	paquet >> tailleZone;
+
+	for (sf::Int32 i = 0; i < tailleZone; i++)
+	{
+		paquet >> p;
+		plateau.cellule[p.x][p.y].setEstAttaquable(true);
+	}
+}
+
 void ReseauClient::deplacerVaisseau(sf::Packet){
 
 }
@@ -219,6 +237,16 @@ void ReseauClient::getZoneConstructibleVaisseau(Position p){
 
 void ReseauClient::getZoneConstructibleBatiment(Position p){
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleBatiment);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getZoneAttaquable(Position p){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneAttaquable);
 	sf::Packet paquet;
 
 	paquet

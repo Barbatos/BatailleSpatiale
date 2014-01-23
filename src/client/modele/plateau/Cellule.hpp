@@ -43,6 +43,9 @@ public:
     void setEstConstructibleBatiment(bool estConstructible);
     bool getEstConstructibleBatiment() const;
 
+    void setEstAttaquable(bool estAttaquable);
+    bool getEstAttaquable() const;
+    
     /**
      * \brief Indique le type de la cellule
      * Si un vaisseau ou un batiment est present, alors elle retourne un type correspondant.

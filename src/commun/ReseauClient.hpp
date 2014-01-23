@@ -81,6 +81,10 @@ public:
 
 	void parseZoneConstructibleBatiment(sf::Packet paquet);
 
+	void getZoneAttaquable(Position p);
+
+	void parseZoneAttaquable(sf::Packet paquet);
+
 private:
 
 	/// La socket du client

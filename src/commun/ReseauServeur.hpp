@@ -78,6 +78,8 @@ public:
 
     void envoiZoneConstructibleBatiment(sf::TcpSocket& client, Position pos);
 
+    void envoiZoneAttaquable(sf::TcpSocket& client, Position pos);
+
 private:
 
     /// La socket du serveur

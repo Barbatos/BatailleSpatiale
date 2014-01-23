@@ -63,6 +63,10 @@ enum class TypePaquet : sf::Uint16 {
     // Paquet envoyé par le serveur au client pour renseigner la zone constructible
     ZoneConstructibleVaisseau,
     ZoneConstructibleBatiment,
+    // Paquet envoyé par le client au serveur pour demander la zone attaquable
+    GetZoneAttaquable,
+    // Paquet envoyé par le serveur au client pour donner la zone attaquable
+    ZoneAttaquable,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };
