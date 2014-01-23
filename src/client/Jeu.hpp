@@ -174,6 +174,7 @@ public:
 	Ressources& lireRessources();
 
 	ReseauPtr& lireReseau();
+	Joueur* lireJoueur();
 };
 
 #endif /* JEU_HPP */

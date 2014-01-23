@@ -148,3 +148,6 @@ Ressources& Jeu::lireRessources() {
 ReseauPtr& Jeu::lireReseau() {
     return (reseau);
 }
+Joueur* Jeu::lireJoueur(){
+	return (joueur);
+}
