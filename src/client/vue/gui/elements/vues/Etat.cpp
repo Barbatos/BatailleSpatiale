@@ -43,42 +43,36 @@ void Etat::appuiCase_Normal(Message::MessageCellule message) {
     if (!message.selection)
         return;
 
+    // On récupère les variables importantes
+    Plateau& p = jeu->lirePlateau();
+    ReseauClient* r = jeu->lireReseau().get();
+    Position position = Position(message.x, message.y);
+
+    // On vide les éventuels chemins
+    p.viderChemin();
+    p.viderZoneParcourable();
+
+    // On sélectionne la position
+    details->selectionner(position);
+
+    // Si c'est un vaisseau, on affiche sa zone parcourable
+    if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
+        r->getZoneParcourable(position);
+
+    // On passe en mode selection
+    type = Selection;
+}
+
+void Etat::appuiCase_Selection(Message::MessageCellule message) {
+    // On récupère les variables importantes
     Plateau& p = jeu->lirePlateau();
     ReseauClient* r = jeu->lireReseau().get();
     Position ancienne = details->lirePosition();
     Position position = Position(message.x, message.y);
 
-    // Si une case était précédemment selectionnée
-    if (ancienne.x != -1 && ancienne.y != -1) {
-        if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
-            if (message.clicDroit) {
-                p.viderChemin();
-                r->getChemin(ancienne, position);
-            }
-            else {
-                // Déplacement, Attaque, etc
-                r->demanderDeplacementVaisseau(ancienne, position);
-            }
-        }
+    if (message.clicDroit) {
+
     }
-
-    if (!message.clicDroit) {
-        p.viderChemin();
-        p.viderZoneParcourable();
-
-        if (!message.selection && details->lirePosition() == position)
-            details->selectionner();
-        else if (message.selection) {
-            details->selectionner(position);
-
-            if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
-                r->getZoneParcourable(position);
-        }
-    }
-}
-
-void Etat::appuiCase_Selection(Message::MessageCellule message) {
-
 }
 
 void Etat::appuiCase_Construction(Message::MessageCellule message) {
