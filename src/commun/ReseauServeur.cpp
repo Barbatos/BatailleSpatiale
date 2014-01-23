@@ -315,6 +315,12 @@ void ReseauServeur::ecouterReseau(void) {
                 // On envoie le plateau
                 envoiPlateau(*client, plateau);
 
+                // On envoie ses infos au joueur
+                envoiJoueurCourant(*j);
+
+                // On envoie la liste des joueurs adverses
+                envoiJoueursAdverses(*j);
+
                 cout << "[RESEAU] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 
                 c << j->getId();
