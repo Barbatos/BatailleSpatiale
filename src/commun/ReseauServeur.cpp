@@ -71,17 +71,23 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiUnique(*client, msgFinal);
         break;
 
+
+        // Récupération de la liste des joueurs
+    case TypePaquet::JoueursAdverses:
+        envoiJoueursAdverses(joueur);
+        break;
+
         // Envoi de la zone parcourable au client
     case TypePaquet::GetZoneParcourable:
         paquet >> pos;
         envoiZoneParcourable(*client, pos);
         break;
 
-		// Envoi au client du chemin entre un point 1 et un point 2
-	case TypePaquet::GetChemin:
-		paquet >> pos >> pos2;
-		envoiChemin(*client, pos, pos2);
-		break;
+        // Envoi au client du chemin entre un point 1 et un point 2
+    case TypePaquet::GetChemin:
+        paquet >> pos >> pos2;
+        envoiChemin(*client, pos, pos2);
+        break;
 
 
         // Le client demande à déplacer un vaisseau
@@ -165,19 +171,20 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-/*void ReseauServeur::envoiJoueursAdverses(sf::TcpSocket& client) {
+void ReseauServeur::envoiJoueursAdverses(JoueurServeur& joueur) {
     sf::Packet paquet;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueursAdverses);
+    sf::TcpSocket* client = joueur.getSocket();
 
-    paquet << typePaquet << joueurs.size() - 1;
+    paquet << typePaquet << (int) joueurs.size() - 1;
 
-    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
-        paquet << j.getPseudo();
+    for (vector<JoueurServeur>::iterator j = joueurs.begin(); j != joueurs.end(); ++j) {
+        if(j->getId() != joueur.getId())
+            paquet << j->getPseudo();
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
-*/
 
 void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
     sf::Packet paquet;
@@ -202,7 +209,7 @@ void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Posit
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee){
+void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
     sf::Packet paquet;
     sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
     sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
@@ -210,8 +217,7 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
     if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart))) {
         paquet << paquetDeplacerVaisseau;
         envoiPlateau(client, plateau);
-    }
-    else {
+    } else {
         paquet << paquetDeplacementImpossible;
     }
 
