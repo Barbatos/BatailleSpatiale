@@ -1,9 +1,10 @@
 #include "ReseauClient.hpp"
 
-ReseauClient::ReseauClient(Plateau& _plateau) :
+ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur) :
     ip("none"),
     port(0),
-    plateau(_plateau) {
+    plateau(_plateau),
+    joueur(_joueur) {
     setActif(false);
 }
 
@@ -98,6 +99,14 @@ void ReseauClient::TraiterPaquetServeur(void) {
 
 	case TypePaquet::ZoneAttaquable:
 		parseZoneAttaquable(paquet);
+		break;
+
+	case TypePaquet::JoueurCourant:
+		parseJoueurCourant(paquet);
+		break;
+
+	case TypePaquet::JoueursAdverses:
+		parseJoueursAdverses(paquet);
 		break;
 
 	default:
@@ -199,6 +208,26 @@ void ReseauClient::parseZoneAttaquable(sf::Packet paquet){
 	}
 }
 
+void ReseauClient::parseJoueurCourant(sf::Packet paquet) {
+	paquet >> joueur;
+}
+
+void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
+	sf::Int32 tailleListe;
+	string j;
+	vector<string> joueursAdverses;
+
+	paquet >> tailleListe;
+
+	for (sf::Int32 i = 0; i < tailleListe; i++)
+	{
+		paquet >> j;
+		joueursAdverses.push_back(j);
+	}
+
+	// TODO
+}
+
 void ReseauClient::deplacerVaisseau(sf::Packet){
 
 }
@@ -243,12 +272,32 @@ void ReseauClient::getZoneConstructibleBatiment(Position p) {
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
-void ReseauClient::getZoneAttaquable(Position p){
+void ReseauClient::getZoneAttaquable(Position p) {
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneAttaquable);
 	sf::Packet paquet;
 
 	paquet
 	        << typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getJoueurCourant() {
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetJoueurCourant);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getJoueursAdverses() {
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetJoueursAdverses);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet;
 
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }

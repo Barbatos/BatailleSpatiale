@@ -12,6 +12,7 @@
 #include <client/controleur/Controleur.hpp>
 #include <client/vue/Scenes.hpp>
 #include <client/ressources/Ressources.hpp>
+#include <client/modele/Joueur.hpp>
 #include <commun/ReseauServeur.hpp>
 #include <commun/ReseauClient.hpp>
 #include <memory>
@@ -93,6 +94,8 @@ private:
 	ReseauServeurPtr serveur;
 
 	PlateauServeurPtr plateauServeur;
+
+	Joueur* joueur;
 
 public:
 	/**

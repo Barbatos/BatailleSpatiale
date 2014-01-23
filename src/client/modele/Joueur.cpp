@@ -35,7 +35,7 @@ sf::Int32 Joueur::getMateriaux(void) {
 }
 
 sf::Packet& operator >>(sf::Packet& paquet, Joueur& joueur) {
-    paquet >> joueur.commandement >> joueur.requisition
+    paquet >> joueur.pseudo >> joueur.commandement >> joueur.requisition
            >> joueur.energie >> joueur.materiaux;
 
     return paquet;

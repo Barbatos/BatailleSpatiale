@@ -53,27 +53,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiATous(msgFinal);
         break;
 
+        // Récupération des infos du joueur courant
+    case TypePaquet::GetJoueurCourant:
+        envoiJoueurCourant(joueur);
 
         // Récupération de la liste des joueurs
-    case TypePaquet::GetListeJoueurs:
-        msgFinal = "Liste des joueurs connectés:\n";
-
-        for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
-            JoueurServeur& j = *it;
-            ostringstream id;
-
-            id << j.getId();
-
-            msgFinal.append(j.getPseudo() + " (#" + id.str() + ")\n");
-        }
-
-
-        envoiUnique(*client, msgFinal);
-        break;
-
-
-        // Récupération de la liste des joueurs
-    case TypePaquet::JoueursAdverses:
+    case TypePaquet::GetJoueursAdverses:
         envoiJoueursAdverses(joueur);
         break;
 
@@ -171,12 +156,22 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
+void ReseauServeur::envoiJoueurCourant(JoueurServeur& joueur) {
+    sf::Packet paquet;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurCourant);
+    sf::TcpSocket* client = joueur.getSocket();
+
+    paquet << typePaquet << joueur;
+
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+}
+
 void ReseauServeur::envoiJoueursAdverses(JoueurServeur& joueur) {
     sf::Packet paquet;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueursAdverses);
     sf::TcpSocket* client = joueur.getSocket();
 
-    paquet << typePaquet << (int) joueurs.size() - 1;
+    paquet << typePaquet << (sf::Int32) joueurs.size() - 1;
 
     for (vector<JoueurServeur>::iterator j = joueurs.begin(); j != joueurs.end(); ++j) {
         if(j->getId() != joueur.getId())
