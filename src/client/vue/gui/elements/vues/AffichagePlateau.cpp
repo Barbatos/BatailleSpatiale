@@ -88,8 +88,7 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
     Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
 
     /*if (message.x == -1 && message.y == -1) {
-        p.viderChemin();
-        p.viderZoneParcourable();
+        p.viderZones();
         details->selectionner();
         return;
         }*/
@@ -113,8 +112,7 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
     }
 
     if (!message.clicDroit) {
-        p.viderChemin();
-        p.viderZoneParcourable();
+        p.viderZones();
 
         details->selectionner(position);
 

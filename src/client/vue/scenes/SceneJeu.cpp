@@ -16,8 +16,7 @@
 
 SceneJeu::SceneJeu(Jeu& jeu)
 : Scene(jeu) {
-    jeu.lirePlateau().viderZoneParcourable();
-    jeu.lirePlateau().viderChemin();
+    jeu.lirePlateau().viderZones();
 
     int winx = jeu.lireAffichage().getSize().x;
     int winy = jeu.lireAffichage().getSize().y;

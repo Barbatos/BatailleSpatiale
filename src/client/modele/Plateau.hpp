@@ -83,6 +83,10 @@ class Plateau {
 
         void viderChemin();
 
+        void viderZoneConstructible();
+
+        void viderZones();
+
     private:
         bool positionValide(Position p);
         /// Les cellules du plateau

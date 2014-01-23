@@ -57,6 +57,22 @@ void Plateau::viderChemin() {
             cellule[i][j].setEstChemin(false);
 }
 
+void Plateau::viderZoneConstructible() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++)
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++)
+            cellule[i][j].setEstConstructible(false);
+}
+
+void Plateau::viderZones() {
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++) {
+        for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++) {
+            cellule[i][j].setEstConstructible(false);
+            cellule[i][j].setEstChemin(false);
+            cellule[i][j].setParcourable(false);
+        }
+    }
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
 
     paquet >> plateau.tailleX >> plateau.tailleY;
