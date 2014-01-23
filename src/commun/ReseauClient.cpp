@@ -1,9 +1,10 @@
 #include "ReseauClient.hpp"
 
-ReseauClient::ReseauClient(Plateau& _plateau) :
+ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur) :
     ip("none"),
     port(0),
-    plateau(_plateau) {
+    plateau(_plateau),
+    joueur(_joueur) {
     setActif(false);
 }
 
@@ -96,14 +97,26 @@ void ReseauClient::TraiterPaquetServeur(void) {
         parseZoneConstructibleBatiment(paquet);
         break;
 
-    default:
-        cout
-                << "[RESEAU] Erreur: paquet de type "
-                << typePaquet
-                << " inconnu"
-                << endl;
-        break;
-    }
+	case TypePaquet::ZoneAttaquable:
+		parseZoneAttaquable(paquet);
+		break;
+
+	case TypePaquet::JoueurCourant:
+		parseJoueurCourant(paquet);
+		break;
+
+	case TypePaquet::JoueursAdverses:
+		parseJoueursAdverses(paquet);
+		break;
+
+	default:
+		cout
+		        << "[RESEAU] Erreur: paquet de type "
+		        << typePaquet
+		        << " inconnu"
+		        << endl;
+		break;
+	}
 }
 
 /// Après la connexion, on dit bonjour au serveur
@@ -181,7 +194,41 @@ void ReseauClient::parseZoneConstructibleBatiment(sf::Packet paquet) {
     }
 }
 
-void ReseauClient::deplacerVaisseau(sf::Packet) {
+void ReseauClient::parseZoneAttaquable(sf::Packet paquet){
+	sf::Int32 tailleZone;
+	std::list<Position> pos;
+	Position p;
+
+	paquet >> tailleZone;
+
+	for (sf::Int32 i = 0; i < tailleZone; i++)
+	{
+		paquet >> p;
+		plateau.cellule[p.x][p.y].setEstAttaquable(true);
+	}
+}
+
+void ReseauClient::parseJoueurCourant(sf::Packet paquet) {
+	paquet >> joueur;
+}
+
+void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
+	sf::Int32 tailleListe;
+	string j;
+	vector<string> joueursAdverses;
+
+	paquet >> tailleListe;
+
+	for (sf::Int32 i = 0; i < tailleListe; i++)
+	{
+		paquet >> j;
+		joueursAdverses.push_back(j);
+	}
+
+	// TODO
+}
+
+void ReseauClient::deplacerVaisseau(sf::Packet){
 
 }
 
@@ -223,6 +270,36 @@ void ReseauClient::getZoneConstructibleBatiment(Position p) {
             << typePaquet << p;
 
     ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getZoneAttaquable(Position p) {
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneAttaquable);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getJoueurCourant() {
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetJoueurCourant);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getJoueursAdverses() {
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetJoueursAdverses);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
 void ReseauClient::setActif(bool _actif) {

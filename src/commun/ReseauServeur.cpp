@@ -53,27 +53,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiATous(msgFinal);
         break;
 
+        // Récupération des infos du joueur courant
+    case TypePaquet::GetJoueurCourant:
+        envoiJoueurCourant(joueur);
 
         // Récupération de la liste des joueurs
-    case TypePaquet::GetListeJoueurs:
-        msgFinal = "Liste des joueurs connectés:\n";
-
-        for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
-            JoueurServeur& j = *it;
-            ostringstream id;
-
-            id << j.getId();
-
-            msgFinal.append(j.getPseudo() + " (#" + id.str() + ")\n");
-        }
-
-
-        envoiUnique(*client, msgFinal);
-        break;
-
-
-        // Récupération de la liste des joueurs
-    case TypePaquet::JoueursAdverses:
+    case TypePaquet::GetJoueursAdverses:
         envoiJoueursAdverses(joueur);
         break;
 
@@ -106,6 +91,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     case TypePaquet::GetZoneConstructibleBatiment:
         paquet >> pos;
         envoiZoneConstructibleBatiment(*client, pos);
+        break;
+
+        // Le client demande la zone attaquable
+    case TypePaquet::GetZoneAttaquable:
+        paquet >> pos;
+        envoiZoneAttaquable(*client, pos);
         break;
 
     default:
@@ -165,12 +156,22 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
+void ReseauServeur::envoiJoueurCourant(JoueurServeur& joueur) {
+    sf::Packet paquet;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurCourant);
+    sf::TcpSocket* client = joueur.getSocket();
+
+    paquet << typePaquet << joueur;
+
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+}
+
 void ReseauServeur::envoiJoueursAdverses(JoueurServeur& joueur) {
     sf::Packet paquet;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueursAdverses);
     sf::TcpSocket* client = joueur.getSocket();
 
-    paquet << typePaquet << (int) joueurs.size() - 1;
+    paquet << typePaquet << (sf::Int32) joueurs.size() - 1;
 
     for (vector<JoueurServeur>::iterator j = joueurs.begin(); j != joueurs.end(); ++j) {
         if(j->getId() != joueur.getId())
@@ -261,6 +262,28 @@ void ReseauServeur::envoiZoneConstructibleBatiment(sf::TcpSocket& client, Positi
     */
 }
 
+void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
+    sf::Packet paquet;
+    std::list<NoeudServeur> noeuds;
+    std::list<NoeudServeur>::iterator noeudIterator;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneAttaquable);
+    sf::Int32 tailleZone;
+
+    // TODO
+    /*noeuds = plateau.getZoneAttaquable(pos);
+
+    tailleZone = noeuds.size();
+
+    paquet << typePaquet << tailleZone;
+
+    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+        paquet << noeudIterator->getPosition();
+    }
+
+    ReseauGlobal::EnvoiPaquet(client, paquet);
+    */
+}
+
 void ReseauServeur::ecouterReseau(void) {
 
     // On attend qu'il se passe quelque chose sur le réseau
@@ -290,6 +313,12 @@ void ReseauServeur::ecouterReseau(void) {
 
                 // On envoie le plateau
                 envoiPlateau(*client, plateau);
+
+                // On envoie ses infos au joueur
+                envoiJoueurCourant(*j);
+
+                // On envoie la liste des joueurs adverses
+                envoiJoueursAdverses(*j);
 
                 cout << "[RESEAU] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 

@@ -154,6 +154,17 @@ void AffichageCase::pressionSouris(sf::Mouse::Button) {
 void AffichageCase::relachementSouris(sf::Mouse::Button bouton) {
     if (!lireSurvol() && selectionne && bouton == sf::Mouse::Left) {
         selectionne = false;
+
+        Message message;
+
+        message.type = Message::Cellule;
+
+        message.cellule.x = position.x;
+        message.cellule.y = position.y;
+        message.cellule.selection = false;
+        message.cellule.clicDroit = false;
+
+        envoyerMessage(message);
     }
 }
 

@@ -15,12 +15,15 @@
 
 Jeu::Jeu()
                 : affichage(), modele(), controleur(modele), scene(nullptr), ressources(),
-                  horloge(), reseau(nullptr) {
+                  horloge(), reseau(nullptr), joueur(NULL) {
     ressources.charger();
     affichage.creer();
 
     changer(Scene::SceneMenuPrincipal);
-    reseau = ReseauPtr(new ReseauClient(modele));
+
+    joueur = new Joueur();
+
+    reseau = ReseauPtr(new ReseauClient(modele, *joueur));
     reseauActif = false;
 }
 
@@ -144,4 +147,7 @@ Ressources& Jeu::lireRessources() {
 
 ReseauPtr& Jeu::lireReseau() {
     return (reseau);
+}
+Joueur* Jeu::lireJoueur(){
+	return (joueur);
 }

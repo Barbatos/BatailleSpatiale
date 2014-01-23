@@ -45,10 +45,14 @@ enum class TypePaquet : sf::Uint16 {
     GetZoneParcourable,
     // Paquet envoyé par le serveur au client pour définir la zone parcourable
     ZoneParcourable,
-    // Paquet envoyé au serveur pour connaître la liste des joueurs connectés
-    GetListeJoueurs,
-    // Paquet envoyé au serveur pour connaître la liste des joueursAdverses
+    // Paquet envoyé au serveur pour connaître la liste des joueurs adverses
+    GetJoueursAdverses,
+    // Paquet envoyé au serveur pour connaître les infos du joueur courant
+    GetJoueurCourant,
+    // Paquet envoyé au client par le serveur contenant la liste des joueurs adverses
     JoueursAdverses,
+    // Paquet envoyé au client par le serveur contenant les informations du joueur courant
+    JoueurCourant,
     // Paquet envoyé au serveur pour connaître le chemin pour aller d'une position 1 à une position 2
     GetChemin,
     // Paquet envoyé par le serveur au client pour définir le chemin
@@ -65,6 +69,10 @@ enum class TypePaquet : sf::Uint16 {
     // Paquet envoyé par le serveur au client pour renseigner la zone constructible
     ZoneConstructibleVaisseau,
     ZoneConstructibleBatiment,
+    // Paquet envoyé par le client au serveur pour demander la zone attaquable
+    GetZoneAttaquable,
+    // Paquet envoyé par le serveur au client pour donner la zone attaquable
+    ZoneAttaquable,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };

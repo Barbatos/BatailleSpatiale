@@ -131,28 +131,28 @@ namespace Utile {
             case TypeVaisseau::Inexistant:
                 break;
             case TypeVaisseau::Constructeur:
-                fichier = "Vaisseaux/sprite_constructeur_1.png";
+                fichier = "Vaisseaux/sprite_constructeur_1_rouge.png";
                 break;
             case TypeVaisseau::Bombardier:
-                fichier = "Vaisseaux/sprite_bombardier_1.png";
+                fichier = "Vaisseaux/sprite_bombardier_1_rouge.png";
                 break;
             case TypeVaisseau::Chasseur:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
+                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
                 break;
             case TypeVaisseau::Croiseur:
-                fichier = "Vaisseaux/sprite_croiseur_1.png";
+                fichier = "Vaisseaux/sprite_croiseur_1_rouge.png";
                 break;
             case TypeVaisseau::Destructeur:
-                fichier = "Vaisseaux/sprite_destroyeur_1.png";
+                fichier = "Vaisseaux/sprite_destroyeur_1_rouge.png";
                 break;
             case TypeVaisseau::ChasseurLourd:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
+                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
                 break;
             case TypeVaisseau::Traqueur:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
+                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
                 break;
             case TypeVaisseau::Leger:
-                fichier = "Vaisseaux/sprite_chasseur_1.png";
+                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
                 break;
             default:
                 break;
@@ -166,7 +166,7 @@ namespace Utile {
 
         switch (details.type) {
             case TypeBatiment::Base:
-                fichier = "Batiments/sprite_vaisseau_mere_1.png";
+                fichier = "Batiments/sprite_vaisseau_mere_1_rouge.png";
                 break;
             default:
                 break;

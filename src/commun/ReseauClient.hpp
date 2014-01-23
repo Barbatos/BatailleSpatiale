@@ -6,6 +6,7 @@
 #include "enum/TypePaquet.hpp"
 #include "../client/modele/Plateau.hpp"
 #include "../commun/utile/Position.hpp"
+#include "../client/modele/Joueur.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à
@@ -18,7 +19,7 @@ public:
 	 * \brief Constructeur par défaut
 	 *
 	 */
-	ReseauClient(Plateau& _plateau);
+	ReseauClient(Plateau& _plateau, Joueur& _joueur);
 
 	/**
 	 * \brief Destructeur par défaut
@@ -81,6 +82,18 @@ public:
 
 	void parseZoneConstructibleBatiment(sf::Packet paquet);
 
+	void getZoneAttaquable(Position p);
+
+	void parseZoneAttaquable(sf::Packet paquet);
+
+	void getJoueurCourant();
+
+	void getJoueursAdverses();
+
+	void parseJoueurCourant(sf::Packet paquet);
+	
+	void parseJoueursAdverses(sf::Packet paquet);
+
 private:
 
 	/// La socket du client
@@ -94,6 +107,8 @@ private:
 	unsigned short port;
 
 	Plateau& plateau;
+
+	Joueur& joueur;
 };
 
 #endif

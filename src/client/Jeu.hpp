@@ -12,6 +12,7 @@
 #include <client/controleur/Controleur.hpp>
 #include <client/vue/Scenes.hpp>
 #include <client/ressources/Ressources.hpp>
+#include <client/modele/Joueur.hpp>
 #include <commun/ReseauServeur.hpp>
 #include <commun/ReseauClient.hpp>
 #include <memory>
@@ -94,6 +95,8 @@ private:
 
 	PlateauServeurPtr plateauServeur;
 
+	Joueur* joueur;
+
 public:
 	/**
 	 * \brief Constructeur
@@ -171,6 +174,7 @@ public:
 	Ressources& lireRessources();
 
 	ReseauPtr& lireReseau();
+	Joueur* lireJoueur();
 };
 
 #endif /* JEU_HPP */
