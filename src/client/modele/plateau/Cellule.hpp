@@ -37,6 +37,12 @@ public:
     void setEstChemin(bool estChemin);
     bool getEstChemin() const;
 
+    void setEstConstructibleVaisseau(bool estConstructible);
+    bool getEstConstructibleVaisseau() const;
+
+    void setEstConstructibleBatiment(bool estConstructible);
+    bool getEstConstructibleBatiment() const;
+
     /**
      * \brief Indique le type de la cellule
      * Si un vaisseau ou un batiment est present, alors elle retourne un type correspondant.

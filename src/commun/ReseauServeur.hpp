@@ -74,7 +74,9 @@ public:
 
     void deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee);
 
-    void envoiZoneConstructible(sf::TcpSocket& client, Position pos);
+    void envoiZoneConstructibleVaisseau(sf::TcpSocket& client, Position pos);
+
+    void envoiZoneConstructibleBatiment(sf::TcpSocket& client, Position pos);
 
 private:
 
