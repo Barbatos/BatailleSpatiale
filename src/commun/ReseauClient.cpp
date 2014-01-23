@@ -88,6 +88,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
 	case TypePaquet::DeplacementVaisseauImpossible:
 		break;
 
+	case TypePaquet::ZoneConstructible:
+		parseZoneConstructible(paquet);
+		break;
+
 	default:
 		cout
 		        << "[RESEAU] Erreur: paquet de type "
@@ -107,16 +111,6 @@ void ReseauClient::EnvoyerPseudoServeur(string pseudo) {
 	paquet
 	        << typePaquet
 	        << pseudo;
-
-	ReseauGlobal::EnvoiPaquet(socket, paquet);
-}
-
-void ReseauClient::getZoneParcourable(Position p) {
-	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
-	sf::Packet paquet;
-
-	paquet
-	        << typePaquet << p;
 
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
@@ -147,6 +141,34 @@ void ReseauClient::parseChemin(sf::Packet paquet) {
 	}
 }
 
+void ReseauClient::parseZoneConstructible(sf::Packet paquet){
+	sf::Int32 tailleZone;
+	std::list<Position> pos;
+	Position p;
+
+	paquet >> tailleZone;
+
+	for (sf::Int32 i = 0; i < tailleZone; i++)
+	{
+		paquet >> p;
+		plateau.cellule[p.x][p.y].setEstConstructible(true);
+	}
+}
+
+void ReseauClient::deplacerVaisseau(sf::Packet){
+
+}
+
+void ReseauClient::getZoneParcourable(Position p) {
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
 void ReseauClient::getChemin(Position depart, Position arrivee) {
 	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetChemin);
 	sf::Packet paquet;
@@ -167,8 +189,14 @@ void ReseauClient::demanderDeplacementVaisseau(Position depart, Position arrivee
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
-void ReseauClient::deplacerVaisseau(sf::Packet){
+void ReseauClient::getZoneConstructible(Position p){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructible);
+	sf::Packet paquet;
 
+	paquet
+	        << typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
 void ReseauClient::setActif(bool _actif) {

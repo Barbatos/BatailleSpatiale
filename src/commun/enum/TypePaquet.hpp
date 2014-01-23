@@ -57,6 +57,10 @@ enum class TypePaquet : sf::Uint16 {
     DeplacerVaisseau,
     // Paquet envoyé par le serveur au client pour indiquer que le déplacement d'un vaisseau est impossible
     DeplacementVaisseauImpossible,
+    // Paquet envoyé par le client pour connaître la zone constructible autour d'une case
+    GetZoneConstructible,
+    // Paquet envoyé par le serveur au client pour renseigner la zone constructible
+    ZoneConstructible,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };

@@ -73,6 +73,10 @@ public:
 
 	void demanderDeplacementVaisseau(Position depart, Position arrivee);
 
+	void getZoneConstructible(Position p);
+
+	void parseZoneConstructible(sf::Packet paquet);
+
 private:
 
 	/// La socket du client
