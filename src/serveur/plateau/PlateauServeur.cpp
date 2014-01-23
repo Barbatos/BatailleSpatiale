@@ -201,7 +201,7 @@ std::list<Position> PlateauServeur::obtenirChemin(Position p,
 
     //On cherche si la position p est bien dans la zone parcourable
     std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable.begin();
-    while (!pCourante.isNull() && noeudIterateur != zoneParcourable.end()) {
+    while (pCourante.isNull() && noeudIterateur != zoneParcourable.end()) {
         if (p == (noeudIterateur->getPosition())) {
             pCourante = p;
         } else {
@@ -218,7 +218,6 @@ std::list<Position> PlateauServeur::obtenirChemin(Position p,
                 .begin();
         while (!noeudTrouve && noeudIterateur != zoneParcourable.end()) {
             if (pCourante == (noeudIterateur->getPosition())) {
-
                 //Si la position parente n'est pas nulle alors ce n'est pas
                 //la premiere case donc on ajoute au chemin
                 if (!noeudIterateur->getPositionParent().isNull())

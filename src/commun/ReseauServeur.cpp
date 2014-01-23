@@ -160,15 +160,15 @@ void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Posit
     std::list<Position>::iterator cheminIterator;
     std::list<Position> chemin;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Chemin);
-    sf::Int32 tailleZone;
+    sf::Int32 tailleChemin;
 
     noeuds = plateau.getZoneParcourable(posDepart);
 
-    tailleZone = noeuds.size();
-
     chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
 
-    paquet << typePaquet << tailleZone;
+    tailleChemin = chemin.size();
+
+    paquet << typePaquet << tailleChemin;
 
     for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++) {
         paquet << *cheminIterator;
