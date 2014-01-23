@@ -12,10 +12,12 @@
 #include "AffichageDetails.hpp"
 #include "AffichageCase.hpp"
 
+#include "Etat.hpp"
+
 AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, int hauteur,
                                    AffichageDetails* details)
                                    : Element(gui, id), ObservateurSouris(), details(details), cases(),
-                                   vuePlateau(sf::FloatRect(0, 0, 0, 0)), charge(false)
+                                   vuePlateau(sf::FloatRect(0, 0, 0, 0))
 
 {
     // Pour initialiser l'élément
@@ -67,6 +69,8 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
 
     vuePlateau.setSize(largeur, hauteur);
     vuePlateau.move(taille / 2, taille / 2);
+
+    etat = new Etat(details, &(lireGui()->lireScene()->lireJeu()));
 }
 
 AffichagePlateau::~AffichagePlateau() {
@@ -74,6 +78,8 @@ AffichagePlateau::~AffichagePlateau() {
         delete cases[i];
 
     cases.clear();
+
+    delete etat;
 }
 
 void AffichagePlateau::actualiser(float) {
@@ -85,40 +91,7 @@ void AffichagePlateau::bougerPlateau(float x, float y) {
 }
 
 void AffichagePlateau::appuiCase(Message::MessageCellule message) {
-    Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
-
-    /*if (message.x == -1 && message.y == -1) {
-        p.viderZones();
-        details->selectionner();
-        return;
-        }*/
-
-    ReseauClient* r = lireGui()->lireScene()->lireJeu().lireReseau().get();
-    Position ancienne = details->lirePosition();
-    Position position = Position(message.x, message.y);
-
-    // Si une case était précédemment selectionnée
-    if (ancienne.x != -1 && ancienne.y != -1) {
-        if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
-            if (message.clicDroit) {
-                p.viderChemin();
-                r->getChemin(ancienne, position);
-            }
-            else {
-                // Déplacement, Attaque, etc
-                r->demanderDeplacementVaisseau(ancienne, position);
-            }
-        }
-    }
-
-    if (!message.clicDroit) {
-        p.viderZones();
-
-        details->selectionner(position);
-
-        if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
-            r->getZoneParcourable(position);
-    }
+    etat->appuiCase(message);
 }
 
 void AffichagePlateau::afficher(sf::RenderWindow&) {

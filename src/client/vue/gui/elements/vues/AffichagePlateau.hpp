@@ -18,6 +18,7 @@
 // Pré-déclarations
 class AffichageDetails;
 class AffichageCase;
+class Etat;
 
 /**
  * \brief Affiche le plateau dans son intégralité
@@ -29,7 +30,7 @@ class AffichageCase;
  * \see ElementSouris
  */
 class AffichagePlateau : public Element, public ObservateurSouris, public ObservateurClavier {
-private:
+    private:
 
     /**
      * \brief Pointeur vers l'affichage des détails
@@ -48,9 +49,12 @@ private:
      */
     sf::View vuePlateau;
 
-    bool charge;
+    /**
+     * \brief Etat de selection de case
+     */
+    Etat* etat;
 
-public:
+    public:
     /**
      * \brief Version unique_ptr du plateau
      */
@@ -70,7 +74,7 @@ public:
      * \param details l'affichage des détails
      */
     AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-        AffichageDetails* details);
+                     AffichageDetails* details);
 
     /**
      * \brief Destructeur

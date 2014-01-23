@@ -43,6 +43,7 @@ public:
         Haut, //!< Le bouton pour déplacer le plateau en haut
         Bas, //!< Le bouton pour déplacer le plateau en bas
         Details, //!< L'affichage des détails
+        Construction, //!< L'affichage des batiments ou vaisseaux constructibles
         Case //!< L'id générique pour l'affichage des cases
     };
 
