@@ -51,6 +51,12 @@ enum class TypePaquet : sf::Uint16 {
     GetChemin,
     // Paquet envoyé par le serveur au client pour définir le chemin
     Chemin,
+    // Paquet envoyé par le client pour demander le déplacement d'un vaisseau
+    DemanderDeplacementVaisseau,
+    // Paquet envoyé par le serveur au client pour ordonner le déplacement d'un vaisseau
+    DeplacerVaisseau,
+    // Paquet envoyé par le serveur au client pour indiquer que le déplacement d'un vaisseau est impossible
+    DeplacementVaisseauImpossible,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };

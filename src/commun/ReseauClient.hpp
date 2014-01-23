@@ -69,6 +69,10 @@ public:
 
 	void parseChemin(sf::Packet paquet);
 
+	void deplacerVaisseau(sf::Packet paquet);
+
+	void demanderDeplacementVaisseau(Position depart, Position arrivee);
+
 private:
 
 	/// La socket du client

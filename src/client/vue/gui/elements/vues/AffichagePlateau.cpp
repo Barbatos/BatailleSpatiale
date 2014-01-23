@@ -98,6 +98,7 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
 				r->getChemin(ancienne, position);
 			}
 			else {
+				r->demanderDeplacementVaisseau(ancienne, position);
 				// Déplacement, Attaque, etc
 			}
 		}

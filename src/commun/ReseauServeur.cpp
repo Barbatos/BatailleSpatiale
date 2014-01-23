@@ -83,6 +83,13 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 		envoiChemin(*client, pos, pos2);
 		break;
 
+
+        // Le client demande à déplacer un vaisseau
+    case TypePaquet::DemanderDeplacementVaisseau:
+        paquet >> pos >> pos2;
+        deplacerVaisseau(*client, pos, pos2);
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -172,6 +179,22 @@ void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Posit
 
     for(cheminIterator = chemin.begin(); cheminIterator != chemin.end(); cheminIterator++) {
         paquet << *cheminIterator;
+    }
+
+    ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+
+void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee){
+    sf::Packet paquet;
+    sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
+    sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
+
+    if(plateau.deplacerVaisseau(posDepart, posArrivee)){
+        paquet << paquetDeplacerVaisseau;
+        envoiPlateau(client, plateau);
+    }
+    else {
+        paquet << paquetDeplacementImpossible;
     }
 
     ReseauGlobal::EnvoiPaquet(client, paquet);

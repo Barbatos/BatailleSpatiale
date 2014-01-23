@@ -81,6 +81,13 @@ void ReseauClient::TraiterPaquetServeur(void) {
 		parseChemin(paquet);
 		break;
 
+	case TypePaquet::DeplacerVaisseau:
+		deplacerVaisseau(paquet);
+		break;
+
+	case TypePaquet::DeplacementVaisseauImpossible:
+		break;
+
 	default:
 		cout
 		        << "[RESEAU] Erreur: paquet de type "
@@ -148,6 +155,20 @@ void ReseauClient::getChemin(Position depart, Position arrivee) {
 	        << typePaquet << depart << arrivee;
 
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::demanderDeplacementVaisseau(Position depart, Position arrivee){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderDeplacementVaisseau);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet << depart << arrivee;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::deplacerVaisseau(sf::Packet){
+
 }
 
 void ReseauClient::setActif(bool _actif) {
