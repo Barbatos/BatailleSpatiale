@@ -152,7 +152,7 @@ void AffichagePlateau::relachementSouris(sf::Mouse::Button bouton) {
     message.clicDroit = false;
     message.selection = false;
 
-    appuiCase(message);
+    //appuiCase(message);
 }
 void AffichagePlateau::entreeSouris(sf::Vector2f) {
     /* Ne rien faire ici */
