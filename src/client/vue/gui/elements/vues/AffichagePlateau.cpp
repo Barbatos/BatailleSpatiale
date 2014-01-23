@@ -87,12 +87,12 @@ void AffichagePlateau::bougerPlateau(float x, float y) {
 void AffichagePlateau::appuiCase(Message::MessageCellule message) {
     Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
 
-    if (message.x == -1 && message.y == -1) {
+    /*if (message.x == -1 && message.y == -1) {
         p.viderChemin();
         p.viderZoneParcourable();
         details->selectionner();
         return;
-    }
+        }*/
 
     ReseauClient* r = lireGui()->lireScene()->lireJeu().lireReseau().get();
     Position ancienne = details->lirePosition();
@@ -140,19 +140,19 @@ void AffichagePlateau::pressionSouris(sf::Mouse::Button) {
 
 }
 
-void AffichagePlateau::relachementSouris(sf::Mouse::Button bouton) {
-    if (bouton == sf::Mouse::Right)
+void AffichagePlateau::relachementSouris(sf::Mouse::Button) {
+    /*if (bouton == sf::Mouse::Right)
         return;
 
-    Message::MessageCellule message;
+        Message::MessageCellule message;
 
-    message.x = -1;
-    message.y = -1;
+        message.x = -1;
+        message.y = -1;
 
-    message.clicDroit = false;
-    message.selection = false;
+        message.clicDroit = false;
+        message.selection = false;
 
-    //appuiCase(message);
+        appuiCase(message);*/
 }
 void AffichagePlateau::entreeSouris(sf::Vector2f) {
     /* Ne rien faire ici */
