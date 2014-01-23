@@ -91,9 +91,15 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         break;
 
         // Le client demande la zone constructible autour d'un point
-    case TypePaquet::getZoneConstructible:
+    case TypePaquet::GetZoneConstructibleVaisseau:
         paquet >> pos;
-        envoiZoneConstructible(*client, pos);
+        envoiZoneConstructibleVaisseau(*client, pos);
+        break;
+
+        // Le client demande la zone constructible autour d'un point
+    case TypePaquet::GetZoneConstructibleBatiment:
+        paquet >> pos;
+        envoiZoneConstructibleBatiment(*client, pos);
         break;
 
     default:
@@ -206,15 +212,37 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::envoiZoneConstructible(sf::TcpSocket& client, Position p) {
+void ReseauServeur::envoiZoneConstructibleVaisseau(sf::TcpSocket& client, Position p) {
     sf::Packet paquet;
     std::list<NoeudServeur> noeuds;
     std::list<NoeudServeur>::iterator noeudIterator;
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneConstructible);
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneConstructibleVaisseau);
     sf::Int32 tailleZone;
 
     // TODO
-    /*noeuds = plateau.getZoneConstructible(pos);
+    /*noeuds = plateau.getZoneConstructibleVaisseau(pos);
+
+    tailleZone = noeuds.size();
+
+    paquet << typePaquet << tailleZone;
+
+    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+        paquet << noeudIterator->getPosition();
+    }
+
+    ReseauGlobal::EnvoiPaquet(client, paquet);
+    */
+}
+
+void ReseauServeur::envoiZoneConstructibleBatiment(sf::TcpSocket& client, Position p) {
+    sf::Packet paquet;
+    std::list<NoeudServeur> noeuds;
+    std::list<NoeudServeur>::iterator noeudIterator;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneConstructibleBatiment);
+    sf::Int32 tailleZone;
+
+    // TODO
+    /*noeuds = plateau.getZoneConstructibleBatiment(pos);
 
     tailleZone = noeuds.size();
 

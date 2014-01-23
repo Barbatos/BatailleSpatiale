@@ -88,8 +88,12 @@ void ReseauClient::TraiterPaquetServeur(void) {
 	case TypePaquet::DeplacementVaisseauImpossible:
 		break;
 
-	case TypePaquet::ZoneConstructible:
-		parseZoneConstructible(paquet);
+	case TypePaquet::ZoneConstructibleVaisseau:
+		parseZoneConstructibleVaisseau(paquet);
+		break;
+
+	case TypePaquet::ZoneConstructibleBatiment:
+		parseZoneConstructibleBatiment(paquet);
 		break;
 
 	default:
@@ -141,7 +145,7 @@ void ReseauClient::parseChemin(sf::Packet paquet) {
 	}
 }
 
-void ReseauClient::parseZoneConstructible(sf::Packet paquet){
+void ReseauClient::parseZoneConstructibleVaisseau(sf::Packet paquet){
 	sf::Int32 tailleZone;
 	std::list<Position> pos;
 	Position p;
@@ -151,7 +155,21 @@ void ReseauClient::parseZoneConstructible(sf::Packet paquet){
 	for (sf::Int32 i = 0; i < tailleZone; i++)
 	{
 		paquet >> p;
-		plateau.cellule[p.x][p.y].setEstConstructible(true);
+		plateau.cellule[p.x][p.y].setEstConstructibleVaisseau(true);
+	}
+}
+
+void ReseauClient::parseZoneConstructibleBatiment(sf::Packet paquet){
+	sf::Int32 tailleZone;
+	std::list<Position> pos;
+	Position p;
+
+	paquet >> tailleZone;
+
+	for (sf::Int32 i = 0; i < tailleZone; i++)
+	{
+		paquet >> p;
+		plateau.cellule[p.x][p.y].setEstConstructibleBatiment(true);
 	}
 }
 
@@ -189,8 +207,18 @@ void ReseauClient::demanderDeplacementVaisseau(Position depart, Position arrivee
 	ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
-void ReseauClient::getZoneConstructible(Position p){
-	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructible);
+void ReseauClient::getZoneConstructibleVaisseau(Position p){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleVaisseau);
+	sf::Packet paquet;
+
+	paquet
+	        << typePaquet << p;
+
+	ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getZoneConstructibleBatiment(Position p){
+	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleBatiment);
 	sf::Packet paquet;
 
 	paquet

@@ -73,9 +73,13 @@ public:
 
 	void demanderDeplacementVaisseau(Position depart, Position arrivee);
 
-	void getZoneConstructible(Position p);
+	void getZoneConstructibleVaisseau(Position p);
 
-	void parseZoneConstructible(sf::Packet paquet);
+	void getZoneConstructibleBatiment(Position p);
+
+	void parseZoneConstructibleVaisseau(sf::Packet paquet);
+
+	void parseZoneConstructibleBatiment(sf::Packet paquet);
 
 private:
 
