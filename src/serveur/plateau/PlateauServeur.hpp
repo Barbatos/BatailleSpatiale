@@ -119,6 +119,14 @@ public:
      * \return La zone parcourable
      */
     std::list<NoeudServeur> getZoneParcourable(Position positionVaisseau);
+    
+    /**
+     * \brief Retourne la zone attaquable depuis une case contenant un vaisseau ou un batiment
+     *
+     * \param p La position de la cellule
+     * \return La zone attaquable
+     */
+    std::list<NoeudServeur> getZoneAttaquable(Position p);
 
     /**
      * \brief Retourne le chemin jusqu'à la position p

@@ -269,8 +269,7 @@ void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneAttaquable);
     sf::Int32 tailleZone;
 
-    // TODO
-    /*noeuds = plateau.getZoneAttaquable(pos);
+    noeuds = plateau.getZoneAttaquable(p);
 
     tailleZone = noeuds.size();
 
@@ -281,7 +280,6 @@ void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
     }
 
     ReseauGlobal::EnvoiPaquet(client, paquet);
-    */
 }
 
 void ReseauServeur::ecouterReseau(void) {

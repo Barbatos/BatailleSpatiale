@@ -54,6 +54,15 @@ TypeCellule CelluleServeur::statutEmplacement() const {
         return TypeCellule::Batiment;
 }
 
+sf::Uint16 CelluleServeur::getIdJoueur() {
+    if(!vaisseau && !batiment)
+        return -1;
+    else if(vaisseau)
+        return vaisseau->getIdJoueur();
+    else
+        return batiment->getIdJoueur();
+}
+
 int CelluleServeur::getCoutDeplacement() const {
     if(!evenement || (evenement->getCoutDeplacement() != -1)) {
         if(type == TypeCellule::Minerais)
@@ -100,6 +109,15 @@ Structure CelluleServeur::getAttaquant() {
 int CelluleServeur::distanceMaximale() const {
     if(vaisseau)
         return vaisseau->getDistanceMax();
+    else
+        return 0;
+}
+
+int CelluleServeur::attaqueMaximale() const {
+    if(vaisseau)
+        return vaisseau->getRayonAttaque();
+    if(batiment)
+        return batiment->getRayonAttaque();
     else
         return 0;
 }
