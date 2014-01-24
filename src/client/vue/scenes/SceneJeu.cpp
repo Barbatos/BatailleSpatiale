@@ -54,8 +54,8 @@ void SceneJeu::surMessage(Message message) {
                 case Plateau:
                     break;
                 case Droite:
-                	if(plateau->lireVue()->getCenter().x <= jeu.lireAffichage().getSize().x)
-                		plateau->bougerPlateau(5, 0);
+                	if( plateau->lireVue()->getCenter().x  <=  ( (jeu.lirePlateau().getTailleX() + jeu.lirePlateau().getTailleY()/2) * 30 ))
+                         plateau->bougerPlateau(5, 0);
                     break;
                 case Gauche:
                 	if(plateau->lireVue()->getCenter().x >= 0)
@@ -66,8 +66,8 @@ void SceneJeu::surMessage(Message message) {
                     plateau->bougerPlateau(0, -5);
                     break;
                 case Bas:
-                if(plateau->lireVue()->getCenter().y <= jeu.lireAffichage().getSize().y)
-                    plateau->bougerPlateau(0, 5);
+                	if( plateau->lireVue()->getCenter().y  <=  ( (jeu.lirePlateau().getTailleY() + jeu.lirePlateau().getTailleX()/2) * 30 ))
+                		plateau->bougerPlateau(0, 5);
                     break;
                 default:
                     break;
