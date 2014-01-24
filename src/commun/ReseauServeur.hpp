@@ -82,6 +82,8 @@ public:
 
     void envoiZoneAttaquable(sf::TcpSocket& client, Position pos);
 
+    void creerBase(JoueurServeur& joueur, int nbJoueurs);
+
 private:
 
     /// La socket du serveur

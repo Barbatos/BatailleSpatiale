@@ -202,6 +202,8 @@ private:
     /// La taille du plateau à la verticale
     sf::Int32 tailleY;
 
+    friend class ReseauServeur;
+    
     friend sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);
 };
 

@@ -1,19 +1,21 @@
 /*
-* Etat.hpp
-*
-*  Created on: 23 jan. 2014
-*      Author: Soinou
-*/
+ * Etat.hpp
+ *
+ *  Created on: 23 jan. 2014
+ *      Author: Soinou
+ */
 
 #ifndef ETAT_HPP
 #define ETAT_HPP
 
+// Includes de la libstd
+#include <queue>
+
 // Includes de nos classes
 #include <utiles.hpp>
-
 #include <client/vue/gui/evenements/Message.hpp>
 
-// PrÈ dÈclaration
+// Pr√© d√©claration
 class Jeu;
 class AffichageDetails;
 
@@ -22,61 +24,71 @@ class AffichageDetails;
  */
 class Etat {
     private:
-    /**
-     * \brief Type de l'Ètat
-     */
-    enum Type {
-        Normal,
-        Selection,
-        Construction
-    };
+        /**
+         * \brief Type de l'√©tat
+         */
+        enum Type {
+            Normal,
+            Selection,
+            Construction
+        };
 
-    /**
-     * \brief Type de l'Ètat
-     */
-    Type type;
+        /**
+         * \brief Type de l'√©tat
+         */
+        Type type;
 
-    /**
-     * \brief Pointeur vers les dÈtails
-     */
-    AffichageDetails* details;
+        /**
+         * \brief Pointeur vers les d√©tails
+         */
+        AffichageDetails* details;
 
-    /**
-     * \brief Pointeur vers le jeu
-     */
-    Jeu* jeu;
+        /**
+         * \brief Pointeur vers le jeu
+         */
+        Jeu* jeu;
 
-    /**
-     * \brief Appui case quand rien n'est selectionnÈ
-     */
-    void appuiCase_Normal(Message::MessageCellule message);
+        /**
+         * \brief File des messages de case
+         */
+        std::queue<Message::MessageCellule> messages;
 
-    /**
-     * \brief Appui case quand une case est selectionnÈe
-     */
-    void appuiCase_Selection(Message::MessageCellule message);
+        /**
+         * \brief Appui case quand rien n'est selectionn√©
+         */
+        void appuiNormal();
 
-    /**
-     * \brief Appui case quand un b‚timent/vaisseau ‡ construire est selectionnÈ
-     */
-    void appuiCase_Construction(Message::MessageCellule message);
+        /**
+         * \brief Appui case quand une case est selectionn√©e
+         */
+        void appuiSelection();
+
+        /**
+         * \brief Appui case quand un b√¢timent/vaisseau √† construire est selectionn√©
+         */
+        void appuiConstruction();
 
     public:
 
-    /**
-     * \brief Constructeur
-     */
-    Etat(AffichageDetails* details, Jeu* jeu);
+        /**
+         * \brief Constructeur
+         */
+        Etat(AffichageDetails* details, Jeu* jeu);
 
-    /**
-     * \brief Destructeur
-     */
-    virtual ~Etat();
+        /**
+         * \brief Destructeur
+         */
+        virtual ~Etat();
 
-    /**
-     * \brief AppellÈe par l'affichage plateau
-     */
-    void appuiCase(Message::MessageCellule message);
+        /**
+         * \brief Appell√©e par l'affichage plateau lorsqu'une case est appuy√©e
+         */
+        void appuiCase(Message::MessageCellule message);
+
+        /**
+         * \brief Appui sur le plateau, pour dire qu'on peut commencer √† traiter les messages re√ßus
+         */
+        void appuiPlateau();
 
 };
 

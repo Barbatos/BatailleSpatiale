@@ -15,18 +15,15 @@
 #include "Etat.hpp"
 
 AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-                                   AffichageDetails* details)
-                                   : Element(gui, id), ObservateurSouris(), details(details), cases(),
-                                   vuePlateau(sf::FloatRect(0, 0, 0, 0))
+    AffichageDetails* details)
+                : Element(gui, id), ObservateurSouris(), details(details), cases(),
+                  vuePlateau(sf::FloatRect(0, 0, 0, 0))
 
 {
     // Pour initialiser l'élément
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
     ecrireVue(&vuePlateau);
-
-    // Pour dire que le plateau intéragit avec la souris
-    enregistrerSouris(this);
 
     // On change le viewport de la vue
     vuePlateau.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
@@ -71,6 +68,10 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
     vuePlateau.move(taille / 2, taille / 2);
 
     etat = new Etat(details, &(lireGui()->lireScene()->lireJeu()));
+
+    // Pour dire que le plateau intéragit avec la souris
+    // En dernier, pour notifier l'état que les évènements des cases sont terminés et qu'on peut les gérer
+    enregistrerSouris(this);
 }
 
 AffichagePlateau::~AffichagePlateau() {
@@ -91,7 +92,48 @@ void AffichagePlateau::bougerPlateau(float x, float y) {
 }
 
 void AffichagePlateau::appuiCase(Message::MessageCellule message) {
-    etat->appuiCase(message);
+    // Si c'est un clic droit, puisque rien n'est selectionn�, on ne fait rien
+    if (message.clicDroit)
+        return;
+
+    // Si ce n'est pas une selection, on ne fait rien
+    if (!message.selection)
+        return;
+
+    Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
+    ReseauClient* r = lireGui()->lireScene()->lireJeu().lireReseau().get();
+    Position ancienne = details->lirePosition();
+    Position position = Position(message.x, message.y);
+
+    // Si une case �tait pr�c�demment selectionn�e
+    if (ancienne.x != -1 && ancienne.y != -1) {
+        if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
+            if (message.clicDroit) {
+                p.viderChemin();
+                r->getChemin(ancienne, position);
+            }
+            else {
+                // D�placement, Attaque, etc
+                r->demanderDeplacementVaisseau(ancienne, position);
+            }
+        }
+    }
+
+    if (!message.clicDroit) {
+        p.viderChemin();
+        p.viderZoneParcourable();
+
+        if (!message.selection && details->lirePosition() == position)
+            details->selectionner();
+        else if (message.selection) {
+            details->selectionner(position);
+
+            if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
+                r->getZoneParcourable(position);
+        }
+    }
+
+    // etat->appuiCase(message);
 }
 
 void AffichagePlateau::afficher(sf::RenderWindow&) {
@@ -104,7 +146,6 @@ bool AffichagePlateau::contient(sf::Vector2i) {
 
 // Héritées d'ElementSouris
 void AffichagePlateau::clicSouris(bool) {
-
 }
 
 void AffichagePlateau::pressionSouris(sf::Mouse::Button) {
@@ -112,18 +153,7 @@ void AffichagePlateau::pressionSouris(sf::Mouse::Button) {
 }
 
 void AffichagePlateau::relachementSouris(sf::Mouse::Button) {
-    /*if (bouton == sf::Mouse::Right)
-        return;
-
-        Message::MessageCellule message;
-
-        message.x = -1;
-        message.y = -1;
-
-        message.clicDroit = false;
-        message.selection = false;
-
-        appuiCase(message);*/
+    etat->appuiPlateau();
 }
 void AffichagePlateau::entreeSouris(sf::Vector2f) {
     /* Ne rien faire ici */

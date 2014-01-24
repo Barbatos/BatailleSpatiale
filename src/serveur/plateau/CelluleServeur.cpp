@@ -95,7 +95,7 @@ void CelluleServeur::creerVaisseauConstructeurTest() {
     vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 0, 10, 10, 25, 10, 10, 10, TypeVaisseau::Constructeur));
 }
 
-void CelluleServeur::creerBatimentBaseTest() {
+void CelluleServeur::creerBatimentBase() {
     batiment.reset(new BatimentServeur(200, 50, 0.1f, 0, 0, 0, 10, 10, 10, TypeBatiment::Base));
 }
 
