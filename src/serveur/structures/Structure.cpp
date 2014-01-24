@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Structure.hpp"
 
-int Structure::taille = 100;
-
 // Constructeur
 Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux,
                      sf::Int32 _visibilite, sf::Int32 _attaque, sf::Int32 _rayonAttaque,
