@@ -282,6 +282,23 @@ void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
+void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
+    sf::Int32 posX;
+    sf::Int32 posY;
+
+    if(nbJoueurs == 1) {
+        posX = 2;
+        posY = 2;
+    }
+    else {
+        posX = plateau.getTailleX() - 2;
+        posY = plateau.getTailleY() - 2;
+    }
+
+    plateau.cellule[posX][posY].creerBatimentBase();
+    joueur.ajouterBatiment(plateau.cellule[posX][posY].getBatiment());
+}
+
 void ReseauServeur::ecouterReseau(void) {
 
     // On attend qu'il se passe quelque chose sur le réseau
@@ -317,6 +334,9 @@ void ReseauServeur::ecouterReseau(void) {
                 // On ajoute également le client au selecteur afin qu'il puisse
                 // recevoir ses messages
                 selector.add(*client);
+
+                // On crée la base du joueur
+                creerBase(*j, joueurs.size());
 
                 // On envoie le plateau
                 envoiPlateau(*client, plateau);

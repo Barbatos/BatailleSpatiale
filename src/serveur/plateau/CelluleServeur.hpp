@@ -111,7 +111,8 @@ public:
     //Multiple fonctions de test
     void creerVaisseauTest(TypeVaisseau type = TypeVaisseau::Chasseur);
     void creerVaisseauConstructeurTest();
-    void creerBatimentBaseTest();
+    
+    void creerBatimentBase();
     
     /**
      * \brief Retourne l'id du joueur sur la cellule

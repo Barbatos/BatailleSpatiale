@@ -19,12 +19,12 @@ void PlateauServeur::initialisationTest() {
     cellule[4][7].setType(TypeCellule::Inexistant);
     cellule[7][4].setType(TypeCellule::Inexistant);
     cellule[8][3].setType(TypeCellule::Inexistant);
-    cellule[0][1].creerBatimentBaseTest();
+    //cellule[0][1].creerBatimentBaseTest();
     //(*joueurs)[0].ajouterBatiment(cellule[0][1].getBatiment());
     cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
     //(*joueurs)[0].ajouterVaisseau(cellule[8][5].getVaisseau());
     cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
-    cellule[1][1].creerVaisseauTest();
+    cellule[5][1].creerVaisseauTest();
 }
 
 bool PlateauServeur::possedeBatiment(Position p) {
