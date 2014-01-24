@@ -167,6 +167,12 @@ public:
      */
     bool deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable);
 
+    /**
+     * \brief copie d'un plateau
+     * 
+     * \param plateau2 le plateau a copier
+     * \return La copie du plateau
+     */
     PlateauServeur& operator=(const PlateauServeur& plateau2);
 
     /**
