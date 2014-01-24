@@ -14,28 +14,28 @@ class Structure {
 
 public:
 
-    Structure(sf::Int32 _vieMax = 100, sf::Int32 _bouclierMax = 0, float _bouclierTaux = 0, sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10, sf::Int32 rayonAttaque = 0, sf::Int32 _prixEnergie = 0, sf::Int32 _prixMateriaux = 0);
+    Structure(sf::Int32 _vieMax = 100, sf::Int32 _bouclierMax = 0, double _bouclierTaux = 0, sf::Int32 _visibilite = 0, sf::Int32 _attaque = 10, sf::Int32 rayonAttaque = 0, sf::Int32 _prixEnergie = 0, sf::Int32 _prixMateriaux = 0);
 
     // Getter
     sf::Int32 getVie() const;
     sf::Int32 getVieMax() const;
     sf::Int32 getBouclier() const;
     sf::Int32 getBouclierMax() const;
-    float getBouclierTaux() const;
+    double getBouclierTaux() const;
     sf::Int32 getVisibilite() const;
     sf::Int32 getAttaque() const;
     sf::Int32 getPrixMateriaux() const;
     sf::Int32 getPrixEnergie() const;
     sf::Int32 getRayonAttaque() const;
     sf::Int32 getIdJoueur();
-    void setIdJoueur( sf::Int32 const _id);
+    void setIdJoueur( sf::Uint16 _idJoueur);
 
     // Setter
     void setVie( sf::Int32 const _vie);
     sf::Int32  setBouclier(sf::Int32 const _bouclier);
     void setVieMax( sf::Int32 const _vieMax);
     void setBouclierMax( sf::Int32 const _bouclierMax);
-    void setBouclierTaux(float const _bouclierTaux);
+    void setBouclierTaux(double const _bouclierTaux);
     void setVisibilite( sf::Int32 const _visibilite);
     void setAttaque( sf::Int32 const _attaque);
     void setPrixMateriaux( sf::Int32 const _prix);
@@ -54,7 +54,7 @@ protected:
     sf::Int32 vieMax;
     sf::Int32 bouclier;
     sf::Int32 bouclierMax;
-    float bouclierTaux;
+    double bouclierTaux;
     sf::Int32 visibilite;
     sf::Int32 attaque;
     sf::Int32 rayonAttaque;

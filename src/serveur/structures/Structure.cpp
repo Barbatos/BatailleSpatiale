@@ -4,7 +4,7 @@
 int Structure::taille = 100;
 
 // Constructeur
-Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, float _bouclierTaux,
+Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, double _bouclierTaux,
                      sf::Int32 _visibilite, sf::Int32 _attaque, sf::Int32 _rayonAttaque,
                      sf::Int32 _prixEnergie, sf::Int32 _prixMateriaux) {
     vie = vieMax = _vieMax;
@@ -19,14 +19,9 @@ Structure::Structure(sf::Int32 _vieMax, sf::Int32 _bouclierMax, float _bouclierT
 
 }
 
-void Structure::setIdJoueur( sf::Int32 const _id) {
-    idJoueur = _id;
-}
-
 sf::Int32 Structure::getIdJoueur() {
     return idJoueur;
 }
-
 
 sf::Int32 Structure::getVie() const {
     return vie;
@@ -44,7 +39,7 @@ sf::Int32 Structure::getBouclierMax() const {
     return bouclierMax;
 }
 
-float Structure::getBouclierTaux() const {
+double Structure::getBouclierTaux() const {
     return bouclierTaux;
 }
 
@@ -73,6 +68,10 @@ void Structure::setVie(sf::Int32 const _vie) {
     if(vie < 0) vie = 0;
     else if(_vie <= vieMax) vie = _vie;
     else vie = vieMax;
+}
+
+void Structure::setIdJoueur(sf::Uint16 const _idJoueur) {
+    idJoueur = _idJoueur;
 }
 
 void Structure::setVieMax(sf::Int32 const _vieMax) {
@@ -116,10 +115,6 @@ void Structure::setAttaque(sf::Int32 const _attaque) {
     attaque = _attaque;
 }
 
-void Structure::setRayonAttaque(sf::Int32 const rayon) {
-    rayonAttaque = rayon;
-}
-
 void Structure::setPrixMateriaux(sf::Int32 const _prix) {
 
     prixMateriaux = _prix;
@@ -134,7 +129,6 @@ void Structure::setPrixEnergie(sf::Int32 const _prix) {
 void Structure::setRayonAttaque(sf::Int32 const _rayonAttaque) {
     rayonAttaque = _rayonAttaque;
 }
-
 
 /* Cette methode sert a ajouter ou a retirer un certain
  * nombre de points de vie a une structure ciblee    */
