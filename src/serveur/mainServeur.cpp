@@ -15,7 +15,7 @@ int main() {
         port = atoi(msg.c_str());
     }
 
-    plateau = new PlateauServeur(300, 250);
+    plateau = new PlateauServeur(15, 15);
     serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
 
     while(true) {
