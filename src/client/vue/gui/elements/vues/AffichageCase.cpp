@@ -75,6 +75,10 @@ void AffichageCase::actualiser(float) {
         fond.setFillColor(sf::Color(255, 255, 0, 60));
     else if (p.getCellule(position).getEstChemin())
         fond.setFillColor(sf::Color(153, 0, 51, 60));
+    else if (p.getCellule(position).getEstConstructibleBatiment())
+        fond.setFillColor(sf::Color(0, 0, 255, 60));
+    else if (p.getCellule(position).getEstConstructibleVaisseau())
+        fond.setFillColor(sf::Color(0, 0, 255, 60));
     else if (p.getCellule(position).getParcourable())
         fond.setFillColor(sf::Color(102, 153, 102, 60));
     else
@@ -155,6 +159,7 @@ void AffichageCase::relachementSouris(sf::Mouse::Button bouton) {
 
     if (!lireSurvol() && selectionne && bouton == sf::Mouse::Left)
         selectionne = false;
+
     /*
      Message message;
 

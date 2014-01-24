@@ -125,8 +125,15 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
 
         details->selectionner(position);
 
-        if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
+        if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau) {
+            if (p.getVaisseau(position).type == TypeVaisseau::Constructeur)
+                r->getZoneConstructibleVaisseau(position);
+
             r->getZoneParcourable(position);
+        }
+        else if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment
+                        && p.getBatiment(position).type == TypeBatiment::Base)
+            r->getZoneConstructibleBatiment(position);
     }
 
     // etat->appuiCase(message);
