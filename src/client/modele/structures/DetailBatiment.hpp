@@ -18,9 +18,9 @@ struct DetailBatiment {
     double bouclierTaux; ///< Le taux de dégats pris par le bouclier
     sf::Int32 visibilite; ///< Le rayon de visibilité
     sf::Int32 rayonAttaque; ///< Le rayon d'attaque
-    sf::Int32 idJoueur; ///< L'id du joueur
-	sf::Int32 prixEnergie; ///< Le cout en energie
-	sf::Int32 prixMateriaux; ///< Le cout en materiaux
+    sf::Uint16 idJoueur; ///< L'id du joueur
+    sf::Int32 prixEnergie; ///< Le cout en energie
+    sf::Int32 prixMateriaux; ///< Le cout en materiaux
 };
 
 #endif

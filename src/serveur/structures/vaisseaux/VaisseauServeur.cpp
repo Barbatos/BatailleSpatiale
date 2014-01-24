@@ -74,7 +74,7 @@ std::ostream& operator<<(std::ostream& fluxSortant, VaisseauServeur const& Vaiss
 }
 
 
-// il faut équilibrer les valeurs, rajouter les cas de certains types ...
+// il faut Ã©quilibrer les valeurs, rajouter les cas de certains types ...
 int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
 
     switch (vAttaquant->getType()) {
@@ -206,7 +206,7 @@ sf::Packet& operator <<(sf::Packet& paquet, const VaisseauServeur& vaisseau) {
     return paquet << static_cast<sf::Uint16>(vaisseau.type) << vaisseau.attaque
            << vaisseau.vie << vaisseau.vieMax << vaisseau.visibilite << vaisseau.rayonAttaque
            << vaisseau.bouclier << vaisseau.bouclierMax << vaisseau.bouclierTaux
-           << vaisseau.consommation << vaisseau.distanceMax << vaisseau.prixEnergie << vaisseau.prixMateriaux;
+           << vaisseau.consommation << vaisseau.distanceMax << vaisseau.idJoueur << vaisseau.prixEnergie << vaisseau.prixMateriaux;
 }
 
 

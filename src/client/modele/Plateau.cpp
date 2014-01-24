@@ -96,7 +96,6 @@ sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
     for (sf::Int32 x = 0; x < plateau.tailleX; ++x)
         for (sf::Int32 y = 0; y < plateau.tailleY; ++y)
             paquet >> plateau.cellule[x][y];
-    
     plateau.viderZoneParcourable();
 
     return paquet;
