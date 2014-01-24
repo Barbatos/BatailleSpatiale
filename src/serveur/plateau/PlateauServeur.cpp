@@ -72,7 +72,27 @@ std::list<Position> PlateauServeur::celluleAutour(Position p) {
     return autour;
 }
 
-std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(int idJoueur) {
+std::list<Position> PlateauServeur::getZoneConstructibleBatiment(Position position, sf::Uint16 idJoueur) {
+    std::list<Position> zoneConstructible;
+    std::list<Position> pointAutour;
+    std::list<Position>::iterator p;
+
+    if(cellule[position.x][position.y].possedeVaisseau()
+            && cellule[position.x][position.y].getVaisseau()->getType() == TypeVaisseau::Constructeur
+            && cellule[position.x][position.y].getVaisseau()->getIdJoueur() == idJoueur)
+        pointAutour = celluleAutour(position);
+
+    //Pour chaque point autour
+    for (p = pointAutour.begin();
+            p != pointAutour.end(); p++) {
+        if(!cellule[p->x][p->y].estAccessible())
+            zoneConstructible.push_back(*p);
+    }
+
+    return zoneConstructible;
+}
+
+std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(sf::Uint16 idJoueur) {
     std::list<Position> zoneConstructible;
     std::list<Position> pointAutour;
     std::list<Position>::iterator p;

@@ -90,7 +90,7 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         // Le client demande la zone constructible autour d'un point
     case TypePaquet::GetZoneConstructibleBatiment:
         paquet >> pos;
-        envoiZoneConstructibleBatiment(*client, pos);
+        envoiZoneConstructibleBatiment(joueur, pos);
         break;
 
         // Le client demande la zone attaquable
@@ -240,26 +240,25 @@ void ReseauServeur::envoiZoneConstructibleVaisseau(JoueurServeur& joueur) {
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
-void ReseauServeur::envoiZoneConstructibleBatiment(sf::TcpSocket& client, Position p) {
+void ReseauServeur::envoiZoneConstructibleBatiment(JoueurServeur& joueur, Position p) {
     sf::Packet paquet;
-    std::list<NoeudServeur> noeuds;
-    std::list<NoeudServeur>::iterator noeudIterator;
+    sf::TcpSocket* client = joueur.getSocket();
+    std::list<Position> listePos;
+    std::list<Position>::iterator pos;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneConstructibleBatiment);
     sf::Int32 tailleZone;
 
-    // TODO
-    /*noeuds = plateau.getZoneConstructibleBatiment(pos);
+    listePos = plateau.getZoneConstructibleBatiment(p, joueur.getId());
 
-    tailleZone = noeuds.size();
+    tailleZone = listePos.size();
 
     paquet << typePaquet << tailleZone;
 
-    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
-        paquet << noeudIterator->getPosition();
+    for (pos = listePos.begin(); pos != listePos.end(); pos++) {
+        paquet << *pos;
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
-    */
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
 void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
