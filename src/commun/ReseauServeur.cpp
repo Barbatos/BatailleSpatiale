@@ -293,10 +293,19 @@ void ReseauServeur::ecouterReseau(void) {
 
             // Le nouveau client a été accepté
             if (listener.accept(*client) == sf::Socket::Done) {
-                JoueurServeur* j = new JoueurServeur();
+                JoueurServeur* j;
                 string msgGlobal;
                 ostringstream c;
 
+                if(joueurs.size() >= 2) {
+                    // On supprime la socket du client
+                    delete client;
+
+                    cout << "[RESEAU] Client refuse: la partie est complete. " << client->getRemoteAddress() << endl;
+                    return;
+                }
+
+                j = new JoueurServeur();
                 j->setPseudo("Anonymous");
                 j->setSocket(client);
                 j->setId(joueurs.size()+1);
