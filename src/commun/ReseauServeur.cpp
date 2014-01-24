@@ -136,6 +136,21 @@ void ReseauServeur::envoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau)
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
+void ReseauServeur::envoiPlateauATous() {
+    sf::Packet paquet;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
+
+    paquet << typePaquet << plateau;
+
+    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+        // On récupère les infos du client dans la liste
+        JoueurServeur& j = *it;
+        sf::TcpSocket* client = j.getSocket();
+
+        ReseauGlobal::EnvoiPaquet(*client, paquet);
+    }
+}
+
 void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
     sf::Packet paquet;
     std::list<NoeudServeur> noeuds;
@@ -337,8 +352,8 @@ void ReseauServeur::ecouterReseau(void) {
                 // On crée la base du joueur
                 creerBase(*j, joueurs.size());
 
-                // On envoie le plateau
-                envoiPlateau(*client, plateau);
+                // On envoie le plateau à tous les joueurs
+                envoiPlateauATous();
 
                 // On envoie ses infos au joueur
                 envoiJoueurCourant(*j);

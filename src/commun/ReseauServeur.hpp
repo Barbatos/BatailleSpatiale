@@ -84,6 +84,8 @@ public:
 
     void creerBase(JoueurServeur& joueur, int nbJoueurs);
 
+    void envoiPlateauATous();
+
 private:
 
     /// La socket du serveur

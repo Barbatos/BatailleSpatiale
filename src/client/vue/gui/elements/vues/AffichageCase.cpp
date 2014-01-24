@@ -11,8 +11,8 @@
 #include <iostream>
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
-                             sf::View* vuePlateau)
-                             : Element(gui, id), image(), fond(), position(position), selectionne(false) {
+    sf::View* vuePlateau)
+                : Element(gui, id), image(), fond(), position(position), selectionne(false) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
@@ -24,7 +24,7 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, P
     fond.setOrigin(taille / 2, taille / 2);
     fond.setFillColor(sf::Color(0, 0, 110, 60));
     fond.setOutlineThickness(0.5f);
-    fond.setOutlineColor(sf::Color(100,100,100,40));
+    fond.setOutlineColor(sf::Color(100, 100, 100, 40));
 }
 
 AffichageCase::~AffichageCase() {
@@ -83,7 +83,7 @@ void AffichageCase::actualiser(float) {
 
 void AffichageCase::afficher(sf::RenderWindow& affichage) {
     //affichage.draw(contour);
-	affichage.draw(fond);
+    affichage.draw(fond);
     affichage.draw(image);
 }
 
@@ -152,20 +152,21 @@ void AffichageCase::pressionSouris(sf::Mouse::Button) {
 }
 
 void AffichageCase::relachementSouris(sf::Mouse::Button bouton) {
-    if (!lireSurvol() && selectionne && bouton == sf::Mouse::Left) {
+
+    if (!lireSurvol() && selectionne && bouton == sf::Mouse::Left)
         selectionne = false;
+    /*
+     Message message;
 
-        Message message;
+     message.type = Message::Cellule;
 
-        message.type = Message::Cellule;
+     message.cellule.x = position.x;
+     message.cellule.y = position.y;
+     message.cellule.selection = false;
+     message.cellule.clicDroit = false;
 
-        message.cellule.x = position.x;
-        message.cellule.y = position.y;
-        message.cellule.selection = false;
-        message.cellule.clicDroit = false;
-
-        envoyerMessage(message);
-    }
+     envoyerMessage(message);
+     } */
 }
 
 void AffichageCase::entreeSouris(sf::Vector2f) {

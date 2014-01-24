@@ -31,6 +31,10 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
     // On récupère le plateau
     Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
 
+    // Pour dire que le plateau intéragit avec la souris
+    // En dernier, pour notifier l'état que les évènements des cases sont terminés et qu'on peut les gérer
+    enregistrerSouris(this);
+
     // On récupère les tailles du plateau
     int maxx = p.getTailleX();
     int maxy = p.getTailleY();
@@ -49,7 +53,6 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
             xc = (i * 2 + j) * taille * 3 / 5;
             yc = j * taille;
 
-            // On initialise l'affichage de la case
             if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
                 AffichageCase* c = new AffichageCase(lireGui(), -1, xc, yc, taille, Position(i, j), &vuePlateau);
 
@@ -68,10 +71,6 @@ AffichagePlateau::AffichagePlateau(Gui* gui, int id, int x, int y, int largeur, 
     vuePlateau.move(taille / 2, taille / 2);
 
     etat = new Etat(details, &(lireGui()->lireScene()->lireJeu()));
-
-    // Pour dire que le plateau intéragit avec la souris
-    // En dernier, pour notifier l'état que les évènements des cases sont terminés et qu'on peut les gérer
-    enregistrerSouris(this);
 }
 
 AffichagePlateau::~AffichagePlateau() {
@@ -92,20 +91,21 @@ void AffichagePlateau::bougerPlateau(float x, float y) {
 }
 
 void AffichagePlateau::appuiCase(Message::MessageCellule message) {
-    // Si c'est un clic droit, puisque rien n'est selectionn�, on ne fait rien
-    if (message.clicDroit)
-        return;
-
-    // Si ce n'est pas une selection, on ne fait rien
-    if (!message.selection)
-        return;
 
     Plateau& p = lireGui()->lireScene()->lireJeu().lirePlateau();
+
+    if (message.x == -1 && message.y == -1) {
+        p.viderChemin();
+        p.viderZoneParcourable();
+        details->selectionner();
+        return;
+    }
+
     ReseauClient* r = lireGui()->lireScene()->lireJeu().lireReseau().get();
     Position ancienne = details->lirePosition();
     Position position = Position(message.x, message.y);
 
-    // Si une case �tait pr�c�demment selectionn�e
+    // Si une case était précédemment selectionnée
     if (ancienne.x != -1 && ancienne.y != -1) {
         if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
             if (message.clicDroit) {
@@ -113,7 +113,7 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
                 r->getChemin(ancienne, position);
             }
             else {
-                // D�placement, Attaque, etc
+                // Déplacement, Attaque, etc
                 r->demanderDeplacementVaisseau(ancienne, position);
             }
         }
@@ -123,14 +123,10 @@ void AffichagePlateau::appuiCase(Message::MessageCellule message) {
         p.viderChemin();
         p.viderZoneParcourable();
 
-        if (!message.selection && details->lirePosition() == position)
-            details->selectionner();
-        else if (message.selection) {
-            details->selectionner(position);
+        details->selectionner(position);
 
-            if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
-                r->getZoneParcourable(position);
-        }
+        if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau)
+            r->getZoneParcourable(position);
     }
 
     // etat->appuiCase(message);
@@ -152,8 +148,20 @@ void AffichagePlateau::pressionSouris(sf::Mouse::Button) {
 
 }
 
-void AffichagePlateau::relachementSouris(sf::Mouse::Button) {
-    etat->appuiPlateau();
+void AffichagePlateau::relachementSouris(sf::Mouse::Button bouton) {
+    //etat->appuiPlateau();
+    if (bouton == sf::Mouse::Right)
+        return;
+
+    Message::MessageCellule message;
+
+    message.x = -1;
+    message.y = -1;
+
+    message.clicDroit = false;
+    message.selection = false;
+    appuiCase(message);
+
 }
 void AffichagePlateau::entreeSouris(sf::Vector2f) {
     /* Ne rien faire ici */
