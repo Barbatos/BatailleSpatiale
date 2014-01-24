@@ -12,7 +12,7 @@ PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
 
 void PlateauServeur::initialisationTest() {
     cellule[6][4].creerVaisseauTest(TypeVaisseau::Destructeur);
-    (*joueurs)[0].ajouterVaisseau(cellule[6][4].getVaisseau());
+    //(*joueurs)[0].ajouterVaisseau(cellule[6][4].getVaisseau());
     cellule[5][6].setType(TypeCellule::Inexistant);
     cellule[6][6].setType(TypeCellule::Inexistant);
     cellule[6][5].setType(TypeCellule::Inexistant);
@@ -20,9 +20,9 @@ void PlateauServeur::initialisationTest() {
     cellule[7][4].setType(TypeCellule::Inexistant);
     cellule[8][3].setType(TypeCellule::Inexistant);
     cellule[0][1].creerBatimentBaseTest();
-    (*joueurs)[0].ajouterBatiment(cellule[0][1].getBatiment());
+    //(*joueurs)[0].ajouterBatiment(cellule[0][1].getBatiment());
     cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
-    (*joueurs)[0].ajouterVaisseau(cellule[8][5].getVaisseau());
+    //(*joueurs)[0].ajouterVaisseau(cellule[8][5].getVaisseau());
     cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
     cellule[1][1].creerVaisseauTest();
 }
