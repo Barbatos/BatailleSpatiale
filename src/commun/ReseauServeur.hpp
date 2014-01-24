@@ -78,7 +78,7 @@ public:
 
     void envoiZoneConstructibleVaisseau(JoueurServeur& joueur);
 
-    void envoiZoneConstructibleBatiment(sf::TcpSocket& client, Position pos);
+    void envoiZoneConstructibleBatiment(JoueurServeur& joueur, Position pos);
 
     void envoiZoneAttaquable(sf::TcpSocket& client, Position pos);
 
