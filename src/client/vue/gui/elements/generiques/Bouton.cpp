@@ -8,7 +8,7 @@
 #include "Bouton.hpp"
 
 Bouton::Bouton(Gui* gui, int id, std::string texte, float x, float y, float largeur, float hauteur)
-: Element(gui, id), ObservateurSouris(), label(texte, x, y) {
+                : Element(gui, id), ObservateurSouris(), label(texte, x, y) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
 
@@ -29,11 +29,30 @@ Bouton::Bouton(Gui* gui, int id, std::string texte, float x, float y, float larg
 
     label.setFont(lireGui()->lireScene()->lireJeu().lireRessources().lirePolice("grand9k.ttf"));
 
-    label.setOrigin(-(lireTaille().x - label.getGlobalBounds().width) / 2, -(lireTaille().y - label.getGlobalBounds().height) / 2);
+    label.setOrigin(-(lireTaille().x - label.getGlobalBounds().width) / 2, -(lireTaille().y
+                    - label.getGlobalBounds().height) / 2);
 }
 
 Bouton::~Bouton() {
 
+}
+
+std::string Bouton::lireTexte() {
+    return label.getString();
+}
+
+void Bouton::ecrireTexte(std::wstring texte) {
+    label.setString(texte);
+
+    label.setOrigin(-(lireTaille().x - label.getGlobalBounds().width) / 2, -(lireTaille().y
+                    - label.getGlobalBounds().height) / 2);
+}
+
+void Bouton::ecrireTexte(std::string texte) {
+    label.setString(texte);
+
+    label.setOrigin(-(lireTaille().x - label.getGlobalBounds().width) / 2, -(lireTaille().y
+                    - label.getGlobalBounds().height) / 2);
 }
 
 void Bouton::actualiser(float) {

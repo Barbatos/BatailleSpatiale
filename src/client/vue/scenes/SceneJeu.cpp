@@ -108,49 +108,110 @@ void SceneJeu::initialiserPlateau() {
 
 void SceneJeu::appuiCase(Message::MessageCellule message) {
 
+    // On récupère le plateau
     Plateau & p = lireJeu().lirePlateau();
 
+    // Si c'est un message du plateau, on réinitialise tout
     if (message.x == -1 && message.y == -1) {
-        p.viderChemin();
-        p.viderZoneParcourable();
+        p.viderZones();
         details->selectionner();
+        action->ecrireVisible(false);
         return;
     }
 
+    // On récupère le réseau et les deux positions
     ReseauClient* r = lireJeu().lireReseau().get();
     Position ancienne = details->lirePosition();
     Position position = Position(message.x, message.y);
 
-    // Si une case était précédemment selectionnée
-    if (ancienne.x != -1 && ancienne.y != -1) {
+    // Si c'est un clic droit, et une case était précédemment sélectionnée
+    if (message.clicDroit && ancienne.x != -1 && ancienne.y != -1) {
+        // Si la selection est un vaisseau
         if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
-            if (message.clicDroit) {
-                p.viderChemin();
-                r->getChemin(ancienne, position);
+            // On vide le chemin
+            p.viderChemin();
+
+            switch (p.getCellule(position).statutEmplacement()) {
+                case TypeCellule::Vide:
+                    // Si la destination est une case vide
+
+                    // On demande au réseau le chemin vers cette case
+                    r->getChemin(ancienne, position);
+
+                    // On affiche le bouton d'action en mode déplacer
+                    action->ecrireVisible(true);
+                    action->ecrireTexte(L"Déplacer");
+                    break;
+                case TypeCellule::Vaisseau:
+                case TypeCellule::Batiment:
+                    // Si la destination est un vaisseau ou un bâtiment
+
+                    // TODO: Attaque des bâtiments/vaisseaux
+                    break;
+                default:
+                    break;
             }
-            else {
-                // Déplacement, Attaque, etc
-                r->demanderDeplacementVaisseau(ancienne, position);
-            }
+
+            // On stocke la destination du joueur
+            destination = position;
         }
     }
 
+    // Si ce n'est pas un clic droit
     if (!message.clicDroit) {
-        p.viderChemin();
-        p.viderZoneParcourable();
+        // On vide les zones
+        p.viderZones();
 
+        // On sélectionne la position
         details->selectionner(position);
 
+        // Si on a sélectionné un vaisseau
         if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau) {
+            // Si c'est un constructeur, on demande au réseau la zone constructible
             if (p.getVaisseau(position).type == TypeVaisseau::Constructeur)
                 r->getZoneConstructibleVaisseau(position);
 
+            // On demande au réseau la zone parcourable
             r->getZoneParcourable(position);
         }
+        // Sinon, si c'est un bâtiment, et que c'est une base
         else if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment
                         && p.getBatiment(position).type == TypeBatiment::Base)
+            // On demande au réseau la zone constructible
             r->getZoneConstructibleBatiment(position);
     }
+}
+
+void SceneJeu::effectuerAction() {
+    // On récupère le plateau, le réseau, et l'ancienne position
+    Plateau & p = lireJeu().lirePlateau();
+    ReseauClient* r = lireJeu().lireReseau().get();
+    Position ancienne = details->lirePosition();
+
+    switch (p.getCellule(destination).statutEmplacement()) {
+        case TypeCellule::Vide:
+            // On demande le déplacement du vaisseau
+            r->demanderDeplacementVaisseau(ancienne, destination);
+            break;
+        case TypeCellule::Batiment:
+        case TypeCellule::Vaisseau:
+            // TODO: Attaque du bâtiment/vaisseau
+            break;
+        default:
+            break;
+    }
+
+    // On vide les zones du plateau
+    p.viderZones();
+
+    // On cache le bouton d'action
+    action->ecrireVisible(false);
+
+    // On vide la selection
+    details->selectionner();
+
+    // On vide la destination du joueur
+    destination = Position(-1, -1);
 }
 
 void SceneJeu::surMessage(Message message) {
@@ -180,6 +241,9 @@ void SceneJeu::surMessage(Message message) {
                                                     + jeu.lirePlateau().getTailleX() / 2) * 30))
                         vue.move(0, 5);
                     break;
+                case Action:
+                    effectuerAction();
+                    break;
                 default:
                     break;
             }
@@ -201,7 +265,14 @@ void SceneJeu::pressionSouris(sf::Mouse::Button) {
 }
 
 void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
-    //etat->appuiPlateau();
+    sf::Vector2u taille = lireJeu().lireAffichage().getSize();
+
+    sf::FloatRect rect(vue.getViewport().left * taille.x, vue.getViewport().top * taille.y, vue.getViewport().width
+                                       * taille.x, vue.getViewport().height * taille.y);
+
+    if (!rect.contains(sf::Vector2f(sf::Mouse::getPosition())))
+        return;
+
     if (bouton == sf::Mouse::Right)
         return;
 

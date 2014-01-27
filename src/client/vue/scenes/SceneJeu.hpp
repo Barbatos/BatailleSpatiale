@@ -46,9 +46,9 @@ class SceneJeu : public Scene, public ObservateurSouris {
         sf::View vue;
 
         /**
-         * \brief Position actuellement selectionnée
+         * \brief La destination choisie par le clic droit du joueur
          */
-        Position selection;
+        Position destination;
 
     public:
         /**
@@ -62,7 +62,7 @@ class SceneJeu : public Scene, public ObservateurSouris {
             Haut, //!< Le bouton pour déplacer le plateau en haut
             Bas, //!< Le bouton pour déplacer le plateau en bas
             Details, //!< L'affichage des détails
-            Construction, //!< L'affichage des batiments ou vaisseaux constructibles
+            Construction, //!< L'affichage des bâtiments ou vaisseaux constructible
             Case //!< L'id générique pour l'affichage des cases
         };
 
@@ -89,6 +89,11 @@ class SceneJeu : public Scene, public ObservateurSouris {
          * \param message le message lié à la case appuyée
          */
         void appuiCase(Message::MessageCellule message);
+
+        /**
+         * \brief Tente d'effectuer une action
+         */
+        void effectuerAction();
 
         // Héritée de Scene
         void surMessage(Message message);

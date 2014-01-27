@@ -75,6 +75,27 @@ class Bouton : public Element, public ObservateurSouris {
          */
         virtual ~Bouton();
 
+        /**
+         * \brief Retourne le texte du bouton
+         *
+         * \return le texte du bouton
+         */
+        std::string lireTexte();
+
+        /**
+         * \brief Version wstring de ecrireTexte(std::string)
+         *
+         * \param texte le nouveau texte du bouton
+         */
+        void ecrireTexte(std::wstring texte);
+
+        /**
+         * \brief Change le texte du bouton
+         *
+         * \param texte le nouveau texte du bouton
+         */
+        void ecrireTexte(std::string texte);
+
         // Héritées de ElementSouris
         void actualiser(float delta);
         void afficher(sf::RenderWindow& affichage);
