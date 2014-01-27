@@ -94,6 +94,8 @@ class ReseauClient {
 
         void parseJoueursAdverses(sf::Packet paquet);
 
+        void setDestination(Position p);
+
     private:
 
         /// La socket du client

@@ -272,6 +272,10 @@ void ReseauClient::getJoueursAdverses() {
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
+void ReseauClient::setDestination(Position p) {
+    plateau.cellule[p.x][p.y].setEstDestination(true);
+}
+
 void ReseauClient::setActif(bool _actif) {
     actif = _actif;
 }
