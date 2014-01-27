@@ -2,13 +2,21 @@
 
 ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
     plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
+    int nbEssais = 0;
 
     plateau.setJoueurs(&joueurs);
 
     // On écoute sur le port défini plus haut
-    if (listener.listen(port) != sf::Socket::Done) {
-        cout << "[RESEAU] Impossible d'écouter sur le port " << port << endl;
-        return;
+    while(listener.listen(port) != sf::Socket::Done) {
+        if(nbEssais >= 5) {
+            cout << "[RESEAU] Abandon de la tentative de lancement du serveur" << endl;
+            return;
+        }
+
+        cout << "[RESEAU] Impossible d'écouter sur le port " << port << ", essai sur le port " << (port+1) << endl;
+
+        port++;
+        nbEssais++;
     }
 
     // On met la socket en mode non-bloquant
