@@ -57,7 +57,6 @@ SceneJeu::~SceneJeu() {
 }
 
 void SceneJeu::initialiserPlateau() {
-    jeu.lirePlateau().viderZones();
 
     // On récupère la taille de la fenêtre
     int winx = lireJeu().lireAffichage().getSize().x;
@@ -69,6 +68,8 @@ void SceneJeu::initialiserPlateau() {
 
     // On récupère le plateau
     Plateau & p = jeu.lirePlateau();
+
+    p.viderZones();
 
     // On récupère les tailles du plateau
     int maxx = p.getTailleX();
@@ -106,6 +107,11 @@ void SceneJeu::initialiserPlateau() {
     vue.move(taille / 2, taille / 2);
 }
 
+static bool valide(const Cellule& c) {
+    return c.getEstAttaquable() || c.getParcourable() || c.getEstConstructibleBatiment()
+                    || c.getEstConstructibleVaisseau() || true; // Toujours vrai le temps que la zone attaquable marche
+}
+
 void SceneJeu::appuiCase(Message::MessageCellule message) {
 
     // On récupère le plateau
@@ -125,9 +131,13 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
     Position position = Position(message.x, message.y);
 
     // Si la destination correspond à la selection
-    if (selection.x == position.x && selection.y == position.y) {
+    if ((selection.x == position.x && selection.y == position.y)
+                    || !valide(p.getCellule(position))) {
         // On vide le chemin
         p.viderChemin();
+
+        // On vide la destination
+        p.viderDestination();
 
         // On cache le bouton d'action
         action->ecrireVisible(false);
@@ -141,6 +151,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         if (p.getCellule(selection).statutEmplacement() == TypeCellule::Vaisseau) {
             // On vide le chemin
             p.viderChemin();
+
+            // On vide la destination
+            p.viderDestination();
 
             switch (p.getCellule(position).statutEmplacement()) {
                 case TypeCellule::Vide:
@@ -166,7 +179,7 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
             // On stocke la destination du joueur
             destination = position;
 
-            // TODO : Envoyer la cellule comme destination au serveur
+            r->setDestination(destination);
         }
     }
 
@@ -268,10 +281,11 @@ void SceneJeu::surMessage(Message message) {
 
 // Héritées d'ElementSouris
 void SceneJeu::clicSouris(bool) {
+    /* Ne rien faire ici */
 }
 
 void SceneJeu::pressionSouris(sf::Mouse::Button) {
-
+    /* Ne rien faire ici */
 }
 
 void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {

@@ -86,7 +86,9 @@ class Plateau {
         void viderZoneConstructible();
 
         void viderZoneAttaquable();
-        
+
+        void viderDestination();
+
         void viderZones();
 
     private:
