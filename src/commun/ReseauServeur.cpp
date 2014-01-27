@@ -234,7 +234,7 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
 
     if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart))) {
         paquet << paquetDeplacerVaisseau;
-        envoiPlateau(client, plateau);
+        envoiPlateauATous();
     } else {
         paquet << paquetDeplacementImpossible;
     }
