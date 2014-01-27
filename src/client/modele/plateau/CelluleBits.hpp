@@ -7,6 +7,7 @@ struct CelluleBits {
     bool estAttaquable : 1;
     bool estConstructibleVaisseau : 1;
     bool estConstructibleBatiment : 1;
+    bool estDestination : 1;
 };
 
 #endif

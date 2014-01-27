@@ -82,6 +82,14 @@ void Cellule::setEstChemin(bool estChemin) {
     bits.estChemin = estChemin;
 }
 
+bool Cellule::getEstDestination() const {
+    return bits.estDestination;
+}
+
+void Cellule::setEstDestination(bool estDest) {
+    bits.estDestination = estDest;
+}
+
 bool Cellule::getEstConstructibleVaisseau() const {
     return bits.estConstructibleVaisseau;
 }
