@@ -86,6 +86,8 @@ public:
 
     void envoiPlateauATous();
 
+    void attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible);
+
 private:
 
     /// La socket du serveur

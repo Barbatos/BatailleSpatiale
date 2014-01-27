@@ -103,6 +103,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             parseJoueursAdverses(paquet);
             break;
 
+        case TypePaquet::AttaquerVaisseau:
+            attaquerVaisseau(paquet);
+            break;
+
         default:
             cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
             break;
@@ -213,7 +217,11 @@ void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
 }
 
 void ReseauClient::deplacerVaisseau(sf::Packet) {
-    // TODO : Message d'erreurs
+    // TODO : Messages d'erreur / validation
+}
+
+void ReseauClient::attaquerVaisseau(sf::Packet) {
+    // TODO : Messages d'erreur / validation
 }
 
 void ReseauClient::getChemin(Position depart, Position arrivee) {
@@ -275,6 +283,15 @@ void ReseauClient::getJoueursAdverses() {
     sf::Packet paquet;
 
     paquet << typePaquet;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::demanderAttaqueVaisseau(Position p1, Position p2) {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderAttaqueVaisseau);
+    sf::Packet paquet;
+
+    paquet << typePaquet << p1 << p2;
 
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }

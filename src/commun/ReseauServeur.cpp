@@ -107,6 +107,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiZoneAttaquable(*client, pos);
         break;
 
+        // Le client demande à attaquer un vaisseau adverse
+    case TypePaquet::DemanderAttaqueVaisseau:
+        paquet >> pos >> pos2;
+        attaquerVaisseau(*client, pos, pos2);
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -239,6 +245,30 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
         paquet << paquetDeplacementImpossible;
     }
 
+    ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+
+void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {
+    sf::Packet paquet;
+    sf::Uint16 paquetAttaquerVaisseau = static_cast<sf::Uint16>(TypePaquet::AttaquerVaisseau);
+    sf::Uint16 paquetAttaqueImpossible = static_cast<sf::Uint16>(TypePaquet::AttaqueVaisseauImpossible);
+    CelluleServeur cAttaquant, cCible;
+
+    cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
+    cCible = plateau.cellule[posCible.x][posCible.y];
+
+    // TODO : check dans attaquer() que l'on a bien le droit d'attaquer la cellule cible !
+    /*if(cAttaquant.attaquer(&cCible)) {
+        paquet << paquetAttaquerVaisseau;
+        envoiPlateauATous();
+    } else {
+        paquet << paquetAttaqueImpossible;
+    }*/
+
+    cAttaquant.attaquer(&cCible);
+    paquet << paquetAttaquerVaisseau;
+    envoiPlateauATous();
+    
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 

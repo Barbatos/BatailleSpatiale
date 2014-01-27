@@ -222,7 +222,8 @@ void SceneJeu::effectuerAction() {
             break;
         case TypeCellule::Batiment:
         case TypeCellule::Vaisseau:
-            // TODO : r->attaquerVaisseau(ancienne, destination);
+            // On attaque le vaisseau
+            r->demanderAttaqueVaisseau(ancienne, destination);
             break;
         default:
             break;

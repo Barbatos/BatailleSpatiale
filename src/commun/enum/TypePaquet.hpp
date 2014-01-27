@@ -73,6 +73,12 @@ enum class TypePaquet : sf::Uint16 {
     GetZoneAttaquable,
     // Paquet envoyé par le serveur au client pour donner la zone attaquable
     ZoneAttaquable,
+    // Paquet envoyé par le client au serveur pour demander l'attaque d'un vaisseau
+    DemanderAttaqueVaisseau,
+    // Paquet envoyé par le serveur au client pour ordonner l'attaque d'un vaisseau
+    AttaquerVaisseau,
+    // Paquet envoyé par le serveur au client pour indiquer que l'attaque d'un vaisseau est impossible
+    AttaqueVaisseauImpossible,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };

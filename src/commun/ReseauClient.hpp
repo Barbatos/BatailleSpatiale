@@ -96,6 +96,10 @@ class ReseauClient {
 
         void setDestination(Position p);
 
+        void demanderAttaqueVaisseau(Position p1, Position p2);
+
+        void attaquerVaisseau(sf::Packet paquet);
+
     private:
 
         /// La socket du client
