@@ -10,57 +10,96 @@
 
 #include "ScenesPack.hpp"
 
+#include <commun/utile/Position.hpp>
+
 // Pré-déclarations
-class AffichagePlateau;
+class AffichageCase;
 class AffichageDetails;
+class Bouton;
 
 /**
  * \brief Scène en jeu
  *
  * Scène affichant le plateau
  */
-class SceneJeu : public Scene {
-private:
-    /**
-     * \brief L'affichage du plateau
-     */
-    AffichagePlateau* plateau;
+class SceneJeu : public Scene, public ObservateurSouris {
+    private:
 
-    /**
-     * \brief L'affichage des détails
-     */
-    AffichageDetails* details;
+        /**
+         * \brief Liste des cases du plateau
+         */
+        std::list<AffichageCase*> cases;
 
-public:
-    /**
-     * \brief Les différents éléments de la scène
-     */
-    enum Elements {
-        Menu, //!< Le bouton de menu
-        Plateau, //!< L'affichage du plateau
-        Droite, //!< Le bouton pour déplacer le plateau à droite
-        Gauche, //!< Le bouton pour déplacer le plateau à gauche
-        Haut, //!< Le bouton pour déplacer le plateau en haut
-        Bas, //!< Le bouton pour déplacer le plateau en bas
-        Details, //!< L'affichage des détails
-        Construction, //!< L'affichage des batiments ou vaisseaux constructibles
-        Case //!< L'id générique pour l'affichage des cases
-    };
+        /**
+         * \brief L'affichage des détails
+         */
+        AffichageDetails* details;
 
-    /**
-     * \brief Constructeur
-     *
-     * \param jeu le jeu actuel
-     */
-    SceneJeu(Jeu& jeu);
+        /**
+         * \brief Bouton d'action (Déplacer vaisseau)
+         */
+        Bouton* action;
 
-    /**
-     * \brief Destructeur
-     */
-    virtual ~SceneJeu();
+        /**
+         * \brief La vue du plateau
+         */
+        sf::View vue;
 
-    // Héritée de Scene
-    void surMessage(Message message);
+        /**
+         * \brief Position actuellement selectionnée
+         */
+        Position selection;
+
+    public:
+        /**
+         * \brief Les différents éléments de la scène
+         */
+        enum Elements {
+            Action, //!< Le bouton d'action
+            Menu, //!< Le bouton de menu
+            Droite, //!< Le bouton pour déplacer le plateau à droite
+            Gauche, //!< Le bouton pour déplacer le plateau à gauche
+            Haut, //!< Le bouton pour déplacer le plateau en haut
+            Bas, //!< Le bouton pour déplacer le plateau en bas
+            Details, //!< L'affichage des détails
+            Construction, //!< L'affichage des batiments ou vaisseaux constructibles
+            Case //!< L'id générique pour l'affichage des cases
+        };
+
+        /**
+         * \brief Constructeur
+         *
+         * \param jeu le jeu actuel
+         */
+        SceneJeu(Jeu& jeu);
+
+        /**
+         * \brief Destructeur
+         */
+        virtual ~SceneJeu();
+
+        /**
+         * \brief Initialise l'affichage du plateau
+         */
+        void initialiserPlateau();
+
+        /**
+         * \brief Appelée lors de l'appui d'une case
+         *
+         * \param message le message lié à la case appuyée
+         */
+        void appuiCase(Message::MessageCellule message);
+
+        // Héritée de Scene
+        void surMessage(Message message);
+
+        // Héritées de ObservateurSouris
+        void clicSouris(bool clicDroit);
+        void pressionSouris(sf::Mouse::Button bouton);
+        void relachementSouris(sf::Mouse::Button bouton);
+        void entreeSouris(sf::Vector2f position);
+        void sortieSouris(sf::Vector2f position);
+        void moletteSouris(int delta);
 };
 
 #endif /* SCENEJEU_HPP */

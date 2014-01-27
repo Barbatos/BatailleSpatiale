@@ -10,8 +10,8 @@
 #include "Gui.hpp"
 
 Element::Element(Gui* gui, int id)
-: id(id), gui(gui), observateurSouris(nullptr),
-observateurClavier(nullptr), survol(false), appui(false), vue(nullptr) {
+                : id(id), gui(gui), observateurSouris(nullptr), observateurClavier(nullptr),
+                  visible(true), survol(false), appui(false), appuiDroit(false), vue(nullptr) {
     gui->ajouter(Ptr(this));
 }
 
@@ -97,6 +97,10 @@ void Element::ecrireZone(sf::FloatRect zone) {
     ecrireTaille(zone.width, zone.height);
 }
 
+bool Element::lireVisible() {
+    return visible;
+}
+
 bool Element::lireSurvol() {
     return survol;
 }
@@ -115,6 +119,10 @@ sf::View* Element::lireVue() {
 
 bool Element::possedeVue() {
     return vue != nullptr;
+}
+
+void Element::ecrireVisible(bool visible) {
+    this->visible = visible;
 }
 
 void Element::ecrireSurvol(bool survol) {
