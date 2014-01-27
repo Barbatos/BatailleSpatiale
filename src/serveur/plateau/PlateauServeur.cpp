@@ -177,15 +177,12 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
 
                 //Si oui alors on le met a jour si le nouveau chemin est meilleur
                 if (noeudTrouve) {
-                    if (noeudCourant.getG() + cellule[pointCourant->x][pointCourant
-                            ->y].getCoutDeplacement() < noeudIterateur->getG()) {
+                    if (noeudCourant.getG() + 1 < noeudIterateur->getG()) {
 
                         noeudIterateur = openListe.erase(noeudIterateur);
                         openListe.push_back(
                             NoeudServeur(
-                                *pointCourant,
-                                cellule[pointCourant->x][pointCourant
-                                                         ->y].getCoutDeplacement(),
+                                *pointCourant, 1,
                                 noeudCourant.getPosition()));
                     }
 
@@ -207,10 +204,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
                     if (!noeudTrouve) {
                         openListe.push_back(
                             NoeudServeur(
-                                *pointCourant,
-                                cellule[pointCourant->x][pointCourant
-                                                         ->y].getCoutDeplacement() + noeudCourant
-                                .getG(),
+                                *pointCourant, 1 + noeudCourant.getG(),
                                 noeudCourant.getPosition()));
                     }
                 }
