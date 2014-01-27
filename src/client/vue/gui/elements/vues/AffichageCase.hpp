@@ -32,7 +32,7 @@ class AffichageCase : public Element, public ObservateurSouris {
         Position position;
 
         /**
-         * \brief Si la case est selectionnée
+         * \brief Si la case est sélectionnée
          */
         bool selectionne;
 
@@ -61,9 +61,9 @@ class AffichageCase : public Element, public ObservateurSouris {
         Position lirePositionPlateau();
 
         /**
-         * \brief Retourne si la case est selectionnée
+         * \brief Retourne si la case est sélectionnée
          *
-         * \return si la case est selectionnée
+         * \return si la case est sélectionnée
          */
         bool lireSelectionne();
 

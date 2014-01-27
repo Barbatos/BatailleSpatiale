@@ -84,6 +84,14 @@ class SceneJeu : public Scene, public ObservateurSouris {
         void initialiserPlateau();
 
         /**
+         * \brief Retourne si la cellule donnée est valide ou non pour être une destination
+         *
+         * \param cellule la cellule à tester
+         * \return si elle est valide ou non
+         */
+        bool valide(Cellule cellule);
+
+        /**
          * \brief Appelée lors de l'appui d'une case
          *
          * \param message le message lié à la case appuyée

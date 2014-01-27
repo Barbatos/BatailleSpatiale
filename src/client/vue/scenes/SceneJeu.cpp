@@ -107,9 +107,12 @@ void SceneJeu::initialiserPlateau() {
     vue.move(taille / 2, taille / 2);
 }
 
-static bool valide(const Cellule& c) {
-    return c.getEstAttaquable() || c.getParcourable() || c.getEstConstructibleBatiment()
-                    || c.getEstConstructibleVaisseau() || true; // Toujours vrai le temps que la zone attaquable marche
+bool SceneJeu::valide(Cellule cellule) {
+    return cellule.getEstAttaquable() || cellule.getParcourable()
+                    || cellule.getEstConstructibleBatiment()
+                    || cellule.getEstConstructibleVaisseau() || true;
+
+    // TODO: Modifier une fois que la zone attaquable est fonctionnelle
 }
 
 void SceneJeu::appuiCase(Message::MessageCellule message) {
@@ -170,7 +173,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                 case TypeCellule::Batiment:
                     // Si la destination est un vaisseau ou un bâtiment
 
-                    // TODO: Attaque des bâtiments/vaisseaux
+                    action->ecrireVisible(true);
+                    action->ecrireTexte(L"Attaquer");
                     break;
                 default:
                     break;
@@ -218,7 +222,7 @@ void SceneJeu::effectuerAction() {
             break;
         case TypeCellule::Batiment:
         case TypeCellule::Vaisseau:
-            // TODO: Attaque du bâtiment/vaisseau
+            // TODO : r->attaquerVaisseau(ancienne, destination);
             break;
         default:
             break;
