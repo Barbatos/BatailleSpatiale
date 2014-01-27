@@ -1,6 +1,7 @@
 #include "PlateauServeur.hpp"
 
 PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
+    joueurs(nullptr),
     tailleX(_tailleX),
     tailleY(_tailleY) {
     cellule.resize(tailleX, std::vector<CelluleServeur>(tailleY));

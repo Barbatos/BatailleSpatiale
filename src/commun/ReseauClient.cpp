@@ -206,7 +206,7 @@ void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
 }
 
 void ReseauClient::deplacerVaisseau(sf::Packet) {
-
+    // TODO : Message d'erreurs
 }
 
 void ReseauClient::getChemin(Position depart, Position arrivee) {

@@ -154,6 +154,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
             // On stocke la destination du joueur
             destination = position;
+
+            // TODO : Envoyer la cellule comme destination au serveur
         }
     }
 
