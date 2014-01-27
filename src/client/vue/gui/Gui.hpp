@@ -11,6 +11,7 @@
 // Includes de la stdlib
 #include <queue>
 #include <memory>
+#include <list>
 
 // Includes de la SFML
 #include <SFML/Window/Event.hpp>
@@ -34,7 +35,17 @@ class Gui {
         /**
          * \brief La liste des éléments présents dans ce gui
          */
-        std::vector<Element::Ptr> elements;
+        std::list<Element::Ptr> elements;
+
+        /**
+         * \brief La liste des observateurs souris
+         */
+        std::list<ObservateurSouris*> observateursSouris;
+
+        /**
+         * \brief La liste des observateurs clavier
+         */
+        std::list<ObservateurClavier*> observateursClavier;
 
         /**
          * \brief La file des messages envoyés dans ce gui
@@ -101,6 +112,20 @@ class Gui {
         void ajouter(Element* element);
 
         /**
+         * \brief Ajoute l'observateur souris donné au gui
+         *
+         * \param observateur l'observateur souris à ajouter
+         */
+        void ajouterObservateurSouris(ObservateurSouris* observateur);
+
+        /**
+         * \brief Ajoute l'observateur clavier donné au gui
+         *
+         * \param observateur l'observateur à ajouter
+         */
+        void ajouterObservateurClavier(ObservateurClavier* observateur);
+
+        /**
          * \brief Ajoute le message à la file de message du gui
          *
          * \param message le message généré
@@ -113,6 +138,48 @@ class Gui {
          * \param evenement l'évènement à traiter
          */
         void traiter(sf::Event evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerPressionBoutonSouris(sf::Event::MouseButtonEvent evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerMouvementSouris(sf::Event::MouseMoveEvent evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerMoletteSouris(sf::Event::MouseWheelEvent evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerPressionToucheClavier(sf::Event::KeyEvent evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerRelachementToucheClavier(sf::Event::KeyEvent evenement);
+
+        /**
+         *
+         * @param evenement
+         */
+        void envoyerTexteClavier(sf::Event::TextEvent evenement);
 
         /**
          * \brief Actualise le gui
