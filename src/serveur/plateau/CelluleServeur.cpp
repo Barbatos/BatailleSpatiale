@@ -56,7 +56,7 @@ TypeCellule CelluleServeur::statutEmplacement() const {
 
 sf::Uint16 CelluleServeur::getIdJoueur() {
     if(!vaisseau && !batiment)
-        return -1;
+        return -2;
     else if(vaisseau)
         return vaisseau->getIdJoueur();
     else
