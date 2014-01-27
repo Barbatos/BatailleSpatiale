@@ -345,6 +345,8 @@ void ReseauServeur::ecouterReseau(void) {
                 // On ajoute le client à la liste des joueurs connectés
                 joueurs.push_back(*j);
 
+                plateau.setJoueurs(&joueurs);
+
                 // On ajoute également le client au selecteur afin qu'il puisse
                 // recevoir ses messages
                 selector.add(*client);
@@ -466,4 +468,7 @@ void ReseauServeur::lancerReseau() {
 
 void ReseauServeur::fermerReseau() {
     actif = false;
+
+    selector.clear();
+    listener.close();
 }
