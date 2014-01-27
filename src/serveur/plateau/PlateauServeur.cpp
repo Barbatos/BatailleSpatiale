@@ -226,7 +226,6 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
              */
         } while (!openListe.empty() && noeudCourant.getG() <= distanceAttaquable);
 
-        std::cout << "Taille :" << zoneAttaquable.size() << std::endl;
         for (noeudIterateur = zoneAttaquable.begin();
                 noeudIterateur != zoneAttaquable.end(); noeudIterateur++) {
             Position pos = noeudIterateur->getPosition();
@@ -235,7 +234,6 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
         }
     }
 
-    std::cout << "Taille :" << zoneAttaquable.size() << std::endl;
     return zoneAttaquable;
 }
 
