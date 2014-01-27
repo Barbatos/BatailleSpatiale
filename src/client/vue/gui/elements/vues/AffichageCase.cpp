@@ -45,15 +45,12 @@ void AffichageCase::actualiser(float) {
         case TypeCellule::Vaisseau:
             fichier = Utile::lireFichier(p.getVaisseau(position));
             break;
-
         case TypeCellule::Batiment:
             fichier = Utile::lireFichier(p.getBatiment(position));
             break;
-
         case TypeCellule::Evenement:
             fichier = Utile::lireFichier(p.getEvenement(position));
             break;
-
         default:
             break;
     }
@@ -68,13 +65,15 @@ void AffichageCase::actualiser(float) {
         Utile::redimensionnerImage(image, lireTaille().x * 1.2, lireTaille().y * 1.2, true);
     }
 
-    // Selon que la case soit selectionnée, survolée, ou rien du tout, on change la couleur de la bordure
+    // Selon que la case soit sélectionnée, survolée, ou rien du tout, on change la couleur de la bordure
     if (selectionne)
         fond.setFillColor(sf::Color(255, 0, 0, 60));
     else if (lireSurvol())
         fond.setFillColor(sf::Color(255, 255, 0, 60));
     else if (p.getCellule(position).getEstChemin())
         fond.setFillColor(sf::Color(153, 0, 51, 60));
+    else if (p.getCellule(position).getEstAttaquable())
+        fond.setFillColor(sf::Color(255, 150, 150, 60));
     else if (p.getCellule(position).getEstConstructibleBatiment())
         fond.setFillColor(sf::Color(0, 0, 255, 60));
     else if (p.getCellule(position).getEstConstructibleVaisseau())

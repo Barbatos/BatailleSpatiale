@@ -121,13 +121,24 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
     // On récupère le réseau et les deux positions
     ReseauClient* r = lireJeu().lireReseau().get();
-    Position ancienne = details->lirePosition();
+    Position selection = details->lirePosition();
     Position position = Position(message.x, message.y);
 
-    // Si c'est un clic droit, et une case était précédemment sélectionnée
-    if (message.clicDroit && ancienne.x != -1 && ancienne.y != -1) {
+    // Si la destination correspond à la selection
+    if (selection.x == position.x && selection.y == position.y) {
+        // On vide le chemin
+        p.viderChemin();
+
+        // On cache le bouton d'action
+        action->ecrireVisible(false);
+
+        // On réinitialise la destination
+        destination = Position(-1, -1);
+    }
+    // Sinon, si c'est un clic droit, et une case était précédemment sélectionnée
+    else if (message.clicDroit && selection.x != -1 && selection.y != -1) {
         // Si la selection est un vaisseau
-        if (p.getCellule(ancienne).statutEmplacement() == TypeCellule::Vaisseau) {
+        if (p.getCellule(selection).statutEmplacement() == TypeCellule::Vaisseau) {
             // On vide le chemin
             p.viderChemin();
 
@@ -136,7 +147,7 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                     // Si la destination est une case vide
 
                     // On demande au réseau le chemin vers cette case
-                    r->getChemin(ancienne, position);
+                    r->getChemin(selection, position);
 
                     // On affiche le bouton d'action en mode déplacer
                     action->ecrireVisible(true);
@@ -169,16 +180,13 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
         // Si on a sélectionné un vaisseau
         if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau) {
-            // Si c'est un constructeur, on demande au réseau la zone constructible
-            if (p.getVaisseau(position).type == TypeVaisseau::Constructeur)
-                r->getZoneConstructibleVaisseau(position);
-
-            // On demande au réseau la zone parcourable
+            // On demande au réseau la zone parcourable, attaquable et constructible
+            r->getZoneConstructibleVaisseau(position);
             r->getZoneParcourable(position);
+            r->getZoneAttaquable(position);
         }
-        // Sinon, si c'est un bâtiment, et que c'est une base
-        else if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment
-                        && p.getBatiment(position).type == TypeBatiment::Base)
+        // Sinon, si c'est un bâtiment
+        else if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment)
             // On demande au réseau la zone constructible
             r->getZoneConstructibleBatiment(position);
     }
