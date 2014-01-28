@@ -13,13 +13,17 @@ set(EXE_CLIENT "BatailleSpatiale")
 # Executable serveur
 set(EXE_SERVER "ServeurBatailleSpatiale")
 
+# Exécutable Master Server
+set(EXE_MASTER "MasterServeur")
+
 # Que compiler
 option(COMPILER_CLIENT "Compiler l'exécutable client" ON)
 option(COMPILER_SERVEUR "Compiler l'exécutable serveur" ON)
+option(COMPILER_MASTER "Compiler le Master Serveur" OFF)
 
 # Si rien n'est à compiler, erreur
-if(NOT COMPILER_CLIENT AND NOT COMPILER_SERVEUR)
-    message(FATAL_ERROR "Rien à compiler !!")
+if(NOT COMPILER_CLIENT AND NOT COMPILER_SERVEUR AND NOT COMPILER_MASTER)
+    message(FATAL_ERROR "Rien à compiler !")
 endif()
 
 # Sources du client
@@ -36,6 +40,11 @@ file(GLOB_RECURSE SERVEUR_SRC
 
 )
 
+# Sources du Master
+file(GLOB_RECURSE MASTER_SRC
+    "${SRC_DIR}/masterserveur/*.[ch]pp"
+)
+
 # Sources communes
 FILE(GLOB_RECURSE COMMUN_SRC
     "src/commun/ReseauGlobal.[ch]pp"
@@ -47,16 +56,22 @@ FILE(GLOB_RECURSE COMMUN_SRC
     "src/serveur/structures/*.[ch]pp"
 )
 
-# Ajout de l'éxecutable client
+# Ajout de l'exécutable client
 if(COMPILER_CLIENT)
     add_executable(${EXE_CLIENT} ${COMMUN_SRC} ${CLIENT_SRC})
     target_link_libraries(${EXE_CLIENT} ${SFML_LIBRARIES})
 endif()
 
-# Ajout de l'éxecutable serveur
+# Ajout de l'exécutable serveur
 if(COMPILER_SERVEUR)
     add_executable(${EXE_SERVER} ${COMMUN_SRC} ${SERVEUR_SRC})
     target_link_libraries(${EXE_SERVER} ${SFML_LIBRARIES})
+endif()
+
+# Ajout de l'exécutable master server
+if(COMPILER_MASTER)
+    add_executable(${EXE_MASTER} ${COMMUN_SRC} ${MASTER_SRC})
+    target_link_libraries(${EXE_MASTER} ${SFML_LIBRARIES})
 endif()
 
 # Changement des flags selon les éxecutables pour windows
@@ -69,5 +84,10 @@ if(WIN32)
     # -mconsole pour le serveur
     if(COMPILER_SERVEUR)
         set_target_properties(${EXE_SERVER} PROPERTIES COMPILE_FLAGS "-mconsole")
+    endif()
+
+    # -mconsole pour le master
+    if(COMPILER_MASTER)
+        set_target_properties(${EXE_MASTER} PROPERTIES COMPILE_FLAGS "-mconsole")
     endif()
 endif()
