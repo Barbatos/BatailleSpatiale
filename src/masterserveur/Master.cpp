@@ -94,7 +94,7 @@ void Master::ecouterReseau() {
             sf::TcpSocket* client = new sf::TcpSocket;
 
             // Le nouveau client a été accepté
-            if (listener.accept(*client) == sf::Socket::Done) {
+            if (listenerClients.accept(*client) == sf::Socket::Done) {
                 ClientMaster* cl;
                 string msgGlobal;
                 ostringstream c;
@@ -130,7 +130,7 @@ void Master::ecouterReseau() {
         // d'un des serveurs ou clients
         else {
             // On parcours la liste de tous les serveurs
-            for (vector<ServeurMaster>::iterator it = serveurs.begin(); it != serveurs.end(); ++it) {
+            for (vector<ServeurMaster>::iterator it = serveurs.begin(); it != serveurs.end();) {
                 // On récupère les infos du serveur dans la liste
                 ServeurMaster& sv = *it;
                 sf::TcpSocket* serveur = sv.getSocket();
@@ -169,7 +169,9 @@ void Master::ecouterReseau() {
                             selector.remove(*serveur);
 
                             // On supprime le serveur de la liste
-                            serveurs.erase(it);
+                            it = serveurs.erase(it);
+
+                            continue;
                         }
 
                         // S'il y a eu une erreur lors de la réception du paquet
@@ -178,10 +180,11 @@ void Master::ecouterReseau() {
                         }
                     }
                 }
+                ++it;
             }
 
             // On parcours la liste de tous les clients
-            for (vector<ClientMaster>::iterator it = clients.begin(); it != clients.end(); ++it) {
+            for (vector<ClientMaster>::iterator it = clients.begin(); it != clients.end();) {
                 // On récupère les infos du client dans la liste
                 ClientMaster& cl = *it;
                 sf::TcpSocket* client = cl.getSocket();
@@ -220,7 +223,8 @@ void Master::ecouterReseau() {
                             selector.remove(*client);
 
                             // On supprime le client de la liste
-                            clients.erase(it);
+                            it = clients.erase(it);
+                            continue;
                         }
 
                         // S'il y a eu une erreur lors de la réception du paquet
@@ -229,6 +233,7 @@ void Master::ecouterReseau() {
                         }
                     }
                 }
+                ++it;
             }
         }
     }

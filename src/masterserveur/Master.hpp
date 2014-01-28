@@ -2,6 +2,7 @@
 #define MASTER_HPP
 
 #include <global.hpp>
+#include <algorithm>
 #include <commun/ReseauGlobal.hpp>
 #include <commun/enum/TypePaquet.hpp>
 #include <masterserveur/ServeurMaster.hpp>

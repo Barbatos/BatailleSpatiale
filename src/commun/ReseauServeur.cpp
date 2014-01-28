@@ -444,7 +444,7 @@ void ReseauServeur::ecouterReseau(void) {
         // d'un des clients
         else {
             // On parcours la liste de tous les clients
-            for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+            for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end();) {
                 // On récupère les infos du client dans la liste
                 JoueurServeur& j = *it;
                 sf::TcpSocket* client = j.getSocket();
@@ -488,10 +488,12 @@ void ReseauServeur::ecouterReseau(void) {
                             selector.remove(*client);
 
                             // On supprime le joueur de la liste
-                            joueurs.erase(it);
+                            it = joueurs.erase(it);
 
                             // On envoie le message de déconnexion à tous les autres joueurs
                             envoiATous(msgGlobal);
+
+                            continue;
                         }
 
                         // S'il y a eu une erreur lors de la réception du paquet
@@ -500,6 +502,7 @@ void ReseauServeur::ecouterReseau(void) {
                         }
                     }
                 }
+                ++it;
             }
         }
     }
