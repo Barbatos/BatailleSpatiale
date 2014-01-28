@@ -79,6 +79,14 @@ enum class TypePaquet : sf::Uint16 {
     AttaquerVaisseau,
     // Paquet envoyé par le serveur au client pour indiquer que l'attaque d'un vaisseau est impossible
     AttaqueVaisseauImpossible,
+
+    // -- Master Serveur -- //
+    // Paquet envoyé par un serveur de jeu au Master afin de lui dire qu'il est en vie
+    MasterHeartbeat,
+    // Paquet envoyé par un serveur de jeu au Master afin de lui dire qu'il se déconnecte
+    MasterDeconnexion,
+    // Paquet envoyé par un client pour récupérer la liste des serveurs connectés au Master
+    MasterGetServeurs,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };
