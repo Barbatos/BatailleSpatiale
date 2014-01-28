@@ -82,6 +82,7 @@ void Jeu::changer(Scene::Type nouvelleScene) {
 void Jeu::threadReseau() {
     while (true) {
         reseau->TraiterPaquetServeur();
+        reseau->traiterPaquetMasterServeur();
         sf::sleep(sf::milliseconds(100));
     }
 }

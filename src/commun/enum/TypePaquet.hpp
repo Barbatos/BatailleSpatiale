@@ -87,6 +87,8 @@ enum class TypePaquet : sf::Uint16 {
     MasterDeconnexion,
     // Paquet envoyé par un client pour récupérer la liste des serveurs connectés au Master
     MasterGetServeurs,
+    // Paquet envoyé par le Master à un client pour donner la liste des serveurs 
+    MasterListeServeurs,
     /// Juste pour savoir le nombre de TypePaquet (A placer en fin d'enumerations)
     Nombre
 };

@@ -6,13 +6,16 @@ ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur)
 }
 
 ReseauClient::~ReseauClient() {
-
+    socket.disconnect();
+    socketMaster.disconnect();
 }
 
 void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
     sf::IpAddress server(ip);
     sf::Time timeout = sf::seconds(2);
     int nbEssais = 0;
+    unsigned short portMaster = 1600;
+    sf::IpAddress masterServer("127.0.0.1");
 
     if (getActif() == true) {
         cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
@@ -31,8 +34,23 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
         nbEssais++;
     }
 
+    nbEssais = 0;
+
+    while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
+        if(nbEssais >= 5) {
+            cout << "[RESEAU] Abandon de la tentative de connexion au Master Serveur" << endl;
+            break;
+        }
+
+        cout << "[RESEAU] Impossible de se connecter au serveur sur le port " << portMaster << ", essai sur le port " << (portMaster+1) << endl;
+
+        portMaster++;
+        nbEssais++;
+    }
+
     // On met la socket en mode non-bloquant
     socket.setBlocking(false);
+    socketMaster.setBlocking(false);
 
     // On définit que le réseau est maintenant actif
     setActif(true);
@@ -109,6 +127,35 @@ void ReseauClient::TraiterPaquetServeur(void) {
 
         default:
             cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
+            break;
+    }
+}
+
+void ReseauClient::traiterPaquetMasterServeur(void) {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
+    sf::Packet paquet;
+    string message;
+
+    if (!getActif()) {
+        return;
+    }
+
+    ReseauGlobal::ReceptionPaquet(socketMaster, paquet, sf::seconds(0.00f));
+
+    if (paquet.getDataSize() <= 0) {
+        return;
+    }
+
+    paquet >> typePaquet;
+
+    switch (static_cast<TypePaquet>(typePaquet)) {
+
+        case TypePaquet::MasterListeServeurs:
+            paquet >> message;
+            break;
+
+        default:
+            cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu venant du Master Serveur" << endl;
             break;
     }
 }
@@ -294,6 +341,15 @@ void ReseauClient::demanderAttaqueVaisseau(Position p1, Position p2) {
     paquet << typePaquet << p1 << p2;
 
     ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::demanderListeServeurs() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MasterGetServeurs);
+    sf::Packet paquet;
+
+    paquet << typePaquet;
+
+    ReseauGlobal::EnvoiPaquet(socketMaster, paquet);
 }
 
 void ReseauClient::setDestination(Position p) {

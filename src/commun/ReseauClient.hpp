@@ -100,10 +100,17 @@ class ReseauClient {
 
         void attaquerVaisseau(sf::Packet paquet);
 
+        void traiterPaquetMasterServeur(void);
+
+        void demanderListeServeurs();
+
     private:
 
         /// La socket du client
         sf::TcpSocket socket;
+
+        /// La socket du client pour le master serveur
+        sf::TcpSocket socketMaster;
 
         /// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
         bool actif;
