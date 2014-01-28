@@ -7,7 +7,7 @@
 
 #include "AffichageConstructions.hpp"
 
-AffichageConstructions::AffichageConstructions() {
+AffichageConstructions::AffichageConstructions(Gui* gui, int id) : Element(gui, id){
 	// TODO Auto-generated constructor stub
 
 }
