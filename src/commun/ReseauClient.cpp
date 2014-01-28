@@ -11,17 +11,24 @@ ReseauClient::~ReseauClient() {
 
 void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
     sf::IpAddress server(ip);
-    sf::Time timeout = sf::seconds(5);
+    sf::Time timeout = sf::seconds(2);
+    int nbEssais = 0;
 
     if (getActif() == true) {
         cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
         return;
     }
 
-    // On se connecte au serveur
-    if (socket.connect(server, port, timeout) != sf::Socket::Done) {
-        cout << "[RESEAU] Impossible de se connecter au serveur !" << endl;
-        return;
+    while(socket.connect(server, port, timeout) != sf::Socket::Done) {
+        if(nbEssais >= 5) {
+            cout << "[RESEAU] Abandon de la tentative de connexion au serveur" << endl;
+            return;
+        }
+
+        cout << "[RESEAU] Impossible de se connecter au serveur sur le port " << port << ", essai sur le port " << (port+1) << endl;
+
+        port++;
+        nbEssais++;
     }
 
     // On met la socket en mode non-bloquant
@@ -94,6 +101,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
 
         case TypePaquet::JoueursAdverses:
             parseJoueursAdverses(paquet);
+            break;
+
+        case TypePaquet::AttaquerVaisseau:
+            attaquerVaisseau(paquet);
             break;
 
         default:
@@ -206,7 +217,11 @@ void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
 }
 
 void ReseauClient::deplacerVaisseau(sf::Packet) {
+    // TODO : Messages d'erreur / validation
+}
 
+void ReseauClient::attaquerVaisseau(sf::Packet) {
+    // TODO : Messages d'erreur / validation
 }
 
 void ReseauClient::getChemin(Position depart, Position arrivee) {
@@ -270,6 +285,19 @@ void ReseauClient::getJoueursAdverses() {
     paquet << typePaquet;
 
     ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::demanderAttaqueVaisseau(Position p1, Position p2) {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderAttaqueVaisseau);
+    sf::Packet paquet;
+
+    paquet << typePaquet << p1 << p2;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::setDestination(Position p) {
+    plateau.cellule[p.x][p.y].setEstDestination(true);
 }
 
 void ReseauClient::setActif(bool _actif) {

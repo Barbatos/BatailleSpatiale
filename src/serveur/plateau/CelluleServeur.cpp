@@ -56,7 +56,7 @@ TypeCellule CelluleServeur::statutEmplacement() const {
 
 sf::Uint16 CelluleServeur::getIdJoueur() {
     if(!vaisseau && !batiment)
-        return -1;
+        return -2;
     else if(vaisseau)
         return vaisseau->getIdJoueur();
     else
@@ -88,7 +88,7 @@ TypeBatiment CelluleServeur::typeBatiment() const {
 }
 
 void CelluleServeur::creerVaisseauTest(TypeVaisseau type) {
-    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 5, 25, 10, 10, 10, type));
+    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 0, 20, 4, 25, 6, 10, 10, type));
 }
 
 void CelluleServeur::creerVaisseauConstructeurTest() {
@@ -180,6 +180,8 @@ sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
 void CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
 
+    // TODO : vérifier que l'on a le droit d'attaquer cette cellule !!
+    
     if (vaisseau) {
         degat += vaisseau->getAttaque();
         if (cCible->getVaisseau()) {

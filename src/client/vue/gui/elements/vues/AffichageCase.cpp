@@ -19,12 +19,12 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, P
 
     enregistrerSouris(this);
 
-    fond = sf::CircleShape(taille / 1.6, 6);
-    fond.setPosition(x + taille / 2, y + taille / 2);
+    fond = sf::CircleShape(taille / 2, 6);
+    fond.setPosition(x, y);
     fond.setOrigin(taille / 2, taille / 2);
     fond.setFillColor(sf::Color(0, 0, 110, 60));
-    fond.setOutlineThickness(0.5f);
-    fond.setOutlineColor(sf::Color(100, 100, 100, 40));
+    fond.setOutlineThickness(2);
+    fond.setOutlineColor(sf::Color(100, 100, 100));
 }
 
 AffichageCase::~AffichageCase() {
@@ -45,15 +45,12 @@ void AffichageCase::actualiser(float) {
         case TypeCellule::Vaisseau:
             fichier = Utile::lireFichier(p.getVaisseau(position));
             break;
-
         case TypeCellule::Batiment:
             fichier = Utile::lireFichier(p.getBatiment(position));
             break;
-
         case TypeCellule::Evenement:
             fichier = Utile::lireFichier(p.getEvenement(position));
             break;
-
         default:
             break;
     }
@@ -64,41 +61,67 @@ void AffichageCase::actualiser(float) {
         // On met l'image du vaisseau correspondant
         image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(fichier);
         image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
-        image.setPosition(lirePosition().x, lirePosition().y);
-        Utile::redimensionnerImage(image, lireTaille().x * 1.2, lireTaille().y * 1.2, true);
+        Utile::redimensionnerImage(image, lireTaille().x * 1.3, lireTaille().y * 1.3, false);
+        image.setPosition(lirePosition().x - lireTaille().x * 1.3 / 2, lirePosition().y
+                                          - lireTaille().y * 1.3 / 2);
     }
 
-    // Selon que la case soit selectionnée, survolée, ou rien du tout, on change la couleur de la bordure
+    // Changement de la couleur de fond
+    if (p.getCellule(position).getEstChemin()) {
+        // Chemin
+        fond.setFillColor(sf::Color(102, 0, 153, 50));
+        fond.setOutlineColor(sf::Color(102, 0, 153, 50));
+    }
+    else if (p.getCellule(position).getParcourable()) {
+        // Parcourable
+        fond.setFillColor(sf::Color(255, 102, 0, 50));
+        fond.setOutlineColor(sf::Color(255, 102, 0, 50));
+    }
+    else if (p.getCellule(position).getEstAttaquable()) {
+        // Attaquable
+        fond.setFillColor(sf::Color(204, 0, 0, 50));
+        fond.setOutlineColor(sf::Color(204, 0, 0, 50));
+    }
+    else if (p.getCellule(position).getEstConstructibleBatiment()) {
+        // Constructible bâtiment
+        fond.setFillColor(sf::Color(208, 198, 177, 50));
+        fond.setOutlineColor(sf::Color(208, 198, 177, 50));
+    }
+    else if (p.getCellule(position).getEstConstructibleVaisseau()) {
+        // Constructible vaisseau
+        fond.setFillColor(sf::Color(208, 198, 177, 50));
+        fond.setOutlineColor(sf::Color(208, 198, 177, 50));
+    }
+    else {
+        // Défaut
+        fond.setFillColor(sf::Color(150, 150, 150, 50));
+        fond.setOutlineColor(sf::Color(150, 150, 150, 50));
+    }
+
+    // Changement de la bordure
     if (selectionne)
-        fond.setFillColor(sf::Color(255, 0, 0, 60));
+        // Sélectionnée
+        fond.setOutlineColor(sf::Color(204, 0, 0));
     else if (lireSurvol())
-        fond.setFillColor(sf::Color(255, 255, 0, 60));
-    else if (p.getCellule(position).getEstChemin())
-        fond.setFillColor(sf::Color(153, 0, 51, 60));
-    else if (p.getCellule(position).getEstConstructibleBatiment())
-        fond.setFillColor(sf::Color(0, 0, 255, 60));
-    else if (p.getCellule(position).getEstConstructibleVaisseau())
-        fond.setFillColor(sf::Color(0, 0, 255, 60));
-    else if (p.getCellule(position).getParcourable())
-        fond.setFillColor(sf::Color(102, 153, 102, 60));
-    else
-        fond.setFillColor(sf::Color(0, 0, 110, 60));
+        fond.setOutlineColor(sf::Color(255, 204, 0));
+    else if (p.getCellule(position).getEstDestination())
+        // Destination
+        fond.setOutlineColor(sf::Color(51, 51, 255));
 }
 
 void AffichageCase::afficher(sf::RenderWindow& affichage) {
-    //affichage.draw(contour);
     affichage.draw(fond);
     affichage.draw(image);
 }
 
 bool AffichageCase::contient(sf::Vector2i position) {
     // On teste en x
-    bool x = position.x >= fond.getPosition().x - fond.getRadius() * 0.6;
-    x &= position.x <= fond.getPosition().x + fond.getRadius();
+    bool x = position.x >= fond.getPosition().x - fond.getRadius() * 0.9;
+    x &= position.x <= fond.getPosition().x + fond.getRadius() * 0.9;
 
     // On teste en y
-    bool y = position.y >= fond.getPosition().y - fond.getRadius() * 0.6;
-    y &= position.y <= fond.getPosition().y + fond.getRadius();
+    bool y = position.y >= fond.getPosition().y - fond.getRadius() * 0.9;
+    y &= position.y <= fond.getPosition().y + fond.getRadius() * 0.9;
 
     // On retourne le résultat
     return x && y;

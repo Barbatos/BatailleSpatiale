@@ -1,6 +1,7 @@
 #include "PlateauServeur.hpp"
 
 PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
+    joueurs(nullptr),
     tailleX(_tailleX),
     tailleY(_tailleY) {
     cellule.resize(tailleX, std::vector<CelluleServeur>(tailleY));
@@ -55,7 +56,7 @@ int PlateauServeur::getCoutDeplacement(Position p) {
     return cellule[p.x][p.y].getCoutDeplacement();
 }
 
-std::list<Position> PlateauServeur::celluleAutour(Position p) {
+std::list<Position> PlateauServeur::celluleAutour(Position p, bool videTolere) {
     std::list<Position> autour;
     Position nouveauPoint;
     for (int i = -1; i <= 1; i++) {
@@ -64,7 +65,7 @@ std::list<Position> PlateauServeur::celluleAutour(Position p) {
                 nouveauPoint.set(p.x + i, p.y + j);
                 if (nouveauPoint.x >= 0 && nouveauPoint.y >= 0 && nouveauPoint.x < tailleX && nouveauPoint
                         .y < tailleY)
-                    if (celluleAccessible(nouveauPoint))
+                    if (videTolere || celluleAccessible(nouveauPoint))
                         autour.push_back(Position(nouveauPoint));
             }
         }
@@ -156,7 +157,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
 
             //On recherche les points autour du noeud courant
             pointAutour.clear();
-            pointAutour = celluleAutour(noeudCourant.getPosition());
+            pointAutour = celluleAutour(noeudCourant.getPosition(), true);
 
             //Pour chaque point autour
             for (pointCourant = pointAutour.begin();
@@ -176,15 +177,12 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
 
                 //Si oui alors on le met a jour si le nouveau chemin est meilleur
                 if (noeudTrouve) {
-                    if (noeudCourant.getG() + cellule[pointCourant->x][pointCourant
-                            ->y].getCoutDeplacement() < noeudIterateur->getG()) {
+                    if (noeudCourant.getG() + 1 < noeudIterateur->getG()) {
 
                         noeudIterateur = openListe.erase(noeudIterateur);
                         openListe.push_back(
                             NoeudServeur(
-                                *pointCourant,
-                                cellule[pointCourant->x][pointCourant
-                                                         ->y].getCoutDeplacement(),
+                                *pointCourant, 1,
                                 noeudCourant.getPosition()));
                     }
 
@@ -206,10 +204,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
                     if (!noeudTrouve) {
                         openListe.push_back(
                             NoeudServeur(
-                                *pointCourant,
-                                cellule[pointCourant->x][pointCourant
-                                                         ->y].getCoutDeplacement() + noeudCourant
-                                .getG(),
+                                *pointCourant,1 + noeudCourant.getG(),
                                 noeudCourant.getPosition()));
                     }
                 }

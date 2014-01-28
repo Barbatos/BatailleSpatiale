@@ -45,6 +45,9 @@ public:
 
     void setEstAttaquable(bool estAttaquable);
     bool getEstAttaquable() const;
+
+    void setEstDestination(bool estDest);
+    bool getEstDestination() const;
     
     /**
      * \brief Indique le type de la cellule

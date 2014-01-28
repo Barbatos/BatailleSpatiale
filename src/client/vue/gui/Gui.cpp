@@ -9,22 +9,17 @@
 
 #include <client/vue/Scene.hpp>
 
+#include <client/Jeu.hpp>
+
 Gui::Gui(sf::RenderWindow* fenetre, Scene* scene)
-: elements(), messages(), horloge(), fenetre(fenetre), scene(scene) {
+                : elements(), messages(), horloge(), fenetre(fenetre), scene(scene) {
 
 }
 
 Gui::~Gui() {
-    for (Element::Ptr element : elements)
-        element.reset();
-
     elements.clear();
-
-    if (fenetre != nullptr)
-        delete fenetre;
-
-    if (scene != nullptr)
-        delete scene;
+    observateursSouris.clear();
+    observateursClavier.clear();
 }
 
 Scene* Gui::lireScene() {
@@ -39,68 +34,98 @@ void Gui::ajouter(Element* element) {
     ajouter(Element::Ptr(element));
 }
 
+void Gui::ajouterObservateurSouris(ObservateurSouris* observateur) {
+    observateursSouris.push_back(observateur);
+}
+
+void Gui::ajouterObservateurClavier(ObservateurClavier* observateur) {
+    observateursClavier.push_back(observateur);
+}
+
 void Gui::ajouterMessage(Message message) {
     messages.push(message);
 }
 
-void Gui::traiter(sf::Event evenement) {
-    switch (evenement.type) {
-    case sf::Event::MouseButtonPressed:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+void Gui::envoyerPressionBoutonSouris(sf::Event::MouseButtonEvent evenement) {
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe la souris
             if (element->observeSouris()) {
                 // On lui envoie l'évènement
-                element->lireSouris()->pressionSouris(evenement.mouseButton.button);
+                element->lireSouris()->pressionSouris(evenement.button);
 
                 // Si c'est un clic gauche, on lui dit qu'il est appuyé
-                if (element->lireSurvol())
-                {
-                    if (evenement.mouseButton.button == sf::Mouse::Left)
+                if (element->lireSurvol()) {
+                    if (evenement.button == sf::Mouse::Left)
                         element->ecrireAppui(true);
-                    else if (evenement.mouseButton.button == sf::Mouse::Right)
+                    else if (evenement.button == sf::Mouse::Right)
                         element->ecrireAppuiDroit(true);
                 }
             }
         }
-        break;
-    case sf::Event::MouseButtonReleased:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+    }
+
+    // Pareil pour les observateurs simples
+    for (ObservateurSouris* observateur : observateursSouris) {
+        observateur->pressionSouris(evenement.button);
+    }
+}
+
+void Gui::envoyerRelachementBoutonSouris(sf::Event::MouseButtonEvent evenement) {
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe la souris
             if (element->observeSouris()) {
                 // On lui envoie l'évènement
-                element->lireSouris()->relachementSouris(evenement.mouseButton.button);
+                element->lireSouris()->relachementSouris(evenement.button);
 
                 // Si il est appuyé et que c'est un clic gauche
                 if (element->lireSurvol()) {
 
-                    if (element->lireAppui() && evenement.mouseButton.button == sf::Mouse::Left)
-                    {
+                    if (element->lireAppui() && evenement.button == sf::Mouse::Left) {
                         // Il n'est plus appuyé
                         element->ecrireAppui(false);
                         element->lireSouris()->clicSouris(false);
                     }
-                    else if (element->lireAppuiDroit() && evenement.mouseButton.button == sf::Mouse::Right)
-                    {
+                    else if (element->lireAppuiDroit() && evenement.button == sf::Mouse::Right) {
                         element->ecrireAppuiDroit(false);
                         element->lireSouris()->clicSouris(true);
                     }
                 }
             }
         }
-        break;
-    case sf::Event::MouseMoved:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+    }
+
+    for (ObservateurSouris* observateur : observateursSouris)
+        observateur->relachementSouris(evenement.button);
+
+}
+
+void Gui::envoyerMouvementSouris(sf::Event::MouseMoveEvent evenement) {
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe la souris
             if (element->observeSouris()) {
                 // On récupère la position de la souris
-                sf::Vector2i position(evenement.mouseMove.x, evenement.mouseMove.y);
+                sf::Vector2i position(evenement.x, evenement.y);
 
                 // Si l'élement est dans une vue, on récupère sa vraie position
                 if (element->possedeVue()) {
-                    position = sf::Vector2i(fenetre->mapPixelToCoords(position, *element->lireVue()));
+                    // TODO: Optimiser un peu ça
+                    sf::View* vue = element->lireVue();
+
+                    sf::Vector2u taille = lireScene()->lireJeu().lireAffichage().getSize();
+
+                    sf::FloatRect rect(vue->getViewport().left * taille.x, vue->getViewport().top
+                                                       * taille.y, vue->getViewport().width
+                                                       * taille.x, vue->getViewport().height
+                                                       * taille.y);
+
+                    if (rect.contains(sf::Vector2f(position)))
+                        position = sf::Vector2i(fenetre->mapPixelToCoords(position, *element->lireVue()));
                 }
 
                 // Si l'élement est survolé, mais ne contient pas la souris
@@ -122,45 +147,98 @@ void Gui::traiter(sf::Event evenement) {
                 }
             }
         }
-        break;
-    case sf::Event::MouseWheelMoved:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+    }
+}
+
+void Gui::envoyerMoletteSouris(sf::Event::MouseWheelEvent evenement) {
+
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe la souris
             if (element->observeSouris())
                 // On lui envoie l'évenement
-                element->lireSouris()->moletteSouris(evenement.mouseWheel.delta);
+                element->lireSouris()->moletteSouris(evenement.delta);
         }
-        break;
-    case sf::Event::KeyPressed:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+    }
+
+    for (ObservateurSouris* observateur : observateursSouris)
+        observateur->moletteSouris(evenement.delta);
+}
+
+void Gui::envoyerPressionToucheClavier(sf::Event::KeyEvent evenement) {
+
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe le clavier
             if (element->observeClavier())
                 // On lui envoie l'évènement
-                element->lireClavier()->pressionTouche(evenement.key.code);
+                element->lireClavier()->pressionTouche(evenement.code);
         }
-        break;
-    case sf::Event::KeyReleased:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+    }
+
+    for (ObservateurClavier* observateur : observateursClavier)
+        observateur->pressionTouche(evenement.code);
+}
+
+void Gui::envoyerRelachementToucheClavier(sf::Event::KeyEvent evenement) {
+
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe le clavier
             if (element->observeClavier())
                 // On lui envoie l'évènement
-                element->lireClavier()->relachementTouche(evenement.key.code);
+                element->lireClavier()->relachementTouche(evenement.code);
         }
-        break;
-    case sf::Event::TextEntered:
-        // Pour tout les élements
-        for (Element::Ptr element : elements) {
+    }
+
+    for (ObservateurClavier* observateur : observateursClavier)
+        observateur->relachementTouche(evenement.code);
+}
+
+void Gui::envoyerTexteClavier(sf::Event::TextEvent evenement) {
+
+    // Pour tout les éléments
+    for (Element::Ptr element : elements) {
+        if (element->lireVisible()) {
             // Si l'élement observe le clavier
             if (element->observeClavier())
                 // On lui envoie l'évènement
-                element->lireClavier()->entreeTexte(sf::Uint32(evenement.text.unicode));
+                element->lireClavier()->entreeTexte(sf::Uint32(evenement.unicode));
         }
-        break;
-    default:
-        break;
+    }
+
+    for (ObservateurClavier* observateur : observateursClavier)
+        observateur->entreeTexte(evenement.unicode);
+}
+
+void Gui::traiter(sf::Event evenement) {
+    switch (evenement.type) {
+        case sf::Event::MouseButtonPressed:
+            envoyerPressionBoutonSouris(evenement.mouseButton);
+            break;
+        case sf::Event::MouseButtonReleased:
+            envoyerRelachementBoutonSouris(evenement.mouseButton);
+            break;
+        case sf::Event::MouseMoved:
+            envoyerMouvementSouris(evenement.mouseMove);
+            break;
+        case sf::Event::MouseWheelMoved:
+            envoyerMoletteSouris(evenement.mouseWheel);
+            break;
+        case sf::Event::KeyPressed:
+            envoyerPressionToucheClavier(evenement.key);
+            break;
+        case sf::Event::KeyReleased:
+            envoyerRelachementToucheClavier(evenement.key);
+            break;
+        case sf::Event::TextEntered:
+            envoyerTexteClavier(evenement.text);
+            break;
+        default:
+            break;
     }
 }
 
@@ -184,18 +262,20 @@ void Gui::actualiser() {
     // On calcule le temps écoulé depuis le dernier appel
     float delta = nouveau.asMilliseconds();
 
-    // On actualise tout les élements
+    // On actualise tout les éléments
     for (Element::Ptr element : elements)
         element->actualiser(delta);
 }
 
 void Gui::afficher() {
     for (Element::Ptr element : elements) {
-        if (element->possedeVue())
-            fenetre->setView(*element->lireVue());
+        if (element->lireVisible()) {
+            if (element->possedeVue())
+                fenetre->setView(*element->lireVue());
 
-        element->afficher(*fenetre);
+            element->afficher(*fenetre);
 
-        fenetre->setView(fenetre->getDefaultView());
+            fenetre->setView(fenetre->getDefaultView());
+        }
     }
 }

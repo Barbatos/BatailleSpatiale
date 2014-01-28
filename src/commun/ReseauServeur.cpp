@@ -2,13 +2,21 @@
 
 ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
     plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
+    int nbEssais = 0;
 
     plateau.setJoueurs(&joueurs);
 
     // On écoute sur le port défini plus haut
-    if (listener.listen(port) != sf::Socket::Done) {
-        cout << "[RESEAU] Impossible d'écouter sur le port " << port << endl;
-        return;
+    while(listener.listen(port) != sf::Socket::Done) {
+        if(nbEssais >= 5) {
+            cout << "[RESEAU] Abandon de la tentative de lancement du serveur" << endl;
+            return;
+        }
+
+        cout << "[RESEAU] Impossible d'écouter sur le port " << port << ", essai sur le port " << (port+1) << endl;
+
+        port++;
+        nbEssais++;
     }
 
     // On met la socket en mode non-bloquant
@@ -97,6 +105,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     case TypePaquet::GetZoneAttaquable:
         paquet >> pos;
         envoiZoneAttaquable(*client, pos);
+        break;
+
+        // Le client demande à attaquer un vaisseau adverse
+    case TypePaquet::DemanderAttaqueVaisseau:
+        paquet >> pos >> pos2;
+        attaquerVaisseau(*client, pos, pos2);
         break;
 
     default:
@@ -226,11 +240,35 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
 
     if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart))) {
         paquet << paquetDeplacerVaisseau;
-        envoiPlateau(client, plateau);
+        envoiPlateauATous();
     } else {
         paquet << paquetDeplacementImpossible;
     }
 
+    ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+
+void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {
+    sf::Packet paquet;
+    sf::Uint16 paquetAttaquerVaisseau = static_cast<sf::Uint16>(TypePaquet::AttaquerVaisseau);
+    sf::Uint16 paquetAttaqueImpossible = static_cast<sf::Uint16>(TypePaquet::AttaqueVaisseauImpossible);
+    CelluleServeur cAttaquant, cCible;
+
+    cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
+    cCible = plateau.cellule[posCible.x][posCible.y];
+
+    // TODO : check dans attaquer() que l'on a bien le droit d'attaquer la cellule cible !
+    /*if(cAttaquant.attaquer(&cCible)) {
+        paquet << paquetAttaquerVaisseau;
+        envoiPlateauATous();
+    } else {
+        paquet << paquetAttaqueImpossible;
+    }*/
+
+    cAttaquant.attaquer(&cCible);
+    paquet << paquetAttaquerVaisseau;
+    envoiPlateauATous();
+    
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
@@ -466,4 +504,7 @@ void ReseauServeur::lancerReseau() {
 
 void ReseauServeur::fermerReseau() {
     actif = false;
+
+    selector.clear();
+    listener.close();
 }

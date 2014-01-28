@@ -108,9 +108,10 @@ public:
      * \brief Retourne les cellules accessibles autour d'une cellule
      *
      * \param p La position de la cellule
+     * \param videTolere Le vide compte t'il comme une cellule autour?
      * \return La liste des cellules accessibles
      */
-    std::list<Position> celluleAutour(Position p);
+    std::list<Position> celluleAutour(Position p, bool videTolere = false);
 
     /**
      * \brief Retourne la zone parcourable depuis une case contenant un vaisseau
