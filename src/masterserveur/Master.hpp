@@ -11,14 +11,14 @@
 class Master {
 
 public:
-	Master(unsigned int portServeur, unsigned int portClient);
-	void ecouterReseau();
-	void verifierServeursActifs();
-	void traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet);
-	void traiterPaquetClient(ClientMaster& client, sf::Packet paquet);
-	void majServeur(ServeurMaster& serveur);
-	void supprimerServeur(ServeurMaster& serveur);
-	void envoiListeServeurs(ClientMaster& client);
+    Master(unsigned int portServeur, unsigned int portClient);
+    void ecouterReseau();
+    void verifierServeursActifs();
+    void traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet);
+    void traiterPaquetClient(ClientMaster& client, sf::Packet paquet);
+    void majServeur(ServeurMaster& serveur);
+    void supprimerServeur(ServeurMaster& serveur);
+    void envoiListeServeurs(ClientMaster& client);
 
 private:
 

@@ -1,9 +1,9 @@
 #include <masterserveur/Master.hpp>
 
 Master::Master(unsigned int portServeur, unsigned int portClient) {
-	int nbEssais = 0;
+    int nbEssais = 0;
 
-	// Le Master écoute les connexions entrantes des différents serveurs de jeu
+    // Le Master écoute les connexions entrantes des différents serveurs de jeu
     while(listener.listen(portServeur) != sf::Socket::Done) {
         if(nbEssais >= 5) {
             cout << "[MASTER] Abandon de la tentative de lancement du serveur" << endl;
@@ -90,7 +90,7 @@ void Master::ecouterReseau() {
         }
 
         else if(selector.isReady(listenerClients)) {
-        	// Nouveau client
+            // Nouveau client
             sf::TcpSocket* client = new sf::TcpSocket;
 
             // Le nouveau client a été accepté
@@ -240,18 +240,18 @@ void Master::ecouterReseau() {
 }
 
 void Master::verifierServeursActifs() {
-	sf::Time tempsEcoule;
+    sf::Time tempsEcoule;
 
-	tempsEcoule = timer.getElapsedTime();
+    tempsEcoule = timer.getElapsedTime();
 
-	for (vector<ServeurMaster>::iterator it = serveurs.begin(); it != serveurs.end(); ++it) {
+    for (vector<ServeurMaster>::iterator it = serveurs.begin(); it != serveurs.end(); ++it) {
         ServeurMaster& sv = *it;
         sf::TcpSocket* serveur = sv.getSocket();
 
         // Les serveurs envoient des heartbeats toutes les minutes, si ça fait plus de trois 
         // minutes que l'on n'a rien reçu, on vire le serveur.
         if((tempsEcoule.asSeconds() - sv.getDernierHeartbeat().asSeconds()) > 180) {
-        	cout << "[MASTER] Le serveur " << serveur->getRemoteAddress() << " a timeout." << endl;
+            cout << "[MASTER] Le serveur " << serveur->getRemoteAddress() << " a timeout." << endl;
 
             // On supprime le serveur du sélecteur
             selector.remove(*serveur);
@@ -263,7 +263,7 @@ void Master::verifierServeursActifs() {
 }
 
 void Master::traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet) {
-	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
     sf::TcpSocket* sv = serveur.getSocket();
     string msg;
 
@@ -271,24 +271,24 @@ void Master::traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet) {
 
     switch(static_cast<TypePaquet>(typePaquet)) {
 
-	        // Message heartbeat d'un serveur de jeu
-	    case TypePaquet::MasterHeartbeat:
-	    	majServeur(serveur);
-	        break;
+            // Message heartbeat d'un serveur de jeu
+        case TypePaquet::MasterHeartbeat:
+            majServeur(serveur);
+            break;
 
-	        // Message de déconnexion d'un serveur de jeu
-	    case TypePaquet::MasterDeconnexion:
-	    	supprimerServeur(serveur);
-	    	break;
+            // Message de déconnexion d'un serveur de jeu
+        case TypePaquet::MasterDeconnexion:
+            supprimerServeur(serveur);
+            break;
 
-	    default:
-	        cout << "[MASTER] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
-	        break;
-	}
+        default:
+            cout << "[MASTER] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
+            break;
+    }
 }
 
 void Master::traiterPaquetClient(ClientMaster& client, sf::Packet paquet) {
-	sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
     sf::TcpSocket* cl = client.getSocket();
     string msg;
 
@@ -296,25 +296,25 @@ void Master::traiterPaquetClient(ClientMaster& client, sf::Packet paquet) {
 
     switch(static_cast<TypePaquet>(typePaquet)) {
 
-	        // Message d'un client qui demande la liste des serveurs
-	    case TypePaquet::MasterGetServeurs:
-	    	envoiListeServeurs(client);
-	    	break;
+            // Message d'un client qui demande la liste des serveurs
+        case TypePaquet::MasterGetServeurs:
+            envoiListeServeurs(client);
+            break;
 
-	    default:
-	        cout << "[MASTER] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
-	        break;
-	}
+        default:
+            cout << "[MASTER] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
+            break;
+    }
 }
 
 void Master::majServeur(ServeurMaster& serveur) {
-	serveur.setDernierHeartbeat(timer.getElapsedTime());
+    serveur.setDernierHeartbeat(timer.getElapsedTime());
 
-	cout << "[MASTER] Heartbeat recu du serveur " << serveur.getId() << " " << serveur.getIp() << ":" << serveur.getPort() << endl;
+    cout << "[MASTER] Heartbeat recu du serveur " << serveur.getId() << " " << serveur.getIp() << ":" << serveur.getPort() << endl;
 }
 
 void Master::supprimerServeur(ServeurMaster& serveur) {
-	sf::TcpSocket* sock = serveur.getSocket();
+    sf::TcpSocket* sock = serveur.getSocket();
 
     for (vector<ServeurMaster>::iterator it = serveurs.begin(); it != serveurs.end(); ++it) {
         ServeurMaster& sv = *it;
@@ -327,5 +327,5 @@ void Master::supprimerServeur(ServeurMaster& serveur) {
 }
 
 void Master::envoiListeServeurs(ClientMaster& client) {
-	cout << "herp" << endl;
+    cout << "herp" << endl;
 }

@@ -26,8 +26,8 @@ int main() {
     masterServeur = new Master(portServeurs, portClients);
 
     while(true) {
-    	masterServeur->ecouterReseau();
-    	masterServeur->verifierServeursActifs();
-    	sf::sleep(sf::milliseconds(50));
+        masterServeur->ecouterReseau();
+        masterServeur->verifierServeursActifs();
+        sf::sleep(sf::milliseconds(50));
     }
 }

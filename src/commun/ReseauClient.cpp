@@ -15,7 +15,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
     sf::Time timeout = sf::seconds(2);
     int nbEssais = 0;
     unsigned short portMaster = 1600;
-    sf::IpAddress masterServer("127.0.0.1");
+    sf::IpAddress masterServer("barbatos.fr");
 
     if (getActif() == true) {
         cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;

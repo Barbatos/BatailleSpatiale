@@ -4,7 +4,7 @@ ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
     plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
     int nbEssais = 0;
     unsigned short portMaster = 1500;
-    sf::IpAddress masterServer("127.0.0.1");
+    sf::IpAddress masterServer("barbatos.fr");
     sf::Time timeout = sf::seconds(2);
 
     plateau.setJoueurs(&joueurs);
