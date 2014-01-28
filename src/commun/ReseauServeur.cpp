@@ -3,6 +3,9 @@
 ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
     plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
     int nbEssais = 0;
+    unsigned short portMaster = 1500;
+    sf::IpAddress masterServer("127.0.0.1");
+    sf::Time timeout = sf::seconds(2);
 
     plateau.setJoueurs(&joueurs);
 
@@ -19,11 +22,29 @@ ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
         nbEssais++;
     }
 
+    nbEssais = 0;
+
+    // On tente de se connecter au Master Serveur
+    while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
+        if(nbEssais >= 5) {
+            cout << "[RESEAU] Abandon de la tentative de connexion au Master Serveur" << endl;
+            break;
+        }
+
+        cout << "[RESEAU] Impossible de se connecter au Master Serveur sur le port " << portMaster << ", essai sur le port " << (portMaster+1) << endl;
+
+        portMaster++;
+        nbEssais++;
+    }
+
     // On met la socket en mode non-bloquant
     listener.setBlocking(false);
+    socketMaster.setBlocking(false);
 
     // On ajoute la socket au selecteur
     selector.add(listener);
+
+    dernierHeartbeat = timer.getElapsedTime();
 
     cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
@@ -482,6 +503,8 @@ void ReseauServeur::ecouterReseau(void) {
             }
         }
     }
+
+    envoiHeartbeat();
 }
 
 void ReseauServeur::setPlateau(PlateauServeur& _plateau) {
@@ -507,4 +530,25 @@ void ReseauServeur::fermerReseau() {
 
     selector.clear();
     listener.close();
+    socketMaster.disconnect();
+}
+
+void ReseauServeur::envoiHeartbeat() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MasterHeartbeat);
+    sf::Time tempsEcoule;
+    sf::Packet paquet;
+
+    tempsEcoule = timer.getElapsedTime();
+
+    if((tempsEcoule.asSeconds() - dernierHeartbeat.asSeconds()) < 60) {
+        return;
+    } 
+
+    paquet << typePaquet;
+
+    dernierHeartbeat = tempsEcoule;
+
+    cout << "[RESEAU] Envoi d'un heartbeat au Master Serveur" << endl;
+
+    ReseauGlobal::EnvoiPaquet(socketMaster, paquet);
 }

@@ -19,7 +19,7 @@ set(EXE_MASTER "MasterServeur")
 # Que compiler
 option(COMPILER_CLIENT "Compiler l'exécutable client" ON)
 option(COMPILER_SERVEUR "Compiler l'exécutable serveur" ON)
-option(COMPILER_MASTER "Compiler le Master Serveur" OFF)
+option(COMPILER_MASTER "Compiler le Master Serveur" ON)
 
 # Si rien n'est à compiler, erreur
 if(NOT COMPILER_CLIENT AND NOT COMPILER_SERVEUR AND NOT COMPILER_MASTER)

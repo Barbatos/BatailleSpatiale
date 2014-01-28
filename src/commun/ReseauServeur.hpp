@@ -88,10 +88,15 @@ public:
 
     void attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible);
 
+    void envoiHeartbeat();
+
 private:
 
     /// La socket du serveur
     sf::TcpListener listener;
+
+    /// La socket du serveur pour l'interaction avec le Master Serveur
+    sf::TcpSocket socketMaster;
 
     /// Le sélecteur qui permet d'écouter toutes les sockets ouvertes
     sf::SocketSelector selector;
@@ -102,6 +107,10 @@ private:
     PlateauServeur& plateau;
 
     sf::Thread reseauThread;
+
+    sf::Clock timer;
+
+    sf::Time dernierHeartbeat;
 
     bool actif;
 };
