@@ -16,6 +16,8 @@
 
 // Includes de nos classes
 #include <client/vue/gui/elements/generiques/Label.hpp>
+#include <client/vue/gui/elements/generiques/BarreMesure.hpp>
+
 
 // Includes du modèle
 #include <commun/enum/TypeVaisseau.hpp>
@@ -68,6 +70,11 @@ class AffichageDetails : public Element {
      * \see Position
      */
     Position position;
+
+    /**
+     * \brief la barre représentant le niveau de commandement
+     */
+    BarreMesure commandementBarre;
 
     public:
     /**
