@@ -265,8 +265,7 @@ void SceneJeu::surMessage(Message message) {
                     break;
                 case Bas:
                     if (vue.getCenter().y
-                                    <= ((jeu.lirePlateau().getTailleY()
-                                                    + jeu.lirePlateau().getTailleX() / 2) * 30))
+                                    <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
                 case Action:
