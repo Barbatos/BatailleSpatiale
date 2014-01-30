@@ -30,7 +30,7 @@ BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x,
 			lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
 					"grand9k.ttf"));
 	description.setColor(sf::Color::Black);
-	description.setPosition(contour.getPosition().x + (contour.getSize().x/2) - 20,
+	description.setPosition(contour.getPosition().x + (contour.getSize().x/2) - 25,
 			contour.getPosition().y);
 }
 
@@ -59,6 +59,11 @@ void BarreMesure::setValeurMontree(int value){
 	stream << "/" ;
 	stream << max ;
 	description.setString(stream.str());
+}
+
+sf::RectangleShape BarreMesure::getContour(){
+
+	return contour;
 }
 
 bool BarreMesure::contient(sf::Vector2i) {

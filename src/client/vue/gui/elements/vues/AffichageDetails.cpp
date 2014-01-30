@@ -26,7 +26,14 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 				-1, -1){
 
 	Joueur* joueur = gui->lireScene()->lireJeu().lireJoueur();
-	commandementBarre = new BarreMesure(gui, sf::Color::Cyan, x + largeur, y , 200, 10, joueur->getCommandement());
+	int xalign = x + largeur - 50;
+	int xsize = 250;
+
+	//Création des barres
+	commandementBarre = new BarreMesure(gui, sf::Color::Magenta, xalign, y +20 , xsize, 10, joueur->getCommandement());
+	energieBarre = new BarreMesure(gui, sf::Color::Green, xalign, y + 43 , xsize , 10 , joueur->getEnergie());
+	materiauxBarre = new BarreMesure(gui, sf::Color::Red, xalign, y + 65, xsize, 10, joueur->getMateriaux());
+	requisitionBarre = new BarreMesure(gui, sf::Color(200,200,150), xalign, y + 88, xsize, 10, joueur->getRequisition());
 
 	ecrireTaille(largeur, hauteur);
 
@@ -66,14 +73,23 @@ void AffichageDetails::actualiser(float) {
 	stream << "Pseudo: ";
 	stream << joueur->getPseudo();
 	stream << "\n";
-	stream << "Commandement: " << joueur->getCommandement() << "\n";
-	stream << "Energie: " << joueur->getEnergie() << "\n";
-	stream << "Materiaux: " << joueur->getMateriaux() << "\n";
-	stream << "Requisition: " << joueur->getRequisition() << "\n";
+	stream << "Commandement: " << "\n";
+	stream << "Energie: " << "\n";
+	stream << "Materiaux: " << "\n";
+	stream << "Requisition: " << "\n";
 
 	//Mettre à jour la progression des barres
 	commandementBarre->setLargeur(joueur->getCommandement());
 	commandementBarre->setValeurMontree(joueur->getCommandement());
+
+	energieBarre->setLargeur(joueur->getEnergie());
+	energieBarre->setValeurMontree(joueur->getEnergie());
+
+	materiauxBarre->setLargeur(joueur->getMateriaux());
+	materiauxBarre->setValeurMontree(joueur->getMateriaux());
+
+	requisitionBarre->setLargeur(joueur->getRequisition());
+	requisitionBarre->setValeurMontree(joueur->getRequisition());
 
 	infosJoueurs.setString(stream.str());
 	//infosJoueurs.setOrigin(infosJoueurs.getGlobalBounds().width, 0);
@@ -122,6 +138,9 @@ void AffichageDetails::afficher(sf::RenderWindow& affichage) {
 	affichage.draw(infosCase);
 	affichage.draw(infosJoueurs);
 	commandementBarre->afficher(affichage);
+	energieBarre->afficher(affichage);
+	materiauxBarre->afficher(affichage);
+	requisitionBarre->afficher(affichage);
 }
 
 bool AffichageDetails::contient(sf::Vector2i) {

@@ -81,6 +81,11 @@ public:
 	 */
 	void setValeurMontree(int value);
 
+	/**
+	 * \brief Accesseur au contour de la barre
+	 */
+	sf::RectangleShape getContour();
+
 	void afficher(sf::RenderWindow& affichage);
 	void actualiser(float);
 	bool contient(sf::Vector2i);
