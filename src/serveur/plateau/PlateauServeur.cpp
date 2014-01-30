@@ -405,12 +405,14 @@ bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudS
         while (noeudIterateur != zoneParcourable.end()) {
             if (p2 == (noeudIterateur->getPosition())) {
                 cellule[p1.x][p1.y].echangerVaisseau(cellule[p2.x][p2.y]);
+                
+                VaisseauServeurPtr v = cellule[p2.x][p2.y].getVaisseauPtr();
 
                 chemin = obtenirChemin(p2, zoneParcourable);
                 tailleChemin = chemin.size();
 
-                joueur->setEnergie(joueur->getEnergie() - (v->getConsommation() * tailleChemin));
-                joueur->setCommandement(joueur->getCommandement() - 1);
+                joueur.setEnergie(joueur.getEnergie() - (v->getConsommation() * tailleChemin));
+                joueur.setCommandement(joueur.getCommandement() - 1);
                 return true;
             } else {
                 noeudIterateur++;
