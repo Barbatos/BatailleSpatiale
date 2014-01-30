@@ -362,10 +362,19 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     if(nbJoueurs == 1) {
         posX = 2;
         posY = 2;
+        
+        cellule[6][4].creerVaisseauTest(TypeVaisseau::Destructeur);
+        (*joueurs)[0].ajouterVaisseau(cellule[6][4].getVaisseau());
+        cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
+        (*joueurs)[0].ajouterVaisseau(cellule[8][5].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
+        cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
+        cellule[5][1].creerVaisseauTest();
+        (*joueurs)[1].ajouterVaisseau(cellule[7][6].getVaisseau());
+        (*joueurs)[1].ajouterVaisseau(cellule[5][1].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
