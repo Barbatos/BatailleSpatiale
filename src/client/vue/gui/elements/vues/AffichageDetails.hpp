@@ -91,9 +91,15 @@ class AffichageDetails : public Element {
      */
     BarreMesure* materiauxBarre;
 
+    /**
+     * \brief représente la barre de santé pour un vaisseau
+     */
     BarreMesure* santeVaisseau;
 
-    BarreMesure* bouclierVaisseau;
+    /**
+     * \brief représente la bare de santé pour un bâtiment
+     */
+    BarreMesure* santeBatiment;
 
     public:
     /**

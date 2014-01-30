@@ -26,7 +26,7 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 				-1, -1)
 {
 
-	bouclierVaisseau = NULL;
+	santeBatiment = NULL;
 	santeVaisseau = NULL;
 
 	Joueur* joueur = gui->lireScene()->lireJeu().lireJoueur();
@@ -110,8 +110,11 @@ void AffichageDetails::actualiser(float)
 	{
 		// Si oui, on change le message et on termine l'actualisation
 		infosCase.setString(std::wstring(L"Aucune case n'est selectionnée"));
+
 		if (santeVaisseau != NULL)
 			santeVaisseau->rendreInvisible();
+		if(santeBatiment != NULL)
+					santeBatiment->rendreInvisible();
 		return;
 	}
 
@@ -142,21 +145,46 @@ void AffichageDetails::actualiser(float)
 		santeVaisseau->rendreVisible();
 		santeVaisseau->setLargeur(p.getVaisseau(position).vie);
 		santeVaisseau->setValeurMontree(p.getVaisseau(position).vie);
+
+		if(santeBatiment != NULL)
+			santeBatiment->rendreInvisible();
 		break;
 	case TypeCellule::Batiment:
 		texte = Utile::toString(p.getBatiment(position));
+
+		if(santeBatiment == NULL)
+		{
+			santeBatiment = new BarreMesure(lireGui(), sf::Color::Red,
+					fondCase.getPosition().x + 300,
+					fondCase.getPosition().y + 39, 250, 15,
+					p.getBatiment(position).vieMax);
+			santeBatiment->setLargeur(p.getBatiment(position).vie);
+		}
+
+		santeBatiment->rendreVisible();
+		santeBatiment->setLargeur(p.getBatiment(position).vie);
+		santeBatiment->setValeurMontree(p.getBatiment(position).vie);
+
 		if (santeVaisseau != NULL)
-			santeVaisseau->rendreInvisible();
+					santeVaisseau->rendreInvisible();
 		break;
 	case TypeCellule::Evenement:
 		texte = Utile::toString(p.getEvenement(position));
+
 		if (santeVaisseau != NULL)
 			santeVaisseau->rendreInvisible();
+		if(santeBatiment != NULL)
+					santeBatiment->rendreInvisible();
+
 		break;
 	default:
 		texte = Utile::toString(position);
+
 		if (santeVaisseau != NULL)
 			santeVaisseau->rendreInvisible();
+
+		if(santeBatiment != NULL)
+					santeBatiment->rendreInvisible();
 		break;
 	}
 
