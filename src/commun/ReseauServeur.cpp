@@ -80,6 +80,9 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 
         joueur.setPseudo(msg);
         envoiATous(msgFinal);
+
+        // On envoie ses infos au joueur
+        envoiJoueurCourant(joueur);
         break;
 
         // Récupération des infos du joueur courant
@@ -272,7 +275,7 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
     }
 
     envoiJoueurCourant(joueur);
-    
+
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
