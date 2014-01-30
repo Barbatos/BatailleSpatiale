@@ -418,6 +418,7 @@ bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudS
                 tailleChemin = chemin.size();
 
                 joueur->setEnergie(joueur->getEnergie() - (v->getConsommation() * tailleChemin));
+                joueur->setCommandement(joueur->getCommandement() - 1);
                 return true;
             } else {
                 noeudIterateur++;
