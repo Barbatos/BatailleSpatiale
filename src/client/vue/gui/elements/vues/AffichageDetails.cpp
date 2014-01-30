@@ -23,9 +23,11 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 		float largeur, float hauteur) :
 		Element(gui, id), fondCase(), fondJoueurs(), infosCase("", x + 5,
 				y + 5), infosJoueurs("", x + largeur - largeur / 3 + 5, y + 5), position(
-				-1, -1), commandementBarre(gui, "commandemment", x + largeur, y, 200, 10) {
+				-1, -1){
 
-	ecrirePosition(x, y);
+	Joueur* joueur = gui->lireScene()->lireJeu().lireJoueur();
+	commandementBarre = new BarreMesure(gui, sf::Color::Cyan, x + largeur, y , 200, 10, joueur->getCommandement());
+
 	ecrireTaille(largeur, hauteur);
 
 	int taille = largeur / 3;
@@ -68,6 +70,10 @@ void AffichageDetails::actualiser(float) {
 	stream << "Energie: " << joueur->getEnergie() << "\n";
 	stream << "Materiaux: " << joueur->getMateriaux() << "\n";
 	stream << "Requisition: " << joueur->getRequisition() << "\n";
+
+	//Mettre à jour la progression des barres
+	commandementBarre->setLargeur(joueur->getCommandement());
+	commandementBarre->setValeurMontree(joueur->getCommandement());
 
 	infosJoueurs.setString(stream.str());
 	//infosJoueurs.setOrigin(infosJoueurs.getGlobalBounds().width, 0);
@@ -115,7 +121,7 @@ void AffichageDetails::afficher(sf::RenderWindow& affichage) {
 	affichage.draw(fondJoueurs);
 	affichage.draw(infosCase);
 	affichage.draw(infosJoueurs);
-	commandementBarre.afficher(affichage);
+	commandementBarre->afficher(affichage);
 }
 
 bool AffichageDetails::contient(sf::Vector2i) {

@@ -7,28 +7,31 @@
 
 #include "BarreMesure.hpp"
 
-BarreMesure::BarreMesure(Gui* gui, std::string texte, float x, float y, float largeur,
-		float hauteur) :
-		Element(gui,-1), contour(), progression(), description() {
+BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x,
+		float y, float largeur, float hauteur, int max) :
+		Element(gui, -1), contour(), progression(), description(), max(max) {
 
-	Joueur* joueur = lireGui()->lireScene()->lireJeu().lireJoueur();
-	coefficient = largeur/joueur->getCommandement();
+	coefficient = largeur / max;
 
-	contour.setOrigin(-2,-2);
-	contour.setSize(sf::Vector2f(largeur,hauteur));
-	contour.setFillColor(sf::Color(255,255,255));
-	contour.setOutlineColor(sf::Color(150,150,150));
+	contour.setOrigin(-2, -2);
+	contour.setSize(sf::Vector2f(largeur, hauteur));
+	contour.setFillColor(sf::Color(255, 255, 255));
+	contour.setOutlineColor(sf::Color(150, 150, 150));
 	contour.setOutlineThickness(2);
-	contour.setPosition(x-contour.getSize().x-10, y+10);
+	contour.setPosition(x - contour.getSize().x - 10, y + 10);
 
-	progression.setOrigin(-2,-2);
-	progression.setSize(sf::Vector2f(joueur->getCommandement()*coefficient,hauteur));
-	progression.setFillColor(sf::Color(100,100,255));
-	progression.setPosition(x-progression.getSize().x-10, y+10);
+	progression.setOrigin(-2, -2);
+	progression.setSize(
+			sf::Vector2f(max * coefficient, hauteur));
+	progression.setFillColor(color);
+	progression.setPosition(x - progression.getSize().x - 10, y + 10);
 
-	description.setFont(lireGui()->lireScene()->lireJeu().lireRessources().lirePolice("grand9k.ttf"));
-	description.setString(texte);
-	description.setPosition(contour.getPosition().x,contour.getPosition().y+20);
+	description.setFont(
+			lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
+					"grand9k.ttf"));
+	description.setColor(sf::Color::Black);
+	description.setPosition(contour.getPosition().x + (contour.getSize().x/2) - 20,
+			contour.getPosition().y);
 }
 
 BarreMesure::~BarreMesure() {
@@ -40,12 +43,25 @@ void BarreMesure::actualiser(float) {
 }
 
 void BarreMesure::afficher(sf::RenderWindow& affichage) {
-    affichage.draw(contour);
-    affichage.draw(progression);
-    affichage.draw(description);
+	affichage.draw(contour);
+	affichage.draw(progression);
+	affichage.draw(description);
+}
+
+void BarreMesure::setLargeur(int arg) {
+	progression.setSize(sf::Vector2f(arg * coefficient, progression.getSize().y));
+}
+
+void BarreMesure::setValeurMontree(int value){
+
+	std::stringstream stream;
+	stream << value;
+	stream << "/" ;
+	stream << max ;
+	description.setString(stream.str());
 }
 
 bool BarreMesure::contient(sf::Vector2i) {
-    return false;
+	return false;
 }
 

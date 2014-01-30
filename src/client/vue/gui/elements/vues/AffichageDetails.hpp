@@ -74,7 +74,16 @@ class AffichageDetails : public Element {
     /**
      * \brief la barre représentant le niveau de commandement
      */
-    BarreMesure commandementBarre;
+    BarreMesure* commandementBarre;
+
+    /**
+     * \brief la barre représentant le niveau d'énergie
+     */
+    BarreMesure* energieBarre;
+
+    BarreMesure* requisitionBarre;
+
+    BarreMesure* materiauxBarre;
 
     public:
     /**
