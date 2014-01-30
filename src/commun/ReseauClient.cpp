@@ -365,7 +365,7 @@ void ReseauClient::demanderListeServeurs() {
 }
 
 void ReseauClient::getVaisseauxConstructibles() {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::getVaisseauxConstructibles);
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetVaisseauxConstructibles);
     sf::Packet paquet;
 
     paquet << typePaquet;
