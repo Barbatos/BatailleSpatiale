@@ -81,9 +81,19 @@ class AffichageDetails : public Element {
      */
     BarreMesure* energieBarre;
 
+    /**
+     * \brief la barre représentant le niveau de réquisition
+     */
     BarreMesure* requisitionBarre;
 
+    /**
+     * \brief la barre représentant le niveau de matériaux
+     */
     BarreMesure* materiauxBarre;
+
+    BarreMesure* santeVaisseau;
+
+    BarreMesure* bouclierVaisseau;
 
     public:
     /**

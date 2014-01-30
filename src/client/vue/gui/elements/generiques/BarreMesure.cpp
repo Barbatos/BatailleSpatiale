@@ -7,10 +7,10 @@
 
 #include "BarreMesure.hpp"
 
-BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x,
-		float y, float largeur, float hauteur, int max) :
-		Element(gui, -1), contour(), progression(), description(), max(max) {
-
+BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x, float y,
+		float largeur, float hauteur, int max) :
+		Element(gui, -1), contour(), progression(), description(), max(max)
+{
 	coefficient = largeur / max;
 
 	contour.setOrigin(-2, -2);
@@ -21,8 +21,7 @@ BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x,
 	contour.setPosition(x - contour.getSize().x - 10, y + 10);
 
 	progression.setOrigin(-2, -2);
-	progression.setSize(
-			sf::Vector2f(max * coefficient, hauteur));
+	progression.setSize(sf::Vector2f(max * coefficient, hauteur));
 	progression.setFillColor(color);
 	progression.setPosition(x - progression.getSize().x - 10, y + 10);
 
@@ -30,43 +29,64 @@ BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x,
 			lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
 					"grand9k.ttf"));
 	description.setColor(sf::Color::Black);
-	description.setPosition(contour.getPosition().x + (contour.getSize().x/2) - 25,
+	description.setPosition(
+			contour.getPosition().x + (contour.getSize().x / 2) - 25,
 			contour.getPosition().y);
 }
 
-BarreMesure::~BarreMesure() {
+BarreMesure::~BarreMesure()
+{
 
 }
 
-void BarreMesure::actualiser(float) {
+void BarreMesure::actualiser(float)
+{
 
 }
 
-void BarreMesure::afficher(sf::RenderWindow& affichage) {
+void BarreMesure::afficher(sf::RenderWindow& affichage)
+{
 	affichage.draw(contour);
 	affichage.draw(progression);
 	affichage.draw(description);
 }
 
-void BarreMesure::setLargeur(int arg) {
-	progression.setSize(sf::Vector2f(arg * coefficient, progression.getSize().y));
+void BarreMesure::setLargeur(int arg)
+{
+	progression.setSize(
+			sf::Vector2f(arg * coefficient, progression.getSize().y));
 }
 
-void BarreMesure::setValeurMontree(int value){
-
+void BarreMesure::setValeurMontree(int value)
+{
 	std::stringstream stream;
 	stream << value;
-	stream << "/" ;
-	stream << max ;
+	stream << "/";
+	stream << max;
 	description.setString(stream.str());
 }
 
-sf::RectangleShape BarreMesure::getContour(){
+void BarreMesure::rendreInvisible()
+{
+	contour.setScale(0, 0);
+	progression.setScale(0, 0);
+	description.setScale(0, 0);
+}
 
+void BarreMesure::rendreVisible()
+{
+	contour.setScale(1, 1);
+	progression.setScale(1, 1);
+	description.setScale(1, 1);
+}
+
+sf::RectangleShape BarreMesure::getContour()
+{
 	return contour;
 }
 
-bool BarreMesure::contient(sf::Vector2i) {
+bool BarreMesure::contient(sf::Vector2i)
+{
 	return false;
 }
 

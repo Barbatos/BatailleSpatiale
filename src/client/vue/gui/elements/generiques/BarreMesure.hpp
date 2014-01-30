@@ -86,6 +86,13 @@ public:
 	 */
 	sf::RectangleShape getContour();
 
+	/**
+	 * \brief rend la barre invisible si tel doit être
+	 */
+	void rendreInvisible();
+
+	void rendreVisible();
+
 	void afficher(sf::RenderWindow& affichage);
 	void actualiser(float);
 	bool contient(sf::Vector2i);
