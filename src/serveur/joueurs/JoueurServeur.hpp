@@ -161,7 +161,7 @@ public:
      */
     void setMateriaux(sf::Int32 _materiaux);
 
-
+    std::vector<VaisseauServeur> getVaisseauxConstructibles();
 
 private:
     /// La technologie du joueur pour les structures
