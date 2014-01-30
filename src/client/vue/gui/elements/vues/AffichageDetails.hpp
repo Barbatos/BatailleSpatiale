@@ -74,7 +74,32 @@ class AffichageDetails : public Element {
     /**
      * \brief la barre représentant le niveau de commandement
      */
-    BarreMesure commandementBarre;
+    BarreMesure* commandementBarre;
+
+    /**
+     * \brief la barre représentant le niveau d'énergie
+     */
+    BarreMesure* energieBarre;
+
+    /**
+     * \brief la barre représentant le niveau de réquisition
+     */
+    BarreMesure* requisitionBarre;
+
+    /**
+     * \brief la barre représentant le niveau de matériaux
+     */
+    BarreMesure* materiauxBarre;
+
+    /**
+     * \brief représente la barre de santé pour un vaisseau
+     */
+    BarreMesure* santeVaisseau;
+
+    /**
+     * \brief représente la bare de santé pour un bâtiment
+     */
+    BarreMesure* santeBatiment;
 
     public:
     /**

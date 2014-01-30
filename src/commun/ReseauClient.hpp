@@ -104,6 +104,10 @@ class ReseauClient {
 
         void demanderListeServeurs();
 
+        void getVaisseauxConstructibles();
+
+        void parseVaisseauxConstructibles(sf::Packet paquet);
+
     private:
 
         /// La socket du client

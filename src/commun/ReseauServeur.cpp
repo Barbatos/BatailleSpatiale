@@ -80,6 +80,9 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 
         joueur.setPseudo(msg);
         envoiATous(msgFinal);
+
+        // On envoie ses infos au joueur
+        envoiJoueurCourant(joueur);
         break;
 
         // Récupération des infos du joueur courant
@@ -132,6 +135,11 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     case TypePaquet::DemanderAttaqueVaisseau:
         paquet >> pos >> pos2;
         attaquerVaisseau(*client, pos, pos2);
+        break;
+
+        // Le client demande la liste des vaisseaux constructibles
+    case TypePaquet::GetVaisseauxConstructibles:
+        envoiVaisseauxConstructibles(joueur);
         break;
 
     default:
@@ -269,6 +277,7 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
         paquet << paquetDeplacementImpossible;
     }
 
+    envoiJoueurCourant(joueur);
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
@@ -351,6 +360,25 @@ void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
     }
 
     ReseauGlobal::EnvoiPaquet(client, paquet);
+}
+
+void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::VaisseauxConstructibles);
+    std::vector<VaisseauServeur> listeVaisseaux = joueur.getVaisseauxConstructibles();
+    std::vector<VaisseauServeur>::iterator vaisseauIterator;
+    sf::TcpSocket* client = joueur.getSocket();
+    sf::Packet paquet;
+    sf::Int32 nbVaisseaux;
+
+    nbVaisseaux = listeVaisseaux.size();
+
+    paquet << typePaquet << nbVaisseaux;
+
+    for (vaisseauIterator = listeVaisseaux.begin(); vaisseauIterator != listeVaisseaux.end(); vaisseauIterator++) {
+        paquet << *vaisseauIterator;
+    }
+
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
 void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {

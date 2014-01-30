@@ -20,6 +20,7 @@ class SceneJeuOptions : public Scene {
     private:
         enum Boutons {
             Musique,
+            ChangerMusique,
             AugmenterMusique,
             BaisserMusique,
             Son,

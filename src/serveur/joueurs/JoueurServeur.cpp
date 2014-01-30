@@ -56,6 +56,10 @@ VaisseauServeur JoueurServeur::getConstructionVaisseau(int index) {
     return listeConstructionVaisseau.at(index);
 }
 
+std::vector<VaisseauServeur> JoueurServeur::getVaisseauxConstructibles() {
+    return listeConstructionVaisseau;
+}
+
 void JoueurServeur::setSocket(sf::TcpSocket* _socket) {
     this->socket = _socket;
 }

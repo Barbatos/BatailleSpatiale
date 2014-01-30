@@ -90,6 +90,8 @@ public:
 
     void envoiHeartbeat();
 
+    void envoiVaisseauxConstructibles(JoueurServeur& joueur);
+
 private:
 
     /// La socket du serveur
