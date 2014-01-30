@@ -41,8 +41,7 @@ public:
 
     // Setters
     void setConsommation(const sf::Int32 _consommation);
-
-    void modifierEnergie(sf::Int32 const valeur);
+    
     static VaisseauServeur cloner(VaisseauServeur const& modele, TechnologieStructure techS, TechnologieVaisseau techV);
     int triangulaire(VaisseauServeurPtr vAttaquant);
     void afficher(std::ostream& fluxSortant) const;
