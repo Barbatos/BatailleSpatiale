@@ -278,17 +278,12 @@ void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquan
     cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
     cCible = plateau.cellule[posCible.x][posCible.y];
 
-    // TODO : check dans attaquer() que l'on a bien le droit d'attaquer la cellule cible !
-    /*if(cAttaquant.attaquer(&cCible)) {
+    if(plateau.attaquer(posAttaquant, posCible)) {
         paquet << paquetAttaquerVaisseau;
         envoiPlateauATous();
     } else {
         paquet << paquetAttaqueImpossible;
-    }*/
-
-    cAttaquant.attaquer(&cCible);
-    paquet << paquetAttaquerVaisseau;
-    envoiPlateauATous();
+    }
     
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }

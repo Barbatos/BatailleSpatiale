@@ -421,6 +421,26 @@ bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudS
     return false;
 }
 
+bool PlateauServeur::attaquer(Position attaquant, Position cible) {
+    CelluleServeur cAttaquant, cCible;
+    std::list<NoeudServeur> noeuds;
+    std::list<NoeudServeur>::iterator noeudIterator;
+
+    cAttaquant = cellule[attaquant.x][attaquant.y];
+    cCible = cellule[cible.x][cible.y];
+
+    noeuds = getZoneAttaquable(attaquant);
+
+    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+        if(noeudIterator->getPosition() == cible) {
+            cAttaquant.attaquer(&cCible);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool PlateauServeur::celluleAccessible(Position p) {
     return cellule[p.x][p.y].estAccessible();
 }

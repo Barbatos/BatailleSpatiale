@@ -179,8 +179,6 @@ sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
 
 void CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
-
-    // TODO : vérifier que l'on a le droit d'attaquer cette cellule !!
     
     if (vaisseau) {
         degat += vaisseau->getAttaque();
