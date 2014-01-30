@@ -74,7 +74,7 @@ public:
 
     void envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee);
 
-    void deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee);
+    void deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee, JoueurServeur& joueur);
 
     void envoiZoneConstructibleVaisseau(JoueurServeur& joueur);
 

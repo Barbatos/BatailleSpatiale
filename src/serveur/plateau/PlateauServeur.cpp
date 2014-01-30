@@ -396,7 +396,7 @@ std::list<Position> PlateauServeur::obtenirChemin(Position p,
     return chemin;
 }
 
-bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable) {
+bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable, JoueurServeur& joueur) {
     std::list<NoeudServeur>::iterator noeudIterateur = zoneParcourable.begin();
 
     if(cellule[p1.x][p1.y].possedeVaisseau() != cellule[p2.x][p2.y].possedeVaisseau()) {

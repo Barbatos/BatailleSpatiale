@@ -166,7 +166,7 @@ public:
      * \param p2 Position d'une cellule
      * \return Vrai si au moins une cellule contient un vaisseau et l'autre non
      */
-    bool deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable);
+    bool deplacerVaisseau(Position p1, Position p2, std::list<NoeudServeur> zoneParcourable, JoueurServeur& joueur);
 
     /**
      * \brief copie d'un plateau
