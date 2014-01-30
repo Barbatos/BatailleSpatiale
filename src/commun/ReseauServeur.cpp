@@ -271,6 +271,8 @@ void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, 
         paquet << paquetDeplacementImpossible;
     }
 
+    envoiJoueurCourant(joueur);
+    
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
