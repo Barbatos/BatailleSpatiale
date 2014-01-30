@@ -10,43 +10,43 @@
 #include "../../global.hpp"
 
 /**
- * \brief Classe permettant de gérer les joueurs.
+ * \brief Classe permettant de gÃ©rer les joueurs.
  */
 class JoueurServeur {
 public:
     /**
-     * \brief Constructeur par défaut
+     * \brief Constructeur par dÃ©faut
      *
      */
     JoueurServeur(void);
 
     /**
-     * \brief Récupération de la socket réseau du joueur
+     * \brief RÃ©cupÃ©ration de la socket rÃ©seau du joueur
      *
      * \return un pointeur vers la socket de type sf::TcpSocket
      */
     sf::TcpSocket* getSocket(void);
 
     /**
-     * \brief Récupération du pseudo du joueur
+     * \brief RÃ©cupÃ©ration du pseudo du joueur
      *
-     * \return le pseudo sous forme de chaîne de caractères
+     * \return le pseudo sous forme de chaÃ®ne de caractÃ¨res
      */
     string getPseudo(void);
 
     /**
-     * \brief Récupération de l'adresse IP du joueur
+     * \brief RÃ©cupÃ©ration de l'adresse IP du joueur
      *
-     * \return l'adresse ip sous forme de chaîne de caractères
+     * \return l'adresse ip sous forme de chaÃ®ne de caractÃ¨res
      */
     string getIp(void);
 
     /**
-     * \brief Récupération du numéro du joueur sur le serveur
+     * \brief RÃ©cupÃ©ration du numÃ©ro du joueur sur le serveur
      *
-     * \return Le numéro du joueur
+     * \return Le numÃ©ro du joueur
      */
-    sf::Uint16 getId(void);
+    sf::Int32 getId(void);
 
     /**
      * \brief Recuperation des points de commandements du joueur
@@ -56,16 +56,16 @@ public:
     sf::Int32 getCommandement(void);
 
     /**
-     * \brief Recuperation des points de réquisitions du joueur
+     * \brief Recuperation des points de rÃ©quisitions du joueur
      *
-     * \return Les points de réquisitions du joueur
+     * \return Les points de rÃ©quisitions du joueur
      */
     sf::Int32 getRequisition(void);
 
     /**
-     * \brief Recuperation de l'énergie du joueur
+     * \brief Recuperation de l'Ã©nergie du joueur
      *
-     * \return L'énergie du joueur
+     * \return L'Ã©nergie du joueur
      */
     sf::Int32 getEnergie(void);
 
@@ -126,12 +126,13 @@ public:
      * \param _ip la nouvelle ip
      */
     void setIp(string _ip);
+    
     /**
      * \brief Ajoute ou modifie l'id du joueur
      *
      * \param _id le nouvel id
      */
-    void setId(sf::Uint16 _id);
+    void setId(sf::Int32 _id);
 
     /**
      * \brief Modifie le nombre de points de commandement du joueur
@@ -141,16 +142,16 @@ public:
     void setCommandement(sf::Int32 _commandement);
 
     /**
-     * \brief Modifie le nombre de points de réquisition du joueur
+     * \brief Modifie le nombre de points de rÃ©quisition du joueur
      *
-     * \param _requisition le nombre de points de réquisition
+     * \param _requisition le nombre de points de rÃ©quisition
      */
     void setRequisition(sf::Int32 _requisition);
 
     /**
-     * \brief Modifie le nombre de points d'énergie du joueur
+     * \brief Modifie le nombre de points d'Ã©nergie du joueur
      *
-     * \param _energie le nombre de points d'énergie
+     * \param _energie le nombre de points d'Ã©nergie
      */
     void setEnergie(sf::Int32 _energie);
 
@@ -191,15 +192,15 @@ private:
     string ip;
 
     /// L'identifiant (nombre positif) du joueur sur le serveur
-    sf::Uint16 id;
+    sf::Int32 id;
 
     /// Les points de commandements du joueur
     sf::Int32 commandement;
 
-    /// Les points de réquisition du joueur
+    /// Les points de rÃ©quisition du joueur
     sf::Int32 requisition;
 
-    /// Les points d'énergie du joueur
+    /// Les points d'Ã©nergie du joueur
     sf::Int32 energie;
 
     /// Les materiaux du joueur

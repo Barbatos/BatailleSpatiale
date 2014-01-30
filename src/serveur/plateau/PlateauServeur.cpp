@@ -65,7 +65,7 @@ std::list<Position> PlateauServeur::celluleAutour(Position p, bool videTolere) {
     return autour;
 }
 
-std::list<Position> PlateauServeur::getZoneConstructibleBatiment(Position position, sf::Uint16 idJoueur) {
+std::list<Position> PlateauServeur::getZoneConstructibleBatiment(Position position, sf::Int32 idJoueur) {
     std::list<Position> zoneConstructible;
     std::list<Position> pointAutour;
     std::list<Position>::iterator p;
@@ -85,7 +85,7 @@ std::list<Position> PlateauServeur::getZoneConstructibleBatiment(Position positi
     return zoneConstructible;
 }
 
-std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(sf::Uint16 idJoueur) {
+std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(sf::Int32 idJoueur) {
     std::list<Position> zoneConstructible;
     std::list<Position> pointAutour;
     std::list<Position>::iterator p;
@@ -114,7 +114,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
     //On créé une liste attaquable
     std::list<NoeudServeur> zoneAttaquable;
     std::list<NoeudServeur>::iterator noeudIterateur;
-    sf::Uint16 idJoueur = cellule[p.x][p.y].getIdJoueur();
+    sf::Int32 idJoueur = cellule[p.x][p.y].getIdJoueur();
 
     //On regarde si le batiment ou le vaisseau peut attaquer
     if (cellule[p.x][p.y].attaqueMaximale() > 0) {
@@ -230,12 +230,12 @@ std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
 }
 
 std::list<NoeudServeur> PlateauServeur::getZoneParcourable (
-    Position positionVaisseau) {
+    Position positionVaisseau, sf::Int32 energie) {
     //On créé une liste parcourable
     std::list<NoeudServeur> zoneParcourable;
 
     //On regarde si le vaisseau peut se déplacer
-    if (cellule[positionVaisseau.x][positionVaisseau.y].distanceMaximale() > 0) {
+    if (cellule[positionVaisseau.x][positionVaisseau.y].distanceMaximale(energie) > 0) {
 
         //Liste des noeuds encore à étudier
         std::list<NoeudServeur> openListe;
@@ -252,7 +252,7 @@ std::list<NoeudServeur> PlateauServeur::getZoneParcourable (
 
         //On défini la distance maximale des recherches
         int distanceParcourable = cellule[positionVaisseau.x][positionVaisseau.y]
-                                  .distanceMaximale();
+                                  .distanceMaximale(energie);
 
         do {
 

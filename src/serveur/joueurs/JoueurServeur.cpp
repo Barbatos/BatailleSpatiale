@@ -32,7 +32,7 @@ string JoueurServeur::getIp(void) {
     return this->ip;
 }
 
-sf::Uint16 JoueurServeur::getId(void) {
+sf::Int32 JoueurServeur::getId(void) {
     return this->id;
 }
 
@@ -52,7 +52,7 @@ sf::Int32 JoueurServeur::getMateriaux(void) {
     return this->materiaux;
 }
 
-VaisseauServeur JoueurServeur::getConstructionVaisseau(int index){
+VaisseauServeur JoueurServeur::getConstructionVaisseau(int index) {
     return listeConstructionVaisseau.at(index);
 }
 
@@ -68,7 +68,7 @@ void JoueurServeur::setIp(string _ip) {
     this->ip = _ip;
 }
 
-void JoueurServeur::setId(sf::Uint16 _id) {
+void JoueurServeur::setId(sf::Int32 _id) {
     this->id = _id;
 }
 
@@ -89,21 +89,21 @@ void JoueurServeur::setMateriaux(sf::Int32 _materiaux) {
 }
 
 void JoueurServeur::ajouterVaisseau(VaisseauServeurPtr vaisseau) {
-    listeVaisseaux.push_back(std::weak_ptr<VaisseauServeur>(vaisseau));
+    vaisseau->setIdJoueur(id);
+    listeVaisseaux.push_back(std::shared_ptr<VaisseauServeur>(vaisseau));
 }
 
 void JoueurServeur::ajouterBatiment(BatimentServeurPtr batiment) {
-    listeBatiments.push_back(std::weak_ptr<BatimentServeur>(batiment));
+    batiment->setIdJoueur(id);
+    listeBatiments.push_back(std::shared_ptr<BatimentServeur>(batiment));
 }
 
 
-void JoueurServeur::ajouterConstructionVaisseau(VaisseauServeur vaisseau){
+void JoueurServeur::ajouterConstructionVaisseau(VaisseauServeur vaisseau) {
     listeConstructionVaisseau.push_back(vaisseau);
-
-
 }
 
-void JoueurServeur::retirerConstructionVaisseau(){
+void JoueurServeur::retirerConstructionVaisseau() {
     if(!listeConstructionVaisseau.empty())
         listeConstructionVaisseau.pop_back();
 

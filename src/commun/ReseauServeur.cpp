@@ -94,20 +94,20 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         // Envoi de la zone parcourable au client
     case TypePaquet::GetZoneParcourable:
         paquet >> pos;
-        envoiZoneParcourable(*client, pos);
+        envoiZoneParcourable(joueur, pos);
         break;
 
         // Envoi au client du chemin entre un point 1 et un point 2
     case TypePaquet::GetChemin:
         paquet >> pos >> pos2;
-        envoiChemin(*client, pos, pos2);
+        envoiChemin(joueur, pos, pos2);
         break;
 
 
         // Le client demande à déplacer un vaisseau
     case TypePaquet::DemanderDeplacementVaisseau:
         paquet >> pos >> pos2;
-        deplacerVaisseau(*client, pos, pos2, joueur);
+        deplacerVaisseau(joueur, pos, pos2);
         break;
 
         // Le client demande la zone constructible autour d'un point
@@ -186,14 +186,15 @@ void ReseauServeur::envoiPlateauATous() {
     }
 }
 
-void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
+void ReseauServeur::envoiZoneParcourable(JoueurServeur& joueur, Position pos) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     std::list<NoeudServeur> noeuds;
     std::list<NoeudServeur>::iterator noeudIterator;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneParcourable);
     sf::Int32 tailleZone;
 
-    noeuds = plateau.getZoneParcourable(pos);
+    noeuds = plateau.getZoneParcourable(pos, joueur.getEnergie());
 
     tailleZone = noeuds.size();
 
@@ -203,7 +204,7 @@ void ReseauServeur::envoiZoneParcourable(sf::TcpSocket& client, Position pos) {
         paquet << noeudIterator->getPosition();
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
 void ReseauServeur::envoiJoueurCourant(JoueurServeur& joueur) {
@@ -231,7 +232,8 @@ void ReseauServeur::envoiJoueursAdverses(JoueurServeur& joueur) {
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
-void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Position posArrivee) {
+void ReseauServeur::envoiChemin(JoueurServeur& joueur, Position posDepart, Position posArrivee) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     std::list<NoeudServeur> noeuds;
     std::list<Position>::iterator cheminIterator;
@@ -239,7 +241,7 @@ void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Posit
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Chemin);
     sf::Int32 tailleChemin;
 
-    noeuds = plateau.getZoneParcourable(posDepart);
+    noeuds = plateau.getZoneParcourable(posDepart, joueur.getEnergie());
 
     chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
 
@@ -251,22 +253,23 @@ void ReseauServeur::envoiChemin(sf::TcpSocket& client, Position posDepart, Posit
         paquet << *cheminIterator;
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
-void ReseauServeur::deplacerVaisseau(sf::TcpSocket& client, Position posDepart, Position posArrivee, JoueurServeur& joueur) {
+void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, Position posArrivee) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
     sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
 
-    if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart), joueur)) {
+    if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart, joueur.getEnergie()), joueur)) {
         paquet << paquetDeplacerVaisseau;
         envoiPlateauATous();
     } else {
         paquet << paquetDeplacementImpossible;
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
 void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {

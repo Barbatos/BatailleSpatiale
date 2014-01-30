@@ -68,7 +68,7 @@ void Structure::setVie(sf::Int32 const _vie) {
     else vie = vieMax;
 }
 
-void Structure::setIdJoueur(sf::Uint16 const _idJoueur) {
+void Structure::setIdJoueur(sf::Int32 const _idJoueur) {
     idJoueur = _idJoueur;
 }
 

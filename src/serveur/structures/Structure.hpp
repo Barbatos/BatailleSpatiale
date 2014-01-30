@@ -114,7 +114,7 @@ public:
      * 
      * \param _idJoueur l'id du joueur
      */
-    void setIdJoueur( sf::Uint16 _idJoueur);
+    void setIdJoueur( sf::Int32 _idJoueur);
 
     /**
      * \brief Setter vie
@@ -219,13 +219,6 @@ public:
     void modifierVie(sf::Int32 const valeur);
     
     /**
-     * \brief Change l'id du joueur
-     * 
-     * \param _id l'id du nouveau propriétaire de la structure
-     */
-    void setIdJoueur( sf::Int32 const _id);
-    
-    /**
      * \brief Permet de cloner une structure grace a une autre en prenant 
      * une technologie en parametre
      * 
@@ -246,7 +239,7 @@ protected:
     sf::Int32 rayonAttaque;
     sf::Int32 prixEnergie;
     sf::Int32 prixMateriaux;
-    sf::Uint16 idJoueur;
+    sf::Int32 idJoueur;
 
 private:
     friend std::ostream& operator<< (std::ostream& fluxSortant, Structure const& Structure);

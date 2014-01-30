@@ -198,6 +198,13 @@ sf::Int32 VaisseauServeur::getDistanceMax() const {
     return distanceMax;
 }
 
+sf::Int32 VaisseauServeur::distanceMaximale(sf::Int32 energie) const {
+    if(energie / consommation < distanceMax)
+        return energie / consommation;
+    else
+        return distanceMax;
+}
+
 TypeVaisseau VaisseauServeur::getType() const {
     return type;
 }

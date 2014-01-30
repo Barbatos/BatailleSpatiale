@@ -119,7 +119,7 @@ public:
      * \param positionVaisseau La position contenant le vaisseau
      * \return La zone parcourable
      */
-    std::list<NoeudServeur> getZoneParcourable(Position positionVaisseau);
+    std::list<NoeudServeur> getZoneParcourable(Position positionVaisseau, sf::Int32 energie);
     
     /**
      * \brief Retourne la zone attaquable depuis une case contenant un vaisseau ou un batiment
@@ -182,7 +182,7 @@ public:
      * \param idJoueur l'id du joueur
      * \return Une liste de Position où l'on peut construire des vaisseaux
      */
-    std::list<Position> getZoneConstructibleVaisseau(sf::Uint16 idJoueur);
+    std::list<Position> getZoneConstructibleVaisseau(sf::Int32 idJoueur);
     
     /**
      * \brief Retourne la zone construtible pour les batiments a partir d'une case
@@ -191,7 +191,7 @@ public:
      * \param p la position du joueur
      * \return Une liste de Position où l'on peut construire des batiment
      */
-    std::list<Position> getZoneConstructibleBatiment(Position position, sf::Uint16 idJoueur);
+    std::list<Position> getZoneConstructibleBatiment(Position position, sf::Int32 idJoueur);
 
     bool attaquer(Position attaquant, Position cible);
 

@@ -97,7 +97,7 @@ public:
      *
      * \return La distance maximale du vaisseau sur la cellule.
      */
-    int distanceMaximale() const;
+    int distanceMaximale(sf::Int32 energie) const;
     
     /**
      * \brief Indique le rayon maximale d'attaque de la cellule
@@ -122,7 +122,7 @@ public:
      * 
      * \return L'id du joueur
      */
-    sf::Uint16 getIdJoueur();
+    sf::Int32 getIdJoueur();
 
     /**
      * \brief Attaque une cellule cible.

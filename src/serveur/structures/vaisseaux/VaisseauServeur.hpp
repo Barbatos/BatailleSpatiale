@@ -13,8 +13,8 @@ typedef std::shared_ptr<VaisseauServeur> VaisseauServeurPtr;
 
 
 /*
-* Classe qui définit les differents attributs
-* que possèdent les vaisseaux.
+* Classe qui dÃ©finit les differents attributs
+* que possÃ¨dent les vaisseaux.
 */
 class VaisseauServeur : public Structure {
 
@@ -36,6 +36,7 @@ public:
 
     // Getters
     sf::Int32 getConsommation() const;
+    sf::Int32 distanceMaximale(sf::Int32 energie) const;
     sf::Int32 getDistanceMax() const;
     TypeVaisseau getType() const;
 

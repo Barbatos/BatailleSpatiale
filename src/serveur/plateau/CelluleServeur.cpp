@@ -54,7 +54,7 @@ TypeCellule CelluleServeur::statutEmplacement() const {
         return TypeCellule::Batiment;
 }
 
-sf::Uint16 CelluleServeur::getIdJoueur() {
+sf::Int32 CelluleServeur::getIdJoueur() {
     if(!vaisseau && !batiment)
         return -2;
     else if(vaisseau)
@@ -106,9 +106,9 @@ Structure CelluleServeur::getAttaquant() {
         return *batiment;
 }
 
-int CelluleServeur::distanceMaximale() const {
+int CelluleServeur::distanceMaximale(sf::Int32 energie) const {
     if(vaisseau)
-        return vaisseau->getDistanceMax();
+        return vaisseau->distanceMaximale(energie);
     else
         return 0;
 }
