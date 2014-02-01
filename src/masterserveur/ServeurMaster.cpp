@@ -1,7 +1,7 @@
 #include "ServeurMaster.hpp"
 
 ServeurMaster::ServeurMaster() : 
-    id(-1), socket(NULL), ip(""), port(-1), dernierHeartbeat(sf::Time::Zero) {
+    id(-1), socket(NULL), ip(""), port(-1), dernierHeartbeat(sf::Time::Zero), nom("Serveur sans nom") {
 
 }
 
@@ -25,6 +25,10 @@ sf::Time ServeurMaster::getDernierHeartbeat() {
     return dernierHeartbeat;
 }
 
+string ServeurMaster::getNom() {
+    return nom;
+}
+
 void ServeurMaster::setId(int _id) {
     id = _id;
 }
@@ -43,4 +47,14 @@ void ServeurMaster::setPort(unsigned short _port) {
 
 void ServeurMaster::setDernierHeartbeat(sf::Time _dernierHeartbeat) {
     dernierHeartbeat = _dernierHeartbeat;
+}
+
+void ServeurMaster::setNom(string _nom) {
+    nom = _nom;
+}
+
+sf::Packet& operator <<(sf::Packet& paquet, const ServeurMaster& serveur) {
+    paquet << serveur.ip.toString() << serveur.port << serveur.nom;
+
+    return paquet;
 }

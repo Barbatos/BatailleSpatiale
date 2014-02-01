@@ -20,8 +20,9 @@ public:
      *
      * \param port le port du serveur
      * \param plateau le plateau de jeu
+     * \param nom le nom du serveur
      */
-    ReseauServeur(unsigned short port, PlateauServeur& plateau);
+    ReseauServeur(unsigned short port, PlateauServeur& plateau, string nom);
     /**
      * \brief Fonction gérant les paquets envoyés au serveur par des
      * clients extérieurs.
@@ -114,6 +115,8 @@ private:
 
     sf::Time dernierHeartbeat;
 
+    string nom;
+    
     bool actif;
 };
 

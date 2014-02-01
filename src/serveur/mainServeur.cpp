@@ -5,6 +5,7 @@ int main() {
     PlateauServeur* plateau;
     unsigned int port = 1337;
     string msg = "";
+    string nom = "Serveur sans nom";
 
     cout << "Vous êtes sur le point de lancer un serveur pour le jeu BattleStar." << endl;
     cout << "Veuillez entrer le port sur lequel lancer le serveur [" << port << "]" << endl;
@@ -15,8 +16,14 @@ int main() {
         port = atoi(msg.c_str());
     }
 
+    cout << "Veuillez entrer un nom pour votre serveur [" << nom << "]" << endl;
+
+    if(!msg.empty()) {
+        nom = msg.c_str();
+    }
+
     plateau = new PlateauServeur(15, 15);
-    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau));
+    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau, nom));
 
     while(true) {
         serveur->ecouterReseau();

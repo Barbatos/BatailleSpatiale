@@ -1,7 +1,7 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau) :
-    plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
+ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau, string _nom) :
+    nom(_nom), plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
