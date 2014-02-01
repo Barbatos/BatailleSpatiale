@@ -16,7 +16,7 @@ public:
     void verifierServeursActifs();
     void traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet);
     void traiterPaquetClient(ClientMaster& client, sf::Packet paquet);
-    void majServeur(ServeurMaster& serveur);
+    void majServeur(sf::Packet paquet, ServeurMaster& serveur);
     void supprimerServeur(ServeurMaster& serveur);
     void envoiListeServeurs(ClientMaster& client);
 

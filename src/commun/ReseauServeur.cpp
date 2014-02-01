@@ -1,7 +1,7 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short port, PlateauServeur& _plateau, string _nom) :
-    nom(_nom), plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false) {
+ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, string _nom) :
+    nom(_nom), plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false), port(_port) {
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
@@ -582,7 +582,7 @@ void ReseauServeur::envoiHeartbeat() {
         return;
     } 
 
-    paquet << typePaquet;
+    paquet << typePaquet << port;
 
     dernierHeartbeat = tempsEcoule;
 

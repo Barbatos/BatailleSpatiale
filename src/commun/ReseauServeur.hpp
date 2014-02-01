@@ -118,6 +118,8 @@ private:
     string nom;
     
     bool actif;
+
+    unsigned short port;
 };
 
 typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;

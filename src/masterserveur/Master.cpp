@@ -273,7 +273,7 @@ void Master::traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet) {
 
             // Message heartbeat d'un serveur de jeu
         case TypePaquet::MasterHeartbeat:
-            majServeur(serveur);
+            majServeur(paquet, serveur);
             break;
 
             // Message de déconnexion d'un serveur de jeu
@@ -306,8 +306,13 @@ void Master::traiterPaquetClient(ClientMaster& client, sf::Packet paquet) {
     }
 }
 
-void Master::majServeur(ServeurMaster& serveur) {
+void Master::majServeur(sf::Packet paquet, ServeurMaster& serveur) {
+    unsigned short port;
+
+    paquet >> port;
+
     serveur.setDernierHeartbeat(timer.getElapsedTime());
+    serveur.setPort(port);
 
     cout << "[MASTER] Heartbeat recu du serveur " << serveur.getId() << " " << serveur.getIp() << ":" << serveur.getPort() << endl;
 }
