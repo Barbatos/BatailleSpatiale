@@ -582,7 +582,7 @@ void ReseauServeur::envoiHeartbeat() {
         return;
     } 
 
-    paquet << typePaquet << port;
+    paquet << typePaquet << port << nom;
 
     dernierHeartbeat = tempsEcoule;
 

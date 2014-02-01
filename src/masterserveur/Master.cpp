@@ -308,13 +308,15 @@ void Master::traiterPaquetClient(ClientMaster& client, sf::Packet paquet) {
 
 void Master::majServeur(sf::Packet paquet, ServeurMaster& serveur) {
     unsigned short port;
+    string nom;
 
-    paquet >> port;
+    paquet >> port >> nom; 
 
     serveur.setDernierHeartbeat(timer.getElapsedTime());
     serveur.setPort(port);
+    serveur.setNom(nom);
 
-    cout << "[MASTER] Heartbeat recu du serveur " << serveur.getId() << " " << serveur.getIp() << ":" << serveur.getPort() << endl;
+    cout << "[MASTER] Heartbeat recu du serveur " << serveur.getNom() << " " << serveur.getIp() << ":" << serveur.getPort() << endl;
 }
 
 void Master::supprimerServeur(ServeurMaster& serveur) {
