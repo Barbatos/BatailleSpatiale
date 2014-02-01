@@ -34,6 +34,8 @@ class ReseauClient {
          */
         void ConnexionServeur(string ip, unsigned short port);
 
+        void ConnexionMasterServeur(void);
+
         /**
          * \brief Traite un paquet reçu de la part du serveur
          *
@@ -53,6 +55,10 @@ class ReseauClient {
          * \param _actif l'état d'activité
          */
         void setActif(bool _actif);
+
+        bool getPartieActive(void);
+
+        void setPartieActive(bool _active);
 
         sf::TcpSocket& getSocket(void);
 
@@ -108,6 +114,8 @@ class ReseauClient {
 
         void parseVaisseauxConstructibles(sf::Packet paquet);
 
+        void parseListeServeurs(sf::Packet paquet);
+
     private:
 
         /// La socket du client
@@ -118,6 +126,10 @@ class ReseauClient {
 
         /// Permet de savoir si le réseau est actif (ie. le client est connecté à un serveur)
         bool actif;
+
+        /// Permet de savoir si une partie multi est commencée ou non. Pour qu'une partie soit commencée,  
+        /// il faut qu'il y ait deux joueurs de connectés ainsi que le réseau d'activé
+        bool partieActive;
 
         string ip;
 

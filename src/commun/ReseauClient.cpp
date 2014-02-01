@@ -3,6 +3,9 @@
 ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur)
                 : ip("none"), port(0), plateau(_plateau), joueur(_joueur) {
     setActif(false);
+    setPartieActive(false);
+
+    ConnexionMasterServeur();
 }
 
 ReseauClient::~ReseauClient() {
@@ -14,8 +17,6 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
     sf::IpAddress server(ip);
     sf::Time timeout = sf::seconds(2);
     int nbEssais = 0;
-    unsigned short portMaster = 1600;
-    sf::IpAddress masterServer("barbatos.fr");
 
     if (getActif() == true) {
         cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
@@ -34,7 +35,20 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
         nbEssais++;
     }
 
-    nbEssais = 0;
+    // On met la socket en mode non-bloquant
+    socket.setBlocking(false);
+
+    // On définit que le réseau est maintenant actif
+    setActif(true);
+
+    cout << "[RESEAU] Connecté au serveur " << server << endl;
+}
+
+void ReseauClient::ConnexionMasterServeur(void) {
+    unsigned short portMaster = 1600;
+    sf::IpAddress masterServer("barbatos.fr");
+    sf::Time timeout = sf::seconds(2);
+    int nbEssais = 0;
 
     while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
         if(nbEssais >= 5) {
@@ -48,14 +62,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
         nbEssais++;
     }
 
-    // On met la socket en mode non-bloquant
-    socket.setBlocking(false);
     socketMaster.setBlocking(false);
-
-    // On définit que le réseau est maintenant actif
-    setActif(true);
-
-    cout << "[RESEAU] Connecté au serveur " << server << endl;
 }
 
 void ReseauClient::TraiterPaquetServeur(void) {
@@ -155,7 +162,7 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
     switch (static_cast<TypePaquet>(typePaquet)) {
 
         case TypePaquet::MasterListeServeurs:
-            paquet >> message;
+            parseListeServeurs(paquet);
             break;
 
         default:
@@ -275,6 +282,16 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
     // TODO
 }
 
+void ReseauClient::parseListeServeurs(sf::Packet paquet) {
+    sf::Int32 nbServeurs;
+
+    paquet >> nbServeurs;
+
+    for (sf::Int32 i = 0; i < nbServeurs; i++) {
+        cout << "serveur " << i << endl;
+    }
+}
+
 void ReseauClient::deplacerVaisseau(sf::Packet) {
     // TODO : Messages d'erreur / validation
 }
@@ -383,6 +400,14 @@ void ReseauClient::setActif(bool _actif) {
 
 bool ReseauClient::getActif(void) {
     return actif;
+}
+
+void ReseauClient::setPartieActive(bool _active) {
+    partieActive = _active;
+}
+
+bool ReseauClient::getPartieActive() {
+    return partieActive;
 }
 
 void ReseauClient::setIp(string _ip) {

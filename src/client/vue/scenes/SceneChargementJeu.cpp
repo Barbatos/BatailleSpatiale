@@ -1,5 +1,5 @@
 /*
- * SceneChargementReseau.cpp
+ * SceneChargementJeu.cpp
  *
  *  Created on: 19 déc. 2013
  *      Author: Soinou

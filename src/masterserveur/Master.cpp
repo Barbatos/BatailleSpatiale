@@ -289,7 +289,6 @@ void Master::traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet) {
 
 void Master::traiterPaquetClient(ClientMaster& client, sf::Packet paquet) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
-    sf::TcpSocket* cl = client.getSocket();
     string msg;
 
     paquet >> typePaquet;
@@ -327,5 +326,18 @@ void Master::supprimerServeur(ServeurMaster& serveur) {
 }
 
 void Master::envoiListeServeurs(ClientMaster& client) {
-    cout << "herp" << endl;
+    sf::TcpSocket* cl = client.getSocket();
+    sf::Packet paquet;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MasterListeServeurs);
+    sf::Int32 nbServeurs;
+
+    nbServeurs = serveurs.size();
+
+    paquet << typePaquet << nbServeurs;
+
+    for (vector<ServeurMaster>::iterator it = serveurs.begin(); it != serveurs.end(); ++it) {
+        paquet << *it;
+    }
+
+    ReseauGlobal::EnvoiPaquet(*cl, paquet);
 }

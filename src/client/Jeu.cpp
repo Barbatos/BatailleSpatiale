@@ -25,6 +25,8 @@ Jeu::Jeu()
 
     reseau = ReseauPtr(new ReseauClient(modele, *joueur));
     reseauActif = false;
+
+    reseau->demanderListeServeurs();
 }
 
 Jeu::~Jeu() {
@@ -88,9 +90,11 @@ void Jeu::threadReseau() {
 }
 
 void Jeu::lancerServeurGUI(unsigned int port) {
+    string nom = "Serveur GUI"; // TODO : proposer champ nom à la création d'un serveur
+
     plateauServeur = PlateauServeurPtr(new PlateauServeur(20, 20));
     plateauServeur->initialisationTest();
-    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur));
+    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur, nom));
 
     serveur->lancerReseau();
 }
