@@ -63,6 +63,8 @@ void ReseauClient::ConnexionMasterServeur(void) {
     }
 
     socketMaster.setBlocking(false);
+
+    cout << "[RESEAU] Connecté au Master Serveur" << endl;
 }
 
 void ReseauClient::TraiterPaquetServeur(void) {
@@ -146,10 +148,6 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
     sf::Packet paquet;
     string message;
-
-    if (!getActif()) {
-        return;
-    }
 
     ReseauGlobal::ReceptionPaquet(socketMaster, paquet, sf::seconds(0.00f));
 

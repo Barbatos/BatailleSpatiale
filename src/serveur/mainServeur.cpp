@@ -18,6 +18,8 @@ int main() {
 
     cout << "Veuillez entrer un nom pour votre serveur [" << nom << "]" << endl;
 
+    getline(cin, msg);
+    
     if(!msg.empty()) {
         nom = msg.c_str();
     }
