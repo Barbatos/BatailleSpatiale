@@ -282,11 +282,20 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
 
 void ReseauClient::parseListeServeurs(sf::Packet paquet) {
     sf::Int32 nbServeurs;
+    vector<Serveur> listeServeurs;
+    Serveur s;
 
     paquet >> nbServeurs;
 
     for (sf::Int32 i = 0; i < nbServeurs; i++) {
-        cout << "serveur " << i << endl;
+        paquet >> s;
+        listeServeurs.push_back(s);
+    }
+
+    for (vector<Serveur>::iterator it = listeServeurs.begin(); it != listeServeurs.end(); ++it) {
+        Serveur sv = *it;
+
+        cout << "serveur: " << sv.getNom() << ", " << sv.getIp() << ", " << sv.getPort() << endl;
     }
 }
 

@@ -7,6 +7,7 @@
 #include "../client/modele/Plateau.hpp"
 #include "../commun/utile/Position.hpp"
 #include "../client/modele/Joueur.hpp"
+#include "../client/modele/Serveur.hpp"
 
 /**
  * Classe qui permet à un client de se connecter à
