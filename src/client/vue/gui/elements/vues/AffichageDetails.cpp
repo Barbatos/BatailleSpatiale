@@ -202,11 +202,6 @@ void AffichageDetails::afficher(sf::RenderWindow& affichage)
 	energieBarre->afficher(affichage);
 	materiauxBarre->afficher(affichage);
 	requisitionBarre->afficher(affichage);
-
-	if (santeVaisseau != NULL)
-	{
-		santeVaisseau->afficher(affichage);
-	}
 }
 
 bool AffichageDetails::contient(sf::Vector2i)

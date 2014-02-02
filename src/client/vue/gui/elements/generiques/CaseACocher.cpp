@@ -12,14 +12,21 @@
 /**
  * @brief Constructeur de l'objet
  */
-CaseACocher::CaseACocher(Gui* gui, int id, int x, int y, float hauteur, float largeur)
-                : Element(gui, id), boite(), clique(false) {
+CaseACocher::CaseACocher(Gui* gui, int id, int x, int y, float hauteur, float largeur, std::string txt)
+                : Element(gui, id), ObservateurSouris(), boite(), clique(false), texte(txt, x+largeur+3 , y) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
+
+    enregistrerSouris(this);
 
     //creation de l'�l�ment
     sf::Vector2f size = sf::Vector2f(hauteur, largeur);
     boite.setSize(size);
+    boite.setPosition(x,y);
+    boite.setFillColor(sf::Color::White);
+    boite.setOutlineThickness(3);
+    boite.setOutlineColor(sf::Color::Magenta);
+    texte.setFont(lireGui()->lireScene()->lireJeu().lireRessources().lirePolice("grand9k.ttf"));
 }
 
 /**
@@ -30,11 +37,11 @@ CaseACocher::~CaseACocher() {
 }
 
 void CaseACocher::actualiser(float) {
-
 }
 
 void CaseACocher::afficher(sf::RenderWindow& affichage) {
     affichage.draw(boite);
+    affichage.draw(texte);
 }
 
 bool CaseACocher::contient(sf::Vector2i position) {
@@ -46,8 +53,11 @@ bool CaseACocher::estCoche() {
 }
 
 void CaseACocher::clicSouris(bool clicDroit) {
+
+	lireGui()->lireScene()->lireJeu().lireRessources().jouerSon("menuclick.wav");
+
     if (!clicDroit) {
-        if (boite.getFillColor() == sf::Color::Cyan) {
+        if (clique == true) {
             clique = false;
             boite.setFillColor(sf::Color::White);
         }
@@ -55,6 +65,17 @@ void CaseACocher::clicSouris(bool clicDroit) {
             clique = true;
             boite.setFillColor(sf::Color::Cyan);
         }
+    }
+
+    if(clique)
+    {
+    	Message message;
+
+    	message.type = Message::Element;
+    	message.element.clic = true;
+    	message.element.id = lireId();
+
+    	envoyerMessage(message);
     }
 }
 void CaseACocher::pressionSouris(sf::Mouse::Button) {
@@ -71,7 +92,10 @@ void CaseACocher::entreeSouris(sf::Vector2f) {
 }
 
 void CaseACocher::sortieSouris(sf::Vector2f) {
-
+	if(!clique)
+		boite.setFillColor(sf::Color::White);
+	else
+		boite.setFillColor(sf::Color::Cyan);
 }
 
 void CaseACocher::moletteSouris(int) {

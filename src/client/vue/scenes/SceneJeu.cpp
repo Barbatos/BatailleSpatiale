@@ -11,6 +11,7 @@
 
 #include <client/vue/gui/elements/vues/AffichageDetails.hpp>
 #include <client/vue/gui/elements/vues/AffichageCase.hpp>
+#include <client/vue/gui/elements/generiques/CaseACocher.hpp>
 
 #include <client/Jeu.hpp>
 
@@ -42,9 +43,15 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     new Bouton(&gui, Menu, "Menu", (winx - 100) / 2, winy - 40 - y, 100, 40);
 
-    action = new Bouton(&gui, Action, "Action", (winx - 100) / 2, 0.7 * winy, 100, 40);
+    deplacement = new Bouton(&gui, Deplacement, "Deplacer", (winx + 20) / 2, 0.7 * winy, 100, 40);
+    attaque = new Bouton(&gui, Attaque, "Attaque", (winx - 230) / 2, 0.7 * winy , 100, 40);
 
-    action->ecrireVisible(false);
+    porteeDeplacement = new CaseACocher(&gui, PorteeDeplacement, x+10, y+10, 20, 20, "Afficher portee de deplacement");
+    porteeAttaque = new CaseACocher(&gui, PorteeAttaque, x+10, y+40, 20, 20, "Afficher portee d'attaque");
+    porteeConstruction = new CaseACocher(&gui, PorteeConstruction, x+10, y+70, 20, 20, "Afficher portee de construction");
+
+    deplacement->ecrireVisible(false);
+    attaque->ecrireVisible(false);
 }
 
 SceneJeu::~SceneJeu() {
@@ -53,7 +60,8 @@ SceneJeu::~SceneJeu() {
 
     cases.clear();
 
-    delete action;
+    delete attaque;
+    delete deplacement;
 }
 
 void SceneJeu::initialiserPlateau() {
@@ -124,7 +132,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
     if (message.x == -1 && message.y == -1) {
         p.viderZones();
         details->selectionner();
-        action->ecrireVisible(false);
+        deplacement->ecrireVisible(false);
+        attaque->ecrireVisible(false);
         return;
     }
 
@@ -143,7 +152,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         p.viderDestination();
 
         // On cache le bouton d'action
-        action->ecrireVisible(false);
+        deplacement->ecrireVisible(false);
+        attaque->ecrireVisible(false);
 
         // On réinitialise la destination
         destination = Position(-1, -1);
@@ -166,15 +176,16 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                     r->getChemin(selection, position);
 
                     // On affiche le bouton d'action en mode déplacer
-                    action->ecrireVisible(true);
-                    action->ecrireTexte(L"Déplacer");
+                    deplacement->ecrireVisible(true);
+                    deplacement->ecrireTexte(L"Déplacer");
+                    attaque->ecrireVisible(true);
                     break;
                 case TypeCellule::Vaisseau:
                 case TypeCellule::Batiment:
                     // Si la destination est un vaisseau ou un bâtiment
 
-                    action->ecrireVisible(true);
-                    action->ecrireTexte(L"Attaquer");
+                    deplacement->ecrireVisible(true);
+                    deplacement->ecrireTexte(L"Attaquer");
                     break;
                 default:
                     break;
@@ -187,8 +198,15 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         }
     }
 
-    // Si ce n'est pas un clic droit
+    if(!message.clicDroit && p.getCellule(selection).getParcourable())
+    {
+    	std::cout << "yo" << endl;
+    	effectuerAction();
+    }
+
+    // Si c'est un clic gauche
     if (!message.clicDroit) {
+
         // On vide les zones
         p.viderZones();
 
@@ -197,10 +215,15 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
         // Si on a sélectionné un vaisseau
         if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau) {
+
+        	//On affiche les boutons d'action
+        	deplacement->ecrireVisible(true);
+        	attaque->ecrireVisible(true);
+
             // On demande au réseau la zone parcourable, attaquable et constructible
-            r->getZoneConstructibleVaisseau(position);
-            r->getZoneParcourable(position);
-            r->getZoneAttaquable(position);
+            //r->getZoneConstructibleVaisseau(position);
+            //r->getZoneParcourable(position);
+            //r->getZoneAttaquable(position);
         }
         // Sinon, si c'est un bâtiment
         else if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment)
@@ -233,7 +256,7 @@ void SceneJeu::effectuerAction() {
     p.viderZones();
 
     // On cache le bouton d'action
-    action->ecrireVisible(false);
+    deplacement->ecrireVisible(false);
 
     // On vide la selection
     details->selectionner();
@@ -243,6 +266,8 @@ void SceneJeu::effectuerAction() {
 }
 
 void SceneJeu::surMessage(Message message) {
+
+	Position pos;
     switch (message.type) {
         case Message::Element:
             switch (message.element.id) {
@@ -268,9 +293,15 @@ void SceneJeu::surMessage(Message message) {
                                     <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
-                case Action:
-                    effectuerAction();
+                case Deplacement:
+                    pos = details->lirePosition();
+                    lireJeu().lireReseau()->getZoneParcourable(pos);
                     break;
+                case Attaque:
+                	pos = details->lirePosition();
+                	lireJeu().lireReseau()->getZoneAttaquable(pos);
+
+                	break;
                 default:
                     break;
             }

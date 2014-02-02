@@ -9,6 +9,7 @@
 #define CASEACOCHER_HPP
 
 #include "GeneriquesPack.hpp"
+#include "Label.hpp"
 
 /**
  * Case à cocher, indique qu'un élément est selectioné
@@ -19,9 +20,10 @@ class CaseACocher : public Element, public ObservateurSouris {
     private:
         sf::RectangleShape boite;
         bool clique;
+        Label texte;
 
     public:
-        CaseACocher(Gui* gui, int id, int x, int y, float largeur, float hauteur);
+        CaseACocher(Gui* gui, int id, int x, int y, float largeur, float hauteur, std::string txt);
         virtual ~CaseACocher();
 
         bool estCoche();

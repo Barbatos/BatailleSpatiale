@@ -16,6 +16,7 @@
 class AffichageCase;
 class AffichageDetails;
 class Bouton;
+class CaseACocher;
 
 /**
  * \brief Scène en jeu
@@ -36,9 +37,29 @@ class SceneJeu : public Scene, public ObservateurSouris {
         AffichageDetails* details;
 
         /**
-         * \brief Bouton d'action (Déplacer vaisseau)
+         * \brief Bouton de déplacement (Déplacer vaisseau)
          */
-        Bouton* action;
+        Bouton* deplacement;
+
+        /**
+         * \brief Bouton d'attaque
+         */
+        Bouton* attaque;
+
+        /**
+         * \brief Case concernant la portée de deplacement
+         */
+        CaseACocher* porteeDeplacement;
+
+        /**
+         * \brief Case concernant la portée d'attaque
+         */
+        CaseACocher* porteeAttaque;
+
+        /**
+         * \brief case concernant la portée de construction
+         */
+        CaseACocher* porteeConstruction;
 
         /**
          * \brief La vue du plateau
@@ -55,7 +76,11 @@ class SceneJeu : public Scene, public ObservateurSouris {
          * \brief Les différents éléments de la scène
          */
         enum Elements {
-            Action, //!< Le bouton d'action
+            Deplacement, //!< Le bouton d'action
+            PorteeAttaque, //!< La case qui affiche la portée d'attaque
+            PorteeDeplacement, //!< La case qui affiche la portée de déplacement
+            PorteeConstruction, //!< La case qui affiche la portée de construction
+            Attaque, //!< Le bouton d'attaque
             Menu, //!< Le bouton de menu
             Droite, //!< Le bouton pour déplacer le plateau à droite
             Gauche, //!< Le bouton pour déplacer le plateau à gauche
