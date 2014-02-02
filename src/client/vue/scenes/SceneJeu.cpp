@@ -198,12 +198,6 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         }
     }
 
-    if(!message.clicDroit && p.getCellule(selection).getParcourable())
-    {
-    	std::cout << "yo" << endl;
-    	effectuerAction();
-    }
-
     // Si c'est un clic gauche
     if (!message.clicDroit) {
 
