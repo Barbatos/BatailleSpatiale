@@ -122,6 +122,8 @@ class ReseauClient {
 
         void setPartieSolo(bool _partieSolo);
 
+        void demarrerPartieMulti();
+
     private:
 
         /// La socket du client

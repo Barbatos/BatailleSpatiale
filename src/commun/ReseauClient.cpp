@@ -142,6 +142,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             parseVaisseauxConstructibles(paquet);
             break;
 
+        case TypePaquet::DemarrerPartieMulti:
+            demarrerPartieMulti();
+            break;
+
         default:
             cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
             break;
@@ -173,8 +177,10 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
     }
 }
 
-/// Après la connexion, on dit bonjour au serveur
-/// en lui donnant notre pseudo
+void ReseauClient::demarrerPartieMulti() {
+    setPartieActive(true);
+}
+
 void ReseauClient::EnvoyerPseudoServeur(string pseudo) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ChangementDeNom);
     sf::Packet paquet;
