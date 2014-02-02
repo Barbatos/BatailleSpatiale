@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.SequenceDiagram</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>520</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>title: Communication réseau
+Affichage~id1|Plateau~id2|Réseau~id3|Serveur~id4
+id1-&gt;&gt;id2:id1,id2:Actualisation
+id1-&gt;&gt;id2:id1,id2:Actualisation
+id1-&gt;&gt;id2:id1,id2:Actualisation
+id1-&gt;&gt;id3:id1:Envoi demande
+id3-/&gt;id4:id1:Traiter demande
+id4-/&gt;id2:id1:Envoi modifications
+id1-&gt;&gt;id2:id1,id2:Actualisation
+id1-&gt;&gt;id2:id1,id2:Actualisation</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

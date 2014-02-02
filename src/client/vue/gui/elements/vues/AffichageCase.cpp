@@ -182,29 +182,16 @@ void AffichageCase::relachementSouris(sf::Mouse::Button bouton) {
 
     if (!lireSurvol() && selectionne && bouton == sf::Mouse::Left)
         selectionne = false;
-
-    /*
-     Message message;
-
-     message.type = Message::Cellule;
-
-     message.cellule.x = position.x;
-     message.cellule.y = position.y;
-     message.cellule.selection = false;
-     message.cellule.clicDroit = false;
-
-     envoyerMessage(message);
-     } */
 }
 
 void AffichageCase::entreeSouris(sf::Vector2f) {
-
+    /* Ne rien faire ici */
 }
 
 void AffichageCase::sortieSouris(sf::Vector2f) {
-
+    /* Ne rien faire ici */
 }
 
 void AffichageCase::moletteSouris(int) {
-
+    /* Ne rien faire ici */
 }

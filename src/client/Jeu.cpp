@@ -125,8 +125,6 @@ void Jeu::lancer() {
         scene->afficher();
 
         affichage.display();
-
-        affichage.setFramerateLimit(60);
     }
 
     reseauThread.terminate();
