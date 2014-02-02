@@ -66,18 +66,8 @@ void CaseACocher::clicSouris(bool clicDroit) {
             boite.setFillColor(sf::Color::Cyan);
         }
     }
-
-    if(clique)
-    {
-    	Message message;
-
-    	message.type = Message::Element;
-    	message.element.clic = true;
-    	message.element.id = lireId();
-
-    	envoyerMessage(message);
-    }
 }
+
 void CaseACocher::pressionSouris(sf::Mouse::Button) {
 
 }
