@@ -32,8 +32,9 @@ class ReseauClient {
          *
          * \param ip l'ip du serveur sur lequel on veut se connecter
          * \param port le port du serveur
+         * \param partieSolo définit si on joue une partie solo (vs IA) ou pas
          */
-        void ConnexionServeur(string ip, unsigned short port);
+        void ConnexionServeur(string ip, unsigned short port, bool partieSolo);
 
         void ConnexionMasterServeur(void);
 
@@ -117,6 +118,10 @@ class ReseauClient {
 
         void parseListeServeurs(sf::Packet paquet);
 
+        bool getPartieSolo(void);
+
+        void setPartieSolo(bool _partieSolo);
+
     private:
 
         /// La socket du client
@@ -139,6 +144,8 @@ class ReseauClient {
         Plateau& plateau;
 
         Joueur& joueur;
+
+        bool partieSolo;
 };
 
 #endif

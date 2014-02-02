@@ -16,8 +16,10 @@
 class ChargementReseau :
 	public Element {
 private:
-	Label texte;
+	Label texteReseau;
+	Label texteJoueurs;
 	Animation image;
+	bool reseauActif;
 
 public:
 	ChargementReseau(Gui* gui, int id, int x, int y, int largeur,
@@ -27,6 +29,7 @@ public:
 	void actualiser(float delta);
 	void afficher(sf::RenderWindow& affichage);
 	bool contient(sf::Vector2i position);
+	void setReseauActif(bool _actif);
 };
 
 #endif /* CHARGEMENTRESEAU_HPP */

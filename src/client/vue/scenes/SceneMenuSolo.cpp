@@ -34,8 +34,8 @@ void SceneMenuSolo::surMessage(Message message) {
             switch (message.element.id) {
                 case Solo:
                     if (!jeu.lireReseau()->getActif()) {
-                        jeu.lancerServeurGUI(1337);
-                        jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1337);
+                        jeu.lancerServeurGUI(1337, true);
+                        jeu.lireReseau()->ConnexionServeur("127.0.0.1", 1337, true);
                     }
                     jeu.changer(Scene::SceneChargementJeu);
                     break;

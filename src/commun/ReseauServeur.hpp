@@ -21,8 +21,9 @@ public:
      * \param port le port du serveur
      * \param plateau le plateau de jeu
      * \param nom le nom du serveur
+     * \param partieSolo définit si on joue une partie solo (vs IA) ou pas
      */
-    ReseauServeur(unsigned short port, PlateauServeur& plateau, string nom);
+    ReseauServeur(unsigned short port, PlateauServeur& plateau, string nom, bool partieSolo);
     /**
      * \brief Fonction gérant les paquets envoyés au serveur par des
      * clients extérieurs.
@@ -93,6 +94,8 @@ public:
 
     void envoiVaisseauxConstructibles(JoueurServeur& joueur);
 
+    void demarrerPartieMulti();
+
 private:
 
     /// La socket du serveur
@@ -120,6 +123,8 @@ private:
     bool actif;
 
     unsigned short port;
+
+    bool partieSolo;
 };
 
 typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;

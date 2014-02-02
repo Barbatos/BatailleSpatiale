@@ -42,7 +42,7 @@ void SceneMenuMultijoueur::surMessage(Message message) {
         case Message::Element:
             switch (message.element.id) {
                 case Multijoueur:
-                    jeu.lireReseau()->ConnexionServeur(ip->lireTexte(), std::atoi(port->lireTexte().c_str()));
+                    jeu.lireReseau()->ConnexionServeur(ip->lireTexte(), std::atoi(port->lireTexte().c_str()), false);
                     jeu.lireReseau()->EnvoyerPseudoServeur(pseudo->lireTexte());
                     jeu.changer(Scene::SceneChargementJeuMulti);
                     break;

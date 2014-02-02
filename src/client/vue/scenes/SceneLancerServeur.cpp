@@ -40,7 +40,7 @@ void SceneLancerServeur::surMessage(Message message) {
                     jeu.changer(Scene::SceneMenuPrincipal);
                     break;
                 case Serveur:
-                    jeu.lancerServeurGUI(atoi(port->lireTexte().c_str()));
+                    jeu.lancerServeurGUI(atoi(port->lireTexte().c_str()), false);
                     jeu.changer(Scene::SceneMenuPrincipal);
                     break;
                 default:

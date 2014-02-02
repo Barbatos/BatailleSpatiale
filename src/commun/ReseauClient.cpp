@@ -1,7 +1,7 @@
 #include "ReseauClient.hpp"
 
 ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur)
-                : ip("none"), port(0), plateau(_plateau), joueur(_joueur) {
+                : ip("none"), port(0), plateau(_plateau), joueur(_joueur), partieSolo(false) {
     setActif(false);
     setPartieActive(false);
 
@@ -13,10 +13,14 @@ ReseauClient::~ReseauClient() {
     socketMaster.disconnect();
 }
 
-void ReseauClient::ConnexionServeur(string ip, unsigned short port) {
+void ReseauClient::ConnexionServeur(string ip, unsigned short port, bool _partieSolo) {
     sf::IpAddress server(ip);
     sf::Time timeout = sf::seconds(2);
     int nbEssais = 0;
+
+    if(_partieSolo) {
+        partieSolo = _partieSolo;
+    }
 
     if (getActif() == true) {
         cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
@@ -415,6 +419,14 @@ void ReseauClient::setPartieActive(bool _active) {
 
 bool ReseauClient::getPartieActive() {
     return partieActive;
+}
+
+bool ReseauClient::getPartieSolo() {
+    return partieSolo;
+}
+
+void ReseauClient::setPartieSolo(bool _partieSolo) {
+    partieSolo = _partieSolo;
 }
 
 void ReseauClient::setIp(string _ip) {

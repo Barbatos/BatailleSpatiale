@@ -137,7 +137,7 @@ public:
 
 	void threadReseau();
 
-	void lancerServeurGUI(unsigned int port);
+	void lancerServeurGUI(unsigned int port, bool partieSolo);
 
 	/**
 	 * \brief Récupère l'affichage

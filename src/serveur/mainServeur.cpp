@@ -25,7 +25,7 @@ int main() {
     }
 
     plateau = new PlateauServeur(15, 15);
-    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau, nom));
+    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateau, nom, false));
 
     while(true) {
         serveur->ecouterReseau();

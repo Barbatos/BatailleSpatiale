@@ -89,12 +89,12 @@ void Jeu::threadReseau() {
     }
 }
 
-void Jeu::lancerServeurGUI(unsigned int port) {
+void Jeu::lancerServeurGUI(unsigned int port, bool partieSolo) {
     string nom = "Serveur GUI"; // TODO : proposer champ nom à la création d'un serveur
 
     plateauServeur = PlateauServeurPtr(new PlateauServeur(20, 20));
     plateauServeur->initialisationTest();
-    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur, nom));
+    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur, nom, partieSolo));
 
     serveur->lancerReseau();
 }
@@ -125,6 +125,8 @@ void Jeu::lancer() {
         scene->afficher();
 
         affichage.display();
+
+        affichage.setFramerateLimit(60);
     }
 
     reseauThread.terminate();

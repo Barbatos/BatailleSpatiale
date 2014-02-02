@@ -1,7 +1,7 @@
 #include "ReseauServeur.hpp"
 
-ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, string _nom) :
-    nom(_nom), plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false), port(_port) {
+ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, string _nom, bool _partieSolo) :
+    nom(_nom), plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false), port(_port), partieSolo(_partieSolo) {
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
@@ -397,18 +397,36 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
+
         plateau.cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[7][6].getVaisseau());
         plateau.cellule[5][1].creerVaisseauTest();
         joueur.ajouterVaisseau(plateau.cellule[5][1].getVaisseau());
+
+        demarrerPartieMulti();
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
     joueur.ajouterBatiment(plateau.cellule[posX][posY].getBatiment());
 }
 
+void ReseauServeur::demarrerPartieMulti() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemarrerPartieMulti);
+    sf::Packet paquet;
+
+    paquet << typePaquet;
+
+    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+        JoueurServeur& j = *it;
+        sf::TcpSocket* client = j.getSocket();
+        ReseauGlobal::EnvoiPaquet(*client, paquet);
+    }
+}
+
 void ReseauServeur::ecouterReseau(void) {
 
+    envoiHeartbeat();
+    
     // On attend qu'il se passe quelque chose sur le réseau
     if (selector.wait(sf::milliseconds(50))) {
 
@@ -541,8 +559,6 @@ void ReseauServeur::ecouterReseau(void) {
             }
         }
     }
-
-    envoiHeartbeat();
 }
 
 void ReseauServeur::setPlateau(PlateauServeur& _plateau) {
