@@ -11,8 +11,8 @@
 #define HAUTEUR_FENETRE 1200
 #define LARGEUR_FENETRE 675
 
-Affichage::Affichage() :
-	sf::RenderWindow() {
+Affichage::Affichage()
+                : sf::RenderWindow() {
 
 }
 
@@ -21,8 +21,7 @@ Affichage::~Affichage() {
 }
 
 void Affichage::creer() {
-	create(sf::VideoMode::getFullscreenModes()[0], TITRE_FENETRE,
-	       sf::Style::Fullscreen);
+    create(sf::VideoMode::getFullscreenModes()[0], TITRE_FENETRE, sf::Style::Fullscreen);
 
-	setVerticalSyncEnabled(true);
+    setFramerateLimit(60);
 }
