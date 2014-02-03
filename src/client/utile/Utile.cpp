@@ -172,6 +172,8 @@ namespace Utile {
         switch (details.type) {
             case TypeBatiment::Base:
                 stream << "Batiments/sprite_vaisseau_mere_1";
+                // TODO
+                //stream << "Batiments/sprite_base_1";
                 break;
             default:
                 break;
