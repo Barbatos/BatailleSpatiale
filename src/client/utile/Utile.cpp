@@ -125,54 +125,64 @@ namespace Utile {
     }
 
     std::string lireFichier(DetailVaisseau details) {
-        std::string fichier;
+        std::stringstream stream;
 
         switch (details.type) {
             case TypeVaisseau::Inexistant:
                 break;
             case TypeVaisseau::Constructeur:
-                fichier = "Vaisseaux/sprite_constructeur_1_rouge.png";
+                stream << "Vaisseaux/sprite_constructeur_1";
                 break;
             case TypeVaisseau::Bombardier:
-                fichier = "Vaisseaux/sprite_bombardier_1_rouge.png";
+                stream << "Vaisseaux/sprite_bombardier_1";
                 break;
             case TypeVaisseau::Chasseur:
-                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
+                stream << "Vaisseaux/sprite_chasseur_1";
                 break;
             case TypeVaisseau::Croiseur:
-                fichier = "Vaisseaux/sprite_croiseur_1_rouge.png";
+                stream << "Vaisseaux/sprite_croiseur_1";
                 break;
             case TypeVaisseau::Destructeur:
-                fichier = "Vaisseaux/sprite_destroyeur_1_rouge.png";
+                stream << "Vaisseaux/sprite_destroyeur_1";
                 break;
             case TypeVaisseau::ChasseurLourd:
-                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
+                stream << "Vaisseaux/sprite_chasseur_1";
                 break;
             case TypeVaisseau::Traqueur:
-                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
+                stream << "Vaisseaux/sprite_chasseur_1";
                 break;
             case TypeVaisseau::Leger:
-                fichier = "Vaisseaux/sprite_chasseur_1_rouge.png";
+                stream << "Vaisseaux/sprite_chasseur_1";
                 break;
             default:
                 break;
         }
 
-        return fichier;
+        if (details.idJoueur == 0)
+            stream << "_rouge.png";
+        else
+            stream << "_bleu.png";
+
+        return stream.str();
     }
 
     std::string lireFichier(DetailBatiment details) {
-        std::string fichier;
+        std::stringstream stream;
 
         switch (details.type) {
             case TypeBatiment::Base:
-                fichier = "Batiments/sprite_vaisseau_mere_1_rouge.png";
+                stream << "Batiments/sprite_vaisseau_mere_1";
                 break;
             default:
                 break;
         }
 
-        return fichier;
+        if (details.idJoueur == 0)
+            stream << "_rouge.png";
+        else
+            stream << "_bleu.png";
+
+        return stream.str();
     }
 
     std::string lireFichier(DetailEvenement details) {
@@ -207,7 +217,8 @@ namespace Utile {
 
         stream << "Attaque : " << details.attaque << ". Rayon : " << details.rayonAttaque << "\n";
 
-        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : " << details.bouclierTaux << "\n";
+        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : "
+            << details.bouclierTaux << "\n";
 
         return stream.str();
     }
@@ -221,9 +232,11 @@ namespace Utile {
 
         stream << "Attaque : " << details.attaque << ". Rayon : " << details.rayonAttaque << "\n";
 
-        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : " << details.bouclierTaux << "\n";
+        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : "
+            << details.bouclierTaux << "\n";
 
-        stream << L"Déplacement : " << details.distanceMax << ". Consommation : " << details.consommation << "\n";
+        stream << L"Déplacement : " << details.distanceMax << ". Consommation : "
+            << details.consommation << "\n";
 
         return stream.str();
     }
