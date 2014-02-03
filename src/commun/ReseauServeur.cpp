@@ -214,7 +214,7 @@ void ReseauServeur::envoiZoneParcourable(JoueurServeur& joueur, Position pos) {
     if(joueur.getId() != plateau.cellule[pos.x][pos.y].getIdJoueur()) {
         return;
     }
-    
+
     noeuds = plateau.getZoneParcourable(pos, joueur.getEnergie());
 
     tailleZone = noeuds.size();
@@ -406,25 +406,27 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         posX = 2;
         posY = 2;
         
-        plateau.cellule[6][4].creerVaisseauTest(TypeVaisseau::Destructeur);
-        joueur.ajouterVaisseau(plateau.cellule[6][4].getVaisseau());
-        plateau.cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
-        joueur.ajouterVaisseau(plateau.cellule[8][5].getVaisseau());
+        plateau.cellule[3][3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        joueur.ajouterVaisseau(plateau.cellule[3][3].getVaisseau());
+        plateau.cellule[4][3].creerVaisseauTest(TypeVaisseau::Leger);
+        joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
 
-        plateau.cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
-        joueur.ajouterVaisseau(plateau.cellule[7][6].getVaisseau());
-        plateau.cellule[5][1].creerVaisseauTest();
-        joueur.ajouterVaisseau(plateau.cellule[5][1].getVaisseau());
-
-        demarrerPartieMulti();
+        plateau.cellule[11][10].creerVaisseauTest(TypeVaisseau::Constructeur);
+        joueur.ajouterVaisseau(plateau.cellule[11][10].getVaisseau());
+        plateau.cellule[11][11].creerVaisseauTest();
+        joueur.ajouterVaisseau(plateau.cellule[11][11].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
     joueur.ajouterBatiment(plateau.cellule[posX][posY].getBatiment());
+
+    if((nbJoueurs > 1) && !partieSolo) {
+        demarrerPartieMulti();
+    }
 }
 
 void ReseauServeur::demarrerPartieMulti() {

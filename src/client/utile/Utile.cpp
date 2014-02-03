@@ -158,7 +158,7 @@ namespace Utile {
                 break;
         }
 
-        if (details.idJoueur == 0)
+        if (details.idJoueur == 1)
             stream << "_rouge.png";
         else
             stream << "_bleu.png";
@@ -177,7 +177,7 @@ namespace Utile {
                 break;
         }
 
-        if (details.idJoueur == 0)
+        if (details.idJoueur == 1)
             stream << "_rouge.png";
         else
             stream << "_bleu.png";
