@@ -2,10 +2,34 @@
  * BarreMesure.cpp
  *
  *  Created on: 29 janv. 2014
- *      Author: Tahiry
+ *      Author: Tendry
  */
 
 #include "BarreMesure.hpp"
+
+BarreMesure::BarreMesure(Gui* gui, float x, float y, float largeur,
+		float hauteur) :
+		Element(gui, -1), contour(), progression(), description(), coefficient(
+				0), max(0)
+{
+	contour.setOrigin(-2, -2);
+	contour.setSize(sf::Vector2f(largeur, hauteur));
+	contour.setOutlineColor(sf::Color(150, 150, 150));
+	contour.setOutlineThickness(2);
+	contour.setPosition(x - contour.getSize().x - 10, y + 10);
+
+	progression.setOrigin(-2, -2);
+	progression.setSize(sf::Vector2f(largeur, hauteur));
+	progression.setPosition(x - progression.getSize().x - 10, y + 10);
+
+	description.setFont(
+			lireGui()->lireScene()->lireJeu().lireRessources().lirePolice(
+					"grand9k.ttf"));
+	description.setColor(sf::Color::Black);
+	description.setPosition(
+			contour.getPosition().x + (contour.getSize().x / 2) - 25,
+			contour.getPosition().y);
+}
 
 BarreMesure::BarreMesure(Gui* gui, sf::Color color, float x, float y,
 		float largeur, float hauteur, int max) :
