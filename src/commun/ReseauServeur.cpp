@@ -211,6 +211,10 @@ void ReseauServeur::envoiZoneParcourable(JoueurServeur& joueur, Position pos) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneParcourable);
     sf::Int32 tailleZone;
 
+    if(joueur.getId() != plateau.cellule[pos.x][pos.y].getIdJoueur()) {
+        return;
+    }
+    
     noeuds = plateau.getZoneParcourable(pos, joueur.getEnergie());
 
     tailleZone = noeuds.size();
@@ -288,6 +292,8 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
 
     envoiJoueurCourant(joueur);
     ReseauGlobal::EnvoiPaquet(*client, paquet);
+
+    joueurSuivant();
 }
 
 void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {
@@ -307,6 +313,8 @@ void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquan
     }
     
     ReseauGlobal::EnvoiPaquet(client, paquet);
+
+    joueurSuivant();
 }
 
 void ReseauServeur::envoiZoneConstructibleVaisseau(JoueurServeur& joueur) {
@@ -448,6 +456,8 @@ void ReseauServeur::joueurSuivant() {
             joueurActuel = 1;
         }
     }
+
+    cout << "C'est au tour du joueur " << joueurActuel << " de jouer" << endl;
 
     paquet << typePaquet << joueurActuel;
     envoiPaquetATous(paquet);
