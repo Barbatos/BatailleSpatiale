@@ -1,7 +1,8 @@
 #include "Joueur.hpp"
 
-Joueur::Joueur(string _pseudo, sf::Int32 _commandement, sf::Int32 _requisition,
+Joueur::Joueur(sf::Int32 _id, string _pseudo, sf::Int32 _commandement, sf::Int32 _requisition,
                sf::Int32 _energie, sf::Int32 _materiaux) :
+    id(_id),
     pseudo(_pseudo),
     commandement(_commandement),
     requisition(_requisition),
@@ -34,8 +35,12 @@ sf::Int32 Joueur::getMateriaux(void) {
     return this->materiaux;
 }
 
+sf::Int32 Joueur::getId(void) {
+    return this->id;
+}
+
 sf::Packet& operator >>(sf::Packet& paquet, Joueur& joueur) {
-    paquet >> joueur.pseudo >> joueur.commandement >> joueur.requisition
+    paquet >> joueur.id >> joueur.pseudo >> joueur.commandement >> joueur.requisition
            >> joueur.energie >> joueur.materiaux;
 
     return paquet;

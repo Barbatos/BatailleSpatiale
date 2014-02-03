@@ -8,6 +8,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     sf::Time timeout = sf::seconds(2);
 
     plateau.setJoueurs(&joueurs);
+    joueurActuel = -1;
 
     // On écoute sur le port défini plus haut
     while(listener.listen(port) != sf::Socket::Done) {
@@ -148,6 +149,14 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     }
 }
 
+void ReseauServeur::envoiPaquetATous(sf::Packet paquet) {
+    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+        JoueurServeur& j = *it;
+        sf::TcpSocket* client = j.getSocket();
+        ReseauGlobal::EnvoiPaquet(*client, paquet);
+    }
+}
+
 void ReseauServeur::envoiATous(string& message) {
     sf::Packet paquet;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MessageEchoServeur);
@@ -202,6 +211,10 @@ void ReseauServeur::envoiZoneParcourable(JoueurServeur& joueur, Position pos) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneParcourable);
     sf::Int32 tailleZone;
 
+    if(joueur.getId() != plateau.cellule[pos.x][pos.y].getIdJoueur()) {
+        return;
+    }
+    
     noeuds = plateau.getZoneParcourable(pos, joueur.getEnergie());
 
     tailleZone = noeuds.size();
@@ -279,6 +292,8 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
 
     envoiJoueurCourant(joueur);
     ReseauGlobal::EnvoiPaquet(*client, paquet);
+
+    joueurSuivant();
 }
 
 void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {
@@ -298,6 +313,8 @@ void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquan
     }
     
     ReseauGlobal::EnvoiPaquet(client, paquet);
+
+    joueurSuivant();
 }
 
 void ReseauServeur::envoiZoneConstructibleVaisseau(JoueurServeur& joueur) {
@@ -416,11 +433,34 @@ void ReseauServeur::demarrerPartieMulti() {
 
     paquet << typePaquet;
 
-    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
-        JoueurServeur& j = *it;
-        sf::TcpSocket* client = j.getSocket();
-        ReseauGlobal::EnvoiPaquet(*client, paquet);
+    envoiPaquetATous(paquet);
+
+    joueurSuivant();
+}
+
+void ReseauServeur::joueurSuivant() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurSuivant);
+    sf::Packet paquet;
+
+    // La partie n'est pas encore commencée
+    if(joueurActuel == -1) {
+        joueurActuel = 1;
     }
+
+    // La partie est déjà en cours
+    else {
+        if(joueurActuel == 1) {
+            joueurActuel = 2;
+        }
+        else {
+            joueurActuel = 1;
+        }
+    }
+
+    cout << "C'est au tour du joueur " << joueurActuel << " de jouer" << endl;
+
+    paquet << typePaquet << joueurActuel;
+    envoiPaquetATous(paquet);
 }
 
 void ReseauServeur::ecouterReseau(void) {

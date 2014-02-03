@@ -96,6 +96,10 @@ public:
 
     void demarrerPartieMulti();
 
+    void joueurSuivant();
+
+    void envoiPaquetATous(sf::Packet paquet);
+
 private:
 
     /// La socket du serveur
@@ -125,6 +129,8 @@ private:
     unsigned short port;
 
     bool partieSolo;
+
+    sf::Int32 joueurActuel;
 };
 
 typedef std::shared_ptr<ReseauServeur> ReseauServeurPtr;

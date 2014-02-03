@@ -4,6 +4,7 @@ ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur)
                 : ip("none"), port(0), plateau(_plateau), joueur(_joueur), partieSolo(false) {
     setActif(false);
     setPartieActive(false);
+    setBloquerJeu(true);
 
     ConnexionMasterServeur();
 }
@@ -146,6 +147,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             demarrerPartieMulti();
             break;
 
+        case TypePaquet::JoueurSuivant:
+            joueurSuivant(paquet);
+            break;
+
         default:
             cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
             break;
@@ -179,6 +184,22 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
 
 void ReseauClient::demarrerPartieMulti() {
     setPartieActive(true);
+}
+
+void ReseauClient::joueurSuivant(sf::Packet paquet) {
+    sf::Int32 numJoueur;
+
+    paquet >> numJoueur;
+
+    // C'est à nous de jouer
+    if(joueur.getId() == numJoueur) {
+        setBloquerJeu(false);
+    }   
+
+    // Ce n'est pas notre tour de jouer
+    else {
+        setBloquerJeu(true);
+    } 
 }
 
 void ReseauClient::EnvoyerPseudoServeur(string pseudo) {
@@ -429,6 +450,14 @@ bool ReseauClient::getPartieActive() {
 
 bool ReseauClient::getPartieSolo() {
     return partieSolo;
+}
+
+void ReseauClient::setBloquerJeu(bool _bloquer) {
+    bloquerJeu = _bloquer;
+}
+
+bool ReseauClient::getBloquerJeu() {
+    return bloquerJeu;
 }
 
 void ReseauClient::setPartieSolo(bool _partieSolo) {
