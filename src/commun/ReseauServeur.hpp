@@ -82,13 +82,13 @@ public:
 
     void envoiZoneConstructibleBatiment(JoueurServeur& joueur, Position pos);
 
-    void envoiZoneAttaquable(sf::TcpSocket& client, Position pos);
+    void envoiZoneAttaquable(JoueurServeur& joueur, Position pos);
 
     void creerBase(JoueurServeur& joueur, int nbJoueurs);
 
     void envoiPlateauATous();
 
-    void attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible);
+    void attaquerVaisseau(JoueurServeur& joueur, Position posAttaquant, Position posCible);
 
     void envoiHeartbeat();
 

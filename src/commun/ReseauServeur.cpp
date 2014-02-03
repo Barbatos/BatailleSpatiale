@@ -129,13 +129,13 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         // Le client demande la zone attaquable
     case TypePaquet::GetZoneAttaquable:
         paquet >> pos;
-        envoiZoneAttaquable(*client, pos);
+        envoiZoneAttaquable(joueur, pos);
         break;
 
         // Le client demande à attaquer un vaisseau adverse
     case TypePaquet::DemanderAttaqueVaisseau:
         paquet >> pos >> pos2;
-        attaquerVaisseau(*client, pos, pos2);
+        attaquerVaisseau(joueur, pos, pos2);
         break;
 
         // Le client demande la liste des vaisseaux constructibles
@@ -262,6 +262,10 @@ void ReseauServeur::envoiChemin(JoueurServeur& joueur, Position posDepart, Posit
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Chemin);
     sf::Int32 tailleChemin;
 
+    if(joueur.getId() != plateau.cellule[posDepart.x][posDepart.y].getIdJoueur()) {
+        return;
+    }
+
     noeuds = plateau.getZoneParcourable(posDepart, joueur.getEnergie());
 
     chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
@@ -283,6 +287,10 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
     sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
     sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
 
+    if(joueur.getId() != plateau.cellule[posDepart.x][posDepart.y].getIdJoueur()) {
+        return;
+    }
+
     if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart, joueur.getEnergie()), joueur)) {
         paquet << paquetDeplacerVaisseau;
         envoiPlateauATous();
@@ -296,11 +304,16 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
     joueurSuivant();
 }
 
-void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {
+void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquant, Position posCible) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     sf::Uint16 paquetAttaquerVaisseau = static_cast<sf::Uint16>(TypePaquet::AttaquerVaisseau);
     sf::Uint16 paquetAttaqueImpossible = static_cast<sf::Uint16>(TypePaquet::AttaqueVaisseauImpossible);
     CelluleServeur cAttaquant, cCible;
+
+    if(joueur.getId() != plateau.cellule[posAttaquant.x][posAttaquant.y].getIdJoueur()) {
+        return;
+    }
 
     cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
     cCible = plateau.cellule[posCible.x][posCible.y];
@@ -312,7 +325,7 @@ void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquan
         paquet << paquetAttaqueImpossible;
     }
     
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 
     joueurSuivant();
 }
@@ -346,6 +359,10 @@ void ReseauServeur::envoiZoneConstructibleBatiment(JoueurServeur& joueur, Positi
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneConstructibleBatiment);
     sf::Int32 tailleZone;
 
+    if(joueur.getId() != plateau.cellule[p.x][p.y].getIdJoueur()) {
+        return;
+    }
+
     listePos = plateau.getZoneConstructibleBatiment(p, joueur.getId());
 
     tailleZone = listePos.size();
@@ -359,12 +376,17 @@ void ReseauServeur::envoiZoneConstructibleBatiment(JoueurServeur& joueur, Positi
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
-void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
+void ReseauServeur::envoiZoneAttaquable(JoueurServeur& joueur, Position p) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     std::list<NoeudServeur> noeuds;
     std::list<NoeudServeur>::iterator noeudIterator;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneAttaquable);
     sf::Int32 tailleZone;
+
+    if(joueur.getId() != plateau.cellule[p.x][p.y].getIdJoueur()) {
+        return;
+    }
 
     noeuds = plateau.getZoneAttaquable(p);
 
@@ -376,7 +398,7 @@ void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
         paquet << noeudIterator->getPosition();
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
 void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
