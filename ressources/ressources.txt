@@ -40,8 +40,12 @@ Interface/Bouton/bouton_clic.png
 Environnement/comete2.png
 
 # Batiments
-Batiments/sprite_base_1_rouge.png
-Batiments/sprite_base_1_bleu.png
+Batiments/sprite_vaisseau_mere_1_rouge.png
+Batiments/sprite_vaisseau_mere_1_bleu.png
+
+# TODO
+#Batiments/sprite_base_1_rouge.png
+#Batiments/sprite_base_1_bleu.png
 
 # Vaisseaux
 Vaisseaux/sprite_bombardier_1_rouge.png
