@@ -124,6 +124,8 @@ class ReseauClient {
 
         void demarrerPartieMulti();
 
+        void joueurSuivant(sf::Packet paquet);
+
         void setBloquerJeu(bool _bloquer);
 
         bool getBloquerJeu();

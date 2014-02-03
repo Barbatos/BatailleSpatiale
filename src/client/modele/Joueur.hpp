@@ -13,13 +13,14 @@ public:
     /**
      * \brief Constructeur par défaut
      *
+     * \param _id l'id du joueur
      * \param _pseudo le pseudo du joueur
      * \param _commandement
      * \param _requisition
      * \param _energie
      * \param _materiaux
      */
-    Joueur(string _pseudo = "Anonymous", sf::Int32 _commandement = 0,
+    Joueur(sf::Int32 _id = -1, string _pseudo = "Anonymous", sf::Int32 _commandement = 0,
            sf::Int32 _requisition = 0, sf::Int32 _energie = 0,
            sf::Int32 _materiaux = 0);
 
@@ -30,6 +31,7 @@ public:
      */
     string getPseudo(void);
 
+    sf::Int32 getId(void);
     sf::Int32 getCommandement(void);
     sf::Int32 getRequisition(void);
     sf::Int32 getEnergie(void);
@@ -37,6 +39,8 @@ public:
 
 private:
     void setPseudo(string _pseudo);
+
+    sf::Int32 id;
 
     /// Le pseudo du joueur
     string pseudo;
