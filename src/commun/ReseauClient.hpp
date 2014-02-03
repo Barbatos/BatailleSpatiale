@@ -124,6 +124,10 @@ class ReseauClient {
 
         void demarrerPartieMulti();
 
+        void setBloquerJeu(bool _bloquer);
+
+        bool getBloquerJeu();
+
     private:
 
         /// La socket du client
@@ -139,15 +143,23 @@ class ReseauClient {
         /// il faut qu'il y ait deux joueurs de connectés ainsi que le réseau d'activé
         bool partieActive;
 
+        /// L'ip de connexion au serveur
         string ip;
 
+        /// Le port de connexion au serveur
         unsigned short port;
 
+        /// Référence vers le plateau de jeu
         Plateau& plateau;
 
+        /// Référence vers les informations du joueur
         Joueur& joueur;
 
+        /// Partie en local contre une IA
         bool partieSolo;
+
+        /// Bloque le jeu pour le joueur tant que ce n'est pas son tour de jouer
+        bool bloquerJeu;
 };
 
 #endif

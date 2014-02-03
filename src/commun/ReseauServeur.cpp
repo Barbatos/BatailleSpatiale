@@ -8,6 +8,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     sf::Time timeout = sf::seconds(2);
 
     plateau.setJoueurs(&joueurs);
+    joueurActuel = -1;
 
     // On écoute sur le port défini plus haut
     while(listener.listen(port) != sf::Socket::Done) {
@@ -145,6 +146,14 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
+    }
+}
+
+void ReseauServeur::envoiPaquetATous(sf::Packet paquet) {
+    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+        JoueurServeur& j = *it;
+        sf::TcpSocket* client = j.getSocket();
+        ReseauGlobal::EnvoiPaquet(*client, paquet);
     }
 }
 
@@ -416,11 +425,32 @@ void ReseauServeur::demarrerPartieMulti() {
 
     paquet << typePaquet;
 
-    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
-        JoueurServeur& j = *it;
-        sf::TcpSocket* client = j.getSocket();
-        ReseauGlobal::EnvoiPaquet(*client, paquet);
+    envoiPaquetATous(paquet);
+
+    joueurSuivant();
+}
+
+void ReseauServeur::joueurSuivant() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurSuivant);
+    sf::Packet paquet;
+
+    // La partie n'est pas encore commencée
+    if(joueurActuel == -1) {
+        joueurActuel = 1;
     }
+
+    // La partie est déjà en cours
+    else {
+        if(joueurActuel == 1) {
+            joueurActuel = 2;
+        }
+        else {
+            joueurActuel = 1;
+        }
+    }
+
+    paquet << typePaquet << joueurActuel;
+    envoiPaquetATous(paquet);
 }
 
 void ReseauServeur::ecouterReseau(void) {
