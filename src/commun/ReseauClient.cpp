@@ -334,8 +334,12 @@ void ReseauClient::deplacerVaisseau(sf::Packet) {
     // TODO : Messages d'erreur / validation
 }
 
-void ReseauClient::attaquerVaisseau(sf::Packet) {
-    // TODO : Messages d'erreur / validation
+void ReseauClient::attaquerVaisseau(sf::Packet paquet) {
+    Position p;
+
+    paquet >> p;
+
+    plateau.cellule[p.x][p.y].setEstAttaquee(true);
 }
 
 void ReseauClient::getChemin(Position depart, Position arrivee) {

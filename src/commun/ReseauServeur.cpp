@@ -319,10 +319,10 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
     cCible = plateau.cellule[posCible.x][posCible.y];
 
     if(plateau.attaquer(posAttaquant, posCible)) {
-        paquet << paquetAttaquerVaisseau;
+        paquet << paquetAttaquerVaisseau << posCible;
         envoiPlateauATous();
     } else {
-        paquet << paquetAttaqueImpossible;
+        paquet << paquetAttaqueImpossible << posCible;
     }
     
     ReseauGlobal::EnvoiPaquet(*client, paquet);
