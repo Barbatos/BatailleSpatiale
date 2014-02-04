@@ -5,7 +5,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(2);
+    sf::Time timeout = sf::seconds(0.2);
 
     plateau.setJoueurs(&joueurs);
     joueurActuel = -1;
@@ -439,6 +439,8 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
 
         plateau.cellule[11][10].creerVaisseauTest(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[11][10].getVaisseau());
+        plateau.cellule[5][4].creerVaisseauTest(TypeVaisseau::Constructeur);
+        joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
         plateau.cellule[11][11].creerVaisseauTest();
         joueur.ajouterVaisseau(plateau.cellule[11][11].getVaisseau());
     }
