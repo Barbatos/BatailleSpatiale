@@ -91,6 +91,8 @@ void Plateau::viderZones() {
             cellule[i][j].setParcourable(false);
             cellule[i][j].setEstAttaquable(false);
             cellule[i][j].setEstDestination(false);
+            cellule[i][j].setEstAttaquee(false);
+            cellule[i][j].setEstDetruite(false);
         }
     }
 }

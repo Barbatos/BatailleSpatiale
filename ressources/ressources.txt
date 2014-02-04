@@ -38,6 +38,7 @@ Interface/Bouton/bouton_clic.png
 
 # Environnement
 Environnement/comete2.png
+Environnement/petite_explosion.png
 
 # Batiments
 Batiments/sprite_base_1_rouge.png

@@ -106,6 +106,22 @@ void Cellule::setEstConstructibleBatiment(bool estConstructible) {
     bits.estConstructibleBatiment = estConstructible;
 }
 
+bool Cellule::getEstAttaquee() const {
+    return bits.estAttaquee;
+}
+
+void Cellule::setEstAttaquee(bool estAttaquee){
+    bits.estAttaquee = estAttaquee;
+}
+
+bool Cellule::getEstDetruite() const {
+    return bits.estDetruite;
+}
+
+void Cellule::setEstDetruite(bool estDetruite){
+    bits.estDetruite = estDetruite;
+}
+
 bool Cellule::getEstAttaquable() const {
     return bits.estAttaquable;
 }

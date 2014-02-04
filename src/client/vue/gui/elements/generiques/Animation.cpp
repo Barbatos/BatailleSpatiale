@@ -8,14 +8,15 @@
 #include "Animation.hpp"
 
 Animation::Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-                     bool add, std::string nomImage) :
+                     bool add, bool cycle, std::string nomImage) :
 	Element(gui, id),
 	sprite(gui->lireScene()->lireJeu().lireRessources().lireImage(
 	           nomImage)),
 	selection(),
 	time(0),
 	ajout(add),
-	active(true) {
+	active(true),
+	cyclique(cycle) {
 	ecrirePosition(x, y);
 	ecrireTaille(largeur, hauteur);
 
@@ -49,6 +50,12 @@ void Animation::actualiser(float delta) {
 					selection.y = 0;
 				}
 				selection.x = 0;
+			}
+
+			if(!cyclique){
+				if((selection.x + 1  == sprite.getTexture()->getSize().x / 480) and (selection.y + 1  == sprite.getTexture()->getSize().y / 480)){
+					active = false;
+				}
 			}
 		}
 
