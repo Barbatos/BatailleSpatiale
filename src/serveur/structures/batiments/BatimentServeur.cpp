@@ -41,6 +41,10 @@ void BatimentServeur::subir(BatimentServeur const& attaquant) {
     Structure::subir(cAttaquant);
 }
 
+sf::Int32 BatimentServeur::getEnergieARecolter() const {
+    return 0;
+}
+
 sf::Packet& operator <<(sf::Packet& paquet, const BatimentServeur& batiment) {
     return paquet << static_cast<sf::Uint16>(batiment.type) << batiment.attaque
            << batiment.vie << batiment.vieMax << batiment.visibilite << batiment.rayonAttaque

@@ -30,6 +30,7 @@ public:
     void setNiveau(sf::Int32 niveau);
     void subir(VaisseauServeur const& attaquant);
     void subir(BatimentServeur const& attaquant);
+    virtual sf::Int32 getEnergieARecolter() const;
 
 protected:
 

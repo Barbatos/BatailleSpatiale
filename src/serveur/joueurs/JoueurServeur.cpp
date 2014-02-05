@@ -1,4 +1,5 @@
 #include "JoueurServeur.hpp"
+#include "../structures/batiments/BatimentEnergieServeur.hpp"
 
 JoueurServeur::JoueurServeur(void) :
     socket(NULL), pseudo("Anonymous"), ip(""), id(-1),
@@ -118,6 +119,12 @@ void JoueurServeur::effectuerTour() {
             batiment!=listeBatiments.end(); ++batiment)
         if(!batiment->expired())
             batiment = listeBatiments.erase(batiment);
+        else {
+            BatimentServeurPtr batimentPtr = batiment->lock();
+            if(batimentPtr->getType() == TypeBatiment::Raffinerie) {
+                energie += batimentPtr->getEnergieARecolter();
+            }
+        }
 
     for (std::list<std::weak_ptr<VaisseauServeur>>::iterator vaisseau=listeVaisseaux.begin();
             vaisseau!=listeVaisseaux.end(); ++vaisseau)

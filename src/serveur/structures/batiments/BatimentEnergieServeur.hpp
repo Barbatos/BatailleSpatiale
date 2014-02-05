@@ -17,11 +17,10 @@ public:
         sf::Int32 rayonAttaque,
         sf::Int32 prixEnergie,
         sf::Int32 prixMateriaux,
-        sf::Int32 _energieARecolter,
-        TypeBatiment _type = TypeBatiment::Inexistant
+        sf::Int32 _energieARecolter
     );
     void setEnergieARecolter(const sf::Int32& energieARecolter);
-    const sf::Int32& getEnergieARecolter() const;
+    sf::Int32 getEnergieARecolter() const;
 
 protected:
 
