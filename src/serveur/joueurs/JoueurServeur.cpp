@@ -126,7 +126,7 @@ void JoueurServeur::effectuerTour() {
 }
 
 sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur) {
-    paquet << joueur.pseudo << joueur.commandement << joueur.requisition
+    paquet << joueur.id << joueur.pseudo << joueur.commandement << joueur.requisition
            << joueur.energie << joueur.materiaux;
 
 

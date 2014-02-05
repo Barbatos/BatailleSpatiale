@@ -5,9 +5,10 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(2);
+    sf::Time timeout = sf::seconds(0.2);
 
     plateau.setJoueurs(&joueurs);
+    joueurActuel = -1;
 
     // On écoute sur le port défini plus haut
     while(listener.listen(port) != sf::Socket::Done) {
@@ -128,13 +129,13 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         // Le client demande la zone attaquable
     case TypePaquet::GetZoneAttaquable:
         paquet >> pos;
-        envoiZoneAttaquable(*client, pos);
+        envoiZoneAttaquable(joueur, pos);
         break;
 
         // Le client demande à attaquer un vaisseau adverse
     case TypePaquet::DemanderAttaqueVaisseau:
         paquet >> pos >> pos2;
-        attaquerVaisseau(*client, pos, pos2);
+        attaquerVaisseau(joueur, pos, pos2);
         break;
 
         // Le client demande la liste des vaisseaux constructibles
@@ -145,6 +146,14 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
+    }
+}
+
+void ReseauServeur::envoiPaquetATous(sf::Packet paquet) {
+    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+        JoueurServeur& j = *it;
+        sf::TcpSocket* client = j.getSocket();
+        ReseauGlobal::EnvoiPaquet(*client, paquet);
     }
 }
 
@@ -202,6 +211,10 @@ void ReseauServeur::envoiZoneParcourable(JoueurServeur& joueur, Position pos) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneParcourable);
     sf::Int32 tailleZone;
 
+    if(joueur.getId() != plateau.cellule[pos.x][pos.y].getIdJoueur()) {
+        return;
+    }
+
     noeuds = plateau.getZoneParcourable(pos, joueur.getEnergie());
 
     tailleZone = noeuds.size();
@@ -249,6 +262,10 @@ void ReseauServeur::envoiChemin(JoueurServeur& joueur, Position posDepart, Posit
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Chemin);
     sf::Int32 tailleChemin;
 
+    if(joueur.getId() != plateau.cellule[posDepart.x][posDepart.y].getIdJoueur()) {
+        return;
+    }
+
     noeuds = plateau.getZoneParcourable(posDepart, joueur.getEnergie());
 
     chemin = PlateauServeur::obtenirChemin(posArrivee, noeuds);
@@ -270,6 +287,10 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
     sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
     sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
 
+    if(joueur.getId() != plateau.cellule[posDepart.x][posDepart.y].getIdJoueur()) {
+        return;
+    }
+
     if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart, joueur.getEnergie()), joueur)) {
         paquet << paquetDeplacerVaisseau;
         envoiPlateauATous();
@@ -279,25 +300,34 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
 
     envoiJoueurCourant(joueur);
     ReseauGlobal::EnvoiPaquet(*client, paquet);
+
+    joueurSuivant();
 }
 
-void ReseauServeur::attaquerVaisseau(sf::TcpSocket& client, Position posAttaquant, Position posCible) {
+void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquant, Position posCible) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     sf::Uint16 paquetAttaquerVaisseau = static_cast<sf::Uint16>(TypePaquet::AttaquerVaisseau);
     sf::Uint16 paquetAttaqueImpossible = static_cast<sf::Uint16>(TypePaquet::AttaqueVaisseauImpossible);
     CelluleServeur cAttaquant, cCible;
 
+    if(joueur.getId() != plateau.cellule[posAttaquant.x][posAttaquant.y].getIdJoueur()) {
+        return;
+    }
+
     cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
     cCible = plateau.cellule[posCible.x][posCible.y];
 
     if(plateau.attaquer(posAttaquant, posCible)) {
-        paquet << paquetAttaquerVaisseau;
+        paquet << paquetAttaquerVaisseau << posCible;
         envoiPlateauATous();
     } else {
-        paquet << paquetAttaqueImpossible;
+        paquet << paquetAttaqueImpossible << posCible;
     }
     
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+
+    joueurSuivant();
 }
 
 void ReseauServeur::envoiZoneConstructibleVaisseau(JoueurServeur& joueur) {
@@ -329,6 +359,10 @@ void ReseauServeur::envoiZoneConstructibleBatiment(JoueurServeur& joueur, Positi
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneConstructibleBatiment);
     sf::Int32 tailleZone;
 
+    if(joueur.getId() != plateau.cellule[p.x][p.y].getIdJoueur()) {
+        return;
+    }
+
     listePos = plateau.getZoneConstructibleBatiment(p, joueur.getId());
 
     tailleZone = listePos.size();
@@ -342,12 +376,17 @@ void ReseauServeur::envoiZoneConstructibleBatiment(JoueurServeur& joueur, Positi
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
-void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
+void ReseauServeur::envoiZoneAttaquable(JoueurServeur& joueur, Position p) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     std::list<NoeudServeur> noeuds;
     std::list<NoeudServeur>::iterator noeudIterator;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneAttaquable);
     sf::Int32 tailleZone;
+
+    if(joueur.getId() != plateau.cellule[p.x][p.y].getIdJoueur()) {
+        return;
+    }
 
     noeuds = plateau.getZoneAttaquable(p);
 
@@ -359,7 +398,7 @@ void ReseauServeur::envoiZoneAttaquable(sf::TcpSocket& client, Position p) {
         paquet << noeudIterator->getPosition();
     }
 
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
 void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
@@ -389,25 +428,29 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         posX = 2;
         posY = 2;
         
-        plateau.cellule[6][4].creerVaisseauTest(TypeVaisseau::Destructeur);
-        joueur.ajouterVaisseau(plateau.cellule[6][4].getVaisseau());
-        plateau.cellule[8][5].creerVaisseauTest(TypeVaisseau::Leger);
-        joueur.ajouterVaisseau(plateau.cellule[8][5].getVaisseau());
+        plateau.cellule[3][3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        joueur.ajouterVaisseau(plateau.cellule[3][3].getVaisseau());
+        plateau.cellule[4][3].creerVaisseauTest(TypeVaisseau::Leger);
+        joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
 
-        plateau.cellule[7][6].creerVaisseauTest(TypeVaisseau::Constructeur);
-        joueur.ajouterVaisseau(plateau.cellule[7][6].getVaisseau());
-        plateau.cellule[5][1].creerVaisseauTest();
-        joueur.ajouterVaisseau(plateau.cellule[5][1].getVaisseau());
-
-        demarrerPartieMulti();
+        plateau.cellule[11][10].creerVaisseauTest(TypeVaisseau::Constructeur);
+        joueur.ajouterVaisseau(plateau.cellule[11][10].getVaisseau());
+        plateau.cellule[5][4].creerVaisseauTest(TypeVaisseau::Constructeur);
+        joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
+        plateau.cellule[11][11].creerVaisseauTest();
+        joueur.ajouterVaisseau(plateau.cellule[11][11].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
     joueur.ajouterBatiment(plateau.cellule[posX][posY].getBatiment());
+
+    if((nbJoueurs > 1) && !partieSolo) {
+        demarrerPartieMulti();
+    }
 }
 
 void ReseauServeur::demarrerPartieMulti() {
@@ -416,11 +459,34 @@ void ReseauServeur::demarrerPartieMulti() {
 
     paquet << typePaquet;
 
-    for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
-        JoueurServeur& j = *it;
-        sf::TcpSocket* client = j.getSocket();
-        ReseauGlobal::EnvoiPaquet(*client, paquet);
+    envoiPaquetATous(paquet);
+
+    joueurSuivant();
+}
+
+void ReseauServeur::joueurSuivant() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurSuivant);
+    sf::Packet paquet;
+
+    // La partie n'est pas encore commencée
+    if(joueurActuel == -1) {
+        joueurActuel = 1;
     }
+
+    // La partie est déjà en cours
+    else {
+        if(joueurActuel == 1) {
+            joueurActuel = 2;
+        }
+        else {
+            joueurActuel = 1;
+        }
+    }
+
+    cout << "C'est au tour du joueur " << joueurActuel << " de jouer" << endl;
+
+    paquet << typePaquet << joueurActuel;
+    envoiPaquetATous(paquet);
 }
 
 void ReseauServeur::ecouterReseau(void) {

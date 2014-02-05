@@ -8,6 +8,8 @@ struct CelluleBits {
     bool estConstructibleVaisseau : 1;
     bool estConstructibleBatiment : 1;
     bool estDestination : 1;
+    bool estAttaquee : 1;
+    bool estDetruite : 1;
 };
 
 #endif

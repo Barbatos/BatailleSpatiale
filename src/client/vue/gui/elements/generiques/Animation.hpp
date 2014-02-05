@@ -43,6 +43,11 @@ private:
 	 */
 	bool active;
 
+	/**
+	 * \brief Si l'animation est cyclique ou non
+	 */
+	bool cyclique;
+
 public:
 	/**
 	 * \brief Constructeur
@@ -57,7 +62,7 @@ public:
 	 * \param nomImage le nom de l'image à charger
 	 */
 	Animation(Gui* gui, int id, int x, int y, int largeur, int hauteur,
-	          bool ajout, std::string nomImage);
+	          bool ajout, bool cyclique, std::string nomImage);
 
 	/**
 	 * \brief Destructeur

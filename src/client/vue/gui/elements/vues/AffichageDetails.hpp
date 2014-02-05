@@ -17,6 +17,7 @@
 // Includes de nos classes
 #include <client/vue/gui/elements/generiques/Label.hpp>
 #include <client/vue/gui/elements/generiques/BarreMesure.hpp>
+#include <client/vue/gui/elements/generiques/BarreStatut.hpp>
 
 
 // Includes du modèle
@@ -74,22 +75,22 @@ class AffichageDetails : public Element {
     /**
      * \brief la barre représentant le niveau de commandement
      */
-    BarreMesure* commandementBarre;
+    BarreStatut* commandementBarre;
 
     /**
      * \brief la barre représentant le niveau d'énergie
      */
-    BarreMesure* energieBarre;
+    BarreStatut* energieBarre;
 
     /**
      * \brief la barre représentant le niveau de réquisition
      */
-    BarreMesure* requisitionBarre;
+    BarreStatut* requisitionBarre;
 
     /**
      * \brief la barre représentant le niveau de matériaux
      */
-    BarreMesure* materiauxBarre;
+    BarreStatut* materiauxBarre;
 
     /**
      * \brief représente la barre de santé pour un vaisseau

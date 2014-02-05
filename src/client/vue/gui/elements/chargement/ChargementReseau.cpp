@@ -13,7 +13,7 @@ ChargementReseau::ChargementReseau(Gui* gui, int id, int x, int y, int largeur, 
                 : Element(gui, id),
                   texteReseau(),
                   texteJoueurs(),
-                  image(gui, -1, x, y, largeur, hauteur - texteReseau.getCharacterSize() - 5, true, "Interface/chargement.png"),
+                  image(gui, -1, x, y, largeur, hauteur - texteReseau.getCharacterSize() - 5, true, true, "Interface/chargement.png"),
                   reseauActif(false) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);

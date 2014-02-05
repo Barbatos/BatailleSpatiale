@@ -46,6 +46,12 @@ public:
     void setEstAttaquable(bool estAttaquable);
     bool getEstAttaquable() const;
 
+    void setEstAttaquee(bool estAttaquee);
+    bool getEstAttaquee() const;
+
+    void setEstDetruite(bool estDetruite);
+    bool getEstDetruite() const;
+
     void setEstDestination(bool estDest);
     bool getEstDestination() const;
     

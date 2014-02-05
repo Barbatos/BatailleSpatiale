@@ -36,6 +36,8 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     initialiserPlateau();
 
+    new Animation(&gui, -1, 50, 100, 200, 200, true, false, "Environnement/petite_explosion.png");
+
     new BoutonDeplacementPlateau(&gui, Droite, winx - x, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Gauche, 0, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Haut, 0, 0, winx, y);
@@ -44,7 +46,7 @@ SceneJeu::SceneJeu(Jeu& jeu)
     new Bouton(&gui, Menu, "Menu", (winx - 100) / 2, winy - 40 - y, 100, 40);
 
     deplacement = new Bouton(&gui, Deplacement, "Deplacer", (winx + 20) / 2, 0.7 * winy, 100, 40);
-    attaque = new Bouton(&gui, Attaque, "Attaque", (winx - 230) / 2, 0.7 * winy , 100, 40);
+    attaque = new Bouton(&gui, Attaque, "Attaquer", (winx - 230) / 2, 0.7 * winy , 100, 40);
 
     porteeDeplacement = new CaseACocher(&gui, PorteeDeplacement, x+10, y+10, 20, 20, "Afficher portee de deplacement");
     porteeAttaque = new CaseACocher(&gui, PorteeAttaque, x+10, y+40, 20, 20, "Afficher portee d'attaque");

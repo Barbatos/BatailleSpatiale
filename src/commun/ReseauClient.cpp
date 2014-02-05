@@ -4,6 +4,7 @@ ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur)
                 : ip("none"), port(0), plateau(_plateau), joueur(_joueur), partieSolo(false) {
     setActif(false);
     setPartieActive(false);
+    setBloquerJeu(true);
 
     ConnexionMasterServeur();
 }
@@ -15,7 +16,7 @@ ReseauClient::~ReseauClient() {
 
 void ReseauClient::ConnexionServeur(string ip, unsigned short port, bool _partieSolo) {
     sf::IpAddress server(ip);
-    sf::Time timeout = sf::seconds(2);
+    sf::Time timeout = sf::seconds(0.5);
     int nbEssais = 0;
 
     if(_partieSolo) {
@@ -51,7 +52,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port, bool _partie
 void ReseauClient::ConnexionMasterServeur(void) {
     unsigned short portMaster = 1600;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(2);
+    sf::Time timeout = sf::seconds(0.2);
     int nbEssais = 0;
 
     while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
@@ -146,6 +147,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             demarrerPartieMulti();
             break;
 
+        case TypePaquet::JoueurSuivant:
+            joueurSuivant(paquet);
+            break;
+
         default:
             cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
             break;
@@ -179,6 +184,22 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
 
 void ReseauClient::demarrerPartieMulti() {
     setPartieActive(true);
+}
+
+void ReseauClient::joueurSuivant(sf::Packet paquet) {
+    sf::Int32 numJoueur;
+
+    paquet >> numJoueur;
+
+    // C'est à nous de jouer
+    if(joueur.getId() == numJoueur) {
+        setBloquerJeu(false);
+    }   
+
+    // Ce n'est pas notre tour de jouer
+    else {
+        setBloquerJeu(true);
+    } 
 }
 
 void ReseauClient::EnvoyerPseudoServeur(string pseudo) {
@@ -313,8 +334,12 @@ void ReseauClient::deplacerVaisseau(sf::Packet) {
     // TODO : Messages d'erreur / validation
 }
 
-void ReseauClient::attaquerVaisseau(sf::Packet) {
-    // TODO : Messages d'erreur / validation
+void ReseauClient::attaquerVaisseau(sf::Packet paquet) {
+    Position p;
+
+    paquet >> p;
+
+    plateau.cellule[p.x][p.y].setEstAttaquee(true);
 }
 
 void ReseauClient::getChemin(Position depart, Position arrivee) {
@@ -429,6 +454,14 @@ bool ReseauClient::getPartieActive() {
 
 bool ReseauClient::getPartieSolo() {
     return partieSolo;
+}
+
+void ReseauClient::setBloquerJeu(bool _bloquer) {
+    bloquerJeu = _bloquer;
+}
+
+bool ReseauClient::getBloquerJeu() {
+    return bloquerJeu;
 }
 
 void ReseauClient::setPartieSolo(bool _partieSolo) {

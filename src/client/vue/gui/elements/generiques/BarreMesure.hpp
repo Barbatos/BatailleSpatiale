@@ -2,7 +2,7 @@
  * BarreMesure.h
  *
  *  Created on: 29 janv. 2014
- *      Author: Tahiry
+ *      Author: Tendry
  */
 
 #ifndef BARREMESURE_H_
@@ -15,7 +15,9 @@
  * \brief représente une barre avec une mesure pouvant indiquer la valeur d'une propriété d'un joueur
  */
 class BarreMesure: public Element {
-private:
+
+protected:
+
 	/**
 	 * \brief le contour de la barre de mesure
 	 */
@@ -42,6 +44,7 @@ private:
 	int max;
 
 public:
+
 	/**
 	 * \brief Version typedef de la barre
 	 */
@@ -50,12 +53,17 @@ public:
 	BarreMesure();
 
 	/**
+	 * \brief constructeur nécessaire pour les barres de statut
+	 */
+	BarreMesure(Gui* gui, float x, float y, float largeur,
+			float hauteur);
+
+	/**
 	 * \brief Constructeur
 	 *
 	 * Créé une nouvelle barre de mesure avec les paramètres donnés
 	 *
 	 * \param gui le gui contenant la barre
-	 * \param le texte associé a la description
 	 * \param la couleur de la barre de progression
 	 * \param x sa position en x
 	 * \param y sa position en y

@@ -21,7 +21,7 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu)
 
     new Image(&gui, 0, 0, 0, jeu.lireAffichage().getSize().x, jeu.lireAffichage().getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
-    new Animation(&gui, -1, 50, 100, 200, 200, true, "Environnement/comete2.png");
+    new Animation(&gui, -1, 50, 100, 200, 200, true, true, "Environnement/comete2.png");
 
     new Bouton(&gui, Solo, "Partie Solo", x, y, largeur, hauteur);
 

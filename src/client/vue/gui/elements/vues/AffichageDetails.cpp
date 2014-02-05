@@ -29,19 +29,18 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 	santeBatiment = NULL;
 	santeVaisseau = NULL;
 
-	Joueur* joueur = gui->lireScene()->lireJeu().lireJoueur();
 	int xalign = x + largeur - 50;
 	int xsize = 250;
 
 	//Création des barres
-	commandementBarre = new BarreMesure(gui, sf::Color::Magenta, xalign, y + 20,
-			xsize, 10, joueur->getCommandement());
-	energieBarre = new BarreMesure(gui, sf::Color::Green, xalign, y + 43, xsize,
-			10, joueur->getEnergie());
-	materiauxBarre = new BarreMesure(gui, sf::Color::Red, xalign, y + 65, xsize,
-			10, joueur->getMateriaux());
-	requisitionBarre = new BarreMesure(gui, sf::Color(200, 200, 150), xalign,
-			y + 88, xsize, 10, joueur->getRequisition());
+	commandementBarre = new BarreStatut(gui, xalign, y + 20,
+			xsize, 10, sf::Color::Cyan, sf::Color::Red);
+	energieBarre = new BarreStatut(gui, xalign, y + 43, xsize,
+			10, sf::Color(200,200,150), sf::Color::Red);
+	materiauxBarre = new BarreStatut(gui, xalign, y + 65, xsize,
+			10, sf::Color::Cyan, sf::Color::Red);
+	requisitionBarre = new BarreStatut(gui, xalign,
+			y + 88, xsize, 10, sf::Color(200, 200, 150), sf::Color::Red);
 
 	int taille = largeur / 3;
 
@@ -87,16 +86,12 @@ void AffichageDetails::actualiser(float)
 	stream << "Requisition: " << "\n";
 
 	//Mettre à jour la progression des barres
-	commandementBarre->setLargeur(joueur->getCommandement());
 	commandementBarre->setValeurMontree(joueur->getCommandement());
 
-	energieBarre->setLargeur(joueur->getEnergie());
 	energieBarre->setValeurMontree(joueur->getEnergie());
 
-	materiauxBarre->setLargeur(joueur->getMateriaux());
 	materiauxBarre->setValeurMontree(joueur->getMateriaux());
 
-	requisitionBarre->setLargeur(joueur->getRequisition());
 	requisitionBarre->setValeurMontree(joueur->getRequisition());
 
 	infosJoueurs.setString(stream.str());
