@@ -102,10 +102,11 @@ public:
 
 
     /**
-     * \brief Retire les pointeurs des vaisseaux et batiments inutiles
+     * \brief Effectue un tour au niveau du joueur
+     * Cette méthode est a effectuer a chaque tour
      *
      */
-    void ajournerListeStructures();
+    void effectuerTour();
 
     /**
      * \brief Ajoute ou modifie le socket du joueur

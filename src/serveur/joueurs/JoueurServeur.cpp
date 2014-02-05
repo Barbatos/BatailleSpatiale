@@ -113,7 +113,7 @@ void JoueurServeur::retirerConstructionVaisseau() {
 
 }
 
-void JoueurServeur::ajournerListeStructures() {
+void JoueurServeur::effectuerTour() {
     for (std::list<std::weak_ptr<BatimentServeur>>::iterator batiment=listeBatiments.begin();
             batiment!=listeBatiments.end(); ++batiment)
         if(!batiment->expired())
