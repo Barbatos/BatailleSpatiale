@@ -7,14 +7,12 @@
 class VaisseauServeur;
 
 /*
-* Classe qui définit les differents attributs
-* que possèdent les batiments.
+* Classe qui dÃ©finit les differents attributs
+* que possÃ¨dent les batiments.
 */
-
 class BatimentServeur : public Structure {
 
 public:
-    BatimentServeur();
     BatimentServeur(
         sf::Int32 vieMax,
         sf::Int32 bouclierMax,

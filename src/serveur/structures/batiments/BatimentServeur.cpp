@@ -1,10 +1,5 @@
 #include "BatimentServeur.hpp"
 
-BatimentServeur::BatimentServeur() : Structure() {
-    niveau = 0;
-
-}
-
 BatimentServeur::BatimentServeur(sf::Int32 vieMax, sf::Int32 bouclierMax, float bouclierTaux, sf::Int32 visibilite, sf::Int32 attaque, sf::Int32 niveau, sf::Int32 rayonAttaque, sf::Int32 prixEnergie, sf::Int32 prixMateriaux, TypeBatiment _type) :
     Structure(vieMax, bouclierMax, bouclierTaux, visibilite, attaque, rayonAttaque, prixEnergie, prixMateriaux) {
     this->niveau = niveau;
