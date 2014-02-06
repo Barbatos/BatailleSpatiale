@@ -48,9 +48,16 @@ SceneJeu::SceneJeu(Jeu& jeu)
     deplacement = new Bouton(&gui, Deplacement, "Deplacer", (winx + 20) / 2, 0.7 * winy, 100, 40);
     attaque = new Bouton(&gui, Attaque, "Attaquer", (winx - 230) / 2, 0.7 * winy , 100, 40);
 
-    porteeDeplacement = new CaseACocher(&gui, PorteeDeplacement, x+10, y+10, 20, 20, "Afficher portee de deplacement");
-    porteeAttaque = new CaseACocher(&gui, PorteeAttaque, x+10, y+40, 20, 20, "Afficher portee d'attaque");
-    porteeConstruction = new CaseACocher(&gui, PorteeConstruction, x+10, y+70, 20, 20, "Afficher portee de construction");
+    sf::Color coche = sf::Color(50,50,50);
+    sf::Color nonCoche = sf::Color(230,230,230);
+
+    porteeDeplacement = new CaseACocher(&gui, PorteeDeplacement, x+10, y+10, 20, 20, "Afficher portee de deplacement", coche, nonCoche);
+    porteeAttaque = new CaseACocher(&gui, PorteeAttaque, x+10, y+40, 20, 20, "Afficher portee d'attaque", coche, nonCoche);
+    porteeConstruction = new CaseACocher(&gui, PorteeConstruction, x+10, y+70, 20, 20, "Afficher portee de construction", coche, nonCoche);
+
+    porteeDeplacement->cocher();
+    porteeAttaque->cocher();
+    porteeConstruction->cocher();
 
     deplacement->ecrireVisible(false);
     attaque->ecrireVisible(false);
