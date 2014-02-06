@@ -12,7 +12,7 @@
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
     sf::View* vuePlateau)
-                : Element(gui, id), image(), fond(), position(position), selectionne(false) {
+                : Element(gui, id), image(), fond(), position(position), selectionne(false), gui(gui) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
@@ -91,6 +91,11 @@ void AffichageCase::actualiser(float) {
         // Constructible vaisseau
         fond.setFillColor(sf::Color(208, 198, 177, 50));
         fond.setOutlineColor(sf::Color(208, 198, 177, 50));
+    }
+    else if(p.getCellule(position).getEstAttaquee()){
+        new Animation(gui, -1, fond.getPosition().x, fond.getPosition().y, 200, 200, true, false, "Environnement/petite_explosion.png");
+
+        p.resetAttaque(position);
     }
     else {
         // Défaut
