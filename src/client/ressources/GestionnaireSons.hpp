@@ -19,14 +19,14 @@ class GestionnaireSons
 	private:
 
 		/**
-		 * \brief l'horloge générale du jeu
-		 */
-		sf::Clock* horloge;
+		* \brief les ressources du jeu
+		*/
+		Ressources* ressources;
 
 		/**
-		 * \brief les ressources du jeu
+		 * \brief l'horloge générale du jeu
 		 */
-		Ressources& ressources;
+		sf::Clock horloge;
 
 		/**
 		 * \brief la musique courramment jouée
@@ -39,7 +39,22 @@ class GestionnaireSons
 		 * \brief Constructeur de l'objet
 		 * \param ressources les ressources du jeu vidéo
 		 */
-		GestionnaireSons(Ressources& ressources);
+		GestionnaireSons(Ressources* ressources);
+
+		/**
+		 * \brief lance la chanson actuellement traitée
+		 */
+		void lancerChanson();
+
+		/**
+		 * \brief stoppe la chanson actuellement traitée
+		 */
+		void stopperChanson();
+
+		/**
+		 * \brief lance ou désactive la chanson actuellement traitée
+		 */
+		void playPauseChanson();
 
 		/**
 		 * \brief Destructeur de l'objet

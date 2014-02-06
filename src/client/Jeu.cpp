@@ -27,6 +27,8 @@ Jeu::Jeu()
     reseauActif = false;
 
     reseau->demanderListeServeurs();
+
+   gestionnaire = new GestionnaireSons(&ressources);
 }
 
 Jeu::~Jeu() {
@@ -38,6 +40,9 @@ Jeu::~Jeu() {
 
     if (serveur != nullptr)
         serveur->fermerReseau();
+
+    delete gestionnaire;
+    delete joueur;
 }
 
 void Jeu::changer(Scene::Type nouvelleScene) {
@@ -155,4 +160,8 @@ ReseauPtr& Jeu::lireReseau() {
 }
 Joueur* Jeu::lireJoueur(){
 	return (joueur);
+}
+
+GestionnaireSons* Jeu::lireGestionnaire() {
+	return gestionnaire;
 }
