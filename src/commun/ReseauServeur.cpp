@@ -5,7 +5,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(0.2);
+    sf::Time timeout = sf::seconds(0.1);
 
     plateau.setJoueurs(&joueurs);
     joueurActuel = -1;
@@ -478,8 +478,17 @@ void ReseauServeur::joueurSuivant() {
         if(joueurActuel == 1) {
             joueurActuel = 2;
         }
+        // Fin d'un tour
         else {
             joueurActuel = 1;
+
+            // On redonne des ressources
+            for (vector<JoueurServeur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it) {
+                JoueurServeur& j = *it;
+
+                j.effectuerTour();
+                envoiJoueurCourant(j);
+            }
         }
     }
 
