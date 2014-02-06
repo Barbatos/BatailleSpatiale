@@ -216,12 +216,20 @@ int CelluleServeur::defendre(int degat) {
         degatStructure = degat - degatBouclier;
         vaisseau->setBouclier(vaisseau->getBouclier() - degatBouclier);
         vaisseau->setVie(vaisseau->getVie() - degatStructure);
+        if(vaisseau->getVie() <= 0) {
+            vaisseau.reset();
+            return 0;
+        }
         return vaisseau->getVie();
     } else if (batiment) {
         degatBouclier = degat - batiment->getBouclierTaux() * degat;
         degatStructure = degat - degatBouclier;
         batiment->setBouclier(batiment->getBouclier() - degatBouclier);
         batiment->setVie(batiment->getVie() - degatStructure);
+        if(batiment->getVie() <= 0) {
+            batiment.reset();
+            return 0;
+        }
         return batiment->getVie();
     } else 
         return -1;
