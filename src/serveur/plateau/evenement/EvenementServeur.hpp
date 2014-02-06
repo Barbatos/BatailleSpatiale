@@ -123,7 +123,7 @@ private:
     sf::Int32 multiplicateurDommage;
     /// Paramètre à prendre en compte lors du calcul des dommages subits par la structure présente.
     sf::Int32 multiplicateurDegat;
-    
+
     friend sf::Packet& operator <<(sf::Packet& paquet, const EvenementServeur& evenement);
 };
 

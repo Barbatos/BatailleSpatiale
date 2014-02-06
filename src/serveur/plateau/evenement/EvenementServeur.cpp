@@ -1,7 +1,7 @@
 #include "EvenementServeur.hpp"
 
 EvenementServeur::EvenementServeur(TypeEvenement _typeEvenement, bool _destructible,
-    sf::Int32 _coutDeplacement, sf::Int32 _multiplicateurDommage, sf::Int32 _multiplicateurDegat) {
+                                   sf::Int32 _coutDeplacement, sf::Int32 _multiplicateurDommage, sf::Int32 _multiplicateurDegat) {
     type = _typeEvenement;
     destructible = _destructible;
     coutDeplacement = _coutDeplacement;
@@ -10,7 +10,6 @@ EvenementServeur::EvenementServeur(TypeEvenement _typeEvenement, bool _destructi
 }
 
 EvenementServeur::~EvenementServeur() {
-
 }
 
 TypeEvenement EvenementServeur::quelType() {
