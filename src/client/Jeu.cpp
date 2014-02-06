@@ -16,6 +16,9 @@
 Jeu::Jeu()
                 : affichage(), modele(), controleur(modele), scene(nullptr), ressources(),
                   horloge(), reseau(nullptr), joueur(NULL) {
+
+	gestionnaire = new GestionnaireSons(&ressources);
+
     ressources.charger();
     affichage.creer();
 
@@ -27,8 +30,6 @@ Jeu::Jeu()
     reseauActif = false;
 
     reseau->demanderListeServeurs();
-
-   gestionnaire = new GestionnaireSons(&ressources);
 }
 
 Jeu::~Jeu() {
@@ -112,6 +113,10 @@ void Jeu::lancer() {
     reseauThread.launch();
 
     while (affichage.isOpen()) {
+
+    	if(gestionnaire->lirePhaseDeJeu())
+    		gestionnaire->controlerIntensite();
+
         while (affichage.pollEvent(evenement)) {
             if (evenement.type == sf::Event::Closed)
                 affichage.close();
