@@ -9,12 +9,10 @@ BatimentServeur::BatimentServeur(sf::Int32 vieMax, sf::Int32 bouclierMax, float 
 
 sf::Int32 BatimentServeur::getNiveau() {
     return niveau;
-
 }
 
 void BatimentServeur::setNiveau(sf::Int32 niveau) {
     this->niveau = niveau;
-
 }
 
 TypeBatiment BatimentServeur::getType() const {

@@ -193,7 +193,7 @@ public:
      */
     std::list<Position> getZoneConstructibleBatiment(Position position, sf::Int32 idJoueur);
 
-    bool attaquer(Position attaquant, Position cible);
+    int attaquer(Position attaquant, Position cible);
 
 private:
     /// Liste des joueurs

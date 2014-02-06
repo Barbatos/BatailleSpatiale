@@ -126,6 +126,8 @@ void JoueurServeur::effectuerTour() {
             }
         }
 
+    commandement += 5;
+
     for (std::list<std::weak_ptr<VaisseauServeur>>::iterator vaisseau=listeVaisseaux.begin();
             vaisseau!=listeVaisseaux.end(); ++vaisseau)
         if(!vaisseau->expired())
@@ -135,7 +137,6 @@ void JoueurServeur::effectuerTour() {
 sf::Packet& operator <<(sf::Packet& paquet, const JoueurServeur& joueur) {
     paquet << joueur.id << joueur.pseudo << joueur.commandement << joueur.requisition
            << joueur.energie << joueur.materiaux;
-
 
     return paquet;
 }

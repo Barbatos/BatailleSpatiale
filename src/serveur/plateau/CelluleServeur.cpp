@@ -1,5 +1,6 @@
 #include "CelluleServeur.hpp"
 #include "../structures/batiments/BatimentServeur.hpp"
+#include "../structures/batiments/BatimentEnergieServeur.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
 
 CelluleServeur::CelluleServeur(EvenementServeurPtr _evenement, TypeCellule _type) :
@@ -96,7 +97,11 @@ void CelluleServeur::creerVaisseauConstructeurTest() {
 }
 
 void CelluleServeur::creerBatimentBase() {
-    batiment.reset(new BatimentServeur(200, 50, 0.1f, 0, 0, 0, 10, 10, 10, TypeBatiment::Base));
+    batiment.reset(new BatimentServeur(800, 50, 0.1f, 0, 0, 0, 10, 10, 10, TypeBatiment::Base));
+}
+
+void CelluleServeur::creerBatimentEnergieTest() {
+    batiment.reset(new BatimentEnergieServeur(100, 50, 0.1f, 0, 0, 0, 10, 10, 10, 10));
 }
 
 Structure CelluleServeur::getAttaquant() {
@@ -177,7 +182,7 @@ sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
     return paquet;
 }
 
-void CelluleServeur::attaquer(CelluleServeur *cCible) {
+int CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
     
     if (vaisseau) {
@@ -195,10 +200,10 @@ void CelluleServeur::attaquer(CelluleServeur *cCible) {
         degat *= evenement->getMultiplicateurDommage();
     }
 
-    cCible->defendre(degat);
+    return cCible->defendre(degat);
 }
 
-void CelluleServeur::defendre(int degat) {
+int CelluleServeur::defendre(int degat) {
     int degatBouclier;
     int degatStructure;
 
@@ -211,11 +216,14 @@ void CelluleServeur::defendre(int degat) {
         degatStructure = degat - degatBouclier;
         vaisseau->setBouclier(vaisseau->getBouclier() - degatBouclier);
         vaisseau->setVie(vaisseau->getVie() - degatStructure);
+        return vaisseau->getVie();
     } else if (batiment) {
         degatBouclier = degat - batiment->getBouclierTaux() * degat;
         degatStructure = degat - degatBouclier;
         batiment->setBouclier(batiment->getBouclier() - degatBouclier);
         batiment->setVie(batiment->getVie() - degatStructure);
-    }
+        return batiment->getVie();
+    } else 
+        return -1;
 
 }

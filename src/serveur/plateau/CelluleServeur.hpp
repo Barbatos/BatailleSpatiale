@@ -112,6 +112,7 @@ public:
     void creerVaisseauTest(TypeVaisseau type = TypeVaisseau::Chasseur);
     void creerVaisseauConstructeurTest();
     
+    void creerBatimentEnergieTest();
     void creerBatimentBase();
     
     /**
@@ -130,11 +131,12 @@ public:
      * - une base qui provient de la structure attaquante sur la cellule.
      * - un coefficient multiplicateur par l'evement, s'il existe.
      * - un coefficient en fonction du type d'attaque par rapport à la cible.
-     *
      * Ensuite, on appelle defendre qui va faire les modifications sur les parametres de la cible.
+     *
+     * \return la vie du vaisseau
      * \param cCible La cellule qui va etre attaqué
      */
-    void attaquer(CelluleServeur *cCible);
+    int attaquer(CelluleServeur *cCible);
 
     /**
      * \brief Inflige les degats a la structure de la cellule.
@@ -142,9 +144,10 @@ public:
      * - une base qui provient de la cellule attaquante.
      * - un coefficient multiplicateur par l'evement, s'il existe.
      *
+     * \return la vie du vaisseau
      * \param degat Les degats que doit subir la cellule
      */
-    void defendre(int degat);
+    int defendre(int degat);
 
 private:
     /// L'evenement sur la cellule
