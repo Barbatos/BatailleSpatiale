@@ -47,6 +47,7 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     deplacement = new Bouton(&gui, Deplacement, "Deplacer", (winx + 20) / 2, 0.7 * winy, 100, 40);
     attaque = new Bouton(&gui, Attaque, "Attaquer", (winx - 230) / 2, 0.7 * winy , 100, 40);
+    finTour = new Bouton(&gui, FinTour, "Fin du tour", (winx - 100) / 2, 0.8 * winy , 100, 40);
 
     sf::Color coche = sf::Color(50,50,50);
     sf::Color nonCoche = sf::Color(230,230,230);
@@ -71,6 +72,10 @@ SceneJeu::~SceneJeu() {
 
     delete attaque;
     delete deplacement;
+    delete finTour;
+    delete porteeDeplacement;
+    delete porteeAttaque;
+    delete porteeConstruction;
 }
 
 void SceneJeu::initialiserPlateau() {
