@@ -28,6 +28,11 @@ class GestionnaireSons
 		 */
 		Ressources& ressources;
 
+		/**
+		 * \brief la musique courramment jouée
+		 */
+		Ressources::MusicPtr musique;
+
 	public:
 
 		/**
