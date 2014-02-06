@@ -184,7 +184,7 @@ sf::Packet& operator <<(sf::Packet& paquet, const CelluleServeur& cellule) {
 
 int CelluleServeur::attaquer(CelluleServeur *cCible) {
     int degat = 0;
-    
+
     if (vaisseau) {
         degat += vaisseau->getAttaque();
         if (cCible->getVaisseau()) {
@@ -231,7 +231,7 @@ int CelluleServeur::defendre(int degat) {
             return 0;
         }
         return batiment->getVie();
-    } else 
+    } else
         return -1;
 
 }

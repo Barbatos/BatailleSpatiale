@@ -98,7 +98,7 @@ public:
      * \return La distance maximale du vaisseau sur la cellule.
      */
     int distanceMaximale(sf::Int32 energie) const;
-    
+
     /**
      * \brief Indique le rayon maximale d'attaque de la cellule
      * Correspond au rayon d'attaque du vaisseau ou du batiment présent
@@ -111,16 +111,16 @@ public:
     //Multiple fonctions de test
     void creerVaisseauTest(TypeVaisseau type = TypeVaisseau::Chasseur);
     void creerVaisseauConstructeurTest();
-    
+
     void creerBatimentEnergieTest();
     void creerBatimentBase();
-    
+
     /**
      * \brief Retourne l'id du joueur sur la cellule
-     * 
+     *
      * Si il y a un batiment ou un vaisseau on retourne l'id
      * du propriétaire (-1) sinon
-     * 
+     *
      * \return L'id du joueur
      */
     sf::Int32 getIdJoueur();

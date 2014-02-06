@@ -405,7 +405,7 @@ bool PlateauServeur::deplacerVaisseau(Position p1, Position p2, std::list<NoeudS
         while (noeudIterateur != zoneParcourable.end()) {
             if (p2 == (noeudIterateur->getPosition())) {
                 cellule[p1.x][p1.y].echangerVaisseau(cellule[p2.x][p2.y]);
-                
+
                 VaisseauServeurPtr v = cellule[p2.x][p2.y].getVaisseauPtr();
 
                 chemin = obtenirChemin(p2, zoneParcourable);
