@@ -91,6 +91,8 @@ class Plateau {
 
         void viderZones();
 
+        void resetAttaque(Position p);
+
     private:
         bool positionValide(Position p);
         /// Les cellules du plateau

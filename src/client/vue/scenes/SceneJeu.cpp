@@ -36,8 +36,6 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     initialiserPlateau();
 
-    new Animation(&gui, -1, 50, 100, 200, 200, true, false, "Environnement/petite_explosion.png");
-
     new BoutonDeplacementPlateau(&gui, Droite, winx - x, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Gauche, 0, y, x, winy - 2 * y);
     new BoutonDeplacementPlateau(&gui, Haut, 0, 0, winx, y);
@@ -260,6 +258,7 @@ void SceneJeu::effectuerAction() {
         case TypeCellule::Vaisseau:
             // On attaque le vaisseau
             r->demanderAttaqueVaisseau(ancienne, destination);
+                        
             break;
         default:
             break;

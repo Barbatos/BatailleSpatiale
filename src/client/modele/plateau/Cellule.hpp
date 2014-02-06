@@ -66,6 +66,7 @@ public:
 
 private:
     friend sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule);
+    
     void setEvenement(Evenement* _evenement);
     void retirerEvenement();
     void setBatiment(Batiment* _batiment);
