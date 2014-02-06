@@ -82,6 +82,10 @@ void Plateau::viderDestination() {
     }
 }
 
+void Plateau::resetAttaque(Position p) {
+    cellule[p.x][p.y].setEstAttaquee(false);
+}
+
 void Plateau::viderZones() {
     for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++) {
         for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++) {

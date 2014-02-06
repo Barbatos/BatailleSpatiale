@@ -36,6 +36,11 @@ class AffichageCase : public Element, public ObservateurSouris {
          */
         bool selectionne;
 
+        /**
+         * \brief GUI
+         */
+        Gui* gui;
+
     public:
         /**
          * \brief Version unique_ptr de l'affichage case
