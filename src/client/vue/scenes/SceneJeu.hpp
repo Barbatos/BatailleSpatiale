@@ -47,6 +47,11 @@ class SceneJeu : public Scene, public ObservateurSouris {
         Bouton* attaque;
 
         /**
+         * \brief Bouton de fin de tour
+         */
+        Bouton* finTour;
+
+        /**
          * \brief Case concernant la portée de deplacement
          */
         CaseACocher* porteeDeplacement;
@@ -81,6 +86,7 @@ class SceneJeu : public Scene, public ObservateurSouris {
             PorteeDeplacement, //!< La case qui affiche la portée de déplacement
             PorteeConstruction, //!< La case qui affiche la portée de construction
             Attaque, //!< Le bouton d'attaque
+            FinTour, //!< Le bouton de fin de tour
             Menu, //!< Le bouton de menu
             Droite, //!< Le bouton pour déplacer le plateau à droite
             Gauche, //!< Le bouton pour déplacer le plateau à gauche
