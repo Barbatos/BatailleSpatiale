@@ -78,8 +78,7 @@ std::list<Position> PlateauServeur::getZoneConstructibleBatiment(Position positi
     //Pour chaque point autour
     for (p = pointAutour.begin();
             p != pointAutour.end(); p++) {
-        if(!cellule[p->x][p->y].estAccessible())
-            zoneConstructible.push_back(*p);
+        zoneConstructible.push_back(*p);
     }
 
     return zoneConstructible;
@@ -100,8 +99,7 @@ std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(sf::Int32 idJou
                 //Pour chaque point autour
                 for (p = pointAutour.begin();
                         p != pointAutour.end(); p++) {
-                    if(!cellule[p->x][p->y].estAccessible())
-                        zoneConstructible.push_back(*p);
+                    zoneConstructible.push_back(*p);
                 }
             }
         }
@@ -274,13 +272,36 @@ std::list<NoeudServeur> PlateauServeur::getZoneParcourable (
             for (pointCourant = pointAutour.begin();
                     pointCourant != pointAutour.end(); pointCourant++) {
 
-                //Si la cellule est accesible
-                if (cellule[pointCourant->x][pointCourant->y].estAccessible()) {
+                //On regarde si il est deja dans l'openliste
+                noeudIterateur = openListe.begin();
+                noeudTrouve = false;
+                while (!noeudTrouve && noeudIterateur != openListe.end()) {
+                    if (*pointCourant == (noeudIterateur->getPosition())) {
+                        noeudTrouve = true;
+                    } else {
+                        noeudIterateur++;
+                    }
+                }
 
-                    //On regarde si il est deja dans l'openliste
-                    noeudIterateur = openListe.begin();
-                    noeudTrouve = false;
-                    while (!noeudTrouve && noeudIterateur != openListe.end()) {
+                //Si oui alors on le met a jour si le nouveau chemin est meilleur
+                if (noeudTrouve) {
+                    if (noeudCourant.getG() + cellule[pointCourant->x][pointCourant
+                            ->y].getCoutDeplacement() < noeudIterateur->getG()) {
+
+                        noeudIterateur = openListe.erase(noeudIterateur);
+                        openListe.push_back(
+                            NoeudServeur(*pointCourant,
+                                         cellule[pointCourant->x][pointCourant->y].getCoutDeplacement(),
+                                         noeudCourant.getPosition()));
+                    }
+
+                    //Sinon
+                } else {
+
+                    //On regarde si il est dans la zone parcourable(closeList)
+                    noeudIterateur = zoneParcourable.begin();
+                    while (!noeudTrouve && noeudIterateur != zoneParcourable
+                            .end()) {
                         if (*pointCourant == (noeudIterateur->getPosition())) {
                             noeudTrouve = true;
                         } else {
@@ -288,44 +309,15 @@ std::list<NoeudServeur> PlateauServeur::getZoneParcourable (
                         }
                     }
 
-                    //Si oui alors on le met a jour si le nouveau chemin est meilleur
-                    if (noeudTrouve) {
-                        if (noeudCourant.getG() + cellule[pointCourant->x][pointCourant
-                                ->y].getCoutDeplacement() < noeudIterateur->getG()) {
-
-                            noeudIterateur = openListe.erase(noeudIterateur);
-                            openListe.push_back(
-                                NoeudServeur(
-                                    *pointCourant,
-                                    cellule[pointCourant->x][pointCourant
-                                                             ->y].getCoutDeplacement(),
-                                    noeudCourant.getPosition()));
-                        }
-
-                        //Sinon
-                    } else {
-
-                        //On regarde si il est dans la zone parcourable(closeList)
-                        noeudIterateur = zoneParcourable.begin();
-                        while (!noeudTrouve && noeudIterateur != zoneParcourable
-                                .end()) {
-                            if (*pointCourant == (noeudIterateur->getPosition())) {
-                                noeudTrouve = true;
-                            } else {
-                                noeudIterateur++;
-                            }
-                        }
-
-                        //Si il n'est ni dans l'openListe ni dans la zone parcourable on l'ajoute à l'openListe
-                        if (!noeudTrouve) {
-                            openListe.push_back(
-                                NoeudServeur(
-                                    *pointCourant,
-                                    cellule[pointCourant->x][pointCourant
-                                                             ->y].getCoutDeplacement() + noeudCourant
-                                    .getG(),
-                                    noeudCourant.getPosition()));
-                        }
+                    //Si il n'est ni dans l'openListe ni dans la zone parcourable on l'ajoute à l'openListe
+                    if (!noeudTrouve) {
+                        openListe.push_back(
+                            NoeudServeur(
+                                *pointCourant,
+                                cellule[pointCourant->x][pointCourant
+                                                         ->y].getCoutDeplacement() + noeudCourant
+                                .getG(),
+                                noeudCourant.getPosition()));
                     }
                 }
             }
