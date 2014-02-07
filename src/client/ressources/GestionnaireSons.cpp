@@ -14,7 +14,6 @@ GestionnaireSons::GestionnaireSons(Ressources* ressources) :
 
 GestionnaireSons::~GestionnaireSons()
 {
-	delete ressources;
 }
 
 void GestionnaireSons::lancerChanson()
