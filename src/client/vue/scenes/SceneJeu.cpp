@@ -22,6 +22,14 @@ SceneJeu::SceneJeu(Jeu& jeu)
     // On change le viewport de la vue
     vue.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
 
+    GestionnaireSons* manager = jeu.lireGestionnaire();
+    if(!manager->dejaEnCour(manager->lireRessources()->lireMusique("game_low.ogg")))
+    {
+    	manager->changerChanson(manager->chargerMusique("game_low.ogg"));
+    	manager->lancerChanson();
+    	manager->ecrirePhaseDeJeu(true);
+    }
+
     gui.ajouterObservateurSouris(this);
 
     int winx = jeu.lireAffichage().getSize().x;

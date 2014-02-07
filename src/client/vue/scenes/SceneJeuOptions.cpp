@@ -21,15 +21,12 @@ SceneJeuOptions::SceneJeuOptions(Jeu& jeu)
     new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x, jeu.lireAffichage().getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
     new Bouton(&gui, Musique, "Musique", x, y / 2, largeur, hauteur);
-    new Bouton(&gui, ChangerMusique, "Changer", x , 1.3 * y / 2, largeur, hauteur);
     new Bouton(&gui, AugmenterMusique, "+", 1.25 * x, 1.3 * y / 2, largeur, hauteur);
     new Bouton(&gui, BaisserMusique, "-", 0.75 * x, 1.3 * y / 2, largeur, hauteur);
     new Bouton(&gui, Son, "Son", x, 2 * y / 2, largeur, hauteur);
     new Bouton(&gui, AugmenterSon, "+", 1.25 * x, 2.3 * y / 2, largeur, hauteur);
     new Bouton(&gui, BaisserSon, "-", 0.75 * x, 2.3 * y / 2, largeur, hauteur);
     new Bouton(&gui, Retour, "Retour", x, 2 * y, largeur, hauteur);
-
-    musique = jeu.lireRessources().lireMusique("game_soundtrack_low.ogg");
 }
 
 SceneJeuOptions::~SceneJeuOptions() {
@@ -43,15 +40,7 @@ void SceneJeuOptions::surMessage(Message message) {
                     jeu.changer(Scene::SceneJeu);
                     break;
                 case Musique:
-                    if (musique->getStatus() == sf::Music::Playing)
-                        musique->pause();
-                    else
-                        musique->play();
-                    break;
-                case ChangerMusique:
-                    musique->pause();
-                    musique = jeu.lireRessources().lireMusique("game_soundtrack_medium.ogg");
-                    musique->play();
+                	lireJeu().lireGestionnaire()->playPauseChanson();
                     break;
                 case Son:
                     if (lireJeu().lireRessources().estSilencieuxSons() == false)

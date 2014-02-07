@@ -34,6 +34,10 @@ Jeu& Scene::lireJeu() {
 	return jeu;
 }
 
+GestionnaireSons* Scene::lireGestionnaire(){
+	return jeu.lireGestionnaire();
+}
+
 Gui& Scene::lireGui() {
 	return gui;
 }

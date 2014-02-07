@@ -57,7 +57,7 @@ bool CaseACocher::estCoche() {
 void CaseACocher::cocher()
 {
 	clique = true;
-	boite.setFillColor(sf::Color::Cyan);
+	boite.setFillColor(coche);
 }
 
 void CaseACocher::clicSouris(bool clicDroit) {

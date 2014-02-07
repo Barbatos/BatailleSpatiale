@@ -17,6 +17,7 @@
 
 // Includes de nos classes
 #include "gui/Gui.hpp"
+#include <client/ressources/GestionnaireSons.hpp>
 
 // Pré-déclarations
 class Jeu;
@@ -125,6 +126,16 @@ class Scene {
          * \see Jeu
          */
         Jeu& lireJeu();
+
+        /**
+         * \brief Renvoie le gestionnaire de sons
+         *
+         * Renvoie une référence vers le gestionnaire
+         *
+         * \return le gestionnaire
+         * \see GestionnaireSons
+         */
+        GestionnaireSons* lireGestionnaire();
 
         /**
          *

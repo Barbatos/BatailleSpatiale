@@ -13,6 +13,7 @@
 #include <client/vue/Scenes.hpp>
 #include <client/ressources/Ressources.hpp>
 #include <client/modele/Joueur.hpp>
+#include <client/ressources/GestionnaireSons.hpp>
 #include <commun/ReseauServeur.hpp>
 #include <commun/ReseauClient.hpp>
 #include <memory>
@@ -89,13 +90,23 @@ private:
 	 */
 	ReseauPtr reseau;
 
+	/**
+	 * \brief le joueur venant du réseau
+	 */
+	Joueur* joueur;
+
+	/**
+	 * \brief le gestionnaire de sons de la partie
+	 */
+	GestionnaireSons* gestionnaire;
+
 	bool reseauActif;
 
 	ReseauServeurPtr serveur;
 
 	PlateauServeurPtr plateauServeur;
 
-	Joueur* joueur;
+
 
 public:
 	/**
@@ -172,6 +183,8 @@ public:
 	 * \return les ressources du jeu
 	 */
 	Ressources& lireRessources();
+
+	GestionnaireSons* lireGestionnaire();
 
 	ReseauPtr& lireReseau();
 	Joueur* lireJoueur();
