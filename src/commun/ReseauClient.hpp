@@ -82,7 +82,7 @@ class ReseauClient {
 
         void demanderDeplacementVaisseau(Position depart, Position arrivee);
 
-        void getZoneConstructibleVaisseau(Position p);
+        void getZoneConstructibleVaisseau();
 
         void getZoneConstructibleBatiment(Position p);
 

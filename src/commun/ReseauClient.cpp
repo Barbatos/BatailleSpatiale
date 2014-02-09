@@ -93,6 +93,7 @@ void ReseauClient::TraiterPaquetServeur(void) {
 
         case TypePaquet::Plateau:
             paquet >> plateau;
+            getZoneConstructibleVaisseau();
             break;
 
         case TypePaquet::MessageEchoServeur:
@@ -360,11 +361,11 @@ void ReseauClient::demanderDeplacementVaisseau(Position depart, Position arrivee
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
-void ReseauClient::getZoneConstructibleVaisseau(Position p) {
+void ReseauClient::getZoneConstructibleVaisseau() {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleVaisseau);
     sf::Packet paquet;
 
-    paquet << typePaquet << p;
+    paquet << typePaquet;
 
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }

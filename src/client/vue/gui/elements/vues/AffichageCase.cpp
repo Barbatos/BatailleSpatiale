@@ -84,13 +84,13 @@ void AffichageCase::actualiser(float) {
     }
     else if (p.getCellule(position).getEstConstructibleBatiment()) {
         // Constructible bâtiment
-        fond.setFillColor(sf::Color(208, 198, 177, 50));
-        fond.setOutlineColor(sf::Color(208, 198, 177, 50));
+        fond.setFillColor(sf::Color(34, 76, 192, 50));
+        fond.setOutlineColor(sf::Color(34, 76, 192, 50));
     }
     else if (p.getCellule(position).getEstConstructibleVaisseau()) {
         // Constructible vaisseau
-        fond.setFillColor(sf::Color(208, 198, 177, 50));
-        fond.setOutlineColor(sf::Color(208, 198, 177, 50));
+        fond.setFillColor(sf::Color(59, 192, 34, 50));
+        fond.setOutlineColor(sf::Color(59, 192, 34, 50));
     }
     else if(p.getCellule(position).getEstAttaquee()){
         new Animation(gui, -1, fond.getPosition().x, fond.getPosition().y, 200, 200, true, false, "Environnement/petite_explosion.png");

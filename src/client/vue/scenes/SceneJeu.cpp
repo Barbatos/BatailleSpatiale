@@ -244,10 +244,6 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         	if(porteeAttaque->estCoche())
         		r->getZoneAttaquable(position);
         }
-        // Sinon, si c'est un bâtiment
-        else if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment)
-            // On demande au réseau la zone constructible
-            r->getZoneConstructibleBatiment(position);
     }
 }
 

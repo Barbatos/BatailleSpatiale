@@ -116,7 +116,6 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
 
         // Le client demande la zone constructible autour d'un point
     case TypePaquet::GetZoneConstructibleVaisseau:
-        paquet >> pos;
         envoiZoneConstructibleVaisseau(joueur);
         break;
 
@@ -430,19 +429,21 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         
         plateau.cellule[3][3].creerVaisseauTest(TypeVaisseau::Destructeur);
         joueur.ajouterVaisseau(plateau.cellule[3][3].getVaisseau());
-        plateau.cellule[4][3].creerVaisseauTest(TypeVaisseau::Leger);
+        plateau.cellule[4][3].creerVaisseauTest(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
+        plateau.cellule[4][4].creerVaisseauTest();
+        joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
 
-        plateau.cellule[11][10].creerVaisseauTest(TypeVaisseau::Constructeur);
-        joueur.ajouterVaisseau(plateau.cellule[11][10].getVaisseau());
-        plateau.cellule[5][4].creerVaisseauTest(TypeVaisseau::Constructeur);
-        joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
-        plateau.cellule[11][11].creerVaisseauTest();
-        joueur.ajouterVaisseau(plateau.cellule[11][11].getVaisseau());
+        plateau.cellule[posX - 3][posY -3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        joueur.ajouterVaisseau(plateau.cellule[posX -3][posY -3].getVaisseau());
+        plateau.cellule[posX -4][posY -3].creerVaisseauTest(TypeVaisseau::Constructeur);
+        joueur.ajouterVaisseau(plateau.cellule[posX -4][posY -3].getVaisseau());
+        plateau.cellule[posX -4][posY -4].creerVaisseauTest();
+        joueur.ajouterVaisseau(plateau.cellule[posX -4][posY -4].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
