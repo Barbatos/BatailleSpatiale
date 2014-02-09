@@ -72,6 +72,11 @@ void AffichageCase::actualiser(float) {
         fond.setFillColor(sf::Color(102, 0, 153, 50));
         fond.setOutlineColor(sf::Color(102, 0, 153, 50));
     }
+    else if (p.getCellule(position).getEstConstructibleBatiment()) {
+        // Constructible bâtiment
+        fond.setFillColor(sf::Color(34, 76, 192, 50));
+        fond.setOutlineColor(sf::Color(34, 76, 192, 50));
+    }
     else if (p.getCellule(position).getParcourable()) {
         // Parcourable
         fond.setFillColor(sf::Color(255, 102, 0, 50));
@@ -81,11 +86,6 @@ void AffichageCase::actualiser(float) {
         // Attaquable
         fond.setFillColor(sf::Color(204, 0, 0, 50));
         fond.setOutlineColor(sf::Color(204, 0, 0, 50));
-    }
-    else if (p.getCellule(position).getEstConstructibleBatiment()) {
-        // Constructible bâtiment
-        fond.setFillColor(sf::Color(34, 76, 192, 50));
-        fond.setOutlineColor(sf::Color(34, 76, 192, 50));
     }
     else if (p.getCellule(position).getEstConstructibleVaisseau()) {
         // Constructible vaisseau
