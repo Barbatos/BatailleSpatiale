@@ -197,7 +197,7 @@ int CelluleServeur::attaquer(CelluleServeur *cCible) {
     }
 
     if(evenement) {
-        degat *= evenement->getMultiplicateurDommage();
+        degat *= evenement->getMultiplicateurDegat();
     }
 
     return cCible->defendre(degat);
@@ -208,7 +208,7 @@ int CelluleServeur::defendre(int degat) {
     int degatStructure;
 
     if(evenement) {
-        degat *= evenement->getMultiplicateurDegat();
+        degat *= evenement->getMultiplicateurDommage();
     }
 
     if (vaisseau) {
