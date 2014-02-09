@@ -239,7 +239,7 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         		r->getZoneParcourable(position);
 
         	if(porteeConstruction->estCoche())
-        		r->getZoneConstructibleVaisseau(position);
+        		r->getZoneConstructibleBatiment(position);
 
         	if(porteeAttaque->estCoche())
         		r->getZoneAttaquable(position);
