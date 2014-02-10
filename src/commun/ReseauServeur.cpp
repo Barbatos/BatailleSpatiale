@@ -1,7 +1,7 @@
 #include "ReseauServeur.hpp"
 
 ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, string _nom, bool _partieSolo) :
-    nom(_nom), plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), actif(false), port(_port), partieSolo(_partieSolo) {
+    plateau(_plateau), reseauThread(&ReseauServeur::threadReseau, this), nom(_nom), actif(false), port(_port), partieSolo(_partieSolo) {
     int nbEssais = 0;
     unsigned short portMaster = 1500;
     sf::IpAddress masterServer("barbatos.fr");
@@ -52,7 +52,6 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
 
 void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
-    sf::TcpSocket* client = joueur.getSocket();
     ostringstream id;
     Position pos, pos2;
     string msg;
