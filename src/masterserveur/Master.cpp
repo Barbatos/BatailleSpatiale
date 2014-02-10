@@ -264,7 +264,6 @@ void Master::verifierServeursActifs() {
 
 void Master::traiterPaquetServeur(ServeurMaster& serveur, sf::Packet paquet) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
-    sf::TcpSocket* sv = serveur.getSocket();
     string msg;
 
     paquet >> typePaquet;
