@@ -60,7 +60,7 @@ void ZoneTexte::actualiser(float) {
         rectangle.setOutlineColor(sf::Color(255, 255, 255));
 }
 
-void ZoneTexte::afficher(sf::RenderWindow& affichage) {
+void ZoneTexte::afficher() {
     // On dessine le rectangle, le label, et si la zone est selectionnée,
     // le curseur
     affichage.draw(rectangle);

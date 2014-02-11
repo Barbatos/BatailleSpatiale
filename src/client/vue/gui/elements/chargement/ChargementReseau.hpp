@@ -27,7 +27,7 @@ public:
 	virtual ~ChargementReseau();
 
 	void actualiser(float delta);
-	void afficher(sf::RenderWindow& affichage);
+	void afficher();
 	bool contient(sf::Vector2i position);
 	void setReseauActif(bool _actif);
 };

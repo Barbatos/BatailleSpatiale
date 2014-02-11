@@ -381,7 +381,7 @@ class Element {
          *
          * \param fenetre la fenêtre où afficher l'élement
          */
-        virtual void afficher(sf::RenderWindow& fenetre) = 0;
+        virtual void afficher() = 0;
 };
 
 #endif /* ELEMENT_HPP */

@@ -16,11 +16,11 @@ SceneLancerServeur::SceneLancerServeur(Jeu& jeu)
     int largeur = 300 / 2;
     int hauteur = 86 / 2;
 
-    int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
+    int x = (affichage.getSize().x - largeur) / 2;
 
-    int y = (jeu.lireAffichage().getSize().y - hauteur) / 5;
+    int y = (affichage.getSize().y - hauteur) / 5;
 
-    new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x, jeu.lireAffichage().getSize().y, jeu.lireRessources().lireImage("fond.png"));
+    new Image(&gui, 100, 0, 0, affichage.getSize().x, affichage.getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
     port = new ZoneTexte(&gui, Port, x, 2 * y, largeur, hauteur, "Port du serveur");
 

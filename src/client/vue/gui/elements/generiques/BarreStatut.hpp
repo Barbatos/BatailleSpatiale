@@ -51,7 +51,7 @@ class BarreStatut: public BarreMesure
 		 */
 		virtual ~BarreStatut();
 
-		void afficher(sf::RenderWindow& affichage);
+		void afficher();
 
 		void setValeurMontree(int value);
 };

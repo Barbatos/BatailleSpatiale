@@ -17,9 +17,8 @@ class Splash {
 private:
 	Splash();
 
-	static Splash instance;
+	static Splash* instance;
 
-	sf::RenderWindow fenetre;
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Font police;
@@ -33,6 +32,10 @@ private:
 
 public:
 	virtual ~Splash();
+
+	static void initialiser();
+
+	static void detruire();
 
 	void lancer();
 

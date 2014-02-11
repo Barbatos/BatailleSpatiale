@@ -70,7 +70,7 @@ class CaseACocher : public Element, public ObservateurSouris {
         void cocher();
 
         void actualiser(float delta);
-        void afficher(sf::RenderWindow& affichage);
+        void afficher();
         bool contient(sf::Vector2i position);
 
         void clicSouris(bool clicDroit);

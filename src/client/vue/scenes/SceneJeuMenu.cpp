@@ -14,11 +14,11 @@ SceneJeuMenu::SceneJeuMenu(Jeu& jeu)
     int largeur = 300 / 1.5;
     int hauteur = 86 / 1.5;
 
-    int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
+    int x = (affichage.getSize().x - largeur) / 2;
 
-    int y = (jeu.lireAffichage().getSize().y - hauteur) / 7;
+    int y = (affichage.getSize().y - hauteur) / 7;
 
-    new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x, jeu.lireAffichage().getSize().y, jeu.lireRessources().lireImage("fond.png"));
+    new Image(&gui, 100, 0, 0, affichage.getSize().x, affichage.getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
     new Bouton(&gui, Retour, "Retour au jeu", x, y, largeur, hauteur);
     new Bouton(&gui, Sauvegarder, "Sauvegarder la partie", x, 2 * y, largeur, hauteur);

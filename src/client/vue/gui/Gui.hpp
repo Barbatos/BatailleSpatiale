@@ -58,11 +58,6 @@ class Gui {
         sf::Clock horloge;
 
         /**
-         * \brief La fenêtre où est dessiné le gui
-         */
-        sf::RenderWindow* fenetre;
-
-        /**
          * \brief La scène où est dessiné le gui
          */
         Scene* scene;
@@ -79,7 +74,7 @@ class Gui {
          * \param fenetre la fenêtre où sera dessiné le gui
          * \param scene la scène où sera dessiné le gui
          */
-        Gui(sf::RenderWindow* fenetre, Scene* scene);
+        Gui(Scene* scene);
 
         /**
          * \brief Destructeur

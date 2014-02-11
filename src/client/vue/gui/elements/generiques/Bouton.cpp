@@ -59,7 +59,7 @@ void Bouton::actualiser(float) {
 
 }
 
-void Bouton::afficher(sf::RenderWindow& affichage) {
+void Bouton::afficher() {
     if (lireAppui())
         affichage.draw(appui);
     else if (lireSurvol())

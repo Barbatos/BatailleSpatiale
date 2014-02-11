@@ -12,21 +12,21 @@
 
 SceneChargementJeu::SceneChargementJeu(Jeu& jeu)
                 : Scene(jeu) {
-    new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x, jeu.lireAffichage().getSize().y, jeu.lireRessources().lireImage("fond.png"));
+    new Image(&gui, 100, 0, 0, affichage.getSize().x, affichage.getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
-    int largeur = jeu.lireAffichage().getSize().x / 2;
-    int hauteur = jeu.lireAffichage().getSize().y / 2;
+    int largeur = affichage.getSize().x / 2;
+    int hauteur = affichage.getSize().y / 2;
 
-    int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
-    int y = (jeu.lireAffichage().getSize().y - hauteur) / 2;
+    int x = (affichage.getSize().x - largeur) / 2;
+    int y = (affichage.getSize().y - hauteur) / 2;
 
     new ChargementReseau(&gui, 0, x, y, largeur, hauteur);
 
     largeur = 300 / 1.5;
     hauteur = 86 / 1.5;
 
-    x = (jeu.lireAffichage().getSize().x - largeur) / 2;
-    y = jeu.lireAffichage().getSize().y - hauteur - 50;
+    x = (affichage.getSize().x - largeur) / 2;
+    y = affichage.getSize().y - hauteur - 50;
 
     new Bouton(&gui, 1, "Retour", x, y, largeur, hauteur);
 }

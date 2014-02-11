@@ -43,7 +43,7 @@ void Image::actualiser(float) {
 
 }
 
-void Image::afficher(sf::RenderWindow& affichage) {
+void Image::afficher() {
 	affichage.draw(sprite);
 }
 

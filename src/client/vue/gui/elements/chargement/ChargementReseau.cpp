@@ -49,12 +49,12 @@ void ChargementReseau::actualiser(float) {
     }
 }
 
-void ChargementReseau::afficher(sf::RenderWindow& fenetre) {
+void ChargementReseau::afficher() {
     if(reseauActif) {
-        fenetre.draw(texteJoueurs);
+        affichage.draw(texteJoueurs);
     }
     else {
-        fenetre.draw(texteReseau);
+        affichage.draw(texteReseau);
     }
 }
 

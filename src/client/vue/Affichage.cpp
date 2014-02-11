@@ -7,12 +7,10 @@
 
 #include "Affichage.hpp"
 
-#define TITRE_FENETRE "BattleStar2.0"
-#define HAUTEUR_FENETRE 1200
-#define LARGEUR_FENETRE 675
+Affichage* Affichage::instance = nullptr;
 
-Affichage::Affichage()
-                : sf::RenderWindow() {
+Affichage::Affichage() :
+		sf::RenderWindow() {
 
 }
 
@@ -20,8 +18,27 @@ Affichage::~Affichage() {
 
 }
 
-void Affichage::creer() {
-    create(sf::VideoMode::getFullscreenModes()[0], TITRE_FENETRE, sf::Style::Fullscreen);
+void Affichage::initialiser() {
+	instance = new Affichage();
+}
 
-    setFramerateLimit(60);
+void Affichage::detruire() {
+	delete instance;
+}
+
+void Affichage::creer() {
+	create(sf::VideoMode::getFullscreenModes()[0], "BattleStar2.0",
+			sf::Style::Fullscreen);
+
+	setFramerateLimit(60);
+}
+
+void Affichage::creer(sf::VideoMode mode, std::string titre, sf::Int32 style) {
+	create(mode, titre, style);
+
+	setFramerateLimit(60);
+}
+
+Affichage& Affichage::lireInstance() {
+	return *instance;
 }
