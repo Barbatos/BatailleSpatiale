@@ -195,6 +195,8 @@ public:
 
     int attaquer(Position attaquant, Position cible);
 
+    void effectuerTour();
+
 private:
     /// Liste des joueurs
     std::vector<JoueurServeur> *joueurs;

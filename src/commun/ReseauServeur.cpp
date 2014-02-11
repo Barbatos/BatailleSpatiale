@@ -487,6 +487,7 @@ void ReseauServeur::joueurSuivant() {
                 JoueurServeur& j = *it;
 
                 j.effectuerTour();
+                plateau.effectuerTour();
                 envoiJoueurCourant(j);
             }
         }

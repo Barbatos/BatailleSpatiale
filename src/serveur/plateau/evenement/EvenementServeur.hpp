@@ -147,6 +147,8 @@ const EvenementServeur EvenementEpave = EvenementServeur(TypeEvenement::Epave, t
 
 const EvenementServeur EvenementInfluenceTrouNoir = EvenementServeur(TypeEvenement::InfluenceTrouNoir, false, 3, 2, 2);
 
+//const EvenementServeur EvenementTrouNoir = EvenementServeur(TypeEvenement::TrouNoir, false, 1000, 1000, 1000);
+
 const EvenementServeur EvenementStationSpatialeAbandonnee = EvenementServeur(TypeEvenement::StationSpatialeAbandonnee, true, -1, 1, 1);
 
 #endif // EVENEMENTSERVEUR_HPP

@@ -1,0 +1,29 @@
+Présentation du projet au projecteur
+Menu fonctionnel. 
+Possibilité de lancer un serveur, une partie solo, ou rejoindre un serveur pour une partie multi.
+
+Partie solo
+Accès à un plateau test, présence du plateau
+Un serveur est lancé en local, il envoie les données au client. Système de package depackage
+Les tests sont bons, on envoie les données, mais pas assez a priori. Impossiilité de jouer pour le moment. L'IHM n'affiche pas assez de chose. On sait calculer, mais on peut pas afficher. 
+--> Réunion avec l'autre groupe prévue juste après.
+Problème : le moteur avance "à l'aveugle"
+
+Lancer un serveur : 
+Il faut préciser un port réseau.
+Problème : un thread se ferme mal, et plante le jeu
+Le serveur est lancé en arrière plan 
+--> faire une pop-up qui l'annonce ?
+--> voir pour les ports réservés ?
+    --> faire une liste déroulante ??
+
+Partie Multi :
+Problème : il manque un menu : celui de saisie de l'adresse IP
+Problème : il faudrait pouvoir choisir le port à la connexion ??
+
+Qui commence ? On tire au hasard (à faire)
+De toute façon le fait de commencer n'est pas un si grand avantage
+
+Il faut prioriser les tâches.
+Ainsi : les informations relatives aux objets sont primordiales à afficher. 
+--> Allons les aider ! :D

@@ -104,6 +104,10 @@ void CelluleServeur::creerBatimentEnergieTest() {
     batiment.reset(new BatimentEnergieServeur(100, 50, 0.1f, 0, 0, 0, 10, 10, 10, 10));
 }
 
+void CelluleServeur::creerEvenementTest(TypeEvenement type) {
+    evenement.reset(new EvenementServeur(type, true, -1, 1, 1));
+}
+
 Structure CelluleServeur::getAttaquant() {
     if(vaisseau)
         return *vaisseau;
@@ -233,5 +237,16 @@ int CelluleServeur::defendre(int degat) {
         return batiment->getVie();
     } else
         return -1;
+}
 
+void CelluleServeur::debutTour() {
+    if(evenement) {
+        switch (evenement->quelType()) {
+            case TypeEvenement::Epave:
+                //potatoe
+                break;
+            default :
+                break;
+        } 
+    }    
 }

@@ -471,3 +471,15 @@ sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau) {
 
     return paquet;
 }
+
+//toast
+void PlateauServeur::effectuerTour() {
+    int posX = 9;
+    int posY = 9;
+    //tester si la case est libre, et assez loin des bases
+    if(!cellule[posX][posY].getVaisseau())
+        if(!cellule[posX][posY].getBatiment())
+            if(!cellule[posX][posY].getEvenement())
+                cellule[posX][posY].creerEvenementTest(TypeEvenement::Epave);
+    
+}
