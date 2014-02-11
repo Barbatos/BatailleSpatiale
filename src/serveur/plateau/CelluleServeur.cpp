@@ -238,15 +238,3 @@ int CelluleServeur::defendre(int degat) {
     } else
         return -1;
 }
-
-void CelluleServeur::debutTour() {
-    if(evenement) {
-        switch (evenement->quelType()) {
-            case TypeEvenement::Epave:
-                //potatoe
-                break;
-            default :
-                break;
-        } 
-    }    
-}
