@@ -312,7 +312,7 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
     // TODO
 }
 
-void ReseauClient::parseListeServeurs(sf::Packet paquet) {
+vector<Serveur> ReseauClient::parseListeServeurs(sf::Packet paquet) {
     sf::Int32 nbServeurs;
     vector<Serveur> listeServeurs;
     Serveur s;
@@ -324,11 +324,7 @@ void ReseauClient::parseListeServeurs(sf::Packet paquet) {
         listeServeurs.push_back(s);
     }
 
-    for (vector<Serveur>::iterator it = listeServeurs.begin(); it != listeServeurs.end(); ++it) {
-        Serveur sv = *it;
-
-        cout << "serveur: " << sv.getNom() << ", " << sv.getIp() << ", " << sv.getPort() << endl;
-    }
+    return listeServeurs;
 }
 
 void ReseauClient::deplacerVaisseau(sf::Packet) {
