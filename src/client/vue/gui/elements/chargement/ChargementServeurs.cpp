@@ -29,7 +29,7 @@ ChargementServeurs::~ChargementServeurs() {
 
 }
 
-void ChargementReseau::actualiser(float) {
+void ChargementServeurs::actualiser(float) {
 	//if (lireGui()->lireScene()->lireJeu().lireReseau()->getListeServeurs()) {
 	Message message;
 
@@ -42,10 +42,10 @@ void ChargementReseau::actualiser(float) {
 	//}
 }
 
-void ChargementReseau::afficher() {
+void ChargementServeurs::afficher() {
 	affichage.draw(texte);
 }
 
-bool ChargementReseau::contient(sf::Vector2i) {
+bool ChargementServeurs::contient(sf::Vector2i) {
 	return false;
 }

@@ -8,6 +8,11 @@
 #ifndef CHARGEMENTSERVEURS_HPP
 #define CHARGEMENTSERVEURS_HPP
 
+#include "ChargementPack.hpp"
+
+#include <client/vue/gui/elements/generiques/Animation.hpp>
+#include <client/vue/gui/elements/generiques/Label.hpp>
+
 class ChargementServeurs: public Element {
 private:
 	Label texte;
