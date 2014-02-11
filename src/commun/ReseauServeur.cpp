@@ -497,6 +497,7 @@ void ReseauServeur::joueurSuivant() {
 
     paquet << typePaquet << joueurActuel;
     envoiPaquetATous(paquet);
+    envoiPlateauATous();
 }
 
 void ReseauServeur::ecouterReseau(void) {
