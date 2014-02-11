@@ -82,29 +82,23 @@ int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
     case TypeVaisseau::Chasseur:
         switch (type) {
         case TypeVaisseau::Bombardier:
-            return 2;
-            break;
-        case TypeVaisseau::Croiseur:
             return 10;
             break;
-        case TypeVaisseau::Destructeur:
-            return 80;
+        case TypeVaisseau::Croiseur:
+            return 2;
             break;
         default:
             break;
         }
         break;
 
-    case TypeVaisseau::ChasseurLourd:
+    case TypeVaisseau::Bombardier:
         switch (type) {
-        case TypeVaisseau::Bombardier:
+        case TypeVaisseau::Chasseur:
             return 2;
             break;
         case TypeVaisseau::Croiseur:
             return 10;
-            break;
-        case TypeVaisseau::Destructeur:
-            return 80;
             break;
         default:
             break;
@@ -116,43 +110,8 @@ int VaisseauServeur::triangulaire(VaisseauServeurPtr vAttaquant) {
         case TypeVaisseau::Bombardier:
             return 2;
             break;
-        case TypeVaisseau::Croiseur:
+        case TypeVaisseau::Chasseur:
             return 10;
-            break;
-        case TypeVaisseau::Destructeur:
-            return 80;
-            break;
-        default:
-            break;
-        }
-        break;
-
-    case TypeVaisseau::Traqueur:
-        switch (type) {
-        case TypeVaisseau::Bombardier:
-            return 2;
-            break;
-        case TypeVaisseau::Croiseur:
-            return 10;
-            break;
-        case TypeVaisseau::Destructeur:
-            return 80;
-            break;
-        default:
-            break;
-        }
-        break;
-
-    case TypeVaisseau::Destructeur:
-        switch (type) {
-        case TypeVaisseau::Bombardier:
-            return 2;
-            break;
-        case TypeVaisseau::Croiseur:
-            return 10;
-            break;
-        case TypeVaisseau::Destructeur:
-            return 80;
             break;
         default:
             break;

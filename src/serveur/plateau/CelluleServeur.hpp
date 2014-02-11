@@ -92,12 +92,6 @@ public:
     void setVaisseau(VaisseauServeurPtr _vaisseau);
 
     /**
-     * \brief Applique certaines actions sur la cellule au début du tour.
-     * S'il n'y a pas d'évènement, rien ne s'y passe.
-     */
-    void debutTour();
-    
-    /**
      * \brief Indique la distance maximale du vaisseau sur la cellule.
      * S'il n'y a pas de vaisseau, alors on retourne 0.
      *
