@@ -1,7 +1,10 @@
 #include "ReseauClient.hpp"
 
-ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur)
-                : ip("none"), port(0), plateau(_plateau), joueur(_joueur), partieSolo(false) {
+#include <client/utile/Notification.hpp>
+
+ReseauClient::ReseauClient(Plateau& _plateau, Joueur& _joueur) :
+        ip("none"), port(0), plateau(_plateau), joueur(_joueur), partieSolo(
+                false) {
     setActif(false);
     setPartieActive(false);
     setBloquerJeu(true);
@@ -14,27 +17,33 @@ ReseauClient::~ReseauClient() {
     socketMaster.disconnect();
 }
 
-void ReseauClient::ConnexionServeur(string ip, unsigned short port, bool _partieSolo) {
+void ReseauClient::ConnexionServeur(string ip, unsigned short port,
+        bool _partieSolo) {
     sf::IpAddress server(ip);
     sf::Time timeout = sf::seconds(0.5);
     int nbEssais = 0;
 
-    if(_partieSolo) {
+    if (_partieSolo) {
         partieSolo = _partieSolo;
     }
 
     if (getActif() == true) {
-        cout << "[RESEAU] Vous êtes déjà connecté à un serveur !" << endl;
+        notification.ajouterMessage(L"[RESEAU]", L"Vous êtes déjà connecté à un serveur !", 5000);
         return;
     }
 
-    while(socket.connect(server, port, timeout) != sf::Socket::Done) {
-        if(nbEssais >= 5) {
-            cout << "[RESEAU] Abandon de la tentative de connexion au serveur" << endl;
+    while (socket.connect(server, port, timeout) != sf::Socket::Done) {
+        if (nbEssais >= 5) {
+            notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au serveur", 5000);
+            cout << "[RESEAU] Abandon de la tentative de connexion au serveur"
+            << endl;
             return;
         }
 
-        cout << "[RESEAU] Impossible de se connecter au serveur sur le port " << port << ", essai sur le port " << (port+1) << endl;
+        std::wstringstream stream;
+        stream << L"Impossible de se connecter au serveur sur le port" << port << L", essai sur le port " << (port+1);
+
+        notification.ajouterMessage(L"[RESEAU]", stream.str(), 5000);
 
         port++;
         nbEssais++;
@@ -46,7 +55,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port, bool _partie
     // On définit que le réseau est maintenant actif
     setActif(true);
 
-    cout << "[RESEAU] Connecté au serveur " << server << endl;
+    notification.ajouterMessage(L"[RESEAU]", L"Connecté au serveur", 5000);
 }
 
 void ReseauClient::ConnexionMasterServeur(void) {
@@ -55,13 +64,17 @@ void ReseauClient::ConnexionMasterServeur(void) {
     sf::Time timeout = sf::seconds(0.05);
     int nbEssais = 0;
 
-    while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
-        if(nbEssais >= 5) {
-            cout << "[RESEAU] Abandon de la tentative de connexion au Master Serveur" << endl;
+    while (socketMaster.connect(masterServer, portMaster, timeout)
+            != sf::Socket::Done) {
+        if (nbEssais >= 5) {
+            notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au Master Serveur", 5000);
             break;
         }
 
-        cout << "[RESEAU] Impossible de se connecter au serveur sur le port " << portMaster << ", essai sur le port " << (portMaster+1) << endl;
+        std::wstringstream stream;
+        stream << L"Impossible de se connecter au serveur sur le port" << portMaster << L", essai sur le port " << (portMaster + 1);
+
+        notification.ajouterMessage(L"[RESEAU]", stream.str(), 5000);
 
         portMaster++;
         nbEssais++;
@@ -69,7 +82,7 @@ void ReseauClient::ConnexionMasterServeur(void) {
 
     socketMaster.setBlocking(false);
 
-    cout << "[RESEAU] Connecté au Master Serveur" << endl;
+    notification.ajouterMessage(L"[RESEAU]", L"Connecté au Master Serveur", 5000);
 }
 
 void ReseauClient::TraiterPaquetServeur(void) {
@@ -98,7 +111,7 @@ void ReseauClient::TraiterPaquetServeur(void) {
 
         case TypePaquet::MessageEchoServeur:
             paquet >> message;
-            cout << "[SERVEUR] " << message << endl;
+            notification.ajouterMessage("[RESEAU]", message, 5000);
             break;
 
         case TypePaquet::ZoneParcourable:
@@ -153,7 +166,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             break;
 
         default:
-            cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
+            std::stringstream stream;
+            stream << "Erreur : paquet de type : " << typePaquet << " inconnu";
+
+            notification.ajouterMessage("[RESEAU]", stream.str(), 5000);
             break;
     }
 }
@@ -178,7 +194,10 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
             break;
 
         default:
-            cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu venant du Master Serveur" << endl;
+            std::stringstream stream;
+            stream << "Erreur : paquet de type : " << typePaquet << " inconnu venant du Master Serveur";
+
+            notification.ajouterMessage("[RESEAU]", stream.str(), 5000);
             break;
     }
 }
@@ -193,14 +212,14 @@ void ReseauClient::joueurSuivant(sf::Packet paquet) {
     paquet >> numJoueur;
 
     // C'est à nous de jouer
-    if(joueur.getId() == numJoueur) {
+    if (joueur.getId() == numJoueur) {
         setBloquerJeu(false);
-    }   
+    }
 
     // Ce n'est pas notre tour de jouer
     else {
         setBloquerJeu(true);
-    } 
+    }
 }
 
 void ReseauClient::EnvoyerPseudoServeur(string pseudo) {
@@ -213,7 +232,8 @@ void ReseauClient::EnvoyerPseudoServeur(string pseudo) {
 }
 
 void ReseauClient::getZoneParcourable(Position p) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetZoneParcourable);
     sf::Packet paquet;
 
     paquet << typePaquet << p;
@@ -348,8 +368,10 @@ void ReseauClient::getChemin(Position depart, Position arrivee) {
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
-void ReseauClient::demanderDeplacementVaisseau(Position depart, Position arrivee) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderDeplacementVaisseau);
+void ReseauClient::demanderDeplacementVaisseau(Position depart,
+        Position arrivee) {
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::DemanderDeplacementVaisseau);
     sf::Packet paquet;
 
     paquet << typePaquet << depart << arrivee;
@@ -358,7 +380,8 @@ void ReseauClient::demanderDeplacementVaisseau(Position depart, Position arrivee
 }
 
 void ReseauClient::getZoneConstructibleVaisseau() {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleVaisseau);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleVaisseau);
     sf::Packet paquet;
 
     paquet << typePaquet;
@@ -367,7 +390,8 @@ void ReseauClient::getZoneConstructibleVaisseau() {
 }
 
 void ReseauClient::getZoneConstructibleBatiment(Position p) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleBatiment);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetZoneConstructibleBatiment);
     sf::Packet paquet;
 
     paquet << typePaquet << p;
@@ -376,7 +400,8 @@ void ReseauClient::getZoneConstructibleBatiment(Position p) {
 }
 
 void ReseauClient::getZoneAttaquable(Position p) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneAttaquable);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetZoneAttaquable);
     sf::Packet paquet;
 
     paquet << typePaquet << p;
@@ -385,7 +410,8 @@ void ReseauClient::getZoneAttaquable(Position p) {
 }
 
 void ReseauClient::getJoueurCourant() {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetJoueurCourant);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetJoueurCourant);
     sf::Packet paquet;
 
     paquet << typePaquet;
@@ -394,7 +420,8 @@ void ReseauClient::getJoueurCourant() {
 }
 
 void ReseauClient::getJoueursAdverses() {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetJoueursAdverses);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetJoueursAdverses);
     sf::Packet paquet;
 
     paquet << typePaquet;
@@ -403,7 +430,8 @@ void ReseauClient::getJoueursAdverses() {
 }
 
 void ReseauClient::demanderAttaqueVaisseau(Position p1, Position p2) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderAttaqueVaisseau);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::DemanderAttaqueVaisseau);
     sf::Packet paquet;
 
     paquet << typePaquet << p1 << p2;
@@ -412,7 +440,8 @@ void ReseauClient::demanderAttaqueVaisseau(Position p1, Position p2) {
 }
 
 void ReseauClient::demanderListeServeurs() {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::MasterGetServeurs);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::MasterGetServeurs);
     sf::Packet paquet;
 
     paquet << typePaquet;
@@ -421,7 +450,8 @@ void ReseauClient::demanderListeServeurs() {
 }
 
 void ReseauClient::getVaisseauxConstructibles() {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetVaisseauxConstructibles);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetVaisseauxConstructibles);
     sf::Packet paquet;
 
     paquet << typePaquet;
