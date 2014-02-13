@@ -19,88 +19,84 @@
  */
 
 Ressources::Ressources() :
-		volumeSons(10), volumeMusiques(10), silenceSonsEtat(false) {
+        volumeSons(10), volumeMusiques(10), silenceSonsEtat(false) {
 }
 
 Ressources::~Ressources() {
 }
 
 void Ressources::charger() {
-	sf::Thread thread(&Ressources::threadChargement, this);
+    sf::Thread thread(&Ressources::threadChargement, this);
 
-	Splash::initialiser();
+    thread.launch();
 
-	thread.launch();
-
-	Splash::lireInstance().lancer();
+    Splash::lireInstance().lancer();
 }
 
 void Ressources::threadChargement() {
-	Archive archive("ressources/ressources.txt");
+    Archive archive("ressources/ressources.txt");
 
-	int maxi = archive.lireImages().size() + archive.lirePolices().size()
-			+ archive.lireSons().size() + archive.lireMusiques().size();
+    int maxi = archive.lireImages().size() + archive.lirePolices().size()
+            + archive.lireSons().size() + archive.lireMusiques().size();
 
-	Splash::lireInstance().changerMaxi(maxi);
+    Splash::lireInstance().changerMaxi(maxi);
 
-	fichierLog.ajouterLigne("Chargement des images :");
+    fichierLog.ajouterLigne("Chargement des images :");
 
-	chargerImages(archive.lireImages());
+    chargerImages(archive.lireImages());
 
-	fichierLog.ajouterLigne("\nChargement des polices :");
+    fichierLog.ajouterLigne("\nChargement des polices :");
 
-	chargerPolices(archive.lirePolices());
+    chargerPolices(archive.lirePolices());
 
-	fichierLog.ajouterLigne("\nChargement des sons :");
+    fichierLog.ajouterLigne("\nChargement des sons :");
 
-	chargerSons(archive.lireSons());
+    chargerSons(archive.lireSons());
 
-	fichierLog.ajouterLigne("\nChargement des musiques :");
+    fichierLog.ajouterLigne("\nChargement des musiques :");
 
-	chargerMusiques(archive.lireMusiques());
+    chargerMusiques(archive.lireMusiques());
 
-	fichierLog.ajouterLigne("");
+    fichierLog.ajouterLigne("");
 
-	Splash::lireInstance().fermer();
-
-	Splash::detruire();
+    Splash::lireInstance().fermer();
 }
 
 void Ressources::chargerImage(std::string nomImage) {
-	textures.insert(
-			std::pair<std::string, sf::Texture>(nomImage, sf::Texture()));
+    textures.insert(
+            std::pair<std::string, sf::Texture>(nomImage, sf::Texture()));
 
-	if (!textures[nomImage].loadFromFile("ressources/images/" + nomImage)) {
-		Utile::erreur("Ressources::chargerImage(" + nomImage + ")",
-				"Impossible de charger " + nomImage);
-	}
+    if (!textures[nomImage].loadFromFile("ressources/images/" + nomImage)) {
+        Utile::erreur("Ressources::chargerImage(" + nomImage + ")",
+                "Impossible de charger " + nomImage);
+    }
 
-	textures[nomImage].setSmooth(true);
+    textures[nomImage].setSmooth(true);
 
-	fichierLog.ajouterLigne("    " + nomImage + " chargée !");
+    fichierLog.ajouterLigne("    " + nomImage + " chargée !");
 }
 
 void Ressources::chargerImages(std::vector<std::string> fichiers) {
-	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
-		Splash::lireInstance().changerTexte(fichiers[i]);
+    for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
+        Splash::lireInstance().changerTexte(fichiers[i]);
 
-		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
+        fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
-		chargerImage(fichiers[i]);
+        chargerImage(fichiers[i]);
 
-		Splash::lireInstance().changerValeur(
-				Splash::lireInstance().lireValeur() + 1);
-	}
+        Splash::lireInstance().changerValeur(
+                Splash::lireInstance().lireValeur() + 1);
+    }
 }
 
 sf::Sprite Ressources::lireImage(std::string nomImage) {
-	fichierLog.ajouterLigne("Recherche de : " + nomImage);
+    fichierLog.ajouterLigne("Recherche de : " + nomImage);
 
-	if (textures.count(nomImage) == 0) {
-		chargerImage(nomImage);
-	}
+    if (textures.count(nomImage) == 0) {
+        chargerImage(nomImage);
+    }
 
-	return (sf::Sprite(textures[nomImage]));
+    return (sf::Sprite(textures[nomImage]));
 }
 
 /*
@@ -108,37 +104,37 @@ sf::Sprite Ressources::lireImage(std::string nomImage) {
  */
 
 void Ressources::chargerPolice(std::string nomPolice) {
-	polices.insert(std::pair<std::string, sf::Font>(nomPolice, sf::Font()));
+    polices.insert(std::pair<std::string, sf::Font>(nomPolice, sf::Font()));
 
-	if (!polices[nomPolice].loadFromFile("ressources/polices/" + nomPolice)) {
-		Utile::erreur("Ressources::chargerPolice(" + nomPolice + ")",
-				"Impossible de charger " + nomPolice);
-	}
+    if (!polices[nomPolice].loadFromFile("ressources/polices/" + nomPolice)) {
+        Utile::erreur("Ressources::chargerPolice(" + nomPolice + ")",
+                "Impossible de charger " + nomPolice);
+    }
 
-	fichierLog.ajouterLigne("    " + nomPolice + " chargée !");
+    fichierLog.ajouterLigne("    " + nomPolice + " chargée !");
 }
 
 void Ressources::chargerPolices(std::vector<std::string> fichiers) {
-	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
-		Splash::lireInstance().changerTexte(fichiers[i]);
+    for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
+        Splash::lireInstance().changerTexte(fichiers[i]);
 
-		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
+        fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
-		chargerPolice(fichiers[i]);
+        chargerPolice(fichiers[i]);
 
-		Splash::lireInstance().changerValeur(
-				Splash::lireInstance().lireValeur() + 1);
-	}
+        Splash::lireInstance().changerValeur(
+                Splash::lireInstance().lireValeur() + 1);
+    }
 }
 
 sf::Font& Ressources::lirePolice(std::string nomPolice) {
-	fichierLog.ajouterLigne("Recherche de : " + nomPolice);
+    fichierLog.ajouterLigne("Recherche de : " + nomPolice);
 
-	if (polices.count(nomPolice) == 0) {
-		chargerPolice(nomPolice);
-	}
+    if (polices.count(nomPolice) == 0) {
+        chargerPolice(nomPolice);
+    }
 
-	return (polices[nomPolice]);
+    return (polices[nomPolice]);
 }
 
 /*
@@ -146,45 +142,45 @@ sf::Font& Ressources::lirePolice(std::string nomPolice) {
  */
 
 void Ressources::chargerSon(std::string nomSon) {
-	sons.insert(
-			std::pair<std::string, std::pair<sf::SoundBuffer, sf::Sound>>(
-					nomSon,
-					std::pair<sf::SoundBuffer, sf::Sound>(sf::SoundBuffer(),
-							sf::Sound())));
+    sons.insert(
+            std::pair<std::string, std::pair<sf::SoundBuffer, sf::Sound>>(
+                    nomSon,
+                    std::pair<sf::SoundBuffer, sf::Sound>(sf::SoundBuffer(),
+                            sf::Sound())));
 
-	if (!sons[nomSon].first.loadFromFile("ressources/sons/" + nomSon)) {
-		Utile::erreur("Ressources::chargerSon(" + nomSon + ")",
-				"Impossible de charger " + nomSon);
-	}
+    if (!sons[nomSon].first.loadFromFile("ressources/sons/" + nomSon)) {
+        Utile::erreur("Ressources::chargerSon(" + nomSon + ")",
+                "Impossible de charger " + nomSon);
+    }
 
-	sons[nomSon].second.setBuffer(sons[nomSon].first);
+    sons[nomSon].second.setBuffer(sons[nomSon].first);
 
-	sons[nomSon].second.setVolume(volumeSons);
+    sons[nomSon].second.setVolume(volumeSons);
 
-	fichierLog.ajouterLigne("    " + nomSon + " chargé !");
+    fichierLog.ajouterLigne("    " + nomSon + " chargé !");
 }
 
 void Ressources::chargerSons(std::vector<std::string> fichiers) {
-	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
-		Splash::lireInstance().changerTexte(fichiers[i]);
+    for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
+        Splash::lireInstance().changerTexte(fichiers[i]);
 
-		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
+        fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
-		chargerSon(fichiers[i]);
+        chargerSon(fichiers[i]);
 
-		Splash::lireInstance().changerValeur(
-				Splash::lireInstance().lireValeur() + 1);
-	}
+        Splash::lireInstance().changerValeur(
+                Splash::lireInstance().lireValeur() + 1);
+    }
 }
 
 void Ressources::jouerSon(std::string nomSon) {
-	if (sons.count(nomSon) == 0) {
-		chargerSon(nomSon);
-	}
+    if (sons.count(nomSon) == 0) {
+        chargerSon(nomSon);
+    }
 
-	sons[nomSon].second.setVolume(volumeSons);
+    sons[nomSon].second.setVolume(volumeSons);
 
-	sons[nomSon].second.play();
+    sons[nomSon].second.play();
 }
 
 /*
@@ -192,44 +188,44 @@ void Ressources::jouerSon(std::string nomSon) {
  */
 
 void Ressources::chargerMusique(std::string nomMusique) {
-	musiques.insert(
-			std::pair<std::string, MusicPtr>(nomMusique,
-					MusicPtr(new sf::Music())));
+    musiques.insert(
+            std::pair<std::string, MusicPtr>(nomMusique,
+                    MusicPtr(new sf::Music())));
 
-	if (!musiques[nomMusique]->openFromFile(
-			"ressources/musiques/" + nomMusique)) {
-		musiques[nomMusique].reset();
+    if (!musiques[nomMusique]->openFromFile(
+            "ressources/musiques/" + nomMusique)) {
+        musiques[nomMusique].reset();
 
-		Utile::erreur("Ressources::chargerMusique(" + nomMusique + ")",
-				"Impossible de charger " + nomMusique);
-	}
+        Utile::erreur("Ressources::chargerMusique(" + nomMusique + ")",
+                "Impossible de charger " + nomMusique);
+    }
 
-	musiques[nomMusique]->setVolume(volumeMusiques);
+    musiques[nomMusique]->setVolume(volumeMusiques);
 
-	fichierLog.ajouterLigne("    " + nomMusique + " chargée !");
+    fichierLog.ajouterLigne("    " + nomMusique + " chargée !");
 }
 
 void Ressources::chargerMusiques(std::vector<std::string> fichiers) {
-	for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
-		Splash::lireInstance().changerTexte(fichiers[i]);
+    for (std::vector<std::string>::size_type i = 0; i < fichiers.size(); i++) {
+        Splash::lireInstance().changerTexte(fichiers[i]);
 
-		fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
+        fichierLog.ajouterLigne("    Chargement de " + fichiers[i] + " ...");
 
-		chargerMusique(fichiers[i]);
+        chargerMusique(fichiers[i]);
 
-		Splash::lireInstance().changerValeur(
-				Splash::lireInstance().lireValeur() + 1);
-	}
+        Splash::lireInstance().changerValeur(
+                Splash::lireInstance().lireValeur() + 1);
+    }
 }
 
 Ressources::MusicPtr Ressources::lireMusique(std::string nomMusique) {
-	fichierLog.ajouterLigne("Recherche de : " + nomMusique);
+    fichierLog.ajouterLigne("Recherche de : " + nomMusique);
 
-	if (musiques.count(nomMusique) == 0) {
-		chargerMusique(nomMusique);
-	}
+    if (musiques.count(nomMusique) == 0) {
+        chargerMusique(nomMusique);
+    }
 
-	return (musiques[nomMusique]);
+    return (musiques[nomMusique]);
 }
 
 /*
@@ -237,46 +233,46 @@ Ressources::MusicPtr Ressources::lireMusique(std::string nomMusique) {
  */
 
 void Ressources::changerVolumeSons(int volume) {
-	volumeSons = volume;
+    volumeSons = volume;
 
-	for (std::pair<std::string, SoundPair> paire : sons) {
-		sons[paire.first].second.setVolume(volume);
-	}
+    for (std::pair<std::string, SoundPair> paire : sons) {
+        sons[paire.first].second.setVolume(volume);
+    }
 }
 
 void Ressources::changerVolumeMusiques(int volume) {
-	volumeMusiques = volume;
+    volumeMusiques = volume;
 
-	for (MusicMap::iterator it = musiques.begin(); it != musiques.end(); it++) {
-		(*it).second->setVolume(volume);
-	}
+    for (MusicMap::iterator it = musiques.begin(); it != musiques.end(); it++) {
+        (*it).second->setVolume(volume);
+    }
 }
 
 void Ressources::changerVolumeGlobal(int volume) {
-	changerVolumeSons(volume);
-	changerVolumeMusiques(volume);
+    changerVolumeSons(volume);
+    changerVolumeMusiques(volume);
 }
 
 float Ressources::obtenirVolumeSons() {
-	return volumeSons;
+    return volumeSons;
 }
 
 float Ressources::obtenirVolumeMusiques() {
-	return volumeMusiques;
+    return volumeMusiques;
 }
 
 void Ressources::silenceSons() {
-	for (std::pair<std::string, SoundPair> paire : sons) {
-		sons[paire.first].second.setVolume(0);
-	}
+    for (std::pair<std::string, SoundPair> paire : sons) {
+        sons[paire.first].second.setVolume(0);
+    }
 }
 
 void Ressources::nonSilenceSons() {
-	for (std::pair<std::string, SoundPair> paire : sons) {
-		sons[paire.first].second.setVolume(volumeSons);
-	}
+    for (std::pair<std::string, SoundPair> paire : sons) {
+        sons[paire.first].second.setVolume(volumeSons);
+    }
 }
 
 bool Ressources::estSilencieuxSons() {
-	return silenceSonsEtat;
+    return silenceSonsEtat;
 }

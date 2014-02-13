@@ -158,8 +158,12 @@ namespace Utile {
                 stream << "Vaisseaux/sprite_chasseur_1";
                 break;
             default:
+                stream << "";
                 break;
         }
+
+        if (stream.str() == "")
+            return "";
 
         if (details.idJoueur == 1)
             stream << "_rouge.png";
@@ -180,15 +184,21 @@ namespace Utile {
                 stream << "Batiments/sprite_raffinerie_1";
                 break;
             case TypeBatiment::Mine:
+                stream << "";
                 break;
             case TypeBatiment::Bidon:
+                stream << "";
                 break;
             case TypeBatiment::ChantierSpatial:
-                stream << "sprite_station_construction_1";
+                stream << "Batiments/sprite_station_construction_1";
                 break;
             default:
+                stream << "";
                 break;
         }
+
+        if (stream.str() == "")
+            return "";
 
         if (details.idJoueur == 1)
             stream << "_rouge.png";

@@ -1,5 +1,7 @@
 #include "Master.hpp"
 
+#define SERVEUR 1
+
 int main() {
     unsigned int portServeurs = 1500;
     unsigned int portClients = 1600;
