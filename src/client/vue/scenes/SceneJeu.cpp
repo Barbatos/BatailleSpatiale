@@ -330,9 +330,6 @@ void SceneJeu::surMessage(Message message) {
                             <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
-                case Deplacement:
-                    effectuerAction();
-                    break;
                 case Attaque:
                     effectuerAction();
                     break;
