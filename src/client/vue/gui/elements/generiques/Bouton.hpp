@@ -96,6 +96,14 @@ class Bouton : public Element, public ObservateurSouris {
          */
         void ecrireTexte(std::string texte);
 
+        /**
+         * \brief change la position du bouton
+         *
+         * \param x la nouvelle position x
+         * \param y la nouvelle position y
+         */
+        void changerPosition(float x, float y);
+
         // Héritées de ElementSouris
         void actualiser(float delta);
         void afficher();
