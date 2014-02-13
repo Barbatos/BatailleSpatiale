@@ -28,6 +28,8 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 
 	santeBatiment = NULL;
 	santeVaisseau = NULL;
+	bouclierVaisseau = NULL;
+	bouclierBatiment = NULL;
 
 	int xalign = x + largeur - 50;
 	int xsize = 250;
@@ -108,6 +110,8 @@ void AffichageDetails::actualiser(float)
 
 		if (santeVaisseau != NULL)
 			santeVaisseau->rendreInvisible();
+		if (bouclierVaisseau != NULL)
+			bouclierVaisseau->rendreInvisible();
 		if(santeBatiment != NULL)
 					santeBatiment->rendreInvisible();
 		return;
@@ -137,12 +141,27 @@ void AffichageDetails::actualiser(float)
 			santeVaisseau->setLargeur(p.getVaisseau(position).vie);
 		}
 
+		if (bouclierVaisseau == NULL)
+		{
+			bouclierVaisseau = new BarreMesure(lireGui(), sf::Color::Blue,
+					fondCase.getPosition().x + 330,
+					fondCase.getPosition().y + 63, 250, 15,
+					p.getVaisseau(position).bouclierMax);
+			bouclierVaisseau->setLargeur(p.getVaisseau(position).bouclier);
+		}
+
 		santeVaisseau->rendreVisible();
 		santeVaisseau->setLargeur(p.getVaisseau(position).vie);
 		santeVaisseau->setValeurMontree(p.getVaisseau(position).vie);
 
+		bouclierVaisseau->rendreVisible();
+		bouclierVaisseau->setLargeur(p.getVaisseau(position).bouclier);
+		bouclierVaisseau->setValeurMontree(p.getVaisseau(position).bouclier);
+
 		if(santeBatiment != NULL)
 			santeBatiment->rendreInvisible();
+		if(bouclierBatiment != NULL)
+					bouclierBatiment->rendreInvisible();
 		break;
 	case TypeCellule::Batiment:
 		texte = Utile::toString(p.getBatiment(position));
@@ -156,12 +175,27 @@ void AffichageDetails::actualiser(float)
 			santeBatiment->setLargeur(p.getBatiment(position).vie);
 		}
 
+		if (bouclierBatiment == NULL)
+		{
+			bouclierBatiment = new BarreMesure(lireGui(), sf::Color::Blue,
+			fondCase.getPosition().x + 330,
+			fondCase.getPosition().y + 85, 250, 15,
+			p.getBatiment(position).bouclierMax);
+			bouclierBatiment->setLargeur(p.getBatiment(position).bouclier);
+		}
+
 		santeBatiment->rendreVisible();
 		santeBatiment->setLargeur(p.getBatiment(position).vie);
 		santeBatiment->setValeurMontree(p.getBatiment(position).vie);
 
+		bouclierBatiment->rendreVisible();
+		bouclierBatiment->setLargeur(p.getBatiment(position).bouclier);
+		bouclierBatiment->setValeurMontree(p.getBatiment(position).bouclier);
+
 		if (santeVaisseau != NULL)
-					santeVaisseau->rendreInvisible();
+				santeVaisseau->rendreInvisible();
+		if (bouclierVaisseau != NULL)
+				bouclierVaisseau->rendreInvisible();
 		break;
 	case TypeCellule::Evenement:
 		texte = Utile::toString(p.getEvenement(position));

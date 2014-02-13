@@ -102,6 +102,16 @@ class AffichageDetails : public Element {
      */
     BarreMesure* santeBatiment;
 
+    /**
+     * \brief représente la barre de bouclier d'un vaisseau
+     */
+    BarreMesure* bouclierVaisseau;
+
+    /**
+    * \brief représente la barre de bouclier d'un bâtiment
+    */
+    BarreMesure* bouclierBatiment;
+
     public:
     /**
      * \brief Version typedef des détails
