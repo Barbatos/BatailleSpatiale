@@ -2,7 +2,6 @@
 
 Plateau::Plateau()
                 : tailleX(0), tailleY(0) {
-    viderZoneParcourable();
 }
 
 bool Plateau::possedeEvenement(Position p) {
@@ -89,7 +88,7 @@ void Plateau::resetAttaque(Position p) {
 void Plateau::resetZoneVisible() {
     for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++) {
         for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++) {
-            cellule[i][j].setEstVisible(true);
+            cellule[i][j].setEstVisible(false);
         }
     }
 }
@@ -105,7 +104,6 @@ void Plateau::viderZones() {
             cellule[i][j].setEstDestination(false);
             cellule[i][j].setEstAttaquee(false);
             cellule[i][j].setEstDetruite(false);
-            cellule[i][j].setEstVisible(true);
         }
     }
 }
@@ -119,7 +117,13 @@ sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau) {
     for (sf::Int32 x = 0; x < plateau.tailleX; ++x)
         for (sf::Int32 y = 0; y < plateau.tailleY; ++y)
             paquet >> plateau.cellule[x][y];
-    plateau.viderZoneParcourable();
+    plateau.viderZones();
+    
+    for (std::vector<std::vector<Cellule>>::size_type i = 0; i < plateau.cellule.size(); i++) {
+        for (std::vector<Cellule>::size_type j = 0; j < plateau.cellule[i].size(); j++) {
+            plateau.cellule[i][j].setEstVisible(false);
+        }
+    }
 
     return paquet;
 }

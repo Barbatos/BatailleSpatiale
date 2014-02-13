@@ -338,8 +338,16 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
 
 void ReseauClient::parseZoneVisible(sf::Packet paquet) {
     sf::Int32 tailleZone;
+    Position p;
 
     paquet >> tailleZone;
+    
+    plateau.resetZoneVisible();
+
+    for (sf::Int32 i = 0; i < tailleZone; i++) {
+        paquet >> p;
+        plateau.cellule[p.x][p.y].setEstVisible(true);
+    }
 }
 
 vector<Serveur> ReseauClient::parseListeServeurs(sf::Packet paquet) {

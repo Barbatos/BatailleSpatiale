@@ -31,31 +31,31 @@ public:
 
     void setType(TypeCellule _type);
 
-    void setParcourable(bool parcourable);
+    void setParcourable(bool parcourable = true);
     bool getParcourable() const;
 
-    void setEstChemin(bool estChemin);
+    void setEstChemin(bool estChemin = true);
     bool getEstChemin() const;
 
-    void setEstConstructibleVaisseau(bool estConstructible);
+    void setEstConstructibleVaisseau(bool estConstructible = true);
     bool getEstConstructibleVaisseau() const;
 
-    void setEstConstructibleBatiment(bool estConstructible);
+    void setEstConstructibleBatiment(bool estConstructible = true);
     bool getEstConstructibleBatiment() const;
 
-    void setEstAttaquable(bool estAttaquable);
+    void setEstAttaquable(bool estAttaquable = true);
     bool getEstAttaquable() const;
 
-    void setEstAttaquee(bool estAttaquee);
+    void setEstAttaquee(bool estAttaquee = true);
     bool getEstAttaquee() const;
 
-    void setEstDetruite(bool estDetruite);
+    void setEstDetruite(bool estDetruite = true);
     bool getEstDetruite() const;
 
-    void setEstDestination(bool estDest);
+    void setEstDestination(bool estDest = true);
     bool getEstDestination() const;
 
-    void setEstVisible(bool estVisible);
+    void setEstVisible(bool estVisible = true);
     bool getEstVisible() const;
     
     /**

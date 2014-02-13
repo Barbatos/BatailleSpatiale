@@ -111,6 +111,7 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
     case TypePaquet::DemanderDeplacementVaisseau:
         paquet >> pos >> pos2;
         deplacerVaisseau(joueur, pos, pos2);
+        envoiZoneVisible(joueur);
         break;
 
         // Le client demande la zone constructible autour d'un point
@@ -188,12 +189,14 @@ void ReseauServeur::envoiUnique(sf::TcpSocket& client, string& message) {
     ReseauGlobal::EnvoiPaquet(client, paquet);
 }
 
-void ReseauServeur::envoiPlateau(sf::TcpSocket& client, PlateauServeur& plateau) {
+void ReseauServeur::envoiPlateau(JoueurServeur& joueur, PlateauServeur& plateau) {
+    sf::TcpSocket* client = joueur.getSocket();
     sf::Packet paquet;
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Plateau);
 
     paquet << typePaquet << plateau;
-    ReseauGlobal::EnvoiPaquet(client, paquet);
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+    envoiZoneVisible(joueur);
 }
 
 void ReseauServeur::envoiPlateauATous() {
@@ -208,6 +211,7 @@ void ReseauServeur::envoiPlateauATous() {
         sf::TcpSocket* client = j.getSocket();
 
         ReseauGlobal::EnvoiPaquet(*client, paquet);
+        envoiZoneVisible(j);
     }
 }
 

@@ -55,10 +55,10 @@ public:
     /**
      * \brief Envoi du plateau à un client
      *
-     * \param client la socket du client
+     * \param joueur Le joueur a qui envoyer le plateau
      * \param plateau le plateau
      */
-    void envoiPlateau(sf::TcpSocket& client, PlateauServeur& _plateau);
+    void envoiPlateau(JoueurServeur& joueur, PlateauServeur& _plateau);
 
     void setPlateau(PlateauServeur& plateau);
 
