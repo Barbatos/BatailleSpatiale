@@ -122,6 +122,15 @@ int CelluleServeur::distanceMaximale(sf::Int32 energie) const {
         return 0;
 }
 
+int CelluleServeur::visibiliteMaximale() const {
+    if(vaisseau)
+        return vaisseau->getVisibilite();
+    if(batiment)
+        return batiment->getVisibilite();
+    else
+        return 0;
+}
+
 int CelluleServeur::attaqueMaximale() const {
     if(vaisseau)
         return vaisseau->getRayonAttaque();

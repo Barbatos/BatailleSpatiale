@@ -95,9 +95,18 @@ public:
      * \brief Indique la distance maximale du vaisseau sur la cellule.
      * S'il n'y a pas de vaisseau, alors on retourne 0.
      *
+     * \param l'energie que possède le joueur
      * \return La distance maximale du vaisseau sur la cellule.
      */
     int distanceMaximale(sf::Int32 energie) const;
+
+    /**
+     * \brief Indique la visibilite de la structure sur la cellule.
+     * S'il n'y a pas de structure, alors on retourne 0.
+     *
+     * \return La visibilité maximale de la structure sur la cellule.
+     */
+    int visibiliteMaximale() const;
 
     /**
      * \brief Indique le rayon maximale d'attaque de la cellule
