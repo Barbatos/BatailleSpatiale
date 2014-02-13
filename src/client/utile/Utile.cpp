@@ -56,7 +56,8 @@ namespace Utile {
         return (buffer);
     }
 
-    void redimensionnerImage(sf::Sprite& image, float largeur, float hauteur, bool proportions) {
+    void redimensionnerImage(sf::Sprite& image, float largeur, float hauteur,
+            bool proportions) {
         float largeurImage = image.getLocalBounds().width;
         float hauteurImage = image.getLocalBounds().height;
         float coeffX;
@@ -102,6 +103,8 @@ namespace Utile {
         switch (type) {
             case TypeBatiment::Base:
                 return L"Base";
+            case TypeBatiment::Raffinerie:
+                return L"Raffinerie";
             default:
                 return L"";
         }
@@ -173,6 +176,16 @@ namespace Utile {
             case TypeBatiment::Base:
                 stream << "Batiments/sprite_base_1";
                 break;
+            case TypeBatiment::Raffinerie:
+                stream << "Batiments/sprite_raffinerie_1";
+                break;
+            case TypeBatiment::Mine:
+                break;
+            case TypeBatiment::Bidon:
+                break;
+            case TypeBatiment::ChantierSpatial:
+                stream << "sprite_station_construction_1";
+                break;
             default:
                 break;
         }
@@ -215,10 +228,11 @@ namespace Utile {
 
         stream << "Vie : " << details.vie << "/" << details.vieMax << "\n";
 
-        stream << "Attaque : " << details.attaque << ". Rayon : " << details.rayonAttaque << "\n";
+        stream << "Attaque : " << details.attaque << ". Rayon : "
+                << details.rayonAttaque << "\n";
 
-        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : "
-            << details.bouclierTaux << "\n";
+        stream << "Bouclier : " << details.bouclier << "/"
+                << details.bouclierMax << " : " << details.bouclierTaux << "\n";
 
         return stream.str();
     }
@@ -230,13 +244,14 @@ namespace Utile {
 
         stream << "Vie : " << details.vie << "/" << details.vieMax << "\n";
 
-        stream << "Attaque : " << details.attaque << ". Rayon : " << details.rayonAttaque << "\n";
+        stream << "Attaque : " << details.attaque << ". Rayon : "
+                << details.rayonAttaque << "\n";
 
-        stream << "Bouclier : " << details.bouclier << "/" << details.bouclierMax << " : "
-            << details.bouclierTaux << "\n";
+        stream << "Bouclier : " << details.bouclier << "/"
+                << details.bouclierMax << " : " << details.bouclierTaux << "\n";
 
-        stream << L"Déplacement : " << details.distanceMax << ". Consommation : "
-            << details.consommation << "\n";
+        stream << L"Déplacement : " << details.distanceMax
+                << ". Consommation : " << details.consommation << "\n";
 
         return stream.str();
     }

@@ -28,15 +28,6 @@ typedef std::unique_ptr<ReseauClient> ReseauPtr;
 class Jeu {
 private:
 	/**
-	 * \brief Affichage
-	 *
-	 * La fenêtre affichant le jeu
-	 *
-	 * \see Affichage
-	 */
-	Affichage affichage;
-
-	/**
 	 * \brief Modèle
 	 *
 	 * Le modèle contenant les différentes données du jeu
@@ -106,8 +97,6 @@ private:
 
 	PlateauServeurPtr plateauServeur;
 
-
-
 public:
 	/**
 	 * \brief Constructeur
@@ -150,14 +139,6 @@ public:
 
 	void lancerServeurGUI(unsigned int port, bool partieSolo);
 
-	/**
-	 * \brief Récupère l'affichage
-	 *
-	 * Permet d'accéder à la fenêtre affichant le jeu
-	 *
-	 * \return l'affichage actuel
-	 */
-	Affichage& lireAffichage();
 	/**
 	 * \brief Récupère le modèle
 	 *

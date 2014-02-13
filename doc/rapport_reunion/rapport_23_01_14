@@ -1,0 +1,16 @@
+Mise au point : 
+	- Groupes se rejettent la faute mutuellement ...
+	- Les lots, il faudrait les envoyer ...
+
+Constat : ça avance nettement mieux.
+-> Explicitation des priorités
+-> Coordination E/S
+-> Le réseau, quelle galère ....
+	le moteur est surtout sur le serveur mais aussi un peu sur le client
+	en quoi l'ihm est bloquée par le réseau ??
+
+Maintenant il faut faire les joueurs : afficher les joueurs, les listes de vaisseaux et batiments construisibles etc
+
+On peut valider une interface ou un moteur sans l'autre.
+Penser à ne pas rater le rapport.
+Pour la soutenance, il va falloir être super bon.

@@ -19,9 +19,7 @@
  */
 
 Ressources::Ressources() :
-	volumeSons(10),
-	volumeMusiques(10),
-	silenceSonsEtat(false) {
+		volumeSons(10), volumeMusiques(10), silenceSonsEtat(false) {
 }
 
 Ressources::~Ressources() {
@@ -29,6 +27,8 @@ Ressources::~Ressources() {
 
 void Ressources::charger() {
 	sf::Thread thread(&Ressources::threadChargement, this);
+
+	Splash::initialiser();
 
 	thread.launch();
 
@@ -38,8 +38,8 @@ void Ressources::charger() {
 void Ressources::threadChargement() {
 	Archive archive("ressources/ressources.txt");
 
-	int maxi = archive.lireImages().size() + archive.lirePolices().size() + archive
-	           .lireSons().size() + archive.lireMusiques().size();
+	int maxi = archive.lireImages().size() + archive.lirePolices().size()
+			+ archive.lireSons().size() + archive.lireMusiques().size();
 
 	Splash::lireInstance().changerMaxi(maxi);
 
@@ -62,15 +62,17 @@ void Ressources::threadChargement() {
 	fichierLog.ajouterLigne("");
 
 	Splash::lireInstance().fermer();
+
+	Splash::detruire();
 }
 
 void Ressources::chargerImage(std::string nomImage) {
 	textures.insert(
-	    std::pair<std::string, sf::Texture>(nomImage, sf::Texture()));
+			std::pair<std::string, sf::Texture>(nomImage, sf::Texture()));
 
 	if (!textures[nomImage].loadFromFile("ressources/images/" + nomImage)) {
 		Utile::erreur("Ressources::chargerImage(" + nomImage + ")",
-		              "Impossible de charger " + nomImage);
+				"Impossible de charger " + nomImage);
 	}
 
 	textures[nomImage].setSmooth(true);
@@ -87,7 +89,7 @@ void Ressources::chargerImages(std::vector<std::string> fichiers) {
 		chargerImage(fichiers[i]);
 
 		Splash::lireInstance().changerValeur(
-		    Splash::lireInstance().lireValeur() + 1);
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
@@ -110,7 +112,7 @@ void Ressources::chargerPolice(std::string nomPolice) {
 
 	if (!polices[nomPolice].loadFromFile("ressources/polices/" + nomPolice)) {
 		Utile::erreur("Ressources::chargerPolice(" + nomPolice + ")",
-		              "Impossible de charger " + nomPolice);
+				"Impossible de charger " + nomPolice);
 	}
 
 	fichierLog.ajouterLigne("    " + nomPolice + " chargée !");
@@ -125,7 +127,7 @@ void Ressources::chargerPolices(std::vector<std::string> fichiers) {
 		chargerPolice(fichiers[i]);
 
 		Splash::lireInstance().changerValeur(
-		    Splash::lireInstance().lireValeur() + 1);
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
@@ -145,14 +147,14 @@ sf::Font& Ressources::lirePolice(std::string nomPolice) {
 
 void Ressources::chargerSon(std::string nomSon) {
 	sons.insert(
-	    std::pair<std::string, std::pair<sf::SoundBuffer, sf::Sound>>(
-	        nomSon,
-	        std::pair<sf::SoundBuffer, sf::Sound>(sf::SoundBuffer(),
-	                sf::Sound())));
+			std::pair<std::string, std::pair<sf::SoundBuffer, sf::Sound>>(
+					nomSon,
+					std::pair<sf::SoundBuffer, sf::Sound>(sf::SoundBuffer(),
+							sf::Sound())));
 
 	if (!sons[nomSon].first.loadFromFile("ressources/sons/" + nomSon)) {
 		Utile::erreur("Ressources::chargerSon(" + nomSon + ")",
-		              "Impossible de charger " + nomSon);
+				"Impossible de charger " + nomSon);
 	}
 
 	sons[nomSon].second.setBuffer(sons[nomSon].first);
@@ -171,7 +173,7 @@ void Ressources::chargerSons(std::vector<std::string> fichiers) {
 		chargerSon(fichiers[i]);
 
 		Splash::lireInstance().changerValeur(
-		    Splash::lireInstance().lireValeur() + 1);
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 
@@ -191,15 +193,15 @@ void Ressources::jouerSon(std::string nomSon) {
 
 void Ressources::chargerMusique(std::string nomMusique) {
 	musiques.insert(
-	    std::pair<std::string, MusicPtr>(nomMusique,
-	                                     MusicPtr(new sf::Music())));
+			std::pair<std::string, MusicPtr>(nomMusique,
+					MusicPtr(new sf::Music())));
 
 	if (!musiques[nomMusique]->openFromFile(
-	            "ressources/musiques/" + nomMusique)) {
+			"ressources/musiques/" + nomMusique)) {
 		musiques[nomMusique].reset();
 
 		Utile::erreur("Ressources::chargerMusique(" + nomMusique + ")",
-		              "Impossible de charger " + nomMusique);
+				"Impossible de charger " + nomMusique);
 	}
 
 	musiques[nomMusique]->setVolume(volumeMusiques);
@@ -216,7 +218,7 @@ void Ressources::chargerMusiques(std::vector<std::string> fichiers) {
 		chargerMusique(fichiers[i]);
 
 		Splash::lireInstance().changerValeur(
-		    Splash::lireInstance().lireValeur() + 1);
+				Splash::lireInstance().lireValeur() + 1);
 	}
 }
 

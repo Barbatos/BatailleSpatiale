@@ -7,11 +7,19 @@
 
 #include <iostream>
 #include "Jeu.hpp"
+#include "vue/Affichage.hpp"
+#include "utile/Notification.hpp"
 
 int main() {
-	Jeu jeu;
+    Affichage::initialiser();
+    Notification::initialiser();
 
-	jeu.lancer();
+    Jeu jeu;
 
-	return (0);
+    jeu.lancer();
+
+    Notification::detruire();
+    Affichage::detruire();
+
+    return (0);
 }

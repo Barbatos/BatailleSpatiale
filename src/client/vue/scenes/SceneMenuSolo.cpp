@@ -14,11 +14,11 @@ SceneMenuSolo::SceneMenuSolo(Jeu& jeu)
     int largeur = 300 / 2;
     int hauteur = 86 / 2;
 
-    int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
+    int x = (affichage.getSize().x - largeur) / 2;
 
-    int y = (jeu.lireAffichage().getSize().y - hauteur) / 3;
+    int y = (affichage.getSize().y - hauteur) / 3;
 
-    new Image(&gui, 100, 0, 0, jeu.lireAffichage().getSize().x, jeu.lireAffichage().getSize().y, jeu.lireRessources().lireImage("fond.png"));
+    new Image(&gui, 100, 0, 0, affichage.getSize().x, affichage.getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
     new Bouton(&gui, Solo, "Lancer partie", x, y, largeur, hauteur);
 

@@ -10,17 +10,22 @@
 #include <iostream>
 #include <serveur/plateau/PlateauServeur.hpp>
 
+#include <client/utile/Notification.hpp>
+
 #define FPS 60
 #define TEMPS_FRAME 1000/FPS
 
-Jeu::Jeu()
-                : affichage(), modele(), controleur(modele), scene(nullptr), ressources(),
-                  horloge(), reseau(nullptr), joueur(NULL) {
+Jeu::Jeu() :
+        modele(), controleur(modele), scene(nullptr), ressources(), horloge(), reseau(
+                nullptr), joueur(NULL) {
 
-	gestionnaire = new GestionnaireSons(&ressources);
+    gestionnaire = new GestionnaireSons(&ressources);
 
     ressources.charger();
+
     affichage.creer();
+
+    notification.ecrirePolice(ressources.lirePolice("grand9k.ttf"));
 
     changer(Scene::SceneMenuPrincipal);
 
@@ -100,7 +105,8 @@ void Jeu::lancerServeurGUI(unsigned int port, bool partieSolo) {
 
     plateauServeur = PlateauServeurPtr(new PlateauServeur(20, 20));
     plateauServeur->initialisationTest();
-    serveur = ReseauServeurPtr(new ReseauServeur(port, *plateauServeur, nom, partieSolo));
+    serveur = ReseauServeurPtr(
+            new ReseauServeur(port, *plateauServeur, nom, partieSolo));
 
     serveur->lancerReseau();
 }
@@ -114,12 +120,12 @@ void Jeu::lancer() {
 
     while (affichage.isOpen()) {
 
-    	if(gestionnaire->lirePhaseDeJeu())
-    		gestionnaire->controlerIntensite();
+        if(gestionnaire->lirePhaseDeJeu())
+        gestionnaire->controlerIntensite();
 
         while (affichage.pollEvent(evenement)) {
             if (evenement.type == sf::Event::Closed)
-                affichage.close();
+            affichage.close();
 
             scene->traiter(evenement);
         }
@@ -144,10 +150,6 @@ void Jeu::quitter() {
     affichage.close();
 }
 
-Affichage& Jeu::lireAffichage() {
-    return (affichage);
-}
-
 Plateau& Jeu::lirePlateau() {
     return (modele);
 }
@@ -163,10 +165,10 @@ Ressources& Jeu::lireRessources() {
 ReseauPtr& Jeu::lireReseau() {
     return (reseau);
 }
-Joueur* Jeu::lireJoueur(){
-	return (joueur);
+Joueur* Jeu::lireJoueur() {
+    return (joueur);
 }
 
 GestionnaireSons* Jeu::lireGestionnaire() {
-	return gestionnaire;
+    return gestionnaire;
 }

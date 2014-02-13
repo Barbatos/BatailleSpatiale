@@ -1,7 +1,7 @@
 #include "ServeurMaster.hpp"
 
 ServeurMaster::ServeurMaster() : 
-    id(-1), socket(NULL), ip(""), port(-1), dernierHeartbeat(sf::Time::Zero), nom("Serveur sans nom") {
+    id(-1), dernierHeartbeat(sf::Time::Zero), socket(NULL), ip(""), port(-1), nom("Serveur sans nom") {
 
 }
 

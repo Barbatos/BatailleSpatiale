@@ -115,6 +115,8 @@ public:
     void creerBatimentEnergieTest();
     void creerBatimentBase();
 
+    void creerEvenementTest(TypeEvenement type = TypeEvenement::Epave);
+
     /**
      * \brief Retourne l'id du joueur sur la cellule
      *

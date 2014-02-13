@@ -1,5 +1,6 @@
 #include "JoueurServeur.hpp"
 #include "../structures/batiments/BatimentEnergieServeur.hpp"
+#include "../plateau/PlateauServeur.hpp"
 
 JoueurServeur::JoueurServeur(void) :
     socket(NULL), pseudo("Anonymous"), ip(""), id(-1),

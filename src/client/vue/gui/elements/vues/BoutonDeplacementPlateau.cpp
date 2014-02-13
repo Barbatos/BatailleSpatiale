@@ -44,7 +44,7 @@ void BoutonDeplacementPlateau::actualiser(float) {
     }
 }
 
-void BoutonDeplacementPlateau::afficher(sf::RenderWindow& affichage) {
+void BoutonDeplacementPlateau::afficher() {
     affichage.draw(fond);
 }
 

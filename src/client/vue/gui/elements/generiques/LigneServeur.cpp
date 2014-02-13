@@ -42,7 +42,7 @@ void LigneServeur::actualiser(float) {
 
 }
 
-void LigneServeur::afficher(sf::RenderWindow& affichage) {
+void LigneServeur::afficher() {
     affichage.draw(cadre);
     affichage.draw(bouton);
     affichage.draw(texteCadre);

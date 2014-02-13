@@ -19,7 +19,7 @@ BarreStatut::~BarreStatut()
 
 }
 
-void BarreStatut::afficher(sf::RenderWindow& affichage)
+void BarreStatut::afficher()
 {
 	affichage.draw(contour);
 	affichage.draw(progression);

@@ -101,7 +101,7 @@ public:
 
 	void rendreVisible();
 
-	void afficher(sf::RenderWindow& affichage);
+	void afficher();
 	void actualiser(float);
 	bool contient(sf::Vector2i);
 };

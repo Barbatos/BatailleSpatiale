@@ -88,7 +88,7 @@ void Animation::resumer() {
 	active = true;
 }
 
-void Animation::afficher(sf::RenderWindow& affichage) {
+void Animation::afficher() {
 	if (ajout) {
 		affichage.draw(sprite, sf::BlendAdd);
 	} else {

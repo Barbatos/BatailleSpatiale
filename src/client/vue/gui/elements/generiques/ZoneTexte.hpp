@@ -79,7 +79,7 @@ class ZoneTexte : public Element, public ObservateurSouris, public ObservateurCl
 
         // Héritées d'Element
         void actualiser(float delta);
-        void afficher(sf::RenderWindow& affichage);
+        void afficher();
         bool contient(sf::Vector2i position);
 
         // Héritées d'ElementSouris

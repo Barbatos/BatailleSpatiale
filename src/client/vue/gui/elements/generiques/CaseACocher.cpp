@@ -41,7 +41,7 @@ CaseACocher::~CaseACocher() {
 void CaseACocher::actualiser(float) {
 }
 
-void CaseACocher::afficher(sf::RenderWindow& affichage) {
+void CaseACocher::afficher() {
     affichage.draw(boite);
     affichage.draw(texte);
 }

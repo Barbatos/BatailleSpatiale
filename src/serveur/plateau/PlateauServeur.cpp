@@ -471,3 +471,35 @@ sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau) {
 
     return paquet;
 }
+
+//toast
+void PlateauServeur::effectuerTour() {
+    sf::Int32 posX = 9;
+    sf::Int32 posY = 9;
+    
+    //tester si la case est libre, et assez loin des bases
+    if(!cellule[posX][posY].getVaisseau() 
+    && !cellule[posX][posY].getBatiment() 
+    && !cellule[posX][posY].getEvenement())
+        cellule[posX][posY].creerEvenementTest(TypeEvenement::Epave);
+    
+    
+    //on effectue les actions particulières de chaque évènement
+    for (sf::Int32 x = 0; x < tailleX; ++x) {
+        for (sf::Int32 y = 0; y < tailleY; ++y) {    
+            if(cellule[x][y].getEvenement()) {
+                switch (cellule[x][y].getEvenement()->quelType()) {
+                    case TypeEvenement::Epave:
+                    //potatoe
+                    break;
+                    
+                    default :
+                    break;
+                } 
+            }
+        }
+    }
+
+
+
+}

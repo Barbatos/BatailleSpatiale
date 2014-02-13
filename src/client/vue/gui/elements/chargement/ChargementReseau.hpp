@@ -13,21 +13,18 @@
 #include <client/vue/gui/elements/generiques/Animation.hpp>
 #include <client/vue/gui/elements/generiques/Label.hpp>
 
-class ChargementReseau :
-	public Element {
+class ChargementReseau: public Element {
 private:
-	Label texteReseau;
-	Label texteJoueurs;
+	Label texte;
 	Animation image;
 	bool reseauActif;
 
 public:
-	ChargementReseau(Gui* gui, int id, int x, int y, int largeur,
-	                 int hauteur);
+	ChargementReseau(Gui* gui, int id, int x, int y, int largeur, int hauteur);
 	virtual ~ChargementReseau();
 
 	void actualiser(float delta);
-	void afficher(sf::RenderWindow& affichage);
+	void afficher();
 	bool contient(sf::Vector2i position);
 	void setReseauActif(bool _actif);
 };

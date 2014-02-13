@@ -17,8 +17,8 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 	int largeur = 300 / 2;
 	int hauteur = 86 / 2;
 
-	int x = (jeu.lireAffichage().getSize().x - largeur) / 2;
-	int y = (jeu.lireAffichage().getSize().y - hauteur) / 6;
+	int x = (affichage.getSize().x - largeur) / 2;
+	int y = (affichage.getSize().y - hauteur) / 6;
 
 	GestionnaireSons* manager = jeu.lireGestionnaire();
 	if (!manager->dejaEnCour(
@@ -29,8 +29,8 @@ SceneMenuPrincipal::SceneMenuPrincipal(Jeu& jeu) :
 		manager->lancerChanson();
 	}
 
-	new Image(&gui, 0, 0, 0, jeu.lireAffichage().getSize().x,
-			jeu.lireAffichage().getSize().y,
+	new Image(&gui, 0, 0, 0, affichage.getSize().x,
+			affichage.getSize().y,
 			jeu.lireRessources().lireImage("fond.png"));
 
 	new Animation(&gui, -1, 50, 100, 200, 200, true, true,

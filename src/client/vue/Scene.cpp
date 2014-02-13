@@ -12,7 +12,7 @@
 
 Scene::Scene(Jeu& jeu) :
 	jeu(jeu),
-	gui(&jeu.lireAffichage(), this) {
+	gui(this) {
 }
 
 Scene::~Scene() {

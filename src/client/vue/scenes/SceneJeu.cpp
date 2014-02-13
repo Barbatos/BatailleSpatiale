@@ -32,8 +32,8 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     gui.ajouterObservateurSouris(this);
 
-    int winx = jeu.lireAffichage().getSize().x;
-    int winy = jeu.lireAffichage().getSize().y;
+    int winx = affichage.getSize().x;
+    int winy = affichage.getSize().y;
 
     float x = winx * 0.01f;
     float y = winy * 0.01f;
@@ -87,8 +87,8 @@ SceneJeu::~SceneJeu() {
 void SceneJeu::initialiserPlateau() {
 
     // On récupère la taille de la fenêtre
-    int winx = lireJeu().lireAffichage().getSize().x;
-    int winy = lireJeu().lireAffichage().getSize().y;
+    int winx = affichage.getSize().x;
+    int winy = affichage.getSize().y;
 
     // On calcule la taille des boutons sur les côtés
     float x = winx * 0.01f;
@@ -341,7 +341,7 @@ void SceneJeu::pressionSouris(sf::Mouse::Button) {
 }
 
 void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
-    sf::Vector2u taille = lireJeu().lireAffichage().getSize();
+    sf::Vector2u taille = affichage.getSize();
 
     sf::FloatRect rect(vue.getViewport().left * taille.x, vue.getViewport().top * taille.y, vue.getViewport().width
                                        * taille.x, vue.getViewport().height * taille.y);

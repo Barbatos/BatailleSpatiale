@@ -187,16 +187,16 @@ void AffichageDetails::actualiser(float)
 	infosCase.setString(texte);
 }
 
-void AffichageDetails::afficher(sf::RenderWindow& affichage)
+void AffichageDetails::afficher()
 {
 	affichage.draw(fondCase);
 	affichage.draw(fondJoueurs);
 	affichage.draw(infosCase);
 	affichage.draw(infosJoueurs);
-	commandementBarre->afficher(affichage);
-	energieBarre->afficher(affichage);
-	materiauxBarre->afficher(affichage);
-	requisitionBarre->afficher(affichage);
+	//commandementBarre->afficher(affichage);
+	//energieBarre->afficher(affichage);
+	//materiauxBarre->afficher(affichage);
+	//requisitionBarre->afficher(affichage);
 }
 
 bool AffichageDetails::contient(sf::Vector2i)

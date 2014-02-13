@@ -114,7 +114,7 @@ void AffichageCase::actualiser(float) {
         fond.setOutlineColor(sf::Color(51, 51, 255));
 }
 
-void AffichageCase::afficher(sf::RenderWindow& affichage) {
+void AffichageCase::afficher() {
     affichage.draw(fond);
     affichage.draw(image);
 }

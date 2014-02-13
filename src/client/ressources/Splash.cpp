@@ -12,19 +12,13 @@
 #include <iostream>
 
 #include <client/utile/Utile.hpp>
+#include <client/vue/Affichage.hpp>
 
-Splash Splash::instance;
+Splash* Splash::instance = nullptr;
 
 Splash::Splash() :
-	fenetre(),
-	texture(),
-	sprite(),
-	police(),
-	label(),
-	texte("Bataille Spatiale"),
-	valeur(0),
-	maxi(100),
-	fin(false) {
+		texture(), sprite(), police(), label(), texte("Bataille Spatiale"), valeur(
+				0), maxi(100), fin(false) {
 	police.loadFromFile("ressources/polices/grand9k.ttf");
 	texture.loadFromFile("ressources/images/Interface/splash_screen.png");
 	texture.setSmooth(true);
@@ -32,31 +26,39 @@ Splash::Splash() :
 	sprite.setTexture(texture);
 	Utile::redimensionnerImage(sprite, 576, 324, true);
 	sprite.setPosition((576 - sprite.getGlobalBounds().width) / 2,
-	                   (324 - sprite.getGlobalBounds().height) / 2);
+			(324 - sprite.getGlobalBounds().height) / 2);
 
 	label.setFont(police);
 	label.setCharacterSize(14);
 	label.setPosition(0, 324 - label.getCharacterSize());
 
-	fenetre.create(sf::VideoMode(576, 324), "Splash", sf::Style::None);
-	fenetre.setVerticalSyncEnabled(true);
+	affichage.create(sf::VideoMode(576, 324), "Splash", sf::Style::None);
+	affichage.setFramerateLimit(60);
 }
 
 Splash::~Splash() {
 }
 
+void Splash::initialiser() {
+	instance = new Splash();
+}
+
+void Splash::detruire() {
+	delete instance;
+}
+
 void Splash::lancer() {
 	while (!fin) {
-		fenetre.clear();
+		affichage.clear();
 
 		actualiser();
 
 		dessiner();
 
-		fenetre.display();
+		affichage.display();
 	}
 
-	fenetre.close();
+	affichage.close();
 }
 
 void Splash::fermer() {
@@ -66,18 +68,14 @@ void Splash::fermer() {
 void Splash::actualiser() {
 	std::stringstream stream;
 
-	stream
-	        << texte
-	        << " "
-	        << (valeur * 100 / maxi)
-	        << "%";
+	stream << texte << " " << (valeur * 100 / maxi) << "%";
 
 	label.setString(stream.str());
 }
 
 void Splash::dessiner() {
-	fenetre.draw(sprite);
-	fenetre.draw(label);
+	affichage.draw(sprite);
+	affichage.draw(label);
 }
 
 std::string Splash::lireTexte() {
@@ -105,5 +103,5 @@ void Splash::changerMaxi(int maxi) {
 }
 
 Splash& Splash::lireInstance() {
-	return instance;
+	return *instance;
 }

@@ -68,7 +68,7 @@ void BarreMesure::actualiser(float)
 
 }
 
-void BarreMesure::afficher(sf::RenderWindow& affichage)
+void BarreMesure::afficher()
 {
 	affichage.draw(contour);
 	affichage.draw(progression);

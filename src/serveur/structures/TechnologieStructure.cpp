@@ -84,7 +84,7 @@ void TechnologieStructure::changerFlux(std::ostream& fluxSortant) const {
     fluxSortant << "Niveau Attaque : " << niveauAttaque << std::endl <<
 				   "Niveau Bouclier : " << niveauBouclier << std::endl <<
 				   "Niveau Vie : " << niveauVie << std::endl <<
-				   "Niveau Visibilité : " << niveauVisibilite << std::endl <<
+				   "Niveau Visibilite : " << niveauVisibilite << std::endl <<
 				   "Niveau Materiaux : " << niveauMateriaux << std::endl;
 }
 
