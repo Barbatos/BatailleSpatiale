@@ -611,7 +611,7 @@ void PlateauServeur::effectuerTour() {
             if(cellule[x][y].getEvenement()) {
                 switch (cellule[x][y].getEvenement()->quelType()) {
                     case TypeEvenement::Epave:
-                    //potatoe
+                        //potatoe
                     break;
                     
                     default :
@@ -620,7 +620,4 @@ void PlateauServeur::effectuerTour() {
             }
         }
     }
-
-
-
 }
