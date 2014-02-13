@@ -320,6 +320,8 @@ void SceneJeu::surMessage(Message message) {
                 case Attaque:
                 	effectuerAction();
                 	break;
+                case FinTour:
+                    jeu.lireReseau()->demanderFinTour();
                 default:
                     break;
             }

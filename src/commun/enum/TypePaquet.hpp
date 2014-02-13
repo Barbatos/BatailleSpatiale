@@ -91,6 +91,8 @@ enum class TypePaquet : sf::Uint16 {
     GetZoneVisible,
     // Paquet envoyé par le serveur au client pour envoyer la zone visible
     ZoneVisible,
+    // Paquet envoyé par le client pour demander au serveur de finir le tour
+    DemanderFinTour,
     // -- Master Serveur -- //
     // Paquet envoyé par un serveur de jeu au Master afin de lui dire qu'il est en vie
     MasterHeartbeat,

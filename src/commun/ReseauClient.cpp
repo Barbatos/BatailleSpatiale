@@ -478,6 +478,15 @@ void ReseauClient::getZoneVisible() {
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
+void ReseauClient::demanderFinTour() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderFinTour);
+    sf::Packet paquet;
+
+    paquet << typePaquet;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
 void ReseauClient::setDestination(Position p) {
     plateau.cellule[p.x][p.y].setEstDestination(true);
 }

@@ -134,6 +134,8 @@ class ReseauClient {
 
         void parseZoneVisible(sf::Packet paquet);
 
+        void demanderFinTour();
+
     private:
 
         /// La socket du client

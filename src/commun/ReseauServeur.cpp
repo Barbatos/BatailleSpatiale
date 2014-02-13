@@ -146,6 +146,11 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiZoneVisible(joueur);
         break;
 
+        // Le client demande à ce que son tour se termine
+    case TypePaquet::DemanderFinTour:
+        joueurSuivant();
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -303,8 +308,6 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
 
     envoiJoueurCourant(joueur);
     ReseauGlobal::EnvoiPaquet(*client, paquet);
-
-    joueurSuivant();
 }
 
 void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquant, Position posCible) {
@@ -329,8 +332,6 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
     }
     
     ReseauGlobal::EnvoiPaquet(*client, paquet);
-
-    joueurSuivant();
 }
 
 void ReseauServeur::envoiZoneConstructibleVaisseau(JoueurServeur& joueur) {
