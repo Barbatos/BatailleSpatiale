@@ -107,6 +107,127 @@ std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(sf::Int32 idJou
     return zoneConstructible;
 }
 
+void PlateauServeur::getZoneVisiblePosition (
+    std::list<NoeudServeur>& zoneVisible, Position p) {
+    //On créé une liste attaquable
+    std::list<NoeudServeur>::iterator noeudIterateur;
+
+    //On regarde si le batiment ou le vaisseau peut attaquer
+    if (cellule[p.x][p.y].attaqueMaximale() > 0) {
+
+        //Liste des noeuds encore à étudier
+        std::list<NoeudServeur> openListe;
+
+        //Liste des points autour du noeud etudié
+        std::list<Position> pointAutour;
+        //Le point représentant le noeud etudié
+        std::list<Position>::iterator pointCourant;
+        bool noeudTrouve = false;
+
+        //On commence par étudier le noeud ou le vaisseau se situe
+        NoeudServeur noeudCourant(p);
+
+        //On défini la distance maximale des recherches
+        int distanceVisible = cellule[p.x][p.y].visibiliteMaximale();
+
+        do {
+
+            //On ajoute le noeud courant dans la zoneParcourable
+            zoneVisible.push_back(noeudCourant);
+
+            // on le retire le noeud courant de l'openListe
+            for (noeudIterateur = openListe.begin();
+                    noeudIterateur != openListe.end(); noeudIterateur++) {
+                if (noeudCourant == (*noeudIterateur))
+                    noeudIterateur = openListe.erase(noeudIterateur);
+            }
+
+            //On recherche les points autour du noeud courant
+            pointAutour.clear();
+            pointAutour = celluleAutour(noeudCourant.getPosition(), true);
+
+            //Pour chaque point autour
+            for (pointCourant = pointAutour.begin();
+                    pointCourant != pointAutour.end(); pointCourant++) {
+
+
+                //On regarde si il est deja dans l'openliste
+                noeudIterateur = openListe.begin();
+                noeudTrouve = false;
+                while (!noeudTrouve && noeudIterateur != openListe.end()) {
+                    if (*pointCourant == (noeudIterateur->getPosition())) {
+                        noeudTrouve = true;
+                    } else {
+                        noeudIterateur++;
+                    }
+                }
+
+                //Si oui alors on le met a jour si le nouveau chemin est meilleur
+                if (noeudTrouve) {
+                    if (noeudCourant.getG() + 1 < noeudIterateur->getG()) {
+
+                        noeudIterateur = openListe.erase(noeudIterateur);
+                        openListe.push_back(
+                            NoeudServeur(
+                                *pointCourant, 1,
+                                noeudCourant.getPosition()));
+                    }
+
+                    //Sinon
+                } else {
+
+                    //On regarde si il est dans la zone attaquable(closeList)
+                    noeudIterateur = zoneVisible.begin();
+                    while (!noeudTrouve && noeudIterateur != zoneVisible
+                            .end()) {
+                        if (*pointCourant == (noeudIterateur->getPosition())) {
+                            noeudTrouve = true;
+                        } else {
+                            noeudIterateur++;
+                        }
+                    }
+
+                    //Si il n'est ni dans l'openListe ni dans la zone parcourable on l'ajoute à l'openListe
+                    if (!noeudTrouve) {
+                        openListe.push_back(
+                            NoeudServeur(
+                                *pointCourant,1 + noeudCourant.getG(),
+                                noeudCourant.getPosition()));
+                    }
+                }
+            }
+
+            //Le prochain noeud a étudié est celui qui a la distance G inférieur a tout les autres
+            noeudCourant = *(openListe.begin());
+            // On prend le noeud avec le G le plus bas
+            for (noeudIterateur = openListe.begin();
+                    noeudIterateur != openListe.end(); noeudIterateur++) {
+                if ((*noeudIterateur).gInferieur(noeudCourant))
+                    noeudCourant = *noeudIterateur;
+            }
+
+            /*
+             * On continue les recherches tant que toute la zone parcourable sur le
+             * plateau à été étudié (openListe.empty) ou que la distance du prochain noeud
+             * est supérieur a la distance parcourable du vaisseau
+             */
+        } while (!openListe.empty() && noeudCourant.getG() <= distanceVisible);
+    }
+}
+
+std::list<NoeudServeur> PlateauServeur::getZoneVisible (sf::Int32 idJoueur) {
+    std::list<NoeudServeur> zoneVisible;
+
+    for (sf::Int32 x = 0; x < tailleX; ++x)
+        for (sf::Int32 y = 0; y < tailleY; ++y) {
+            if(cellule[x][y].getIdJoueur() == idJoueur) {
+                getZoneVisiblePosition(zoneVisible, Position(x,y));
+            }
+        }
+
+    return zoneVisible;
+}
+
 std::list<NoeudServeur> PlateauServeur::getZoneAttaquable (
     Position p) {
     //On créé une liste attaquable

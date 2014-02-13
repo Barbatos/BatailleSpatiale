@@ -192,6 +192,22 @@ public:
      * \return Une liste de Position où l'on peut construire des batiment
      */
     std::list<Position> getZoneConstructibleBatiment(Position position, sf::Int32 idJoueur);
+    
+    /**
+     * \brief Retourne la zoneVisible autour d'un point
+     * 
+     * \param zoneVisible la zone visible deja presente + la nouvelle
+     * \param p la position autour duquel on cherche la zoneVisible
+     */
+    void getZoneVisiblePosition (std::list<NoeudServeur>& zoneVisible, Position p);
+    
+    /**
+     * \brief Retourne la zoneVisible d'un joueur
+     * 
+     * \param idJoueur le numero du joueur
+     * \return Une liste de noeuds des points que peut voir le joueur
+     */
+    std::list<NoeudServeur> getZoneVisible (sf::Int32 idJoueur);
 
     int attaquer(Position attaquant, Position cible);
 
