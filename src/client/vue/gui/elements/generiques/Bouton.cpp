@@ -107,3 +107,12 @@ void Bouton::sortieSouris(sf::Vector2f) {
 void Bouton::moletteSouris(int) {
 
 }
+
+void Bouton::changerPosition(float x, float y)
+{
+	ecrirePosition(x,y);
+	normal.setPosition(lirePosition().x, lirePosition().y);
+	survol.setPosition(lirePosition().x, lirePosition().y);
+	appui.setPosition(lirePosition().x, lirePosition().y);
+	label.setPosition(lirePosition().x, lirePosition().y);
+}

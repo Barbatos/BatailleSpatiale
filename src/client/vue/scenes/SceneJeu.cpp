@@ -196,6 +196,7 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                     r->getChemin(selection, position);
 
                     // On affiche le bouton d'action en mode déplacer
+                    //deplacement->changerPosition(200,100);
                     deplacement->ecrireVisible(true);
 
                     //On cache le bouton d'attaque
