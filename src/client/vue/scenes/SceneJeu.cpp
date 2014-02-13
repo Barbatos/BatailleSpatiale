@@ -222,6 +222,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                     // Si la destination est un vaisseau ou un bâtiment
 
                     //On montre le bouton d'attaque
+                	positionSouris = sf::Mouse::getPosition();
+                	attaque->changerPosition(positionSouris.x, positionSouris.y);
                     attaque->ecrireVisible(true);
 
                     //On masque le bouton de déplacement pour bien expliciter au joueur
@@ -330,9 +332,6 @@ void SceneJeu::surMessage(Message message) {
                             <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
-                case Attaque:
-                    effectuerAction();
-                    break;
                 case FinTour:
                     jeu.lireReseau()->demanderFinTour();
                     break;
@@ -365,7 +364,8 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
 
 
     //Si la souris a cliqué surle bouton de deplacement
-    if(deplacement->contient(sf::Mouse::getPosition()) && bouton == sf::Mouse::Button::Left)
+    if( (deplacement->contient(sf::Mouse::getPosition()) || attaque->contient(sf::Mouse::getPosition()))
+    		&& (bouton == sf::Mouse::Button::Left))
     {
     	//Alors on effectue l'action
     	effectuerAction();
