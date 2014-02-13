@@ -130,6 +130,10 @@ class ReseauClient {
 
         bool getBloquerJeu();
 
+        void getZoneVisible();
+
+        void parseZoneVisible(sf::Packet paquet);
+
     private:
 
         /// La socket du client

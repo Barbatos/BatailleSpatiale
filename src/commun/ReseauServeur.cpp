@@ -141,6 +141,11 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiVaisseauxConstructibles(joueur);
         break;
 
+        // Le client demande la zone visible
+    case TypePaquet::GetZoneVisible:
+        envoiZoneVisible(joueur);
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -413,6 +418,27 @@ void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
 
     for (vaisseauIterator = listeVaisseaux.begin(); vaisseauIterator != listeVaisseaux.end(); vaisseauIterator++) {
         paquet << *vaisseauIterator;
+    }
+
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+}
+
+void ReseauServeur::envoiZoneVisible(JoueurServeur& joueur) {
+    sf::TcpSocket* client = joueur.getSocket();
+    sf::Packet paquet;
+    std::list<NoeudServeur> noeuds;
+    std::list<NoeudServeur>::iterator noeudIterator;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneVisible);
+    sf::Int32 tailleZone;
+
+    noeuds = plateau.getZoneVisible(joueur.getId());
+
+    tailleZone = noeuds.size();
+
+    paquet << typePaquet << tailleZone;
+
+    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+        paquet << noeudIterator->getPosition();
     }
 
     ReseauGlobal::EnvoiPaquet(*client, paquet);

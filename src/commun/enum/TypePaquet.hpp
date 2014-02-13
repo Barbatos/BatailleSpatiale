@@ -87,6 +87,10 @@ enum class TypePaquet : sf::Uint16 {
     DemarrerPartieMulti,
     // Paquet envoyé par le serveur aux clients pour indiquer de changer de joueur actif
     JoueurSuivant,
+    // Paquet envoyé par le client au serveur pour demander la zone visible
+    GetZoneVisible,
+    // Paquet envoyé par le serveur au client pour envoyer la zone visible
+    ZoneVisible,
     // -- Master Serveur -- //
     // Paquet envoyé par un serveur de jeu au Master afin de lui dire qu'il est en vie
     MasterHeartbeat,

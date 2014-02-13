@@ -54,6 +54,9 @@ public:
 
     void setEstDestination(bool estDest);
     bool getEstDestination() const;
+
+    void setEstVisible(bool estVisible);
+    bool getEstVisible() const;
     
     /**
      * \brief Indique le type de la cellule

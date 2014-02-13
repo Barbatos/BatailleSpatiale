@@ -165,6 +165,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             joueurSuivant(paquet);
             break;
 
+        case TypePaquet::ZoneVisible:
+            parseZoneVisible(paquet);
+            break;
+
         default:
             std::stringstream stream;
             stream << "Erreur : paquet de type : " << typePaquet << " inconnu";
@@ -332,6 +336,12 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
     // TODO
 }
 
+void ReseauClient::parseZoneVisible(sf::Packet paquet) {
+    sf::Int32 tailleZone;
+
+    paquet >> tailleZone;
+}
+
 vector<Serveur> ReseauClient::parseListeServeurs(sf::Packet paquet) {
     sf::Int32 nbServeurs;
     vector<Serveur> listeServeurs;
@@ -452,6 +462,15 @@ void ReseauClient::demanderListeServeurs() {
 void ReseauClient::getVaisseauxConstructibles() {
     sf::Uint16 typePaquet =
             static_cast<sf::Uint16>(TypePaquet::GetVaisseauxConstructibles);
+    sf::Packet paquet;
+
+    paquet << typePaquet;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getZoneVisible() {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::GetZoneVisible);
     sf::Packet paquet;
 
     paquet << typePaquet;
