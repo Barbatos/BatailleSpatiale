@@ -432,8 +432,8 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
         plateau.cellule[4][4].creerVaisseauTest();
         joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
-        //plateau.cellule[4][1].creerBatimentEnergieTest();
-        //joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
+        plateau.cellule[4][1].creerBatimentEnergieTest();
+        joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
     }
     else {
         posX = plateau.getTailleX() - 2;
@@ -445,8 +445,8 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
         plateau.cellule[posX - 4][posY - 4].creerVaisseauTest();
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
-        //plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
-        //joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
+        plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
+        joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
