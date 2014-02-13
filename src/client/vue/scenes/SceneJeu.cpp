@@ -188,6 +188,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
             // On vide la destination
             p.viderDestination();
 
+            //On prépare en mémoire la position de la souris
+            sf::Vector2i positionSouris;
+
             switch (p.getCellule(position).statutEmplacement()) {
                 case TypeCellule::Vide:
                     // Si la destination est une case vide
@@ -195,8 +198,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                     // On demande au réseau le chemin vers cette case
                     r->getChemin(selection, position);
 
-                    // On affiche le bouton d'action en mode déplacer
-                    //deplacement->changerPosition(200,100);
+                    // On affiche le bouton de déplacement là où se trouve la souris
+                    positionSouris = sf::Mouse::getPosition();
+                    deplacement->changerPosition(positionSouris.x, positionSouris.y);
                     deplacement->ecrireVisible(true);
 
                     //On cache le bouton d'attaque
@@ -314,9 +318,6 @@ void SceneJeu::surMessage(Message message) {
                                     <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
-                case Deplacement:
-                	effectuerAction();
-                    break;
                 case Attaque:
                 	effectuerAction();
                 	break;
@@ -346,6 +347,14 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
 
     sf::FloatRect rect(vue.getViewport().left * taille.x, vue.getViewport().top * taille.y, vue.getViewport().width
                                        * taille.x, vue.getViewport().height * taille.y);
+
+
+    //Si la souris a cliqué surle bouton de deplacement
+    if(deplacement->contient(sf::Mouse::getPosition()) && bouton == sf::Mouse::Button::Left)
+    {
+    	//Alors on effectue l'action
+    	effectuerAction();
+    }
 
     if (!rect.contains(sf::Vector2f(sf::Mouse::getPosition())))
         return;
