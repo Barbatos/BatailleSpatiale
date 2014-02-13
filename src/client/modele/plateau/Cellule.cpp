@@ -122,6 +122,14 @@ void Cellule::setEstDetruite(bool estDetruite){
     bits.estDetruite = estDetruite;
 }
 
+bool Cellule::getEstVisible() const {
+    return bits.estVisible;
+}
+
+void Cellule::setEstVisible(bool estVisible) {
+    bits.estVisible = estVisible;
+}
+
 bool Cellule::getEstAttaquable() const {
     return bits.estAttaquable;
 }

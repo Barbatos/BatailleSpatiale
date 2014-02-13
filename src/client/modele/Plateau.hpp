@@ -93,6 +93,8 @@ class Plateau {
 
         void resetAttaque(Position p);
 
+        void resetZoneVisible();
+
     private:
         bool positionValide(Position p);
         /// Les cellules du plateau

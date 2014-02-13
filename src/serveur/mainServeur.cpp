@@ -1,5 +1,7 @@
 #include "mainServeur.hpp"
 
+#define SERVEUR 1
+
 int main() {
     ReseauServeurPtr serveur;
     PlateauServeur* plateau;

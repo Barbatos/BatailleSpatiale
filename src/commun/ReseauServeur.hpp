@@ -100,6 +100,8 @@ public:
 
     void envoiPaquetATous(sf::Packet paquet);
 
+    void envoiZoneVisible(JoueurServeur& joueur);
+
 private:
 
     /// La socket du serveur

@@ -10,6 +10,7 @@ struct CelluleBits {
     bool estDestination : 1;
     bool estAttaquee : 1;
     bool estDetruite : 1;
+    bool estVisible : 1;
 };
 
 #endif

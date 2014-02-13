@@ -10,9 +10,10 @@
 #include <client/Jeu.hpp>
 #include <iostream>
 
-AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
-    sf::View* vuePlateau)
-                : Element(gui, id), image(), fond(), position(position), selectionne(false), gui(gui) {
+AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
+        Position position, sf::View* vuePlateau) :
+        Element(gui, id), image(), fond(), position(position), selectionne(
+                false), gui(gui) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
@@ -59,11 +60,13 @@ void AffichageCase::actualiser(float) {
         image = sf::Sprite();
     else {
         // On met l'image du vaisseau correspondant
-        image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(fichier);
+        image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(
+                fichier);
         image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
-        Utile::redimensionnerImage(image, lireTaille().x * 1.3, lireTaille().y * 1.3, false);
-        image.setPosition(lirePosition().x - lireTaille().x * 1.3 / 2, lirePosition().y
-                                          - lireTaille().y * 1.3 / 2);
+        Utile::redimensionnerImage(image, lireTaille().x * 1.3,
+                lireTaille().y * 1.3, false);
+        image.setPosition(lirePosition().x - lireTaille().x * 1.3 / 2,
+                lirePosition().y - lireTaille().y * 1.3 / 2);
     }
 
     // Changement de la couleur de fond
@@ -92,8 +95,9 @@ void AffichageCase::actualiser(float) {
         fond.setFillColor(sf::Color(59, 192, 34, 50));
         fond.setOutlineColor(sf::Color(59, 192, 34, 50));
     }
-    else if(p.getCellule(position).getEstAttaquee()){
-        new Animation(gui, -1, fond.getPosition().x, fond.getPosition().y, 200, 200, true, false, "Environnement/petite_explosion.png");
+    else if (p.getCellule(position).getEstAttaquee()) {
+        new Animation(gui, -1, fond.getPosition().x, fond.getPosition().y, 200,
+                200, true, false, "Environnement/petite_explosion.png");
 
         p.resetAttaque(position);
     }
@@ -115,8 +119,10 @@ void AffichageCase::actualiser(float) {
 }
 
 void AffichageCase::afficher() {
-    affichage.draw(fond);
-    affichage.draw(image);
+    if (lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(position).getEstVisible()) {
+        affichage.draw(fond);
+        affichage.draw(image);
+    }
 }
 
 bool AffichageCase::contient(sf::Vector2i position) {

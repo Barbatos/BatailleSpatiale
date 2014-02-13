@@ -17,17 +17,17 @@
 
 #include <client/modele/Plateau.hpp>
 
-SceneJeu::SceneJeu(Jeu& jeu)
-                : Scene(jeu), vue(sf::FloatRect(0, 0, 0, 0)) {
+SceneJeu::SceneJeu(Jeu& jeu) :
+        Scene(jeu), vue(sf::FloatRect(0, 0, 0, 0)) {
     // On change le viewport de la vue
     vue.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
 
     GestionnaireSons* manager = jeu.lireGestionnaire();
-    if(!manager->dejaEnCour(manager->lireRessources()->lireMusique("game_low.ogg")))
-    {
-    	manager->changerChanson(manager->chargerMusique("game_low.ogg"));
-    	manager->lancerChanson();
-    	manager->ecrirePhaseDeJeu(true);
+    if (!manager->dejaEnCour(
+            manager->lireRessources()->lireMusique("game_low.ogg"))) {
+        manager->changerChanson(manager->chargerMusique("game_low.ogg"));
+        manager->lancerChanson();
+        manager->ecrirePhaseDeJeu(true);
     }
 
     gui.ajouterObservateurSouris(this);
@@ -38,9 +38,11 @@ SceneJeu::SceneJeu(Jeu& jeu)
     float x = winx * 0.01f;
     float y = winy * 0.01f;
 
-    new Image(&gui, 100, 0, 0, winx, winy, jeu.lireRessources().lireImage("fond.png"));
+    new Image(&gui, 100, 0, 0, winx, winy,
+            jeu.lireRessources().lireImage("fond.png"));
 
-    details = new AffichageDetails(&gui, Details, x, 0.7 * winy, winx - 2 * x, 0.3 * winy - y);
+    details = new AffichageDetails(&gui, Details, x, 0.7 * winy, winx - 2 * x,
+            0.3 * winy - y);
 
     initialiserPlateau();
 
@@ -51,16 +53,22 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     new Bouton(&gui, Menu, "Menu", (winx - 100) / 2, winy - 40 - y, 100, 40);
 
-    deplacement = new Bouton(&gui, Deplacement, "Deplacer", (winx + 20) / 2, 0.7 * winy, 100, 40);
-    attaque = new Bouton(&gui, Attaque, "Attaquer", (winx - 230) / 2, 0.7 * winy , 100, 40);
-    finTour = new Bouton(&gui, FinTour, "Fin du tour", (winx - 100) / 2, 0.8 * winy , 100, 40);
+    deplacement = new Bouton(&gui, Deplacement, "Deplacer", (winx + 20) / 2,
+            0.7 * winy, 100, 40);
+    attaque = new Bouton(&gui, Attaque, "Attaquer", (winx - 230) / 2,
+            0.7 * winy, 100, 40);
+    finTour = new Bouton(&gui, FinTour, "Fin du tour", (winx - 100) / 2,
+            0.8 * winy, 100, 40);
 
-    sf::Color coche = sf::Color(50,50,50);
-    sf::Color nonCoche = sf::Color(230,230,230);
+    sf::Color coche = sf::Color(50, 50, 50);
+    sf::Color nonCoche = sf::Color(230, 230, 230);
 
-    porteeDeplacement = new CaseACocher(&gui, PorteeDeplacement, x+10, y+10, 20, 20, "Afficher portee de deplacement", coche, nonCoche);
-    porteeAttaque = new CaseACocher(&gui, PorteeAttaque, x+10, y+40, 20, 20, "Afficher portee d'attaque", coche, nonCoche);
-    porteeConstruction = new CaseACocher(&gui, PorteeConstruction, x+10, y+70, 20, 20, "Afficher portee de construction", coche, nonCoche);
+    porteeDeplacement = new CaseACocher(&gui, PorteeDeplacement, x + 10, y + 10,
+            20, 20, "Afficher portee de deplacement", coche, nonCoche);
+    porteeAttaque = new CaseACocher(&gui, PorteeAttaque, x + 10, y + 40, 20, 20,
+            "Afficher portee d'attaque", coche, nonCoche);
+    porteeConstruction = new CaseACocher(&gui, PorteeConstruction, x + 10,
+            y + 70, 20, 20, "Afficher portee de construction", coche, nonCoche);
 
     porteeDeplacement->cocher();
     porteeAttaque->cocher();
@@ -68,6 +76,8 @@ SceneJeu::SceneJeu(Jeu& jeu)
 
     deplacement->ecrireVisible(false);
     attaque->ecrireVisible(false);
+
+    jeu.lireReseau()->getZoneVisible();
 }
 
 SceneJeu::~SceneJeu() {
@@ -112,24 +122,24 @@ void SceneJeu::initialiserPlateau() {
 
     // On parcoure les cases du plateau
     for (int i = 0; i < maxx; i++)
-        for (int j = 0; j < maxy; j++) {
-            // On calcule la position en x et y
-            xc = (i * 2 + j) * taille * 3 / 5;
-            yc = j * taille;
+    for (int j = 0; j < maxy; j++) {
+        // On calcule la position en x et y
+        xc = (i * 2 + j) * taille * 3 / 5;
+        yc = j * taille;
 
-            if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
-                AffichageCase* c = new AffichageCase(&lireGui(), -1, xc, yc, taille, Position(i, j), &vue);
+        if (p.getCellule(Position(i, j)).statutEmplacement() != TypeCellule::Inexistant) {
+            AffichageCase* c = new AffichageCase(&lireGui(), -1, xc, yc, taille, Position(i, j), &vue);
 
-                // On ajoute la case à la liste de cases
-                cases.push_back(c);
-            }
+            // On ajoute la case à la liste de cases
+            cases.push_back(c);
         }
+    }
 
     // On change la taille de la vue
     if (xc > yc)
-        taille = yc;
+    taille = yc;
     else
-        taille = xc;
+    taille = xc;
 
     vue.setSize((winx - 2 * x) / 2, (winy - 2 * y) / 2);
     vue.move(taille / 2, taille / 2);
@@ -137,8 +147,8 @@ void SceneJeu::initialiserPlateau() {
 
 bool SceneJeu::valide(Cellule cellule) {
     return cellule.getEstAttaquable() || cellule.getParcourable()
-                    || cellule.getEstConstructibleBatiment()
-                    || cellule.getEstConstructibleVaisseau() || true;
+            || cellule.getEstConstructibleBatiment()
+            || cellule.getEstConstructibleVaisseau() || true;
 
     // TODO: Modifier une fois que la zone attaquable est fonctionnelle
 }
@@ -164,7 +174,7 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
     // Si la destination correspond à la selection
     if ((selection.x == position.x && selection.y == position.y)
-                    || !valide(p.getCellule(position))) {
+            || !valide(p.getCellule(position))) {
         // On vide le chemin
         p.viderChemin();
 
@@ -181,7 +191,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
     // Sinon, si c'est un clic droit, et une case était précédemment sélectionnée
     else if (message.clicDroit && selection.x != -1 && selection.y != -1) {
         // Si la selection est un vaisseau
-        if (p.getCellule(selection).statutEmplacement() == TypeCellule::Vaisseau) {
+        if (p.getCellule(selection).statutEmplacement()
+                == TypeCellule::Vaisseau) {
             // On vide le chemin
             p.viderChemin();
 
@@ -210,11 +221,11 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                 case TypeCellule::Batiment:
                     // Si la destination est un vaisseau ou un bâtiment
 
-                	//On montre le bouton d'attaque
-                	attaque->ecrireVisible(true);
+                    //On montre le bouton d'attaque
+                    attaque->ecrireVisible(true);
 
-                	//On masque le bouton de déplacement pour bien expliciter au joueur
-                	deplacement->ecrireVisible(false);
+                    //On masque le bouton de déplacement pour bien expliciter au joueur
+                    deplacement->ecrireVisible(false);
                     break;
                 default:
                     break;
@@ -237,17 +248,18 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         details->selectionner(position);
 
         // Si on a sélectionné un vaisseau
-        if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau) {
+        if (p.getCellule(position).statutEmplacement()
+                == TypeCellule::Vaisseau) {
 
             // On demande au réseau la zone parcourable, attaquable et constructible
-        	if(porteeDeplacement->estCoche())
-        		r->getZoneParcourable(position);
+            if (porteeDeplacement->estCoche())
+                r->getZoneParcourable(position);
 
-        	if(porteeConstruction->estCoche())
-        		r->getZoneConstructibleBatiment(position);
+            if (porteeConstruction->estCoche())
+                r->getZoneConstructibleBatiment(position);
 
-        	if(porteeAttaque->estCoche())
-        		r->getZoneAttaquable(position);
+            if (porteeAttaque->estCoche())
+                r->getZoneAttaquable(position);
         }
     }
 }
@@ -267,7 +279,7 @@ void SceneJeu::effectuerAction() {
         case TypeCellule::Vaisseau:
             // On attaque le vaisseau
             r->demanderAttaqueVaisseau(ancienne, destination);
-                        
+
             break;
         default:
             break;
@@ -292,7 +304,7 @@ void SceneJeu::effectuerAction() {
 
 void SceneJeu::surMessage(Message message) {
 
-	Position pos;
+    Position pos;
     switch (message.type) {
         case Message::Element:
             switch (message.element.id) {
@@ -301,8 +313,8 @@ void SceneJeu::surMessage(Message message) {
                     break;
                 case Droite:
                     if (vue.getCenter().x
-                                    <= ((jeu.lirePlateau().getTailleX()
-                                                    + jeu.lirePlateau().getTailleY() / 2) * 30))
+                            <= ((jeu.lirePlateau().getTailleX()
+                                    + jeu.lirePlateau().getTailleY() / 2) * 30))
                         vue.move(5, 0);
                     break;
                 case Gauche:
@@ -315,12 +327,18 @@ void SceneJeu::surMessage(Message message) {
                     break;
                 case Bas:
                     if (vue.getCenter().y
-                                    <= ((jeu.lirePlateau().getTailleY()) * 25))
+                            <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
+                case Deplacement:
+                    effectuerAction();
+                    break;
                 case Attaque:
-                	effectuerAction();
-                	break;
+                    effectuerAction();
+                    break;
+                case FinTour:
+                    jeu.lireReseau()->demanderFinTour();
+                    break;
                 default:
                     break;
             }
@@ -346,7 +364,7 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
     sf::Vector2u taille = affichage.getSize();
 
     sf::FloatRect rect(vue.getViewport().left * taille.x, vue.getViewport().top * taille.y, vue.getViewport().width
-                                       * taille.x, vue.getViewport().height * taille.y);
+            * taille.x, vue.getViewport().height * taille.y);
 
 
     //Si la souris a cliqué surle bouton de deplacement
@@ -357,10 +375,10 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
     }
 
     if (!rect.contains(sf::Vector2f(sf::Mouse::getPosition())))
-        return;
+    return;
 
     if (bouton == sf::Mouse::Right)
-        return;
+    return;
 
     Message::MessageCellule message;
 

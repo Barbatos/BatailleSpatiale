@@ -141,6 +141,16 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiVaisseauxConstructibles(joueur);
         break;
 
+        // Le client demande la zone visible
+    case TypePaquet::GetZoneVisible:
+        envoiZoneVisible(joueur);
+        break;
+
+        // Le client demande à ce que son tour se termine
+    case TypePaquet::DemanderFinTour:
+        joueurSuivant();
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -298,8 +308,6 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
 
     envoiJoueurCourant(joueur);
     ReseauGlobal::EnvoiPaquet(*client, paquet);
-
-    joueurSuivant();
 }
 
 void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquant, Position posCible) {
@@ -324,8 +332,6 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
     }
     
     ReseauGlobal::EnvoiPaquet(*client, paquet);
-
-    joueurSuivant();
 }
 
 void ReseauServeur::envoiZoneConstructibleVaisseau(JoueurServeur& joueur) {
@@ -418,6 +424,27 @@ void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
+void ReseauServeur::envoiZoneVisible(JoueurServeur& joueur) {
+    sf::TcpSocket* client = joueur.getSocket();
+    sf::Packet paquet;
+    std::list<NoeudServeur> noeuds;
+    std::list<NoeudServeur>::iterator noeudIterator;
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::ZoneVisible);
+    sf::Int32 tailleZone;
+
+    noeuds = plateau.getZoneVisible(joueur.getId());
+
+    tailleZone = noeuds.size();
+
+    paquet << typePaquet << tailleZone;
+
+    for (noeudIterator = noeuds.begin(); noeudIterator != noeuds.end(); noeudIterator++) {
+        paquet << noeudIterator->getPosition();
+    }
+
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+}
+
 void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     sf::Int32 posX;
     sf::Int32 posY;
@@ -432,8 +459,8 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
         plateau.cellule[4][4].creerVaisseauTest();
         joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
-        //plateau.cellule[4][1].creerBatimentEnergieTest();
-        //joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
+        plateau.cellule[4][1].creerBatimentEnergieTest();
+        joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
     }
     else {
         posX = plateau.getTailleX() - 2;
@@ -445,8 +472,8 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
         plateau.cellule[posX - 4][posY - 4].creerVaisseauTest();
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
-        //plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
-        //joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
+        plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
+        joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();

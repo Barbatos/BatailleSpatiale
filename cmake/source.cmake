@@ -54,6 +54,8 @@ FILE(GLOB_RECURSE COMMUN_SRC
     "src/serveur/joueurs/*.[ch]pp"
     "src/serveur/plateau/*.[ch]pp"
     "src/serveur/structures/*.[ch]pp"
+    "src/client/utile/Notification.[ch]pp"
+    "src/client/vue/Affichage.[ch]pp"
 )
 
 # Ajout de l'exécutable client
