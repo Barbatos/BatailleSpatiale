@@ -8,14 +8,12 @@
 #include "SceneJeu.hpp"
 
 #include <client/vue/gui/elements/vues/BoutonDeplacementPlateau.hpp>
-
 #include <client/vue/gui/elements/vues/AffichageDetails.hpp>
 #include <client/vue/gui/elements/vues/AffichageCase.hpp>
 #include <client/vue/gui/elements/generiques/CaseACocher.hpp>
-
 #include <client/Jeu.hpp>
-
 #include <client/modele/Plateau.hpp>
+#include <client/utile/Notification.hpp>
 
 SceneJeu::SceneJeu(Jeu& jeu) :
         Scene(jeu), vue(sf::FloatRect(0, 0, 0, 0)) {
@@ -189,7 +187,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         destination = Position(-1, -1);
     }
     // Sinon, si c'est un clic droit, et une case était précédemment sélectionnée
-    else if (message.clicDroit && selection.x != -1 && selection.y != -1) {
+    else if (message.clicDroit && selection.x != -1 && selection.y != -1
+            && !r->getBloquerJeu()) {
         // Si la selection est un vaisseau
         if (p.getCellule(selection).statutEmplacement()
                 == TypeCellule::Vaisseau) {
@@ -211,7 +210,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
                     // On affiche le bouton de déplacement là où se trouve la souris
                     positionSouris = sf::Mouse::getPosition();
-                    deplacement->changerPosition(positionSouris.x, positionSouris.y);
+                    deplacement->changerPosition(positionSouris.x,
+                            positionSouris.y);
                     deplacement->ecrireVisible(true);
 
                     //On cache le bouton d'attaque
@@ -222,8 +222,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                     // Si la destination est un vaisseau ou un bâtiment
 
                     //On montre le bouton d'attaque
-                	positionSouris = sf::Mouse::getPosition();
-                	attaque->changerPosition(positionSouris.x, positionSouris.y);
+                    positionSouris = sf::Mouse::getPosition();
+                    attaque->changerPosition(positionSouris.x,
+                            positionSouris.y);
                     attaque->ecrireVisible(true);
 
                     //On masque le bouton de déplacement pour bien expliciter au joueur
@@ -333,19 +334,22 @@ void SceneJeu::surMessage(Message message) {
                         vue.move(0, 5);
                     break;
                 case FinTour:
-                    jeu.lireReseau()->demanderFinTour();
+                    if (!lireJeu().lireReseau()->getBloquerJeu())
+                        jeu.lireReseau()->demanderFinTour();
+                    else
+                        notification.ajouterMessage("[JEU]", "Ce n'est pas votre tour de jouer", 5000);
+                        break;
+                        default:
+                        break;
+                    }
                     break;
-                default:
+                    case Message::Cellule:
+                    appuiCase(message.cellule);
                     break;
+                    default:
+                    break;
+                }
             }
-            break;
-        case Message::Cellule:
-            appuiCase(message.cellule);
-            break;
-        default:
-            break;
-    }
-}
 
 // Héritées d'ElementSouris
 void SceneJeu::clicSouris(bool) {
@@ -362,13 +366,12 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
     sf::FloatRect rect(vue.getViewport().left * taille.x, vue.getViewport().top * taille.y, vue.getViewport().width
             * taille.x, vue.getViewport().height * taille.y);
 
-
     //Si la souris a cliqué surle bouton de deplacement
     if( (deplacement->contient(sf::Mouse::getPosition()) || attaque->contient(sf::Mouse::getPosition()))
-    		&& (bouton == sf::Mouse::Button::Left))
+            && (bouton == sf::Mouse::Button::Left))
     {
-    	//Alors on effectue l'action
-    	effectuerAction();
+        //Alors on effectue l'action
+        effectuerAction();
     }
 
     if (!rect.contains(sf::Vector2f(sf::Mouse::getPosition())))

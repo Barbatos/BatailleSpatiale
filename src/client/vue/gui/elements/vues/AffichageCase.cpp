@@ -151,6 +151,9 @@ void AffichageCase::ecrirePositionPlateau(Position position) {
 }
 
 void AffichageCase::clicSouris(bool clicDroit) {
+    if (!lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(position).getEstVisible())
+        return;
+
     if (clicDroit) {
         Message message;
 
