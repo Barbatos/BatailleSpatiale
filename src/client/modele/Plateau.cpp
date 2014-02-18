@@ -44,6 +44,10 @@ const Cellule& Plateau::getCellule(Position p) {
     return cellule[p.x][p.y];
 }
 
+const std::vector<Serveur>& Plateau::getServeurs() const {
+    return listeServeurs;
+}
+
 void Plateau::viderZoneParcourable() {
     for (std::vector<std::vector<Cellule>>::size_type i = 0; i < cellule.size(); i++)
         for (std::vector<Cellule>::size_type j = 0; j < cellule[i].size(); j++)

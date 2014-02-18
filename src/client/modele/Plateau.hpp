@@ -3,6 +3,7 @@
 #include <vector>
 #include "plateau/Cellule.hpp"
 #include "../../commun/utile/Position.hpp"
+#include "Serveur.hpp"
 
 /**
  * \brief Le plateau
@@ -79,6 +80,8 @@ class Plateau {
 
         const Cellule& getCellule(Position p);
 
+        const std::vector<Serveur>& getServeurs() const;
+
         void viderZoneParcourable();
 
         void viderChemin();
@@ -101,6 +104,7 @@ class Plateau {
         std::vector<std::vector<Cellule>> cellule;
         sf::Int32 tailleX; ///< Taille du plateau en X
         sf::Int32 tailleY; ///< Taille du plateau en Y
+        std::vector<Serveur> listeServeurs;
 
         friend sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
         friend class ReseauClient;

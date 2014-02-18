@@ -7,7 +7,7 @@
 
 #include "SceneChargementJeuMulti.hpp"
 
-#include <client/vue/gui/elements/chargement/ChargementReseau.hpp>
+#include <client/vue/gui/elements/chargement/ChargementServeurs.hpp>
 #include <client/vue/gui/elements/generiques/Bouton.hpp>
 
 SceneChargementJeuMulti::SceneChargementJeuMulti(Jeu& jeu)
@@ -20,7 +20,7 @@ SceneChargementJeuMulti::SceneChargementJeuMulti(Jeu& jeu)
     int x = (affichage.getSize().x - largeur) / 2;
     int y = (affichage.getSize().y - hauteur) / 2;
 
-    new ChargementReseau(&gui, 0, x, y, largeur, hauteur);
+    new ChargementServeurs(&gui, 0, x, y, largeur, hauteur);
 
     largeur = 300 / 1.5;
     hauteur = 86 / 1.5;
@@ -40,10 +40,10 @@ void SceneChargementJeuMulti::surMessage(Message message) {
         case Message::Element:
             switch (message.element.id) {
                 case 0:
-                    lireJeu().changer(Scene::SceneJeu);
+                    lireJeu().changer(Scene::SceneMenuMulti);
                     break;
                 case 1:
-                    lireJeu().changer(Scene::SceneMenuMulti);
+                    lireJeu().changer(Scene::SceneMenuPrincipal);
                     break;
                 default:
                     break;

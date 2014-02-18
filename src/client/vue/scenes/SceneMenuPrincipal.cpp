@@ -63,7 +63,7 @@ void SceneMenuPrincipal::surMessage(Message message)
 			jeu.changer(Scene::SceneMenuSolo);
 			break;
 		case Multi:
-			jeu.changer(Scene::SceneMenuMulti);
+			jeu.changer(Scene::SceneChargementJeuMulti);
 			break;
 		case Serveur:
 			jeu.changer(Scene::SceneLancerServeur);
