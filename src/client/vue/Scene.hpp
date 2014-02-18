@@ -62,6 +62,7 @@ class Scene {
             SceneJeuOptions, //!< Scène des Options en Jeu
             SceneOptionsMenu, //!< Scène du menu des options
             SceneLancerServeur, //!< Scène du lancement d'un serveur de jeu
+            SceneListeServeurs, //!< Scène affichant la liste des serveurs du master serveur
             SceneChargementJeu, //!< Scène lors de l'attente du chargement du réseau en solo
             SceneChargementJeuMulti //!< Scène lors de l'attente du chargement du réseau en multijoueur
         };

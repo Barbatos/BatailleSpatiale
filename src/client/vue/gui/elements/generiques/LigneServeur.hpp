@@ -10,16 +10,17 @@
 
 #include "GeneriquesPack.hpp"
 
-class LigneServeur : public Element, public ObservateurSouris {
+class LigneServeur: public Element, public ObservateurSouris {
     private:
-        Serveur* serveur;
+        const Serveur& serveur;
         sf::RectangleShape bouton;
         sf::Text texteBouton;
         sf::RectangleShape cadre;
         sf::Text texteCadre;
 
     public:
-        LigneServeur(Gui* gui, int id, int x, int y, int largeur, int hauteur, Serveur* serveur);
+        LigneServeur(Gui* gui, int id, int x, int y, int largeur, int hauteur,
+                const Serveur& serveur, sf::View* vue);
         virtual ~LigneServeur();
 
         // Héritées d'Element

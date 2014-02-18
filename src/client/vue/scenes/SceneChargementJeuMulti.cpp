@@ -10,8 +10,8 @@
 #include <client/vue/gui/elements/chargement/ChargementServeurs.hpp>
 #include <client/vue/gui/elements/generiques/Bouton.hpp>
 
-SceneChargementJeuMulti::SceneChargementJeuMulti(Jeu& jeu)
-                : Scene(jeu) {
+SceneChargementJeuMulti::SceneChargementJeuMulti(Jeu& jeu) :
+        Scene(jeu) {
     new Image(&gui, 100, 0, 0, affichage.getSize().x, affichage.getSize().y, jeu.lireRessources().lireImage("fond.png"));
 
     int largeur = affichage.getSize().x / 2;
@@ -40,7 +40,7 @@ void SceneChargementJeuMulti::surMessage(Message message) {
         case Message::Element:
             switch (message.element.id) {
                 case 0:
-                    lireJeu().changer(Scene::SceneMenuMulti);
+                    lireJeu().changer(Scene::SceneListeServeurs);
                     break;
                 case 1:
                     lireJeu().changer(Scene::SceneMenuPrincipal);

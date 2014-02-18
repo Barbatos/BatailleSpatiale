@@ -1,19 +1,19 @@
 #include "Serveur.hpp"
 
-Serveur::Serveur() : 
-    ip(""), port(-1), nom("Serveur sans nom") {
+Serveur::Serveur() :
+        ip(""), port(-1), nom("Serveur sans nom") {
 
 }
 
-string Serveur::getIp() {
+string Serveur::getIp() const {
     return ip;
 }
 
-unsigned short Serveur::getPort() {
+unsigned short Serveur::getPort() const {
     return port;
 }
 
-string Serveur::getNom() {
+string Serveur::getNom() const {
     return nom;
 }
 

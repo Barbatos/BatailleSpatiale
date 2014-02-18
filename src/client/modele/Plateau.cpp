@@ -2,6 +2,8 @@
 
 Plateau::Plateau()
                 : tailleX(0), tailleY(0) {
+    for(int i = 0; i < 10; i++)
+        listeServeurs.push_back(Serveur());
 }
 
 bool Plateau::possedeEvenement(Position p) {

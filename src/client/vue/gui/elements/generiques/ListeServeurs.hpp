@@ -12,13 +12,18 @@
 
 class LigneServeur;
 
-class ListeServeurs : public Element {
+class ListeServeurs: public Element {
     private:
         std::list<LigneServeur*> lignes;
+        sf::View vue;
 
     public:
         ListeServeurs(Gui* gui, int id, int x, int y, int largeur, int hauteur);
         virtual ~ListeServeurs();
+
+        void actualiser(float delta);
+        void afficher();
+        bool contient(sf::Vector2i position);
 };
 
 #endif /* LISTESERVEURS_HPP */

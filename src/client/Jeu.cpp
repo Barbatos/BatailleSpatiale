@@ -80,6 +80,9 @@ void Jeu::changer(Scene::Type nouvelleScene) {
         case Scene::SceneLancerServeur:
             scene = Scene::Ptr(new SceneLancerServeur(*this));
             break;
+        case Scene::SceneListeServeurs:
+            scene = Scene::Ptr(new SceneListeServeurs(*this));
+            break;
         case Scene::SceneChargementJeu:
             scene = Scene::Ptr(new SceneChargementJeu(*this));
             break;

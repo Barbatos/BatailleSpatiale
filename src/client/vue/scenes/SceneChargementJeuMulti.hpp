@@ -11,12 +11,12 @@
 #include "ScenesPack.hpp"
 
 /**
- * \brief Scène affichée lors du chargement d'une partie multijoueur
+ * \brief ScÃ¨ne affichÃ©e lors du chargement d'une partie multijoueur
  */
 class SceneChargementJeuMulti : public Scene {
 public:
     /**
-     * \brief Constructeur par défaut
+     * \brief Constructeur par dÃ©faut
      *
      * \param jeu le jeu actuel
      */
@@ -27,7 +27,7 @@ public:
      */
     virtual ~SceneChargementJeuMulti();
 
-    // Héritée de Scene
+    // HÃ©ritÃ©e de Scene
     void surMessage(Message message);
 };
 

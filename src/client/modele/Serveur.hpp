@@ -7,9 +7,9 @@ class Serveur {
 
 public:
     Serveur();
-    string getIp();
-    unsigned short getPort();
-    string getNom();
+    string getIp() const;
+    unsigned short getPort() const;
+    string getNom() const;
 
 private:
     string ip;
