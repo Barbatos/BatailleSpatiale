@@ -20,7 +20,7 @@ ReseauClient::~ReseauClient() {
 void ReseauClient::ConnexionServeur(string ip, unsigned short port,
         bool _partieSolo) {
     sf::IpAddress server(ip);
-    sf::Time timeout = sf::seconds(0.5);
+    sf::Time timeout = sf::seconds(0.15);
     int nbEssais = 0;
 
     if (_partieSolo) {
