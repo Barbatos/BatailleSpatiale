@@ -19,6 +19,7 @@ public:
     void majServeur(sf::Packet paquet, ServeurMaster& serveur);
     void supprimerServeur(ServeurMaster& serveur);
     void envoiListeServeurs(ClientMaster& client);
+    void envoiListeServeursAll();
 
 private:
 

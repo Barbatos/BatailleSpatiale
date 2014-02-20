@@ -114,6 +114,8 @@ void Master::ecouterReseau() {
 
                 cout << "[MASTER] Un nouveau client s'est connecte: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
 
+                envoiListeServeursAll();
+
                 delete cl;
             }
 
@@ -329,6 +331,8 @@ void Master::supprimerServeur(ServeurMaster& serveur) {
             serveurs.erase(it);
         }
     }
+
+    envoiListeServeursAll();
 }
 
 void Master::envoiListeServeurs(ClientMaster& client) {
@@ -346,4 +350,12 @@ void Master::envoiListeServeurs(ClientMaster& client) {
     }
 
     ReseauGlobal::EnvoiPaquet(*cl, paquet);
+}
+
+void Master::envoiListeServeursAll() {
+    for (vector<ClientMaster>::iterator it = clients.begin(); it != clients.end(); ++it) {
+        ClientMaster& cl = *it;
+
+        envoiListeServeurs(cl);
+    }
 }
