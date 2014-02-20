@@ -21,8 +21,6 @@ SceneListeServeurs::SceneListeServeurs(Jeu& jeu) :
     new ListeServeurs(&gui, 0, 0, 0, affichage.getSize().x, affichage.getSize().y - hauteur);
 
     new Bouton(&gui, 1, "Retour", (affichage.getSize().x - largeur)/ 2, affichage.getSize().y - hauteur - 10, largeur, hauteur);
-
-    jeu.lireReseau()->demanderListeServeurs();
 }
 
 SceneListeServeurs::~SceneListeServeurs() {

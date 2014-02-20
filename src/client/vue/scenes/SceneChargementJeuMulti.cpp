@@ -29,6 +29,8 @@ SceneChargementJeuMulti::SceneChargementJeuMulti(Jeu& jeu) :
     y = affichage.getSize().y - hauteur - 50;
 
     new Bouton(&gui, 1, "Retour", x, y, largeur, hauteur);
+
+    jeu.lireReseau()->demanderListeServeurs();
 }
 
 SceneChargementJeuMulti::~SceneChargementJeuMulti() {
