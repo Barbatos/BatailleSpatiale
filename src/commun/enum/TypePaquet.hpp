@@ -83,6 +83,10 @@ enum class TypePaquet : sf::Uint16 {
     GetVaisseauxConstructibles,
     // Paquet envoyé par le serveur au client pour lui envoyer la liste des vaisseaux constructibles
     VaisseauxConstructibles,
+    // Paquet envoyé par le client au serveur pour demander la liste des batiments constructibles
+    GetBatimentsConstructibles,
+    // Paquet envoyé par le serveur au client pour lui envoyer la liste des batiments constructibles
+    BatimentsConstructibles,
     // Paquet envoyé par le serveur au client pour lui indiquer que la partie multijoueurs démarre
     DemarrerPartieMulti,
     // Paquet envoyé par le serveur aux clients pour indiquer de changer de joueur actif

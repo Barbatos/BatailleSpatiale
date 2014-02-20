@@ -338,6 +338,7 @@ void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
 
 void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
     sf::Int32 tailleListe;
+    Vaisseau v;
 
     paquet >> tailleListe;
 
@@ -345,8 +346,8 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
     plateau.listeVaisseauxConstructibles.reserve(tailleListe);
 
     for (sf::Int32 i = 0; i < tailleListe; i++) {
-        paquet >> b;
-        plateau.listeVaisseauxConstructibles.push_back(b);
+        paquet >> v;
+        plateau.listeVaisseauxConstructibles.push_back(v);
     }
 }
 
