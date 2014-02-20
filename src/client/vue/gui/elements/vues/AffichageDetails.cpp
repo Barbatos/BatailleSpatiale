@@ -90,6 +90,18 @@ void AffichageDetails::actualiser(float) {
 
     tourJoueur.setOrigin(tourJoueur.getGlobalBounds().width, 0);
 
+    if (!lireGui()->lireScene()->lireJeu().lireReseau()->getActif()) {
+        notification.ajouterMessage(L"[JEU]", L"Le joueur adverse s'est déconnecté ou la connexion avec le serveur a été perdue", 5000);
+
+        Message message;
+
+        message.type = Message::Element;
+        message.element.id = lireId();
+        message.element.clic = false;
+
+        envoyerMessage(message);
+    }
+
     Joueur* joueur = lireGui()->lireScene()->lireJeu().lireJoueur();
     // Mettre à jour les informations joueurs
     std::stringstream stream;
@@ -133,12 +145,12 @@ void AffichageDetails::actualiser(float) {
         return;
     }
 
-// Sinon, on stocke le plateau et le type de la cellule
+    // Sinon, on stocke le plateau et le type de la cellule
     Plateau p = lireGui()->lireScene()->lireJeu().lirePlateau();
     TypeCellule cellule = p.getCellule(position).statutEmplacement();
     std::wstring texte;
 
-// On récupère les informations liées à ce que contient cette cellule
+    // On récupère les informations liées à ce que contient cette cellule
     switch (cellule) {
         case TypeCellule::Vaisseau:
             if (p.getVaisseau(position).type == TypeVaisseau::Constructeur) {
@@ -239,20 +251,8 @@ void AffichageDetails::actualiser(float) {
             break;
     }
 
-// On change le message
+    // On change le message
     infosCase.setString(texte);
-
-    if (!lireGui()->lireScene()->lireJeu().lireReseau()->getActif()) {
-        notification.ajouterMessage(L"[JEU]", L"Le joueur adverse s'est déconnecté ou la connexion avec le serveur a été perdue", 5000);
-
-        Message message;
-
-        message.type = Message::Element;
-        message.element.id = lireId();
-        message.element.clic = false;
-
-        envoyerMessage(message);
-    }
 }
 
 void AffichageDetails::afficher() {
