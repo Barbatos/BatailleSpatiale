@@ -434,7 +434,7 @@ void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
     ReseauGlobal::EnvoiPaquet(*client, paquet);
 }
 
-void ReseauServeur::envoiBatimentsConstructibles(JoueurServeur& joueur, Position p) {
+void ReseauServeur::envoiBatimentsConstructibles(JoueurServeur&, Position) {
     /*sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::BatimentsConstructibles);
     std::vector<VaisseauServeur> listeVaisseaux = joueur.getBatimentsConstructibles();
     std::vector<VaisseauServeur>::iterator vaisseauIterator;
@@ -668,6 +668,8 @@ void ReseauServeur::ecouterReseau(void) {
 
                         // Si c'est une déconnexion, on le fait savoir au serveur
                         if(status == sf::Socket::Disconnected) {
+                            sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::SupprimerJoueur);
+                            sf::Packet paquet;
                             string msgGlobal;
                             ostringstream c;
 
@@ -685,6 +687,8 @@ void ReseauServeur::ecouterReseau(void) {
                             // On envoie le message de déconnexion à tous les autres joueurs
                             envoiATous(msgGlobal);
 
+                            paquet << typePaquet;
+                            envoiPaquetATous(paquet);
                             continue;
                         }
 

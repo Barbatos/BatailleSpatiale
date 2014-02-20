@@ -177,6 +177,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             parseZoneVisible(paquet);
             break;
 
+        case TypePaquet::SupprimerJoueur:
+            setActif(false);
+            break;
+
         default:
             std::stringstream stream;
             stream << "Erreur : paquet de type : " << typePaquet << " inconnu";
