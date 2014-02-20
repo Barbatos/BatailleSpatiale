@@ -127,6 +127,8 @@ void AffichageDetails::actualiser(float) {
             bouclierVaisseau->rendreInvisible();
         if (santeBatiment != NULL)
             santeBatiment->rendreInvisible();
+        if (bouclierBatiment != NULL)
+        	bouclierBatiment->rendreInvisible();
         return;
     }
 
@@ -213,6 +215,10 @@ void AffichageDetails::actualiser(float) {
                 santeVaisseau->rendreInvisible();
             if (santeBatiment != NULL)
                 santeBatiment->rendreInvisible();
+            if (bouclierVaisseau != NULL)
+                bouclierVaisseau->rendreInvisible();
+            if (bouclierBatiment != NULL)
+                bouclierBatiment->rendreInvisible();
 
             break;
         default:
@@ -223,6 +229,12 @@ void AffichageDetails::actualiser(float) {
 
             if (santeBatiment != NULL)
                 santeBatiment->rendreInvisible();
+
+            if (bouclierVaisseau != NULL)
+                bouclierVaisseau->rendreInvisible();
+
+            if (bouclierBatiment != NULL)
+                bouclierBatiment->rendreInvisible();
             break;
     }
 
