@@ -140,6 +140,8 @@ class ReseauClient {
 
         void parseBatimentsConstructibles(sf::Packet paquet);
 
+        void deconnexion();
+
     private:
 
         /// La socket du client

@@ -585,3 +585,8 @@ void ReseauClient::setPort(unsigned short _port) {
 sf::TcpSocket& ReseauClient::getSocket(void) {
     return socket;
 }
+
+void ReseauClient::deconnexion() {
+    cout << "[RESEAU] Deconnexion" << endl;
+    socket.disconnect();
+}
