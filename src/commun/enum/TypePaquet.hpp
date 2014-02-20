@@ -89,6 +89,8 @@ enum class TypePaquet : sf::Uint16 {
     BatimentsConstructibles,
     // Paquet envoyé par le serveur au client pour lui indiquer que la partie multijoueurs démarre
     DemarrerPartieMulti,
+    // Paquet envoyé par le serveur au client pour lui indiquer que la partie solo démarre
+    DemarrerPartieSolo,
     // Paquet envoyé par le serveur aux clients pour indiquer de changer de joueur actif
     JoueurSuivant,
     // Paquet envoyé par le client au serveur pour demander la zone visible

@@ -45,14 +45,6 @@ public:
     void envoiATous(string& message);
 
     /**
-     * \brief Envoi d'un message par le serveur à un unique client
-     *
-     * \param client la socket du client
-     * \param message le message à envoyer
-     */
-    void envoiUnique(sf::TcpSocket& client, string& message);
-
-    /**
      * \brief Envoi du plateau à un client
      *
      * \param joueur Le joueur a qui envoyer le plateau
@@ -96,6 +88,8 @@ public:
 
     void demarrerPartieMulti();
 
+    void demarrerPartieSolo();
+
     void joueurSuivant();
 
     void envoiPaquetATous(sf::Packet paquet);
@@ -103,6 +97,8 @@ public:
     void envoiZoneVisible(JoueurServeur& joueur);
 
     void envoiBatimentsConstructibles(JoueurServeur& joueur, Position p);
+
+    void envoiPaquet(JoueurServeur& joueur, sf::Packet p);
 
 private:
 
