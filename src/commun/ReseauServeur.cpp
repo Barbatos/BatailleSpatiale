@@ -45,7 +45,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     // On ajoute la socket au selecteur
     selector.add(listener);
 
-    dernierHeartbeat = timer.getElapsedTime();
+    dernierHeartbeat = timer.getElapsedTime() - sf::seconds(60);
 
     cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }

@@ -116,7 +116,7 @@ class ReseauClient {
 
         void parseVaisseauxConstructibles(sf::Packet paquet);
 
-        vector<Serveur> parseListeServeurs(sf::Packet paquet);
+        void parseListeServeurs(sf::Packet paquet);
 
         bool getPartieSolo(void);
 

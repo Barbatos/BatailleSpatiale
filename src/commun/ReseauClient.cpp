@@ -32,10 +32,14 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port,
         return;
     }
 
+    if (server == sf::IpAddress::getPublicAddress()) {
+        server = sf::IpAddress("localhost");
+    }
+
     while (socket.connect(server, port, timeout) != sf::Socket::Done) {
         if (nbEssais >= 5) {
             notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au serveur", 5000);
-            cout << "[RESEAU] Abandon de la tentative de connexion au serveur"
+            cout << "[RESEAU] Abandon de la tentative de connexion au serveur " << ip 
             << endl;
             return;
         }
@@ -350,19 +354,18 @@ void ReseauClient::parseZoneVisible(sf::Packet paquet) {
     }
 }
 
-vector<Serveur> ReseauClient::parseListeServeurs(sf::Packet paquet) {
+void ReseauClient::parseListeServeurs(sf::Packet paquet) {
     sf::Int32 nbServeurs;
-    vector<Serveur> listeServeurs;
     Serveur s;
 
     paquet >> nbServeurs;
 
+    plateau.listeServeurs.clear();
+
     for (sf::Int32 i = 0; i < nbServeurs; i++) {
         paquet >> s;
-        listeServeurs.push_back(s);
+        plateau.listeServeurs.push_back(s);
     }
-
-    return listeServeurs;
 }
 
 void ReseauClient::deplacerVaisseau(sf::Packet) {
