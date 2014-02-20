@@ -330,6 +330,10 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
         return;
     }
 
+    if(joueur.getId() == plateau.cellule[posCible.x][posCible.y].getIdJoueur()) {
+        return;
+    }
+    
     cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
     cCible = plateau.cellule[posCible.x][posCible.y];
 
@@ -761,7 +765,7 @@ void ReseauServeur::envoiHeartbeat() {
     if(partieSolo) {
         return;
     }
-    
+
     if(!masterActif) {
         return;
     }
