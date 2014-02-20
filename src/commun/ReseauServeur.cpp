@@ -9,6 +9,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
 
     plateau.setJoueurs(&joueurs);
     joueurActuel = -1;
+    masterActif = true;
 
     // On écoute sur le port défini plus haut
     while(listener.listen(port) != sf::Socket::Done) {
@@ -29,6 +30,7 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
     while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
         if(nbEssais >= 5) {
             cout << "[RESEAU] Abandon de la tentative de connexion au Master Serveur" << endl;
+            masterActif = false;
             break;
         }
 
@@ -735,6 +737,10 @@ void ReseauServeur::envoiHeartbeat() {
     sf::Time tempsEcoule;
     sf::Packet paquet;
 
+    if(!masterActif) {
+        return;
+    }
+    
     tempsEcoule = timer.getElapsedTime();
 
     if((tempsEcoule.asSeconds() - dernierHeartbeat.asSeconds()) < 60) {

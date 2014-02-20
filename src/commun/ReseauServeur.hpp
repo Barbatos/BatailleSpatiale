@@ -130,6 +130,8 @@ private:
     
     bool actif;
 
+    bool masterActif;
+
     unsigned short port;
 
     bool partieSolo;
