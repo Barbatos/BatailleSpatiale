@@ -588,5 +588,6 @@ sf::TcpSocket& ReseauClient::getSocket(void) {
 
 void ReseauClient::deconnexion() {
     cout << "[RESEAU] Deconnexion" << endl;
+    setActif(false);
     socket.disconnect();
 }
