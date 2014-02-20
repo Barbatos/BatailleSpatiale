@@ -105,6 +105,8 @@ class Plateau {
         sf::Int32 tailleX; ///< Taille du plateau en X
         sf::Int32 tailleY; ///< Taille du plateau en Y
         std::vector<Serveur> listeServeurs;
+        std::vector<Vaisseau> listeVaisseauxConstructibles;
+        std::vector<Batiment> listeBatimentsConstructibles;
 
         friend sf::Packet& operator >>(sf::Packet& paquet, Plateau& plateau);
         friend class ReseauClient;

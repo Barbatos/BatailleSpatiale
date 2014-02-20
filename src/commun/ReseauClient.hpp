@@ -136,6 +136,10 @@ class ReseauClient {
 
         void demanderFinTour();
 
+        void getBatimentsConstructibles(Position p);
+
+        void parseBatimentsConstructibles(sf::Packet paquet);
+
     private:
 
         /// La socket du client

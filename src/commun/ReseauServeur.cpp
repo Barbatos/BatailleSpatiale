@@ -142,6 +142,12 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         envoiVaisseauxConstructibles(joueur);
         break;
 
+        // Le client demande la liste des batiments constructibles depuis un vaisseau constructeur
+    case TypePaquet::GetBatimentsConstructibles:
+        paquet >> pos;
+        envoiBatimentsConstructibles(joueur, pos);
+        break;
+
         // Le client demande la zone visible
     case TypePaquet::GetZoneVisible:
         envoiZoneVisible(joueur);
@@ -426,6 +432,27 @@ void ReseauServeur::envoiVaisseauxConstructibles(JoueurServeur& joueur) {
     }
 
     ReseauGlobal::EnvoiPaquet(*client, paquet);
+}
+
+void ReseauServeur::envoiBatimentsConstructibles(JoueurServeur& joueur, Position p) {
+    /*sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::BatimentsConstructibles);
+    std::vector<VaisseauServeur> listeVaisseaux = joueur.getBatimentsConstructibles();
+    std::vector<VaisseauServeur>::iterator vaisseauIterator;
+    sf::TcpSocket* client = joueur.getSocket();
+    sf::Packet paquet;
+    sf::Int32 nbVaisseaux;
+
+    nbVaisseaux = listeVaisseaux.size();
+
+    paquet << typePaquet << nbVaisseaux;
+
+    for (vaisseauIterator = listeVaisseaux.begin(); vaisseauIterator != listeVaisseaux.end(); vaisseauIterator++) {
+        paquet << *vaisseauIterator;
+    }
+
+    ReseauGlobal::EnvoiPaquet(*client, paquet);
+    */
+    // TODO
 }
 
 void ReseauServeur::envoiZoneVisible(JoueurServeur& joueur) {

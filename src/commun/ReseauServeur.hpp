@@ -102,6 +102,8 @@ public:
 
     void envoiZoneVisible(JoueurServeur& joueur);
 
+    void envoiBatimentsConstructibles(JoueurServeur& joueur, Position p);
+
 private:
 
     /// La socket du serveur

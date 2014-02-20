@@ -161,6 +161,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             parseVaisseauxConstructibles(paquet);
             break;
 
+        case TypePaquet::BatimentsConstructibles:
+            parseBatimentsConstructibles(paquet);
+            break;
+
         case TypePaquet::DemarrerPartieMulti:
             demarrerPartieMulti();
             break;
@@ -337,7 +341,28 @@ void ReseauClient::parseVaisseauxConstructibles(sf::Packet paquet) {
 
     paquet >> tailleListe;
 
-    // TODO
+    plateau.listeVaisseauxConstructibles.clear();
+    plateau.listeVaisseauxConstructibles.reserve(tailleListe);
+
+    for (sf::Int32 i = 0; i < tailleListe; i++) {
+        paquet >> b;
+        plateau.listeVaisseauxConstructibles.push_back(b);
+    }
+}
+
+void ReseauClient::parseBatimentsConstructibles(sf::Packet paquet) {
+    sf::Int32 tailleListe;
+    Batiment b;
+
+    paquet >> tailleListe;
+
+    plateau.listeBatimentsConstructibles.clear();
+    plateau.listeBatimentsConstructibles.reserve(tailleListe);
+
+    for (sf::Int32 i = 0; i < tailleListe; i++) {
+        paquet >> b;
+        plateau.listeBatimentsConstructibles.push_back(b);
+    }
 }
 
 void ReseauClient::parseZoneVisible(sf::Packet paquet) {
@@ -476,6 +501,16 @@ void ReseauClient::getVaisseauxConstructibles() {
     sf::Packet paquet;
 
     paquet << typePaquet;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::getBatimentsConstructibles(Position p) {
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::GetBatimentsConstructibles);
+    sf::Packet paquet;
+
+    paquet << typePaquet << p;
 
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
