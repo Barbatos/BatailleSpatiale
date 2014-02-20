@@ -65,7 +65,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port,
 void ReseauClient::ConnexionMasterServeur(void) {
     unsigned short portMaster = 1600;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(0.05);
+    sf::Time timeout = sf::seconds(0.15);
     int nbEssais = 0;
 
     while (socketMaster.connect(masterServer, portMaster, timeout)
