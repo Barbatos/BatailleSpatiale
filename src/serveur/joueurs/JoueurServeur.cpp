@@ -9,9 +9,6 @@ JoueurServeur::JoueurServeur(void) :
     techB = TechnologieBatiment();
     techV = TechnologieVaisseau();
 
-
-
-
     ajouterConstructionVaisseau(VaisseauServeur(700, 300, 0.4f, 150, 250, 400, 100, 100, 500, 1000, TypeVaisseau::Chasseur));
     ajouterConstructionVaisseau(VaisseauServeur(500, 200, 0.2f, 200, 100, 600, 100, 100, 1000, 1000, TypeVaisseau::Constructeur));
     ajouterConstructionVaisseau(VaisseauServeur(2000, 800, 0.7f, 150, 800, 200, 200, 300, 1500, 3000, TypeVaisseau::Bombardier));

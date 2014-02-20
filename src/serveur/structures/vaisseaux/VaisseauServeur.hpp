@@ -33,6 +33,7 @@ public:
         sf::Int32 _prixMateriaux,
         TypeVaisseau _type = TypeVaisseau::Inexistant
     );
+    virtual ~VaisseauServeur() {};
 
     // Getters
     sf::Int32 getConsommation() const;

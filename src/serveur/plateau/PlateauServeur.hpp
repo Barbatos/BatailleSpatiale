@@ -212,6 +212,8 @@ public:
     int attaquer(Position attaquant, Position cible);
 
     void effectuerTour();
+    
+    
 
 private:
     /// Liste des joueurs
@@ -226,6 +228,8 @@ private:
     friend class ReseauServeur;
 
     friend sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);
+    
+    std::vector<BatimentServeur>* getListeConstruction(Position position, sf::Int32 idJoueur);
 };
 
 sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau);

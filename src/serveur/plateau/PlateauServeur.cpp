@@ -1,4 +1,5 @@
 #include "PlateauServeur.hpp"
+#include "../structures/vaisseaux/constructeurs/Constructeur.hpp"
 
 PlateauServeur::PlateauServeur(sf::Int32 _tailleX, sf::Int32 _tailleY) :
     joueurs(nullptr),
@@ -620,4 +621,16 @@ void PlateauServeur::effectuerTour() {
             }
         }
     }
+}
+
+std::vector<BatimentServeur>* PlateauServeur::getListeConstruction(Position position, sf::Int32 idJoueur) {
+    if(cellule[position.x][position.y].possedeVaisseau()
+            && cellule[position.x][position.y].getVaisseau()->getType() == TypeVaisseau::Constructeur
+            && cellule[position.x][position.y].getVaisseau()->getIdJoueur() == idJoueur) {
+                VaisseauServeur* vaisseau = cellule[position.x][position.y].getVaisseauPtr().get();
+                Constructeur* constructeur = dynamic_cast<Constructeur*>(vaisseau);
+                return constructeur->getListeConstruction();
+            }
+                
+    return nullptr;
 }
