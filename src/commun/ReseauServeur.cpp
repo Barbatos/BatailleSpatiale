@@ -26,28 +26,30 @@ ReseauServeur::ReseauServeur(unsigned short _port, PlateauServeur& _plateau, str
 
     nbEssais = 0;
 
-    // On tente de se connecter au Master Serveur
-    while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
-        if(nbEssais >= 5) {
-            cout << "[RESEAU] Abandon de la tentative de connexion au Master Serveur" << endl;
-            masterActif = false;
-            break;
+    if(!partieSolo) {
+        // On tente de se connecter au Master Serveur
+        while(socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
+            if(nbEssais >= 5) {
+                cout << "[RESEAU] Abandon de la tentative de connexion au Master Serveur" << endl;
+                masterActif = false;
+                break;
+            }
+
+            cout << "[RESEAU] Impossible de se connecter au Master Serveur sur le port " << portMaster << ", essai sur le port " << (portMaster+1) << endl;
+
+            portMaster++;
+            nbEssais++;
         }
 
-        cout << "[RESEAU] Impossible de se connecter au Master Serveur sur le port " << portMaster << ", essai sur le port " << (portMaster+1) << endl;
-
-        portMaster++;
-        nbEssais++;
+        socketMaster.setBlocking(false);
+        dernierHeartbeat = timer.getElapsedTime() - sf::seconds(60);
     }
 
     // On met la socket en mode non-bloquant
     listener.setBlocking(false);
-    socketMaster.setBlocking(false);
 
     // On ajoute la socket au selecteur
     selector.add(listener);
-
-    dernierHeartbeat = timer.getElapsedTime() - sf::seconds(60);
 
     cout << "[RESEAU] Ecoute sur le port " << port << " en cours..." << endl;
 }
@@ -756,6 +758,10 @@ void ReseauServeur::envoiHeartbeat() {
     sf::Time tempsEcoule;
     sf::Packet paquet;
 
+    if(partieSolo) {
+        return;
+    }
+    
     if(!masterActif) {
         return;
     }

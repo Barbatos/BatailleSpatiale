@@ -72,7 +72,7 @@ void ReseauClient::ConnexionMasterServeur(void) {
             != sf::Socket::Done) {
         if (nbEssais >= 5) {
             notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au Master Serveur", 5000);
-            break;
+            return;
         }
 
         std::wstringstream stream;
