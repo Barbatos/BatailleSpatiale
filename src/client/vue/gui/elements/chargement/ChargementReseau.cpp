@@ -29,10 +29,6 @@ ChargementReseau::~ChargementReseau() {
 }
 
 void ChargementReseau::actualiser(float) {
-
-    // On demande la liste des serveurs, au cas où
-    lireGui()->lireScene()->lireJeu().lireReseau()->demanderListeServeurs();
-
     if (!reseauActif
             && lireGui()->lireScene()->lireJeu().lireReseau()->getActif()
             && lireGui()->lireScene()->lireJeu().lirePlateau().getTailleX()

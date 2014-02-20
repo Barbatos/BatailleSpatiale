@@ -40,6 +40,7 @@ void SceneMenuMultijoueur::surMessage(Message message) {
                     jeu.changer(Scene::SceneChargementJeu);
                     break;
                 case Retour:
+                    jeu.lireReseau()->deconnexion();
                     jeu.changer(Scene::SceneMenuPrincipal);
                     break;
                 default:
