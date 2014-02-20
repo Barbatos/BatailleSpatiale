@@ -17,7 +17,7 @@ class ZoneTexte;
  *
  * Écran de création d'une partie Multijoueur
  */
-class SceneMenuMultijoueur : public Scene {
+class SceneMenuMultijoueur: public Scene {
     private:
         /**
          * \brief Les différents boutons de la scène
@@ -27,8 +27,6 @@ class SceneMenuMultijoueur : public Scene {
             Retour
         };
 
-        ZoneTexte* ip;
-        ZoneTexte* port;
         ZoneTexte* pseudo;
 
     public:

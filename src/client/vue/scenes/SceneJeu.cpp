@@ -311,6 +311,9 @@ void SceneJeu::surMessage(Message message) {
     switch (message.type) {
         case Message::Element:
             switch (message.element.id) {
+                case Details:
+                    jeu.changer(Scene::SceneChargementJeuMulti);
+                    break;
                 case Menu:
                     jeu.changer(Scene::SceneJeuMenu);
                     break;

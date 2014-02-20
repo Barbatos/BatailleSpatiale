@@ -18,6 +18,7 @@
 
 // Includes des classes utiles
 #include <utiles.hpp>
+#include <client/utile/Notification.hpp>
 
 AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
         float largeur, float hauteur) :
@@ -25,10 +26,10 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
                 y + 5), infosJoueurs("", x + largeur - largeur / 3 + 5, y + 5), tourJoueur(), position(
                 -1, -1) {
 
-    santeBatiment = NULL;
-    santeVaisseau = NULL;
-    bouclierVaisseau = NULL;
-    bouclierBatiment = NULL;
+    santeBatiment = nullptr;
+    santeVaisseau = nullptr;
+    bouclierVaisseau = nullptr;
+    bouclierBatiment = nullptr;
 
     int xalign = x + largeur - 50;
     int xsize = 250;
@@ -79,11 +80,11 @@ AffichageDetails::~AffichageDetails() {
 void AffichageDetails::actualiser(float) {
     // On met à jour le texte du tour du joueur, peu importe l'état du plateau
     if (lireGui()->lireScene()->lireJeu().lireReseau()->getBloquerJeu()) {
-        tourJoueur.setString("C'est au joueur adverse de jouer");
+        tourJoueur.setString(L"C'est au joueur adverse de jouer");
         tourJoueur.setColor(sf::Color(0, 0, 255));
     }
     else {
-        tourJoueur.setString("C'est à votre tour de jouer");
+        tourJoueur.setString(L"C'est à votre tour de jouer");
         tourJoueur.setColor(sf::Color(255, 0, 0));
     }
 
@@ -121,23 +122,23 @@ void AffichageDetails::actualiser(float) {
         // Si oui, on change le message et on termine l'actualisation
         infosCase.setString(std::wstring(L"Aucune case n'est selectionnée"));
 
-        if (santeVaisseau != NULL)
+        if (santeVaisseau != nullptr)
             santeVaisseau->rendreInvisible();
-        if (bouclierVaisseau != NULL)
+        if (bouclierVaisseau != nullptr)
             bouclierVaisseau->rendreInvisible();
-        if (santeBatiment != NULL)
+        if (santeBatiment != nullptr)
             santeBatiment->rendreInvisible();
-        if (bouclierBatiment != NULL)
-        	bouclierBatiment->rendreInvisible();
+        if (bouclierBatiment != nullptr)
+            bouclierBatiment->rendreInvisible();
         return;
     }
 
-    // Sinon, on stocke le plateau et le type de la cellule
+// Sinon, on stocke le plateau et le type de la cellule
     Plateau p = lireGui()->lireScene()->lireJeu().lirePlateau();
     TypeCellule cellule = p.getCellule(position).statutEmplacement();
     std::wstring texte;
 
-    // On récupère les informations liées à ce que contient cette cellule
+// On récupère les informations liées à ce que contient cette cellule
     switch (cellule) {
         case TypeCellule::Vaisseau:
             if (p.getVaisseau(position).type == TypeVaisseau::Constructeur) {
@@ -145,7 +146,7 @@ void AffichageDetails::actualiser(float) {
             }
             texte = Utile::toString(p.getVaisseau(position));
 
-            if (santeVaisseau == NULL) {
+            if (santeVaisseau == nullptr) {
                 santeVaisseau = new BarreMesure(lireGui(), sf::Color::Red,
                         fondCase.getPosition().x + 300,
                         fondCase.getPosition().y + 18, 250, 15,
@@ -153,7 +154,7 @@ void AffichageDetails::actualiser(float) {
                 santeVaisseau->setLargeur(p.getVaisseau(position).vie);
             }
 
-            if (bouclierVaisseau == NULL) {
+            if (bouclierVaisseau == nullptr) {
                 bouclierVaisseau = new BarreMesure(lireGui(), sf::Color::Blue,
                         fondCase.getPosition().x + 330,
                         fondCase.getPosition().y + 63, 250, 15,
@@ -170,15 +171,15 @@ void AffichageDetails::actualiser(float) {
             bouclierVaisseau->setValeurMontree(
                     p.getVaisseau(position).bouclier);
 
-            if (santeBatiment != NULL)
+            if (santeBatiment != nullptr)
                 santeBatiment->rendreInvisible();
-            if (bouclierBatiment != NULL)
+            if (bouclierBatiment != nullptr)
                 bouclierBatiment->rendreInvisible();
             break;
         case TypeCellule::Batiment:
             texte = Utile::toString(p.getBatiment(position));
 
-            if (santeBatiment == NULL) {
+            if (santeBatiment == nullptr) {
                 santeBatiment = new BarreMesure(lireGui(), sf::Color::Red,
                         fondCase.getPosition().x + 300,
                         fondCase.getPosition().y + 39, 250, 15,
@@ -186,7 +187,7 @@ void AffichageDetails::actualiser(float) {
                 santeBatiment->setLargeur(p.getBatiment(position).vie);
             }
 
-            if (bouclierBatiment == NULL) {
+            if (bouclierBatiment == nullptr) {
                 bouclierBatiment = new BarreMesure(lireGui(), sf::Color::Blue,
                         fondCase.getPosition().x + 330,
                         fondCase.getPosition().y + 85, 250, 15,
@@ -203,17 +204,17 @@ void AffichageDetails::actualiser(float) {
             bouclierBatiment->setValeurMontree(
                     p.getBatiment(position).bouclier);
 
-            if (santeVaisseau != NULL)
+            if (santeVaisseau != nullptr)
                 santeVaisseau->rendreInvisible();
-            if (bouclierVaisseau != NULL)
+            if (bouclierVaisseau != nullptr)
                 bouclierVaisseau->rendreInvisible();
             break;
         case TypeCellule::Evenement:
             texte = Utile::toString(p.getEvenement(position));
 
-            if (santeVaisseau != NULL)
+            if (santeVaisseau != nullptr)
                 santeVaisseau->rendreInvisible();
-            if (santeBatiment != NULL)
+            if (santeBatiment != nullptr)
                 santeBatiment->rendreInvisible();
             if (bouclierVaisseau != NULL)
                 bouclierVaisseau->rendreInvisible();
@@ -224,22 +225,34 @@ void AffichageDetails::actualiser(float) {
         default:
             texte = Utile::toString(position);
 
-            if (santeVaisseau != NULL)
+            if (santeVaisseau != nullptr)
                 santeVaisseau->rendreInvisible();
 
-            if (santeBatiment != NULL)
-                santeBatiment->rendreInvisible();
-
-            if (bouclierVaisseau != NULL)
+            if (bouclierVaisseau != nullptr)
                 bouclierVaisseau->rendreInvisible();
 
-            if (bouclierBatiment != NULL)
+            if (santeBatiment != nullptr)
+                santeBatiment->rendreInvisible();
+
+            if (bouclierBatiment != nullptr)
                 bouclierBatiment->rendreInvisible();
             break;
     }
 
-    // On change le message
+// On change le message
     infosCase.setString(texte);
+
+    if (!lireGui()->lireScene()->lireJeu().lireReseau()->getActif()) {
+        notification.ajouterMessage(L"[JEU]", L"Le joueur adverse s'est déconnecté ou la connexion avec le serveur a été perdue", 5000);
+
+        Message message;
+
+        message.type = Message::Element;
+        message.element.id = lireId();
+        message.element.clic = false;
+
+        envoyerMessage(message);
+    }
 }
 
 void AffichageDetails::afficher() {
@@ -247,10 +260,6 @@ void AffichageDetails::afficher() {
     affichage.draw(fondJoueurs);
     affichage.draw(infosCase);
     affichage.draw(infosJoueurs);
-    //commandementBarre->afficher(affichage);
-    //energieBarre->afficher(affichage);
-    //materiauxBarre->afficher(affichage);
-    //requisitionBarre->afficher(affichage);
     affichage.draw(tourJoueur);
 }
 

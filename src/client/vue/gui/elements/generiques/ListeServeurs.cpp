@@ -40,7 +40,15 @@ ListeServeurs::~ListeServeurs() {
 }
 
 void ListeServeurs::actualiser(float) {
+    if (lireGui()->lireScene()->lireJeu().lireReseau()->getActif()) {
+        Message message;
 
+        message.type = Message::Element;
+        message.element.id = lireId();
+        message.element.clic = false;
+
+        envoyerMessage(message);
+    }
 }
 
 void ListeServeurs::afficher() {
