@@ -596,25 +596,43 @@ sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau) {
 
 //toast
 void PlateauServeur::effectuerTour() {
-    sf::Int32 posX = 9;
-    sf::Int32 posY = 9;
-    
-    //tester si la case est libre, et assez loin des bases
-    if(!cellule[posX][posY].getVaisseau() 
-    && !cellule[posX][posY].getBatiment() 
-    && !cellule[posX][posY].getEvenement())
-        cellule[posX][posY].creerEvenementTest(TypeEvenement::Epave);
-    
-    
-    //on effectue les actions particulières de chaque évènement
     for (sf::Int32 x = 0; x < tailleX; ++x) {
         for (sf::Int32 y = 0; y < tailleY; ++y) {    
             if(cellule[x][y].getEvenement()) {
                 switch (cellule[x][y].getEvenement()->quelType()) {
-                    case TypeEvenement::Epave:
-                        //potatoe
+                    
+                    case TypeEvenement::InfluenceTrouNoir:
+                        if (cellule[x][y].getVaisseauPtr())
+                            cellule[x][y].getVaisseauPtr().reset();
+                        if (cellule[x][y].getBatiment())
+                            cellule[x][y].getBatiment().reset();
+                        
+                        for (int i = -1; i < 2; i++) {
+                            for(int j = -1; j < 2; j++) {
+                                if (cellule[x+i][y+j].getVaisseauPtr())
+                                    cellule[x+i][y+j].getVaisseauPtr()->setVie(cellule[x+i][y+j].getVaisseauPtr()->getVie() / 2);
+                                if (cellule[x+i][y+j].getBatiment())
+                                    cellule[x+i][y+j].getBatiment()->setVie(cellule[x+i][y+j].getBatiment()->getVie() / 2);
+                            }
+                        }
                     break;
                     
+                    case TypeEvenement::ChampMeteor:
+                        for (int i = -1; i < 2; i++) {
+                            for(int j = -1; j < 2; j++) {
+                                if (cellule[x+i][y+j].getVaisseauPtr())
+                                    cellule[x+i][y+j].getVaisseauPtr()->setVie(cellule[x+i][y+j].getVaisseauPtr()->getVie() - 20);
+                                if (cellule[x+i][y+j].getBatiment())
+                                    cellule[x+i][y+j].getBatiment()->setVie(cellule[x+i][y+j].getBatiment()->getVie() - 20);
+                            }
+                        }
+                    break;
+
+                    case TypeEvenement::NuageGaz:
+                        if (cellule[x][y].getVaisseauPtr())
+                            cellule[x][y].getVaisseauPtr()->setBouclier(0);
+                    break;
+
                     default :
                     break;
                 } 
