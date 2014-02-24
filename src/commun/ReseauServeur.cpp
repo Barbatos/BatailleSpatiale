@@ -304,6 +304,8 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
     sf::Packet paquet;
     sf::Uint16 paquetDeplacerVaisseau = static_cast<sf::Uint16>(TypePaquet::DeplacerVaisseau);
     sf::Uint16 paquetDeplacementImpossible = static_cast<sf::Uint16>(TypePaquet::DeplacementVaisseauImpossible);
+    std::string message;
+    ostringstream p1, p2;
 
     if(joueur.getId() != plateau.cellule[posDepart.x][posDepart.y].getIdJoueur()) {
         return;
@@ -311,6 +313,12 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
 
     if(plateau.deplacerVaisseau(posDepart, posArrivee, plateau.getZoneParcourable(posDepart, joueur.getEnergie()), joueur)) {
         paquet << paquetDeplacerVaisseau;
+
+        p1 << posArrivee.x;
+        p2 << posArrivee.y;
+
+        message = "Deplacement d'un vaisseau (" + p1.str() + "," + p2.str() + ") par le joueur " + joueur.getPseudo();
+        envoiATous(message);
         envoiPlateauATous();
     } else {
         paquet << paquetDeplacementImpossible;
@@ -325,6 +333,8 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
     sf::Uint16 paquetAttaquerVaisseau = static_cast<sf::Uint16>(TypePaquet::AttaquerVaisseau);
     sf::Uint16 paquetAttaqueImpossible = static_cast<sf::Uint16>(TypePaquet::AttaqueVaisseauImpossible);
     CelluleServeur cAttaquant, cCible;
+    std::string message;
+    ostringstream p1, p2;
 
     if(joueur.getId() != plateau.cellule[posAttaquant.x][posAttaquant.y].getIdJoueur()) {
         return;
@@ -339,6 +349,13 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
 
     if(plateau.attaquer(posAttaquant, posCible)) {
         paquet << paquetAttaquerVaisseau << posCible;
+
+        p1 << posCible.x;
+        p2 << posCible.y;
+
+        message = "Attaque d'un vaisseau (" + p1.str() + "," + p2.str() + ") par le joueur " + joueur.getPseudo();
+        envoiATous(message);
+
         envoiPlateauATous();
     } else {
         paquet << paquetAttaqueImpossible << posCible;
