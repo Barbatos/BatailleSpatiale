@@ -142,6 +142,8 @@ class ReseauClient {
 
         void deconnexion();
 
+        void demarrerPartieSolo();
+
     private:
 
         /// La socket du client

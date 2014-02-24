@@ -169,6 +169,10 @@ void ReseauClient::TraiterPaquetServeur(void) {
             demarrerPartieMulti();
             break;
 
+        case TypePaquet::DemarrerPartieSolo:
+            demarrerPartieSolo();
+            break;
+
         case TypePaquet::JoueurSuivant:
             joueurSuivant(paquet);
             break;
@@ -219,6 +223,10 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
 }
 
 void ReseauClient::demarrerPartieMulti() {
+    setPartieActive(true);
+}
+
+void ReseauClient::demarrerPartieSolo() {
     setPartieActive(true);
 }
 
