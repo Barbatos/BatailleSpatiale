@@ -20,7 +20,7 @@ ReseauClient::~ReseauClient() {
 void ReseauClient::ConnexionServeur(string ip, unsigned short port,
         bool _partieSolo) {
     sf::IpAddress server(ip);
-    sf::Time timeout = sf::seconds(0.15);
+    sf::Time timeout = sf::seconds(1);
     int nbEssais = 0;
 
     if (_partieSolo) {
@@ -36,21 +36,25 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port,
         server = sf::IpAddress("localhost");
     }
 
-    while (socket.connect(server, port, timeout) != sf::Socket::Done) {
-        if (nbEssais >= 5) {
-            notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au serveur", 5000);
-            cout << "[RESEAU] Abandon de la tentative de connexion au serveur " << ip 
-            << endl;
-            return;
+    while (getActif() == false) {
+        if(socket.connect(server, port, timeout) != sf::Socket::Done) {
+            socket.disconnect();
+
+            if (nbEssais >= 5) {
+                notification.ajouterMessage(L"[RESEAU]", L"Impossible de se connecter au serveur", 5000);
+                cout << "[RESEAU] Abandon de la tentative de connexion au serveur " << ip 
+                << endl;
+                return;
+            }
+
+            cout << "Impossible de se connecter au serveur sur le port" << port << ", essai sur le port " << (port+1) << endl;
+
+            port++;
+            nbEssais++;
+
+            continue;
         }
-
-        std::wstringstream stream;
-        stream << L"Impossible de se connecter au serveur sur le port" << port << L", essai sur le port " << (port+1);
-
-        notification.ajouterMessage(L"[RESEAU]", stream.str(), 5000);
-
-        port++;
-        nbEssais++;
+        setActif(true);
     }
 
     // On met la socket en mode non-bloquant
@@ -65,7 +69,7 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port,
 void ReseauClient::ConnexionMasterServeur(void) {
     unsigned short portMaster = 1600;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(0.15);
+    sf::Time timeout = sf::seconds(0.2);
     int nbEssais = 0;
 
     while (socketMaster.connect(masterServer, portMaster, timeout)
