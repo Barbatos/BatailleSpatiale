@@ -203,6 +203,19 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
             switch (p.getCellule(position).statutEmplacement()) {
                 case TypeCellule::Vide:
+
+                	//Si la case selectionnée est une case constructible pour un bâtiment
+                	if(p.getCellule(position).getEstConstructibleBatiment())
+                	{
+                		//TODO joufflu tes foncs
+                	}
+                	//Sinon si c'est une case constructible pour un vaisseau
+                	else if(p.getCellule(position).getEstConstructibleVaisseau())
+                	{
+                		//TODO joufflu tes foncs
+                	}
+
+
                     // Si la destination est une case vide
 
                     // On demande au réseau le chemin vers cette case
