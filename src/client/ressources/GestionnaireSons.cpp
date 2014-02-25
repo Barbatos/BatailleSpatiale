@@ -6,6 +6,7 @@
  */
 
 #include "GestionnaireSons.hpp"
+#include <iostream>
 
 GestionnaireSons::GestionnaireSons(Ressources* ressources) :
 		ressources(ressources), horloge(), phaseDeJeu(false), tempsChangement(0)
@@ -64,7 +65,7 @@ Ressources::MusicPtr GestionnaireSons::chargerMusique(std::string texte)
 
 bool GestionnaireSons::dejaEnCour(Ressources::MusicPtr comparatif)
 {
-	if(comparatif == musique)
+	if (comparatif == musique)
 		return true;
 	else
 		return false;
@@ -98,17 +99,16 @@ void GestionnaireSons::ecrireTempsChangement(int value)
 
 void GestionnaireSons::controlerIntensite()
 {
-	if(phaseDeJeu)
+	sf::Time timer = horloge.getElapsedTime();
+	int minutes = (int) timer.asSeconds() / 60;
+
+	if (minutes > tempsChangement)
 	{
-		sf::Time timer = horloge.getElapsedTime();
-		int minutes = (int) timer.asSeconds() / 60;
-		if(minutes > tempsChangement)
+		if (musique->getPlayingOffset().asSeconds()
+				== musique->getDuration().asSeconds())
 		{
-			if(musique->getPlayingOffset().asSeconds() == musique->getDuration().asSeconds())
-			{
-				changerChanson(chargerMusique("game_hard.ogg"));
-				lancerChanson();
-			}
+			changerChanson(chargerMusique("game_hard.ogg"));
+			lancerChanson();
 		}
 	}
 }

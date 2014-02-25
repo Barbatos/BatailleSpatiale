@@ -100,6 +100,10 @@ public:
 
     void envoiPaquet(JoueurServeur& joueur, sf::Packet p);
 
+    void construireVaisseau(JoueurServeur& joueur, sf::Packet paquet);
+
+    void construireBatiment(JoueurServeur& joueur, sf::Packet paquet);
+
 private:
 
     /// La socket du serveur

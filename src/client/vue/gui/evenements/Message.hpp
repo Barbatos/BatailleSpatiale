@@ -10,14 +10,15 @@
 
 #include <string>
 #include <commun/utile/Position.hpp>
+#include <enums.hpp>
 
 /**
- * @brief Correspond à un message envoyé par un élément graphique
+ * \brief Correspond à un message envoyé par un élément graphique
  */
 class Message {
     public:
         /**
-         * @brief Message généré par un élément
+         * \brief Message généré par un élément
          */
         struct MessageElement {
                 int id; //!< L'id de l'élément qui a généré l'élement
@@ -25,7 +26,18 @@ class Message {
         };
 
         /**
-         * @brief Message généré par une cellule
+         * \brief Message généré par une construction
+         */
+        struct MessageConstruction {
+                TypeCellule type;
+                union {
+                        TypeVaisseau vaisseau;
+                        TypeBatiment batiment;
+                };
+        };
+
+        /**
+         * \brief Message généré par une cellule
          */
         struct MessageCellule {
                 int x; //!< Position en y de la case
@@ -35,21 +47,23 @@ class Message {
         };
 
         /**
-         * @brief Représente le type du message
+         * \brief Représente le type du message
          */
         enum Type {
             Element, //!< Element
-            Cellule  //!< Case
+            Cellule,  //!< Case
+            Construction //!< Construction
         };
 
         /**
-         * @brief Le type du message
+         * \brief Le type du message
          */
         Type type;
 
         union {
                 MessageElement element; //!< Arguments envoyés par un élément
                 MessageCellule cellule; //!< Arguments envoyés par une cellule
+                MessageConstruction construction; //!< Arguments envoyés par une construction
         };
 };
 

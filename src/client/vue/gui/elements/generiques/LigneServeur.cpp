@@ -8,7 +8,7 @@
 #include "LigneServeur.hpp"
 
 LigneServeur::LigneServeur(Gui* gui, int id, int x, int y, int largeur,
-        int hauteur, const Serveur& serveur, sf::View* vue) :
+        int hauteur, const Serveur& serveur, sf::View*) :
         Element(gui, id), serveur(serveur), bouton(), texteBouton(), cadre(), texteCadre() {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);

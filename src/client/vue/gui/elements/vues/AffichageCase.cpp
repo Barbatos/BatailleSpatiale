@@ -9,11 +9,12 @@
 
 #include <client/Jeu.hpp>
 #include <iostream>
+#include <client/vue/gui/elements/vues/AffichageCase.hpp>
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
         Position position, sf::View* vuePlateau) :
         Element(gui, id), image(), fond(), position(position), selectionne(
-                false), gui(gui) {
+                false), animation(nullptr) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
@@ -26,9 +27,16 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
     fond.setFillColor(sf::Color(0, 0, 110, 60));
     fond.setOutlineThickness(2);
     fond.setOutlineColor(sf::Color(100, 100, 100));
+
+    animation = new Animation(gui, -1, x - taille, y - taille, taille * 2,
+            taille * 2, true, false, "Environnement/explosion.png");
+    animation->stop();
+    animation->ecrireVue(vue);
 }
 
 AffichageCase::~AffichageCase() {
+    if (animation != nullptr)
+        delete animation;
 }
 
 void AffichageCase::actualiser(float) {
@@ -96,8 +104,7 @@ void AffichageCase::actualiser(float) {
         fond.setOutlineColor(sf::Color(59, 192, 34, 50));
     }
     else if (p.getCellule(position).getEstAttaquee()) {
-        new Animation(gui, -1, fond.getPosition().x, fond.getPosition().y, 200,
-                200, true, false, "Environnement/petite_explosion.png");
+        animation->lancer();
 
         p.resetAttaque(position);
     }
@@ -120,9 +127,14 @@ void AffichageCase::actualiser(float) {
 
 void AffichageCase::afficher() {
     if (lireGui()->lireScene()->lireJeu().lirePlateau().getCellule(position).getEstVisible()) {
-        affichage.draw(fond);
         affichage.draw(image);
     }
+    else
+    {
+        fond.setFillColor(sf::Color(20, 20, 20, 50));
+    }
+
+    affichage.draw(fond);
 }
 
 bool AffichageCase::contient(sf::Vector2i position) {

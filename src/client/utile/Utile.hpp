@@ -108,6 +108,8 @@ namespace Utile {
      */
     std::wstring convertir(TypeEvenement type);
 
+    std::string lireFichier(TypeVaisseau type, int id);
+
     /**
      * \brief Retourne le chemin vers l'image correspondant au vaisseau donné
      *
@@ -115,6 +117,8 @@ namespace Utile {
      * \return l'image associée
      */
     std::string lireFichier(DetailVaisseau details);
+
+    std::string lireFichier(TypeBatiment type, int id);
 
     /**
      * \brief Retourne le chemin vers l'image correspondant au bâtiment donné

@@ -162,6 +162,16 @@ void ReseauServeur::traiterPaquetClient(JoueurServeur& joueur, sf::Packet paquet
         joueurSuivant();
         break;
 
+        // Le client demande la construction d'un vaisseau
+    case TypePaquet::DemanderConstructionVaisseau:
+        construireVaisseau(joueur, paquet);
+        break;
+
+        // Le client demande la construction d'un batiment
+    case TypePaquet::DemanderConstructionBatiment:
+        construireBatiment(joueur, paquet);
+        break;
+
     default:
         cout << "[RESEAU] Erreur: paquet de type " << typePaquet << " inconnu" << endl;
         break;
@@ -519,6 +529,9 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
         plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
+
+        plateau.cellule[5][4].creerVaisseauTest();
+        joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
@@ -527,7 +540,7 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     if((nbJoueurs > 1) && !partieSolo) {
         demarrerPartieMulti();
     }
-    else {
+    else if (partieSolo) {
         demarrerPartieSolo();
     }
 }
@@ -592,6 +605,34 @@ void ReseauServeur::joueurSuivant() {
 
     paquet << typePaquet << joueurActuel;
     envoiPaquetATous(paquet);
+    envoiPlateauATous();
+}
+
+void ReseauServeur::construireVaisseau(JoueurServeur& joueur, sf::Packet paquet) {
+    sf::Uint16 typeVaisseau;
+    TypeVaisseau type;
+    Position p;
+
+    paquet >> typeVaisseau >> p;
+
+    type = static_cast<TypeVaisseau>(typeVaisseau);
+
+    plateau.cellule[p.x][p.y].creerVaisseauTest(type);
+    joueur.ajouterVaisseau(plateau.cellule[p.x][p.y].getVaisseau());
+
+    envoiPlateauATous();
+}
+
+void ReseauServeur::construireBatiment(JoueurServeur& joueur, sf::Packet paquet) {
+    sf::Uint16 typeBatiment = static_cast<sf::Uint16>(TypeBatiment::Inexistant);
+    Position p;
+
+    paquet >> typeBatiment >> p;
+
+    // Charles: FIXME
+    plateau.cellule[p.x][p.y].creerBatimentEnergieTest();
+    joueur.ajouterBatiment(plateau.cellule[p.x][p.y].getBatiment());
+
     envoiPlateauATous();
 }
 
@@ -767,6 +808,8 @@ void ReseauServeur::lancerReseau() {
 }
 
 void ReseauServeur::fermerReseau() {
+    cout << "[RESEAU] Fermeture de la socket du serveur" << endl;
+
     actif = false;
 
     selector.clear();

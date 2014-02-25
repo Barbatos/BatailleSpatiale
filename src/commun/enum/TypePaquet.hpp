@@ -99,6 +99,10 @@ enum class TypePaquet : sf::Uint16 {
     ZoneVisible,
     // Paquet envoyé par le client pour demander au serveur de finir le tour
     DemanderFinTour,
+    // Paquet envoyé par le client au serveur pour demander la construction d'un vaisseau
+    DemanderConstructionVaisseau,
+    // Paquet envoyé par le client au serveur pour demander la construction d'un bâtiment
+    DemanderConstructionBatiment,
     // -- Master Serveur -- //
     // Paquet envoyé par un serveur de jeu au Master afin de lui dire qu'il est en vie
     MasterHeartbeat,

@@ -15,6 +15,7 @@
 // Pré-déclarations
 class AffichageCase;
 class AffichageDetails;
+class AffichageConstructions;
 class Bouton;
 class CaseACocher;
 
@@ -23,7 +24,7 @@ class CaseACocher;
  *
  * Scène affichant le plateau
  */
-class SceneJeu : public Scene, public ObservateurSouris {
+class SceneJeu: public Scene, public ObservateurSouris {
     private:
 
         /**
@@ -35,6 +36,11 @@ class SceneJeu : public Scene, public ObservateurSouris {
          * \brief L'affichage des détails
          */
         AffichageDetails* details;
+
+        /**
+         * \brief L'affichage des constructions
+         */
+        AffichageConstructions* constructions;
 
         /**
          * \brief Bouton de déplacement (Déplacer vaisseau)
@@ -93,7 +99,7 @@ class SceneJeu : public Scene, public ObservateurSouris {
             Haut, //!< Le bouton pour déplacer le plateau en haut
             Bas, //!< Le bouton pour déplacer le plateau en bas
             Details, //!< L'affichage des détails
-            Construction, //!< L'affichage des bâtiments ou vaisseaux constructible
+            Constructions, //!< L'affichage des bâtiments ou vaisseaux constructible
             Case //!< L'id générique pour l'affichage des cases
         };
 
@@ -133,6 +139,12 @@ class SceneJeu : public Scene, public ObservateurSouris {
          * \brief Tente d'effectuer une action
          */
         void effectuerAction();
+
+        /**
+         * \brief affiche les portées en fonction des cases qui ont été cochées
+         * \param position la position de la cellule concernée par les portées
+         */
+        void afficherPortee(Position position);
 
         // Héritée de Scene
         void surMessage(Message message);
