@@ -115,7 +115,7 @@ void JoueurServeur::retirerConstructionVaisseau() {
 void JoueurServeur::effectuerTour() {
     for (std::list<std::weak_ptr<BatimentServeur>>::iterator batiment=listeBatiments.begin();
             batiment!=listeBatiments.end(); ++batiment)
-        if(!batiment->expired())
+        if(batiment->expired())
             batiment = listeBatiments.erase(batiment);
         else {
             BatimentServeurPtr batimentPtr = batiment->lock();
