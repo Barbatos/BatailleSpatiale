@@ -29,7 +29,7 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
     fond.setOutlineColor(sf::Color(100, 100, 100));
 
     animation = new Animation(gui, -1, x - taille, y - taille, taille * 2,
-            taille * 2, true, false, "Environnement/petite_explosion.png");
+            taille * 2, true, false, "Environnement/explosion.png");
     animation->stop();
     animation->ecrireVue(vue);
 }

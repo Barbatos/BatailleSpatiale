@@ -93,3 +93,12 @@ void AffichageConstructions::ajouterBouton(TypeBatiment type, int x, int y,
     batiments.push_back(bouton);
 }
 
+void AffichageConstructions::ecrireVaisseauxVisibles(bool visible) {
+    for (BoutonConstruction* bouton : vaisseaux)
+        bouton->ecrireVisible(visible);
+}
+
+void AffichageConstructions::ecrireBatimentsVisibles(bool visible) {
+    for (BoutonConstruction* bouton : batiments)
+        bouton->ecrireVisible(visible);
+}

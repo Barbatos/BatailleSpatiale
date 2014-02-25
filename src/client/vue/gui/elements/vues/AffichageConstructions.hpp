@@ -35,6 +35,9 @@ class AffichageConstructions: public Element {
                 int hauteur);
         void ajouterBouton(TypeBatiment batiment, int x, int y, int largeur,
                 int hauteur);
+
+        void ecrireVaisseauxVisibles(bool visible);
+        void ecrireBatimentsVisibles(bool visible);
 };
 
 #endif /* AFFICHAGECONSTRUCTIONS_HPP */
