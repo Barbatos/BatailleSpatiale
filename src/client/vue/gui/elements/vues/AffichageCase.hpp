@@ -11,23 +11,13 @@
 // Include du 'pack' vue
 #include "VuesPack.hpp"
 
-<<<<<<< HEAD
 class Animation;
-=======
-#include <client/vue/gui/elements/generiques/Animation.hpp>
->>>>>>> 1779093b27e10153bcb0ccccde23b1393a9f3751
 
 /**
  * \brief Représente l'affichage d'une case du plateau
  */
 class AffichageCase: public Element, public ObservateurSouris {
     private:
-
-		/**
-		 * l'animation gérée par la case
-		 */
-		Animation* animation;
-
         /**
          * \brief L'image affichée sur la case
          */
