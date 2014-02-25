@@ -540,7 +540,7 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     if((nbJoueurs > 1) && !partieSolo) {
         demarrerPartieMulti();
     }
-    else if (partieSolo) {
+    else if ((nbJoueurs > 1) && partieSolo) {
         demarrerPartieSolo();
     }
 }
