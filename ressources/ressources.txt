@@ -82,3 +82,7 @@ Vaisseaux/sprite_destroyeur_3_bleu.png
 Vaisseaux/sprite_destroyeur_4_bleu.png
 Vaisseaux/sprite_ravitailleur_1_bleu.png
 Vaisseaux/sprite_constructeur_1_bleu.png
+
+Batiments/sprite_station_construction_1_bleu.png
+
+Batiments/sprite_station_construction_1_rouge.png

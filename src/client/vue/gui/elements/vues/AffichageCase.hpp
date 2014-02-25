@@ -11,12 +11,16 @@
 // Include du 'pack' vue
 #include "VuesPack.hpp"
 
+<<<<<<< HEAD
 class Animation;
+=======
+#include <client/vue/gui/elements/generiques/Animation.hpp>
+>>>>>>> 1779093b27e10153bcb0ccccde23b1393a9f3751
 
 /**
  * \brief Représente l'affichage d'une case du plateau
  */
-class AffichageCase : public Element, public ObservateurSouris {
+class AffichageCase: public Element, public ObservateurSouris {
     private:
 
 		/**
@@ -45,9 +49,9 @@ class AffichageCase : public Element, public ObservateurSouris {
         bool selectionne;
 
         /**
-         * \brief GUI
+         * L'animation d'attaque
          */
-        Gui* gui;
+        Animation* animation;
 
     public:
         /**
@@ -58,8 +62,8 @@ class AffichageCase : public Element, public ObservateurSouris {
         /**
          * \brief Constructeur
          */
-        AffichageCase(Gui* gui, int id, float x, float y, float taille, Position position,
-            sf::View* vuePlateau);
+        AffichageCase(Gui* gui, int id, float x, float y, float taille,
+                Position position, sf::View* vuePlateau);
 
         /**
          * \brief Destructeur
