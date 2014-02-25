@@ -596,6 +596,34 @@ sf::Packet& operator <<(sf::Packet& paquet, const PlateauServeur& plateau) {
 
 //toast
 void PlateauServeur::effectuerTour() {
+    //Boucle de création d'un évènement par tour, au plus.
+    sf::Int32 var = (sf::Int32)(rand() % 5);
+    sf::Int32 xSpawn = (sf::Int32)(rand() % 10 + 4);
+    sf::Int32 ySpawn = (sf::Int32)(rand() % 10 + 4);
+
+    if (!cellule[xSpawn][ySpawn].getEvenement() 
+     && !cellule[xSpawn][ySpawn].getBatiment()
+     && !cellule[xSpawn][ySpawn].getVaisseau()) {
+        switch (var) {
+            case 0:
+                cellule[xSpawn][ySpawn].creerEvenementTest(TypeEvenement::NuageGaz);
+            break;
+            case 1:
+                cellule[xSpawn][ySpawn].creerEvenementTest(TypeEvenement::ChampMeteor);
+            break;
+            case 2:
+                cellule[xSpawn][ySpawn].creerEvenementTest(TypeEvenement::Epave);
+            break;
+            case 3:
+                cellule[xSpawn][ySpawn].creerEvenementTest(TypeEvenement::InfluenceTrouNoir);
+            break;
+            case 4:
+                cellule[xSpawn][ySpawn].creerEvenementTest(TypeEvenement::StationSpatialeAbandonnee);
+            break;
+        } 
+    }
+
+    // Boucle d'action des évènements en fin de tour.
     for (sf::Int32 x = 0; x < tailleX; ++x) {
         for (sf::Int32 y = 0; y < tailleY; ++y) {    
             if(cellule[x][y].getEvenement()) {
