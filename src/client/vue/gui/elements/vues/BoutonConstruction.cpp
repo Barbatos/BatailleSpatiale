@@ -12,6 +12,7 @@ BoutonConstruction::BoutonConstruction(Gui* gui, int id, int x, int y,
         Element(gui, id), cadre(), image(), type(TypeCellule::Vide) {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
+    cible = Position(-1,-1);
 
     enregistrerSouris(this);
 
@@ -84,13 +85,25 @@ TypeBatiment BoutonConstruction::lireBatiment() {
     return batiment;
 }
 
+Position BoutonConstruction::lireCible() {
+	return cible;
+}
+
+void BoutonConstruction::ecrireCible(Position position) {
+	cible = position;
+}
+
 void BoutonConstruction::clicSouris(bool clicDroit) {
     if (!clicDroit) {
+
         Message message;
 
         message.type = Message::Construction;
 
         message.construction.type = type;
+
+        message.cellule.x = cible.x;
+        message.cellule.y = cible.y;
 
         switch (type) {
             case TypeCellule::Vaisseau:

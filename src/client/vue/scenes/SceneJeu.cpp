@@ -168,6 +168,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         details->selectionner();
         deplacement->ecrireVisible(false);
         attaque->ecrireVisible(false);
+        //On cache les boutons de construction
+        constructions->ecrireBatimentsVisibles(false);
+        constructions->ecrireVaisseauxVisibles(false);
         return;
     }
 
@@ -188,6 +191,10 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         // On cache le bouton d'action
         deplacement->ecrireVisible(false);
         attaque->ecrireVisible(false);
+
+        //On cache les boutons de construction
+        constructions->ecrireBatimentsVisibles(false);
+        constructions->ecrireVaisseauxVisibles(false);
 
         // On réinitialise la destination
         destination = Position(-1, -1);
@@ -213,12 +220,16 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                 	//Si la case selectionnée est une case constructible pour un bâtiment
                 	if(p.getCellule(position).getEstConstructibleBatiment())
                 	{
-                		//TODO joufflu tes foncs
+                		constructions->ecrireBatimentsVisibles(true);
+                		constructions->ecrireVaisseauxVisibles(false);
+                		constructions->changerCible(position);
                 	}
                 	//Sinon si c'est une case constructible pour un vaisseau
                 	else if(p.getCellule(position).getEstConstructibleVaisseau())
                 	{
-                		//TODO joufflu tes foncs
+                		constructions->ecrireBatimentsVisibles(false);
+                		constructions->ecrireVaisseauxVisibles(true);
+                		constructions->changerCible(position);
                 	}
 
                     // Si la destination est une case vide
@@ -319,9 +330,19 @@ void SceneJeu::effectuerAction() {
 }
 
 void SceneJeu::construireCase(Message message) {
+
+	 std::cout << "j'essaye de constr" << std::endl;
 	 ReseauClient* r = lireJeu().lireReseau().get();
+	 Position position = Position(message.cellule.x, message.cellule.y);
 
-
+	 if(message.construction.type == TypeCellule::Vaisseau)
+	 {
+		 r->demanderConstructionVaisseau(message.construction.vaisseau,position);
+	 }
+	 else if(message.construction.type == TypeCellule::Batiment)
+	 {
+		 r->demanderConstructionBatiment(message.construction.batiment,position);
+	 }
 }
 
 void SceneJeu::surMessage(Message message) {
