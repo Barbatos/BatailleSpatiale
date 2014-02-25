@@ -4,6 +4,8 @@
 #include "../global.hpp"
 #include "ReseauGlobal.hpp"
 #include "enum/TypePaquet.hpp"
+#include "enum/TypeVaisseau.hpp"
+#include "enum/TypeBatiment.hpp"
 #include "../client/modele/Plateau.hpp"
 #include "../commun/utile/Position.hpp"
 #include "../client/modele/Joueur.hpp"
@@ -143,6 +145,10 @@ class ReseauClient {
         void deconnexion();
 
         void demarrerPartieSolo();
+
+        void demanderConstructionVaisseau(TypeVaisseau v, Position p);
+
+        void demanderConstructionBatiment(TypeBatiment b, Position p);
 
     private:
 

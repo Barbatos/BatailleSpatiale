@@ -546,6 +546,26 @@ void ReseauClient::demanderFinTour() {
     ReseauGlobal::EnvoiPaquet(socket, paquet);
 }
 
+void ReseauClient::demanderConstructionVaisseau(TypeVaisseau v, Position p) {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderConstructionVaisseau);
+    sf::Uint16 typeVaisseau = static_cast<sf::Uint16>(v);
+    sf::Packet paquet;
+
+    paquet << typePaquet << typeVaisseau << p;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
+void ReseauClient::demanderConstructionBatiment(TypeBatiment b, Position p) {
+    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderConstructionBatiment);
+    sf::Uint16 typeBatiment = static_cast<sf::Uint16>(b);
+    sf::Packet paquet;
+
+    paquet << typePaquet << typeBatiment << p;
+
+    ReseauGlobal::EnvoiPaquet(socket, paquet);
+}
+
 void ReseauClient::setDestination(Position p) {
     plateau.cellule[p.x][p.y].setEstDestination(true);
 }

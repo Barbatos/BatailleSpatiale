@@ -7,7 +7,7 @@
  * \brief Défini les différents types de vaisseau
  *
  */
-enum class TypeVaisseau :sf::Uint16 {
+enum class TypeVaisseau : sf::Uint16 {
     Inexistant,
     Constructeur,
     Bombardier,
