@@ -140,6 +140,12 @@ class SceneJeu: public Scene, public ObservateurSouris {
          */
         void effectuerAction();
 
+        /**
+         * \brief affiche les portées en fonction des cases qui ont été cochées
+         * \param position la position de la cellule concernée par les portées
+         */
+        void afficherPortee(Position position);
+
         // Héritée de Scene
         void surMessage(Message message);
 

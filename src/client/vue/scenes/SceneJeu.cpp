@@ -272,15 +272,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         if (p.getCellule(position).statutEmplacement()
                 == TypeCellule::Vaisseau) {
 
-            // On demande au réseau la zone parcourable, attaquable et constructible
-            if (porteeDeplacement->estCoche())
-                r->getZoneParcourable(position);
-
-            if (porteeConstruction->estCoche())
-                r->getZoneConstructibleBatiment(position);
-
-            if (porteeAttaque->estCoche())
-                r->getZoneAttaquable(position);
+        	//On affiche les portées en fonction des cases cochées
+            afficherPortee(position);
         }
     }
 }
@@ -385,6 +378,22 @@ void SceneJeu::surMessage(Message message) {
     }
 }
 
+void SceneJeu::afficherPortee(Position position) {
+
+	lireJeu().lirePlateau().viderZones();
+	ReseauClient* r = lireJeu().lireReseau().get();
+
+	// On demande au réseau la zone parcourable, attaquable et constructible
+	if (porteeDeplacement->estCoche())
+	r->getZoneParcourable(position);
+
+	if (porteeConstruction->estCoche())
+	r->getZoneConstructibleBatiment(position);
+
+	if (porteeAttaque->estCoche())
+	r->getZoneAttaquable(position);
+}
+
 // Héritées d'ElementSouris
 void SceneJeu::clicSouris(bool) {
     /* Ne rien faire ici */
@@ -414,8 +423,13 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
     if (bouton == sf::Mouse::Right)
     return;
 
-    if(porteeDeplacement->contient(sf::Mouse::getPosition()))
+    if( (porteeDeplacement->contient(sf::Mouse::getPosition())
+    		|| porteeAttaque->contient(sf::Mouse::getPosition())
+    		|| porteeConstruction->contient(sf::Mouse::getPosition())) )
+    {
+    	afficherPortee(details->lirePosition());
     	return;
+    }
 
     Message::MessageCellule message;
 
