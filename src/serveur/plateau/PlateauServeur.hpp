@@ -209,7 +209,7 @@ public:
      */
     std::list<NoeudServeur> getZoneVisible (sf::Int32 idJoueur);
 
-    int attaquer(Position attaquant, Position cible);
+    int attaquer(Position attaquant, Position cible, JoueurServeur& joueur);
 
     void effectuerTour();
     

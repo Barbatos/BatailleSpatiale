@@ -357,7 +357,7 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
     cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
     cCible = plateau.cellule[posCible.x][posCible.y];
 
-    if(plateau.attaquer(posAttaquant, posCible)) {
+    if(plateau.attaquer(posAttaquant, posCible, joueur)) {
         paquet << paquetAttaquerVaisseau << posCible;
 
         p1 << posCible.x;
@@ -371,6 +371,7 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
         paquet << paquetAttaqueImpossible << posCible;
     }
     
+    envoiJoueurCourant(joueur);
     envoiPaquet(joueur, paquet);
 }
 
@@ -540,7 +541,8 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     if((nbJoueurs > 1) && !partieSolo) {
         demarrerPartieMulti();
     }
-    else if ((nbJoueurs > 1) && partieSolo) {
+    else if ((nbJoueurs > 1)
+ && partieSolo) {
         demarrerPartieSolo();
     }
 }
