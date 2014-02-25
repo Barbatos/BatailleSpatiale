@@ -519,6 +519,9 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
         plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
+
+        plateau.cellule[5][4].creerVaisseauTest();
+        joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatimentBase();
@@ -527,7 +530,7 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     if((nbJoueurs > 1) && !partieSolo) {
         demarrerPartieMulti();
     }
-    else {
+    else if (partieSolo) {
         demarrerPartieSolo();
     }
 }
@@ -767,6 +770,8 @@ void ReseauServeur::lancerReseau() {
 }
 
 void ReseauServeur::fermerReseau() {
+    cout << "[RESEAU] Fermeture de la socket du serveur" << endl;
+
     actif = false;
 
     selector.clear();
