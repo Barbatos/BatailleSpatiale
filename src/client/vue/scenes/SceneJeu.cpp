@@ -26,6 +26,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
         manager->changerChanson(manager->chargerMusique("game_low.ogg"));
         manager->lancerChanson();
         manager->ecrirePhaseDeJeu(true);
+        manager->ecrireTempsChangement(5);
     }
 
     gui.ajouterObservateurSouris(this);
@@ -214,7 +215,6 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                 	{
                 		//TODO joufflu tes foncs
                 	}
-
 
                     // Si la destination est une case vide
 
