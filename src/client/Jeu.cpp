@@ -124,7 +124,9 @@ void Jeu::lancer() {
     while (affichage.isOpen()) {
 
         if(gestionnaire->lirePhaseDeJeu())
-        gestionnaire->controlerIntensite();
+        {
+        	gestionnaire->controlerIntensite();
+        }
 
         while (affichage.pollEvent(evenement)) {
             if (evenement.type == sf::Event::Closed)
