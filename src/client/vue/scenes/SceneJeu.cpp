@@ -222,14 +222,12 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                 	{
                 		constructions->ecrireBatimentsVisibles(true);
                 		constructions->ecrireVaisseauxVisibles(false);
-                		constructions->changerCible(position);
                 	}
                 	//Sinon si c'est une case constructible pour un vaisseau
                 	else if(p.getCellule(position).getEstConstructibleVaisseau())
                 	{
                 		constructions->ecrireBatimentsVisibles(false);
                 		constructions->ecrireVaisseauxVisibles(true);
-                		constructions->changerCible(position);
                 	}
 
                     // Si la destination est une case vide
@@ -329,19 +327,17 @@ void SceneJeu::effectuerAction() {
     destination = Position(-1, -1);
 }
 
-void SceneJeu::construireCase(Message message) {
+void SceneJeu::construireCase(Message::MessageConstruction message) {
 
-	 std::cout << "j'essaye de constr" << std::endl;
 	 ReseauClient* r = lireJeu().lireReseau().get();
-	 Position position = Position(message.cellule.x, message.cellule.y);
 
-	 if(message.construction.type == TypeCellule::Vaisseau)
+	 if(message.type == TypeCellule::Vaisseau)
 	 {
-		 r->demanderConstructionVaisseau(message.construction.vaisseau,position);
+		 r->demanderConstructionVaisseau(message.vaisseau,Position(0,0));
 	 }
-	 else if(message.construction.type == TypeCellule::Batiment)
+	 else if(message.type == TypeCellule::Batiment)
 	 {
-		 r->demanderConstructionBatiment(message.construction.batiment,position);
+		 r->demanderConstructionBatiment(message.batiment,Position(0,0));
 	 }
 }
 
@@ -397,7 +393,7 @@ void SceneJeu::surMessage(Message message) {
         }
         case Message::Construction:
         {
-        	construireCase(message);
+        	construireCase(message.construction);
         }
         break;
         default:

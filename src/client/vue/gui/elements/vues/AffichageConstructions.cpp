@@ -14,7 +14,6 @@ AffichageConstructions::AffichageConstructions(Gui* gui, int id, int x, int y,
         Element(gui, id), vaisseaux(), batiments() {
     ecrirePosition(x, y);
     ecrireTaille(largeur, hauteur);
-    cible = Position(-1,-1);
 
     int tailleX = largeur / 8;
     int tailleY = hauteur / 2;
@@ -104,18 +103,4 @@ void AffichageConstructions::ecrireVaisseauxVisibles(bool visible) {
 void AffichageConstructions::ecrireBatimentsVisibles(bool visible) {
     for (BoutonConstruction* bouton : batiments)
         bouton->ecrireVisible(visible);
-}
-
-void AffichageConstructions::changerCible(Position cible) {
-	this->cible = cible;
-
-	for (BoutonConstruction* bouton : batiments)
-		bouton->ecrireCible(cible);
-
-	for (BoutonConstruction* bouton : vaisseaux)
-	    bouton->ecrireCible(cible);
-}
-
-Position AffichageConstructions::lireCible() {
-	return cible;
 }

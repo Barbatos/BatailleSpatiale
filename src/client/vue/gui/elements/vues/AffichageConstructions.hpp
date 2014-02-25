@@ -21,11 +21,6 @@ class AffichageConstructions: public Element {
         std::list<BoutonConstruction*> vaisseaux;
         std::list<BoutonConstruction*> batiments;
 
-        /**
-         * La position cible de la construction
-         */
-        Position cible;
-
     public:
         AffichageConstructions(Gui* gui, int id, int x, int y, int largeur,
                 int hauteur);
@@ -35,10 +30,6 @@ class AffichageConstructions: public Element {
         void actualiser(float delta);
         void afficher();
         bool contient(sf::Vector2i position);
-
-        void changerCible(Position cible);
-
-        Position lireCible();
 
         void ajouterBouton(TypeVaisseau vaisseau, int x, int y, int largeur,
                 int hauteur);

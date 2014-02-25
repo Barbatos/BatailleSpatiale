@@ -14,9 +14,6 @@
 
 class BoutonConstruction: public Element, public ObservateurSouris {
     private:
-
-		Position cible;
-
         sf::RectangleShape cadre;
         sf::Sprite image;
 
@@ -42,9 +39,6 @@ class BoutonConstruction: public Element, public ObservateurSouris {
 
         TypeVaisseau lireVaisseau();
         TypeBatiment lireBatiment();
-
-        void ecrireCible(Position position);
-        Position lireCible();
 
         void clicSouris(bool clicDroit);
         void pressionSouris(sf::Mouse::Button bouton);
