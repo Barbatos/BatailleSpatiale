@@ -9,6 +9,7 @@
 
 #include <client/vue/gui/elements/vues/BoutonDeplacementPlateau.hpp>
 #include <client/vue/gui/elements/vues/AffichageDetails.hpp>
+#include <client/vue/gui/elements/vues/AffichageConstructions.hpp>
 #include <client/vue/gui/elements/vues/AffichageCase.hpp>
 #include <client/vue/gui/elements/generiques/CaseACocher.hpp>
 #include <client/Jeu.hpp>
@@ -42,6 +43,9 @@ SceneJeu::SceneJeu(Jeu& jeu) :
 
     details = new AffichageDetails(&gui, Details, x, 0.7 * winy, winx - 2 * x,
             0.3 * winy - y);
+
+    constructions = new AffichageConstructions(&gui, Constructions,
+            x + winx / 3, 0.7 * winy, winx / 3, 0.3 * winy - y);
 
     initialiserPlateau();
 
@@ -85,6 +89,7 @@ SceneJeu::~SceneJeu() {
 
     cases.clear();
 
+    delete constructions;
     delete attaque;
     delete deplacement;
     delete finTour;
@@ -286,19 +291,21 @@ void SceneJeu::effectuerAction() {
     ReseauClient* r = lireJeu().lireReseau().get();
     Position ancienne = details->lirePosition();
 
-    switch (p.getCellule(destination).statutEmplacement()) {
-        case TypeCellule::Vide:
-            // On demande le déplacement du vaisseau
-            r->demanderDeplacementVaisseau(ancienne, destination);
-            break;
-        case TypeCellule::Batiment:
-        case TypeCellule::Vaisseau:
-            // On attaque le vaisseau
-            r->demanderAttaqueVaisseau(ancienne, destination);
+    if (destination.x != -1 && destination.y != -1) {
+        switch (p.getCellule(destination).statutEmplacement()) {
+            case TypeCellule::Vide:
+                // On demande le déplacement du vaisseau
+                r->demanderDeplacementVaisseau(ancienne, destination);
+                break;
+            case TypeCellule::Batiment:
+            case TypeCellule::Vaisseau:
+                // On attaque le vaisseau
+                r->demanderAttaqueVaisseau(ancienne, destination);
 
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
+        }
     }
 
     // On vide les zones du plateau
@@ -322,7 +329,7 @@ void SceneJeu::surMessage(Message message) {
 
     Position pos;
     switch (message.type) {
-        case Message::Element:
+        case Message::Element: {
             switch (message.element.id) {
                 case Details:
                     jeu.changer(Scene::SceneChargementJeuMulti);
@@ -349,23 +356,34 @@ void SceneJeu::surMessage(Message message) {
                             <= ((jeu.lirePlateau().getTailleY()) * 25))
                         vue.move(0, 5);
                     break;
-                case FinTour:
-                    if (!lireJeu().lireReseau()->getBloquerJeu())
+                case FinTour: {
+                    if (!lireJeu().lireReseau()->getBloquerJeu()) {
                         jeu.lireReseau()->demanderFinTour();
-                    else
+                    }
+                    else {
                         notification.ajouterMessage("[JEU]", "Ce n'est pas votre tour de jouer", 5000);
-                        break;
-                        default:
-                        break;
                     }
                     break;
-                    case Message::Cellule:
-                    appuiCase(message.cellule);
-                    break;
-                    default:
-                    break;
                 }
+                default:
+                break;
             }
+            break;
+        }
+        case Message::Cellule:
+        {
+            appuiCase(message.cellule);
+            break;
+        }
+        case Message::Construction:
+        {
+
+        }
+        break;
+        default:
+        break;
+    }
+}
 
 // Héritées d'ElementSouris
 void SceneJeu::clicSouris(bool) {

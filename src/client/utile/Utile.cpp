@@ -127,10 +127,10 @@ namespace Utile {
         }
     }
 
-    std::string lireFichier(DetailVaisseau details) {
+    std::string lireFichier(TypeVaisseau type, int id) {
         std::stringstream stream;
 
-        switch (details.type) {
+        switch (type) {
             case TypeVaisseau::Inexistant:
                 break;
             case TypeVaisseau::Constructeur:
@@ -165,7 +165,7 @@ namespace Utile {
         if (stream.str() == "")
             return "";
 
-        if (details.idJoueur == 1)
+        if (id == 1)
             stream << "_rouge.png";
         else
             stream << "_bleu.png";
@@ -173,10 +173,14 @@ namespace Utile {
         return stream.str();
     }
 
-    std::string lireFichier(DetailBatiment details) {
+    std::string lireFichier(DetailVaisseau details) {
+        return lireFichier(details.type, details.idJoueur);
+    }
+
+    std::string lireFichier(TypeBatiment type, int id) {
         std::stringstream stream;
 
-        switch (details.type) {
+        switch (type) {
             case TypeBatiment::Base:
                 stream << "Batiments/sprite_base_1";
                 break;
@@ -184,10 +188,7 @@ namespace Utile {
                 stream << "Batiments/sprite_raffinerie_1";
                 break;
             case TypeBatiment::Mine:
-                stream << "";
-                break;
-            case TypeBatiment::Bidon:
-                stream << "";
+                stream << "Batiments/sprite_super_satellite_1";
                 break;
             case TypeBatiment::ChantierSpatial:
                 stream << "Batiments/sprite_station_construction_1";
@@ -200,12 +201,16 @@ namespace Utile {
         if (stream.str() == "")
             return "";
 
-        if (details.idJoueur == 1)
+        if (id == 1)
             stream << "_rouge.png";
         else
             stream << "_bleu.png";
 
         return stream.str();
+    }
+
+    std::string lireFichier(DetailBatiment details) {
+        return lireFichier(details.type, details.idJoueur);
     }
 
     std::string lireFichier(DetailEvenement details) {
