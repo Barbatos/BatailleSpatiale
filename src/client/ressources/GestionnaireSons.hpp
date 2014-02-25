@@ -44,6 +44,11 @@ class GestionnaireSons
 		 */
 		int tempsChangement;
 
+		/**
+		 * \brief indique si le gestionnaire a changé d'intensité
+		 */
+		bool aChangeIntensite;
+
 	public:
 
 		/**

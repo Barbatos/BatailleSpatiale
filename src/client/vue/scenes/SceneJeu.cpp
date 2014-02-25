@@ -27,7 +27,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
         manager->changerChanson(manager->chargerMusique("game_low.ogg"));
         manager->lancerChanson();
         manager->ecrirePhaseDeJeu(true);
-        manager->ecrireTempsChangement(5);
+        manager->ecrireTempsChangement(0);
     }
 
     gui.ajouterObservateurSouris(this);
@@ -318,6 +318,12 @@ void SceneJeu::effectuerAction() {
     destination = Position(-1, -1);
 }
 
+void SceneJeu::construireCase(Message message) {
+	 ReseauClient* r = lireJeu().lireReseau().get();
+
+
+}
+
 void SceneJeu::surMessage(Message message) {
 
     Position pos;
@@ -370,7 +376,7 @@ void SceneJeu::surMessage(Message message) {
         }
         case Message::Construction:
         {
-
+        	construireCase(message);
         }
         break;
         default:

@@ -9,7 +9,7 @@
 #include <iostream>
 
 GestionnaireSons::GestionnaireSons(Ressources* ressources) :
-		ressources(ressources), horloge(), phaseDeJeu(false), tempsChangement(0)
+		ressources(ressources), horloge(), phaseDeJeu(false), tempsChangement(0), aChangeIntensite(false)
 {
 }
 
@@ -23,7 +23,9 @@ void GestionnaireSons::lancerChanson()
 	{
 		musique.get()->setLoop(true);
 		if (musique.get()->getStatus() != sf::Music::Playing)
+		{
 			musique.get()->play();
+		}
 	}
 }
 
@@ -102,13 +104,16 @@ void GestionnaireSons::controlerIntensite()
 	sf::Time timer = horloge.getElapsedTime();
 	int minutes = (int) timer.asSeconds() / 60;
 
-	if (minutes > tempsChangement)
+	if (minutes >= tempsChangement)
 	{
-		if (musique->getPlayingOffset().asSeconds()
-				== musique->getDuration().asSeconds())
+		if (musique->getStatus() == sf::Music::Playing && !aChangeIntensite
+				&& musique->getPlayingOffset().asSeconds() >= musique->getDuration().asSeconds()-5)
 		{
+			horloge.restart();
+			aChangeIntensite = true;
 			changerChanson(chargerMusique("game_hard.ogg"));
 			lancerChanson();
 		}
+
 	}
 }
