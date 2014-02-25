@@ -79,6 +79,7 @@ void AffichageConstructions::ajouterBouton(TypeVaisseau type, int x, int y,
             largeur, hauteur);
 
     bouton->ecrireType(type);
+    bouton->ecrireVisible(false);
 
     vaisseaux.push_back(bouton);
 }
@@ -89,6 +90,7 @@ void AffichageConstructions::ajouterBouton(TypeBatiment type, int x, int y,
             largeur, hauteur);
 
     bouton->ecrireType(type);
+    bouton->ecrireVisible(false);
 
     batiments.push_back(bouton);
 }
