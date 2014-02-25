@@ -333,11 +333,11 @@ void SceneJeu::construireCase(Message::MessageConstruction message) {
 
 	 if(message.type == TypeCellule::Vaisseau)
 	 {
-		 r->demanderConstructionVaisseau(message.vaisseau,Position(0,0));
+		 r->demanderConstructionVaisseau(message.vaisseau,destination);
 	 }
 	 else if(message.type == TypeCellule::Batiment)
 	 {
-		 r->demanderConstructionBatiment(message.batiment,Position(0,0));
+		 r->demanderConstructionBatiment(message.batiment,destination);
 	 }
 }
 
