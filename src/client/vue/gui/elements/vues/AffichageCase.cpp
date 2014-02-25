@@ -28,10 +28,10 @@ AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
     fond.setOutlineThickness(2);
     fond.setOutlineColor(sf::Color(100, 100, 100));
 
-    animation = new Animation(gui, -1, fond.getPosition().x,
-            fond.getPosition().y, 200, 200, true, false,
-            "Environnement/petite_explosion.png");
+    animation = new Animation(gui, -1, x - taille, y - taille, taille * 2,
+            taille * 2, true, false, "Environnement/petite_explosion.png");
     animation->stop();
+    animation->ecrireVue(vue);
 }
 
 AffichageCase::~AffichageCase() {
