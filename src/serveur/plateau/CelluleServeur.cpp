@@ -229,6 +229,7 @@ int CelluleServeur::defendre(int degat) {
         degatStructure = degat - degatBouclier;
         vaisseau->setBouclier(vaisseau->getBouclier() - degatBouclier);
         vaisseau->setVie(vaisseau->getVie() - degatStructure);
+        
         if(vaisseau->getVie() <= 0) {
             vaisseau.reset();
             return 0;

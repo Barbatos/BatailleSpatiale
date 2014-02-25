@@ -129,7 +129,7 @@ void JoueurServeur::effectuerTour() {
 
     for (std::list<std::weak_ptr<VaisseauServeur>>::iterator vaisseau=listeVaisseaux.begin();
             vaisseau!=listeVaisseaux.end(); ++vaisseau)
-        if(!vaisseau->expired())
+        if(vaisseau->expired())
             vaisseau = listeVaisseaux.erase(vaisseau);
 }
 
