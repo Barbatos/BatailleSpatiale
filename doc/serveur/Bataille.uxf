@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.5.1">
-  <zoom_level>8</zoom_level>
+<diagram program="umlet" version="12.2">
+  <zoom_level>7</zoom_level>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>312</x>
-      <y>72</y>
-      <w>160</w>
-      <h>104</h>
+      <x>196</x>
+      <y>259</y>
+      <w>140</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>Classe : Jeu
 --
 plateau : Plateau
 joueur : Joueur*[]
 vaisseau : Liste Vaisseau
-batiment: Liste Batiment
-race : Liste Race</panel_attributes>
+batiment: Liste Batiment</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>968</x>
-      <y>48</y>
-      <w>160</w>
-      <h>160</h>
+      <x>777</x>
+      <y>231</y>
+      <w>140</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>Classe abstraite: Structure
 --
@@ -44,39 +43,10 @@ positionY : int
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>320</x>
-      <y>224</y>
-      <w>168</w>
-      <h>112</h>
-    </coordinates>
-    <panel_attributes>Classe : Race
---
-String : nom
-vaisseau : Liste Vaisseau
-batiment: Liste Batiment
-commandementDepart : int
-requisitionDepart : int 
-...</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>424</x>
-      <y>152</y>
-      <w>160</w>
-      <h>112</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;144;96</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>568</x>
-      <y>232</y>
-      <w>264</w>
-      <h>176</h>
+      <x>420</x>
+      <y>399</y>
+      <w>231</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>Classe abstraite : Joueur
 --
@@ -85,41 +55,42 @@ race : Race
 numeroJoueur : int
 commandement : int
 requisition : int
+energie : int
 technologieStructure : TechnologieStructure
 technologieJoueur : TechnologieJoueur
-bg=light_gray
-fg=red</panel_attributes>
+vaisseau : Liste Vaisseau
+batiment: Liste Batiment</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1104</x>
-      <y>136</y>
-      <w>40</w>
-      <h>296</h>
+      <x>889</x>
+      <y>350</y>
+      <w>34</w>
+      <h>223</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;24;280</additional_attributes>
+    <additional_attributes>21;21;21;210</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>952</x>
-      <y>216</y>
-      <w>40</w>
-      <h>48</h>
+      <x>756</x>
+      <y>385</y>
+      <w>35</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;24;24</additional_attributes>
+    <additional_attributes>-385;-126;-385;-126</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1008</x>
-      <y>416</y>
-      <w>160</w>
-      <h>48</h>
+      <x>805</x>
+      <y>560</y>
+      <w>140</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>Classe : Batiment
 --
@@ -129,60 +100,34 @@ niveau : int</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>952</x>
-      <y>240</y>
-      <w>160</w>
-      <h>88</h>
+      <x>756</x>
+      <y>406</y>
+      <w>140</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>Classe : Vaisseau
 --
-energie : int
-enrgieMax : int
 consoMax : int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>632</x>
-      <y>384</y>
-      <w>48</w>
-      <h>144</h>
+      <x>539</x>
+      <y>532</y>
+      <w>41</w>
+      <h>146</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>32;24;24;128</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>720</x>
-      <y>384</y>
-      <w>48</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>32;24;24;136</additional_attributes>
+    <additional_attributes>28;21;21;133</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>520</x>
-      <y>512</y>
-      <w>160</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>Classe : JoueurIA
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>712</x>
-      <y>520</y>
-      <w>160</w>
-      <h>40</h>
+      <x>455</x>
+      <y>665</y>
+      <w>140</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>Classe : JoueurHumain
 --</panel_attributes>
@@ -191,25 +136,25 @@ consoMax : int</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>152</x>
-      <y>352</y>
-      <w>432</w>
-      <h>56</h>
+      <x>126</x>
+      <y>483</y>
+      <w>307</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>24;40;416;24</additional_attributes>
+    <additional_attributes>21;21;294;42</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>8</x>
-      <y>384</y>
-      <w>168</w>
-      <h>104</h>
+      <x>0</x>
+      <y>497</y>
+      <w>147</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>Classe : TechnologieJoueur
 --
-niveauCommandement :int
+niveauCommandement : int
 niveauMaxMine : int
 niveauMaxCapacite : int
 niveauCoutVaisseau : int</panel_attributes>
@@ -218,21 +163,21 @@ niveauCoutVaisseau : int</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>168</x>
-      <y>328</y>
-      <w>416</w>
-      <h>48</h>
+      <x>154</x>
+      <y>434</y>
+      <w>279</w>
+      <h>83</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>24;32;400;24</additional_attributes>
+    <additional_attributes>21;21;266;70</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>8</x>
-      <y>256</y>
-      <w>184</w>
-      <h>120</h>
+      <x>14</x>
+      <y>364</y>
+      <w>161</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>Classe : TechnologieStructure
 --
@@ -245,25 +190,24 @@ niveauVisibilite : int</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1072</x>
-      <y>440</y>
-      <w>48</w>
-      <h>96</h>
+      <x>861</x>
+      <y>581</y>
+      <w>34</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;32;80</additional_attributes>
+    <additional_attributes>21;21;21;91</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1096</x>
-      <y>520</y>
-      <w>160</w>
-      <h>64</h>
+      <x>798</x>
+      <y>672</y>
+      <w>140</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>Classe : Mine
 --
-entrepot : Liste Entrepot*
 production : int
 </panel_attributes>
     <additional_attributes/>
@@ -271,58 +215,21 @@ production : int
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1024</x>
-      <y>440</y>
-      <w>40</w>
-      <h>192</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;24;176</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>1024</x>
-      <y>616</y>
-      <w>160</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>Classe : Entrepot
---
-energie : int
-energieMax : int
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>464</x>
-      <y>224</y>
-      <w>120</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>104;40;24;24</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>952</x>
-      <y>304</y>
-      <w>40</w>
+      <x>756</x>
+      <y>462</y>
+      <w>34</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;24;32</additional_attributes>
+    <additional_attributes>21;21;21;35</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>952</x>
-      <y>336</y>
-      <w>160</w>
-      <h>64</h>
+      <x>756</x>
+      <y>497</y>
+      <w>140</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>Classe : Constructeur
 --
@@ -335,32 +242,32 @@ batiment : Liste Batiment
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>952</x>
-      <y>304</y>
-      <w>40</w>
+      <x>756</x>
+      <y>462</y>
+      <w>34</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;24;32</additional_attributes>
+    <additional_attributes>21;21;21;35</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>152</x>
-      <y>368</y>
-      <w>432</w>
-      <h>152</h>
+      <x>203</x>
+      <y>518</y>
+      <w>230</w>
+      <h>118</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>24;136;416;24</additional_attributes>
+    <additional_attributes>21;105;217;21</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>8</x>
-      <y>496</y>
-      <w>168</w>
-      <h>104</h>
+      <x>21</x>
+      <y>616</y>
+      <w>203</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>Classe : TechnologieVaisseau
 --
@@ -372,21 +279,21 @@ niveauConsommationEnergie : int</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>144</x>
-      <y>384</y>
-      <w>440</w>
-      <h>248</h>
+      <x>308</x>
+      <y>532</y>
+      <w>125</w>
+      <h>223</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>24;232;424;24</additional_attributes>
+    <additional_attributes>21;210;112;21</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>0</x>
-      <y>608</y>
-      <w>168</w>
-      <h>104</h>
+      <x>98</x>
+      <y>735</y>
+      <w>231</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>Classe : TechnologieBatiment
 --
@@ -398,151 +305,145 @@ niveauCoutMateriauxBatiment : int</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>992</x>
-      <y>184</y>
-      <w>64</w>
-      <h>72</h>
+      <x>791</x>
+      <y>350</y>
+      <w>62</w>
+      <h>69</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>48;24;24;56</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>808</x>
-      <y>360</y>
-      <w>216</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;200;64</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>808</x>
-      <y>232</y>
-      <w>160</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;72;144;24</additional_attributes>
+    <additional_attributes>49;21;21;56</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>616</x>
-      <y>0</y>
-      <w>168</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>Global
---
-batiment : Liste Batiment
-vaisseau : Liste Vaisseau
-evenement : Liste evenement</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>CustomElementImpl</type>
-    <coordinates>
-      <x>704</x>
-      <y>576</y>
-      <w>89</w>
-      <h>41</h>
-    </coordinates>
-    <panel_attributes>// Modify the text below and
-// observe the element preview.
-
-Hello, World! 
-Enjoy UMLet!</panel_attributes>
-    <additional_attributes/>
-    <custom_code>//This is a tutorial for a self resizing component 
-//In addition you are able to resize at manually
-//As soon as it is resized manually a new text is
-//added to the property panel
-setAutoresize(20,20,10);
-
-int y=textHeight();
-
-boolean center = true;
-for(int i = 0; i &lt; textlines.size(); i++) {
-	String textline = textlines.get(i);
-	if(textline.equals("--")) {
-		drawLineHorizontal((int) (y-textHeight()*0.7));
-		center = false;
-		if (!isManualResized()) height -= (int) (textHeight()*0.75);
-		y += textHeight()*0.3;
-	}
-	else {
-		if (center) y += printCenter(textline,y); 
-		else y += printLeft(textline,y);
-	}
-}
-
-drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
-  </element>
-  <element>
-    <type>CustomElementImpl</type>
-    <coordinates>
-      <x>720</x>
-      <y>592</y>
-      <w>113</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>// Modify the text below and
-// observe the element preview.
-
-Hello, World! 
-Enjoy UMLet!dsvc
-vcxfx
-cvbdfx
-cbf
-xcb
-vdc </panel_attributes>
-    <additional_attributes/>
-    <custom_code>//This is a tutorial for a self resizing component 
-//In addition you are able to resize at manually
-//As soon as it is resized manually a new text is
-//added to the property panel
-setAutoresize(20,20,10);
-
-int y=textHeight();
-
-boolean center = true;
-for(int i = 0; i &lt; textlines.size(); i++) {
-	String textline = textlines.get(i);
-	if(textline.equals("--")) {
-		drawLineHorizontal((int) (y-textHeight()*0.7));
-		center = false;
-		if (!isManualResized()) height -= (int) (textHeight()*0.75);
-		y += textHeight()*0.3;
-	}
-	else {
-		if (center) y += printCenter(textline,y); 
-		else y += printLeft(textline,y);
-	}
-}
-
-drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>856</x>
-      <y>648</y>
-      <w>128</w>
+      <x>371</x>
+      <y>203</y>
+      <w>133</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>template=2: Object
-TemplateClass
+    <panel_attributes>Classe : Plateau
 --
-dsvsd
-vsdwxc
-vswdcx
-vdwcx 
-
-</panel_attributes>
+cellules : Cellule[][]
+tailleX : int
+tailleY : int</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>630</x>
+      <y>441</y>
+      <w>139</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>126;21;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>630</x>
+      <y>497</y>
+      <w>139</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>126;21;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>315</x>
+      <y>217</y>
+      <w>69</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>56;21;21;49</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>315</x>
+      <y>315</y>
+      <w>118</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>105;91;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>553</x>
+      <y>231</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Classe : Cellule
+--
+vaisseau : Vaisseau*
+batiment : Batiment*
+evenement : Evenement*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>483</x>
+      <y>217</y>
+      <w>83</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70;49;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>644</x>
+      <y>266</y>
+      <w>125</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>112;140;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>672</x>
+      <y>182</y>
+      <w>279</w>
+      <h>391</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>266;378;266;21;21;28;21;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>441</x>
+      <y>315</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Classe : Evenement
+--
+degats : double
+dommages : double
+deplacement : int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>546</x>
+      <y>266</y>
+      <w>41</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;49;28;21</additional_attributes>
   </element>
 </diagram>
