@@ -89,19 +89,19 @@ TypeBatiment CelluleServeur::typeBatiment() const {
 }
 
 void CelluleServeur::creerVaisseauTest(TypeVaisseau type) {
-    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 5, 20, 4, 25, 6, 10, 10, type));
+    vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 3, 40, 3, 25, 3, 10, 10, type));
 }
 
 void CelluleServeur::creerVaisseauConstructeurTest() {
-    vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 5, 10, 10, 25, 10, 10, 10, TypeVaisseau::Constructeur));
+    vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 2, 20, 2, 25, 2, 10, 10, TypeVaisseau::Constructeur));
 }
 
 void CelluleServeur::creerBatimentBase() {
-    batiment.reset(new BatimentServeur(800, 50, 0.1f, 8, 0, 0, 10, 10, 10, TypeBatiment::Base));
+    batiment.reset(new BatimentServeur(800, 50, 0.1f, 5, 0, 0, 10, 4, 10, TypeBatiment::Base));
 }
 
 void CelluleServeur::creerBatimentEnergieTest() {
-    batiment.reset(new BatimentEnergieServeur(100, 50, 0.1f, 5, 0, 0, 10, 10, 10, 10));
+    batiment.reset(new BatimentEnergieServeur(100, 50, 0.1f, 2, 0, 0, 10, 10, 10, 10));
 }
 
 void CelluleServeur::creerEvenementTest(TypeEvenement type) {

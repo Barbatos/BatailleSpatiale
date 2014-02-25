@@ -125,7 +125,7 @@ void JoueurServeur::effectuerTour() {
         }
 
     commandement += 5;
-    energie += 25;
+    energie += 35;
 
     for (std::list<std::weak_ptr<VaisseauServeur>>::iterator vaisseau=listeVaisseaux.begin();
             vaisseau!=listeVaisseaux.end(); ++vaisseau)
