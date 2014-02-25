@@ -600,7 +600,8 @@ void PlateauServeur::effectuerTour() {
     sf::Int32 var = (sf::Int32)(rand() % 5);
     sf::Int32 xSpawn = (sf::Int32)(rand() % 10 + 4);
     sf::Int32 ySpawn = (sf::Int32)(rand() % 10 + 4);
-
+    xSpawn = (sf::Int32)1;
+    ySpawn = (sf::Int32)1;
     if (!cellule[xSpawn][ySpawn].getEvenement() 
      && !cellule[xSpawn][ySpawn].getBatiment()
      && !cellule[xSpawn][ySpawn].getVaisseau()) {
