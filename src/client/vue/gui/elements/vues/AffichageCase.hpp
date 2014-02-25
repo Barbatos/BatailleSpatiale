@@ -11,11 +11,19 @@
 // Include du 'pack' vue
 #include "VuesPack.hpp"
 
+class Animation;
+
 /**
  * \brief Représente l'affichage d'une case du plateau
  */
 class AffichageCase : public Element, public ObservateurSouris {
     private:
+
+		/**
+		 * l'animation gérée par la case
+		 */
+		Animation* animation;
+
         /**
          * \brief L'image affichée sur la case
          */

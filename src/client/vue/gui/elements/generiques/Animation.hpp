@@ -83,6 +83,13 @@ class Animation: public Element {
         sf::Sprite& lireSprite();
 
         /**
+         * \brief Indique si l'animation est finie
+         *
+         * \return vrai ou faux
+         */
+        bool lireFinie();
+
+        /**
          * \brief Stoppe l'animation
          *
          * Stoppe l'animation et la réinitialise

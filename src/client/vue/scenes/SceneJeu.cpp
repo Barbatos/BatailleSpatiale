@@ -396,6 +396,9 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
     if (bouton == sf::Mouse::Right)
     return;
 
+    if(porteeDeplacement->contient(sf::Mouse::getPosition()))
+    	return;
+
     Message::MessageCellule message;
 
     message.x = -1;

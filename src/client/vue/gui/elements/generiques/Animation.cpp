@@ -90,6 +90,10 @@ void Animation::resumer() {
     active = true;
 }
 
+bool Animation::lireFinie(){
+	return active;
+}
+
 void Animation::afficher() {
     if (ajout) {
         affichage.draw(sprite, sf::BlendAdd);
