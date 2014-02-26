@@ -10,7 +10,7 @@ bool Cellule::possedeEvenement() {
     return evenement != 0;
 }
 
-const DetailEvenement& Cellule::getEvenement() {
+const DetailEvenement& Cellule::getEvenement() const {
     return evenement->getDetail();
 }
 
@@ -26,7 +26,7 @@ bool Cellule::possedeBatiment() {
     return batiment != 0;
 }
 
-const DetailBatiment& Cellule::getBatiment() {
+const DetailBatiment& Cellule::getBatiment() const {
     return batiment->getDetail();
 }
 
@@ -42,7 +42,7 @@ bool Cellule::possedeVaisseau() {
     return vaisseau != 0;
 }
 
-const DetailVaisseau& Cellule::getVaisseau() {
+const DetailVaisseau& Cellule::getVaisseau() const {
     return vaisseau->getDetail();
 }
 

@@ -19,13 +19,13 @@ class Cellule {
         /// Constructeur par défaut
         Cellule();
         bool possedeEvenement();
-        const DetailEvenement& getEvenement();
+        const DetailEvenement& getEvenement() const;
 
         bool possedeBatiment();
-        const DetailBatiment& getBatiment();
+        const DetailBatiment& getBatiment() const;
 
         bool possedeVaisseau();
-        const DetailVaisseau& getVaisseau();
+        const DetailVaisseau& getVaisseau() const;
         void setVaisseau(Vaisseau* _vaisseau);
         void echangerVaisseau(Cellule& cellule);
 
