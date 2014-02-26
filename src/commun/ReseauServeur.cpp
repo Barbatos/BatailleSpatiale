@@ -357,7 +357,7 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
     cAttaquant = plateau.cellule[posAttaquant.x][posAttaquant.y];
     cCible = plateau.cellule[posCible.x][posCible.y];
 
-    if(plateau.attaquer(posAttaquant, posCible)) {
+    if(plateau.attaquer(posAttaquant, posCible, joueur)) {
         paquet << paquetAttaquerVaisseau << posCible;
 
         p1 << posCible.x;
@@ -371,6 +371,7 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
         paquet << paquetAttaqueImpossible << posCible;
     }
     
+    envoiJoueurCourant(joueur);
     envoiPaquet(joueur, paquet);
 }
 
@@ -508,39 +509,42 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         posX = 2;
         posY = 2;
         
-        plateau.cellule[3][3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        plateau.cellule[3][3].creerVaisseau(TypeVaisseau::Destructeur);
         joueur.ajouterVaisseau(plateau.cellule[3][3].getVaisseau());
-        plateau.cellule[4][3].creerVaisseauTest(TypeVaisseau::Constructeur);
+        plateau.cellule[4][3].creerVaisseau(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
-        plateau.cellule[4][4].creerVaisseauTest();
+        plateau.cellule[4][4].creerVaisseau(TypeVaisseau::Croiseur);
         joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
-        plateau.cellule[4][1].creerBatimentEnergieTest();
+        plateau.cellule[4][1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
+
+        plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].creerVaisseau(TypeVaisseau::Chasseur);
+        joueur.ajouterVaisseau(plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
 
-        plateau.cellule[posX -  3][posY - 3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        plateau.cellule[posX -  3][posY - 3].creerVaisseau(TypeVaisseau::Destructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 3][posY - 3].getVaisseau());
-        plateau.cellule[posX - 4][posY - 3].creerVaisseauTest(TypeVaisseau::Constructeur);
+        plateau.cellule[posX - 4][posY - 3].creerVaisseau(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
-        plateau.cellule[posX - 4][posY - 4].creerVaisseauTest();
+        plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
-        plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
+        plateau.cellule[posX - 4][posY - 1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
 
-        plateau.cellule[5][4].creerVaisseauTest();
+        plateau.cellule[5][4].creerVaisseau(TypeVaisseau::Chasseur);
         joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
     }
 
-    plateau.cellule[posX][posY].creerBatimentBase();
+    plateau.cellule[posX][posY].creerBatiment(TypeBatiment::Base);
     joueur.ajouterBatiment(plateau.cellule[posX][posY].getBatiment());
 
     if((nbJoueurs > 1) && !partieSolo) {
         demarrerPartieMulti();
     }
-    else if (partieSolo) {
+    else if ((nbJoueurs > 1) && partieSolo) {
         demarrerPartieSolo();
     }
 }
@@ -567,6 +571,93 @@ void ReseauServeur::demarrerPartieSolo() {
     joueurSuivant();
 }
 
+void ReseauServeur::jouerIA() {
+
+    // Ce n'est pas une partie solo, pas d'IA
+    if(!partieSolo) {
+        return;
+    }
+
+    // On vérifie si on a assez de commandement
+    if (joueurs[1].getCommandement() < 1) {
+        joueurSuivant();
+        return;
+    }
+
+    // Si on n'a pas assez d'énergie, on construit une mine
+    if (joueurs[1].getEnergie() < 50) {
+        Position p = Position(-1, -1);
+
+        // On essaye de trouver un vaisseau constructeur
+        p = plateau.getVaisseauConstructeur(joueurs[1].getId());
+        if( p != Position(-1, -1) ) {
+            std::list<Position> listePos;
+            Position posConstruction;
+
+            listePos = plateau.getZoneConstructibleBatiment(p, joueurs[1].getId());
+
+            if (listePos.size() >= 1) {
+                posConstruction = listePos.front();
+
+                plateau.cellule[posConstruction.x][posConstruction.y].creerBatiment(TypeBatiment::Mine);
+                joueurs[1].ajouterBatiment(plateau.cellule[posConstruction.x][posConstruction.y].getBatiment());
+                joueurs[1].setCommandement(joueurs[1].getCommandement() - 1);
+
+                joueurSuivant();
+                return;
+            }
+        }
+    }
+
+    // On teste pour chaque vaisseau s'il y a un vaisseau ennemi à proximité, si oui on attaque
+    if (1==1) {
+        std::list<Position> listePos;
+        std::list<NoeudServeur> zoneAttaquable;
+        std::list<Position> structuresAttaquables;
+
+        // On récupère notre liste de vaisseaux d'attaque
+        listePos = plateau.getVaisseauxAttaque(joueurs[1].getId());
+
+        if ( listePos.size() >= 1) {
+
+            // Pour chaque vaisseau, on va essayer d'attaquer un vaisseau ennemi si possible
+            for (std::list<Position>::iterator posVaisseau = listePos.begin(); posVaisseau != listePos.end(); ++posVaisseau) {
+                
+                // On cherche la zone attaquable du vaisseau
+                zoneAttaquable = plateau.getZoneAttaquable(*posVaisseau);
+                if ( zoneAttaquable.size() >= 1) {
+
+                    // On cherche les structures ennemies qu'il est possible d'attaquer dans cette zone
+                    structuresAttaquables = plateau.getStructuresAttaquables(joueurs[1].getId(), zoneAttaquable);
+                    if ( structuresAttaquables.size() >= 1) {
+                        Position structChoisie = Position(-1, -1);
+                        std::list<Position>::iterator posStruct;
+
+                        // On parcours cette liste histoire de voir ce qu'on a de beau
+                        for (posStruct = structuresAttaquables.begin(); posStruct != structuresAttaquables.end(); ++posStruct) {
+                            
+                            structChoisie = *posStruct;
+
+                            // Si on a la base ennemie en ligne de mire, on l'attaque en priorité
+                            if (plateau.cellule[structChoisie.x][structChoisie.y].typeBatiment() == TypeBatiment::Base) {
+                                break;
+                            }
+                        }
+
+                        // On attaque cette structure
+                        if ( (structChoisie != Position(-1, -1)) && (joueurs[1].getCommandement() >= 1) ) {
+                            attaquerVaisseau(joueurs[1], *posVaisseau, structChoisie); 
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Si pas de vaisseau ennemi dans le coin et qu'on a un vaisseau léger, on avance vers la base ennemie
+
+    joueurSuivant();
+}
+
 void ReseauServeur::joueurSuivant() {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurSuivant);
     sf::Packet paquet;
@@ -583,7 +674,7 @@ void ReseauServeur::joueurSuivant() {
 
             // IA
             if(partieSolo) {
-                joueurSuivant();
+                jouerIA();
             }
         }
         // Fin d'un tour
@@ -626,11 +717,13 @@ void ReseauServeur::construireVaisseau(JoueurServeur& joueur, sf::Packet paquet)
 void ReseauServeur::construireBatiment(JoueurServeur& joueur, sf::Packet paquet) {
     sf::Uint16 typeBatiment = static_cast<sf::Uint16>(TypeBatiment::Inexistant);
     Position p;
+    TypeBatiment type;
 
     paquet >> typeBatiment >> p;
 
-    // Charles: FIXME
-    plateau.cellule[p.x][p.y].creerBatimentEnergieTest();
+    type = static_cast<TypeBatiment>(typeBatiment);
+
+    plateau.cellule[p.x][p.y].creerBatiment(type);
     joueur.ajouterBatiment(plateau.cellule[p.x][p.y].getBatiment());
 
     envoiPlateauATous();

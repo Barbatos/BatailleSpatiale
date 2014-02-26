@@ -27,7 +27,7 @@ SceneJeu::SceneJeu(Jeu& jeu) :
         manager->changerChanson(manager->chargerMusique("game_low.ogg"));
         manager->lancerChanson();
         manager->ecrirePhaseDeJeu(true);
-        manager->ecrireTempsChangement(5);
+        manager->ecrireTempsChangement(0);
     }
 
     gui.ajouterObservateurSouris(this);
@@ -168,6 +168,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         details->selectionner();
         deplacement->ecrireVisible(false);
         attaque->ecrireVisible(false);
+        //On cache les boutons de construction
+        constructions->ecrireBatimentsVisibles(false);
+        constructions->ecrireVaisseauxVisibles(false);
         return;
     }
 
@@ -188,6 +191,10 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         // On cache le bouton d'action
         deplacement->ecrireVisible(false);
         attaque->ecrireVisible(false);
+
+        //On cache les boutons de construction
+        constructions->ecrireBatimentsVisibles(false);
+        constructions->ecrireVaisseauxVisibles(false);
 
         // On réinitialise la destination
         destination = Position(-1, -1);
@@ -213,12 +220,14 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
                 	//Si la case selectionnée est une case constructible pour un bâtiment
                 	if(p.getCellule(position).getEstConstructibleBatiment())
                 	{
-                		//TODO joufflu tes foncs
+                		constructions->ecrireBatimentsVisibles(true);
+                		constructions->ecrireVaisseauxVisibles(false);
                 	}
                 	//Sinon si c'est une case constructible pour un vaisseau
                 	else if(p.getCellule(position).getEstConstructibleVaisseau())
                 	{
-                		//TODO joufflu tes foncs
+                		constructions->ecrireBatimentsVisibles(false);
+                		constructions->ecrireVaisseauxVisibles(true);
                 	}
 
                     // Si la destination est une case vide
@@ -270,7 +279,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
         // Si on a sélectionné un vaisseau
         if (p.getCellule(position).statutEmplacement()
-                == TypeCellule::Vaisseau) {
+                == TypeCellule::Vaisseau
+                || p.getCellule(position).statutEmplacement()
+                == TypeCellule::Batiment) {
 
         	//On affiche les portées en fonction des cases cochées
             afficherPortee(position);
@@ -316,6 +327,25 @@ void SceneJeu::effectuerAction() {
 
     // On vide la destination du joueur
     destination = Position(-1, -1);
+}
+
+void SceneJeu::construireCase(Message::MessageConstruction message) {
+
+	 ReseauClient* r = lireJeu().lireReseau().get();
+
+	 if(message.type == TypeCellule::Vaisseau)
+	 {
+		 r->demanderConstructionVaisseau(message.vaisseau,destination);
+	 }
+	 else if(message.type == TypeCellule::Batiment)
+	 {
+		 r->demanderConstructionBatiment(message.batiment,destination);
+	 }
+
+	 destination = Position(-1,-1);
+	 deplacement->ecrireVisible(false);
+	 constructions->ecrireBatimentsVisibles(false);
+	 constructions->ecrireVaisseauxVisibles(false);
 }
 
 void SceneJeu::surMessage(Message message) {
@@ -370,7 +400,7 @@ void SceneJeu::surMessage(Message message) {
         }
         case Message::Construction:
         {
-
+        	construireCase(message.construction);
         }
         break;
         default:
@@ -425,7 +455,8 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
 
     if( (porteeDeplacement->contient(sf::Mouse::getPosition())
     		|| porteeAttaque->contient(sf::Mouse::getPosition())
-    		|| porteeConstruction->contient(sf::Mouse::getPosition())) )
+    		|| porteeConstruction->contient(sf::Mouse::getPosition()))
+    		&& details->lirePosition().x != -1)
     {
     	afficherPortee(details->lirePosition());
     	return;

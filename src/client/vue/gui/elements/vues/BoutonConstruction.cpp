@@ -86,6 +86,7 @@ TypeBatiment BoutonConstruction::lireBatiment() {
 
 void BoutonConstruction::clicSouris(bool clicDroit) {
     if (!clicDroit) {
+
         Message message;
 
         message.type = Message::Construction;

@@ -30,6 +30,8 @@ class Position {
          */
         bool operator==(Position p) const;
 
+        bool operator!=(Position p) const;
+
         /**
          * \brief Retourne si la position actuelle est NULL
          *

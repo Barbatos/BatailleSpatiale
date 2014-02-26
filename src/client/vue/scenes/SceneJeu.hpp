@@ -146,6 +146,12 @@ class SceneJeu: public Scene, public ObservateurSouris {
          */
         void afficherPortee(Position position);
 
+        /**
+         * \brief Ordonne au réseau de construire l'élément selectionné par le joueur
+         * \param message le message de la cellule
+         */
+        void construireCase(Message::MessageConstruction message);
+
         // Héritée de Scene
         void surMessage(Message message);
 

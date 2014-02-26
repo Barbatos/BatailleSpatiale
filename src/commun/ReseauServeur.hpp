@@ -104,6 +104,8 @@ public:
 
     void construireBatiment(JoueurServeur& joueur, sf::Packet paquet);
 
+    void jouerIA();
+
 private:
 
     /// La socket du serveur

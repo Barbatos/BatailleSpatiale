@@ -4,7 +4,7 @@
 
 JoueurServeur::JoueurServeur(void) :
     socket(NULL), pseudo("Anonymous"), ip(""), id(-1),
-    commandement(100), requisition(125), energie(200), materiaux(300) {
+    commandement(15), requisition(125), energie(200), materiaux(300) {
     techS = TechnologieStructure();
     techB = TechnologieBatiment();
     techV = TechnologieVaisseau();
@@ -94,11 +94,13 @@ void JoueurServeur::setMateriaux(sf::Int32 _materiaux) {
 void JoueurServeur::ajouterVaisseau(VaisseauServeurPtr vaisseau) {
     vaisseau->setIdJoueur(id);
     listeVaisseaux.push_back(std::shared_ptr<VaisseauServeur>(vaisseau));
+    setCommandement(getCommandement() - 1);
 }
 
 void JoueurServeur::ajouterBatiment(BatimentServeurPtr batiment) {
     batiment->setIdJoueur(id);
     listeBatiments.push_back(std::shared_ptr<BatimentServeur>(batiment));
+    setCommandement(getCommandement() - 1);
 }
 
 
@@ -124,8 +126,8 @@ void JoueurServeur::effectuerTour() {
             }
         }
 
-    commandement += 5;
-    energie += 25;
+    commandement += 4;
+    energie += 15;
 
     for (std::list<std::weak_ptr<VaisseauServeur>>::iterator vaisseau=listeVaisseaux.begin();
             vaisseau!=listeVaisseaux.end(); ++vaisseau)
