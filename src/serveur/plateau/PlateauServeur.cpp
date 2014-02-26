@@ -108,6 +108,22 @@ std::list<Position> PlateauServeur::getZoneConstructibleVaisseau(sf::Int32 idJou
     return zoneConstructible;
 }
 
+Position PlateauServeur::getVaisseauConstructeur(sf::Int32 idJoueur) {
+    Position p = Position(-1, -1);
+
+    for (sf::Int32 x = 0; x < tailleX; ++x) {
+        for (sf::Int32 y = 0; y < tailleY; ++y) {
+            if(cellule[x][y].possedeVaisseau()
+                && cellule[x][y].getVaisseau()->getType() == TypeVaisseau::Constructeur
+                && cellule[x][y].getVaisseau()->getIdJoueur() == idJoueur) {
+                p = Position(x, y);
+                return p;
+            }
+        }
+    }
+    return p;
+}
+
 void PlateauServeur::getZoneVisiblePosition (
     std::list<NoeudServeur>& zoneVisible, Position p) {
     //On créé une liste attaquable

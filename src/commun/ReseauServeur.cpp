@@ -571,6 +571,47 @@ void ReseauServeur::demarrerPartieSolo() {
     joueurSuivant();
 }
 
+void ReseauServeur::jouerIA() {
+    Position p = Position(-1, -1);
+
+    // Ce n'est pas une partie solo, pas d'IA
+    if(!partieSolo) {
+        return;
+    }
+
+    // On vérifie si on a assez de commandement
+    if (joueurs[1].getCommandement() < 2) {
+        joueurSuivant();
+        return;
+    }
+
+    // Si on n'a pas assez d'énergie, on construit une mine
+    if (joueurs[1].getEnergie() < 50) {
+
+        // On essaye de trouver un vaisseau constructeur
+        p = plateau.getVaisseauConstructeur(joueurs[1].getId());
+        if( p != Position(-1, -1) ) {
+            std::list<Position> listePos;
+            Position posConstruction;
+
+            listePos = plateau.getZoneConstructibleBatiment(p, joueurs[1].getId());
+
+            if (listePos.size() >= 1) {
+                posConstruction = listePos.front();
+
+                plateau.cellule[posConstruction.x][posConstruction.y].creerBatiment(TypeBatiment::Mine);
+                joueurs[1].ajouterBatiment(plateau.cellule[posConstruction.x][posConstruction.y].getBatiment());
+                joueurs[1].setCommandement(joueurs[1].getCommandement() - 1);
+
+                joueurSuivant();
+                return;
+            }
+        }
+    }
+
+    joueurSuivant();
+}
+
 void ReseauServeur::joueurSuivant() {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::JoueurSuivant);
     sf::Packet paquet;
@@ -587,7 +628,7 @@ void ReseauServeur::joueurSuivant() {
 
             // IA
             if(partieSolo) {
-                joueurSuivant();
+                jouerIA();
             }
         }
         // Fin d'un tour

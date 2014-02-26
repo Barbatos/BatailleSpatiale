@@ -212,7 +212,8 @@ public:
     int attaquer(Position attaquant, Position cible, JoueurServeur& joueur);
 
     void effectuerTour();
-    
+
+    Position getVaisseauConstructeur(sf::Int32 idJoueur);
     
 
 private:

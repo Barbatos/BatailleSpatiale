@@ -6,6 +6,9 @@ Position::Position(sf::Int32 _x, sf::Int32 _y) :
 bool Position::operator==(Position p) const {
 	return x == p.x && y == p.y;
 }
+bool Position::operator!=(Position p) const {
+	return x != p.x || y != p.y;
+}
 bool Position::isNull() const {
 	return x == -32768 && y == -32768;
 }
