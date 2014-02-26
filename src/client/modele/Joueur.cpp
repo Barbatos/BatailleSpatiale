@@ -45,7 +45,3 @@ sf::Packet& operator >>(sf::Packet& paquet, Joueur& joueur) {
 
     return paquet;
 }
-
-std::vector<std::string>& Joueur::getJoueursAdverses() {
-	return joueursAdverses;
-}

@@ -37,17 +37,18 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port,
     }
 
     while (getActif() == false) {
-        if(socket.connect(server, port, timeout) != sf::Socket::Done) {
+        if (socket.connect(server, port, timeout) != sf::Socket::Done) {
             socket.disconnect();
 
             if (nbEssais >= 5) {
                 notification.ajouterMessage(L"[RESEAU]", L"Impossible de se connecter au serveur", 5000);
-                cout << "[RESEAU] Abandon de la tentative de connexion au serveur " << ip 
+                cout << "[RESEAU] Abandon de la tentative de connexion au serveur " << ip
                 << endl;
                 return;
             }
 
-            cout << "Impossible de se connecter au serveur sur le port" << port << ", essai sur le port " << (port+1) << endl;
+            cout << "Impossible de se connecter au serveur sur le port" << port
+                    << ", essai sur le port " << (port + 1) << endl;
 
             port++;
             nbEssais++;
@@ -74,7 +75,8 @@ void ReseauClient::ConnexionMasterServeur(void) {
     bool masterActif = false;
 
     while (masterActif == false) {
-        if (socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
+        if (socketMaster.connect(masterServer, portMaster, timeout)
+                != sf::Socket::Done) {
             socketMaster.disconnect();
 
             if (nbEssais >= 5) {
@@ -83,7 +85,9 @@ void ReseauClient::ConnexionMasterServeur(void) {
             }
 
             std::wstringstream stream;
-            stream << L"Impossible de se connecter au serveur sur le port" << portMaster << L", essai sur le port " << (portMaster + 1);
+            stream << L"Impossible de se connecter au serveur sur le port"
+                    << portMaster << L", essai sur le port "
+                    << (portMaster + 1);
 
             notification.ajouterMessage(L"[RESEAU]", stream.str(), 5000);
 
@@ -130,81 +134,81 @@ void ReseauClient::TraiterPaquetServeur(void) {
             notification.ajouterMessage("[RESEAU]", message, 5000);
             break;
 
-        case TypePaquet::ZoneParcourable:
+            case TypePaquet::ZoneParcourable:
             parseZoneParcourable(paquet);
             break;
 
-        case TypePaquet::Chemin:
+            case TypePaquet::Chemin:
             parseChemin(paquet);
             break;
 
-        case TypePaquet::DeplacerVaisseau:
+            case TypePaquet::DeplacerVaisseau:
             deplacerVaisseau(paquet);
             break;
 
-        case TypePaquet::DeplacementVaisseauImpossible:
+            case TypePaquet::DeplacementVaisseauImpossible:
             break;
 
-        case TypePaquet::ZoneConstructibleVaisseau:
+            case TypePaquet::ZoneConstructibleVaisseau:
             parseZoneConstructibleVaisseau(paquet);
             break;
 
-        case TypePaquet::ZoneConstructibleBatiment:
+            case TypePaquet::ZoneConstructibleBatiment:
             parseZoneConstructibleBatiment(paquet);
             break;
 
-        case TypePaquet::ZoneAttaquable:
+            case TypePaquet::ZoneAttaquable:
             parseZoneAttaquable(paquet);
             break;
 
-        case TypePaquet::JoueurCourant:
+            case TypePaquet::JoueurCourant:
             parseJoueurCourant(paquet);
             break;
 
-        case TypePaquet::JoueursAdverses:
+            case TypePaquet::JoueursAdverses:
             parseJoueursAdverses(paquet);
             break;
 
-        case TypePaquet::AttaquerVaisseau:
+            case TypePaquet::AttaquerVaisseau:
             attaquerVaisseau(paquet);
             break;
 
-        case TypePaquet::VaisseauxConstructibles:
+            case TypePaquet::VaisseauxConstructibles:
             parseVaisseauxConstructibles(paquet);
             break;
 
-        case TypePaquet::BatimentsConstructibles:
+            case TypePaquet::BatimentsConstructibles:
             parseBatimentsConstructibles(paquet);
             break;
 
-        case TypePaquet::DemarrerPartieMulti:
+            case TypePaquet::DemarrerPartieMulti:
             demarrerPartieMulti();
             break;
 
-        case TypePaquet::DemarrerPartieSolo:
+            case TypePaquet::DemarrerPartieSolo:
             demarrerPartieSolo();
             break;
 
-        case TypePaquet::JoueurSuivant:
+            case TypePaquet::JoueurSuivant:
             joueurSuivant(paquet);
             break;
 
-        case TypePaquet::ZoneVisible:
+            case TypePaquet::ZoneVisible:
             parseZoneVisible(paquet);
             break;
 
-        case TypePaquet::SupprimerJoueur:
+            case TypePaquet::SupprimerJoueur:
             setActif(false);
             break;
 
-        default:
+            default:
             std::stringstream stream;
             stream << "Erreur : paquet de type : " << typePaquet << " inconnu";
 
             notification.ajouterMessage("[RESEAU]", stream.str(), 5000);
             break;
+        }
     }
-}
 
 void ReseauClient::traiterPaquetMasterServeur(void) {
     sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::Vide);
@@ -227,12 +231,13 @@ void ReseauClient::traiterPaquetMasterServeur(void) {
 
         default:
             std::stringstream stream;
-            stream << "Erreur : paquet de type : " << typePaquet << " inconnu venant du Master Serveur";
+            stream << "Erreur : paquet de type : " << typePaquet
+                    << " inconnu venant du Master Serveur";
 
             notification.ajouterMessage("[RESEAU]", stream.str(), 5000);
             break;
+        }
     }
-}
 
 void ReseauClient::demarrerPartieMulti() {
     setPartieActive(true);
@@ -348,9 +353,7 @@ void ReseauClient::parseJoueurCourant(sf::Packet paquet) {
 void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
     sf::Int32 tailleListe;
     string j;
-    //vector<string> joueursAdverses;
-
-    vector<string> joueursAdverses = joueur.getJoueursAdverses();
+    vector<string> joueursAdverses;
 
     paquet >> tailleListe;
 
@@ -397,7 +400,7 @@ void ReseauClient::parseZoneVisible(sf::Packet paquet) {
     Position p;
 
     paquet >> tailleZone;
-    
+
     plateau.resetZoneVisible();
 
     for (sf::Int32 i = 0; i < tailleZone; i++) {
@@ -561,7 +564,8 @@ void ReseauClient::demanderFinTour() {
 }
 
 void ReseauClient::demanderConstructionVaisseau(TypeVaisseau v, Position p) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderConstructionVaisseau);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::DemanderConstructionVaisseau);
     sf::Uint16 typeVaisseau = static_cast<sf::Uint16>(v);
     sf::Packet paquet;
 
@@ -571,7 +575,8 @@ void ReseauClient::demanderConstructionVaisseau(TypeVaisseau v, Position p) {
 }
 
 void ReseauClient::demanderConstructionBatiment(TypeBatiment b, Position p) {
-    sf::Uint16 typePaquet = static_cast<sf::Uint16>(TypePaquet::DemanderConstructionBatiment);
+    sf::Uint16 typePaquet =
+            static_cast<sf::Uint16>(TypePaquet::DemanderConstructionBatiment);
     sf::Uint16 typeBatiment = static_cast<sf::Uint16>(b);
     sf::Packet paquet;
 

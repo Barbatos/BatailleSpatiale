@@ -1,8 +1,8 @@
 #include "Cellule.hpp"
 #include <memory>
 
-Cellule::Cellule()
-                : type(TypeCellule::Vide), idPossesseur(-1) {
+Cellule::Cellule() :
+        type(TypeCellule::Vide) {
 
 }
 
@@ -94,7 +94,7 @@ bool Cellule::getEstConstructibleVaisseau() const {
     return bits.estConstructibleVaisseau;
 }
 
-void Cellule::setEstConstructibleVaisseau(bool estConstructible) { 
+void Cellule::setEstConstructibleVaisseau(bool estConstructible) {
     bits.estConstructibleVaisseau = estConstructible;
 }
 
@@ -110,7 +110,7 @@ bool Cellule::getEstAttaquee() const {
     return bits.estAttaquee;
 }
 
-void Cellule::setEstAttaquee(bool estAttaquee){
+void Cellule::setEstAttaquee(bool estAttaquee) {
     bits.estAttaquee = estAttaquee;
 }
 
@@ -118,7 +118,7 @@ bool Cellule::getEstDetruite() const {
     return bits.estDetruite;
 }
 
-void Cellule::setEstDetruite(bool estDetruite){
+void Cellule::setEstDetruite(bool estDetruite) {
     bits.estDetruite = estDetruite;
 }
 
@@ -177,14 +177,6 @@ sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
     }
 
     return paquet;
-}
-
-void Cellule::setIdPossesseur(int _id) {
-	this->idPossesseur = _id;
-}
-
-sf::Int32 Cellule::getIdPossesseur() const{
-	return idPossesseur;
 }
 
 TypeCellule Cellule::statutEmplacement() const {

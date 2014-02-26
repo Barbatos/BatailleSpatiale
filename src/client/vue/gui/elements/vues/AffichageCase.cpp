@@ -14,7 +14,7 @@
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
         Position position, sf::View* vuePlateau) :
         Element(gui, id), image(), fond(), position(position), selectionne(
-                false), animation(nullptr){
+                false), animation(nullptr) {
     ecrirePosition(x, y);
     ecrireTaille(taille, taille);
     ecrireVue(vuePlateau);
@@ -67,15 +67,9 @@ void AffichageCase::actualiser(float) {
     if (fichier == "")
         image = sf::Sprite();
     else {
-    	// On change l'id du possesseur
-    	int a = (int)lireGui()->lireScene()->lireJeu().lireJoueur()->getId();
-    	p.getCellule(position).setIdPossesseur(*a);
-
         // On met l'image du vaisseau correspondant
         image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(
                 fichier);
-
-        lireGui()->lireScene()->lireJeu().lireReseau()->getJoueurCourant();
 
         image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
         Utile::redimensionnerImage(image, lireTaille().x * 1.3,
