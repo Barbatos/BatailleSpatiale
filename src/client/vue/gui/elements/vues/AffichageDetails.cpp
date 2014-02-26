@@ -74,7 +74,14 @@ AffichageDetails::AffichageDetails(Gui* gui, int id, float x, float y,
 }
 
 AffichageDetails::~AffichageDetails() {
-
+    if (santeVaisseau != nullptr)
+        delete santeVaisseau;
+    if (santeBatiment != nullptr)
+        delete santeBatiment;
+    if (bouclierVaisseau != nullptr)
+        delete bouclierVaisseau;
+    if (bouclierBatiment != nullptr)
+        delete bouclierBatiment;
 }
 
 void AffichageDetails::actualiser(float) {
@@ -175,10 +182,12 @@ void AffichageDetails::actualiser(float) {
             }
 
             santeVaisseau->rendreVisible();
+            santeVaisseau->setValeurMax(p.getVaisseau(position).vieMax);
             santeVaisseau->setLargeur(p.getVaisseau(position).vie);
             santeVaisseau->setValeurMontree(p.getVaisseau(position).vie);
 
             bouclierVaisseau->rendreVisible();
+            bouclierVaisseau->setValeurMax(p.getVaisseau(position).bouclierMax);
             bouclierVaisseau->setLargeur(p.getVaisseau(position).bouclier);
             bouclierVaisseau->setValeurMontree(
                     p.getVaisseau(position).bouclier);
@@ -208,10 +217,12 @@ void AffichageDetails::actualiser(float) {
             }
 
             santeBatiment->rendreVisible();
+            santeBatiment->setValeurMax(p.getBatiment(position).vieMax);
             santeBatiment->setLargeur(p.getBatiment(position).vie);
             santeBatiment->setValeurMontree(p.getBatiment(position).vie);
 
             bouclierBatiment->rendreVisible();
+            bouclierBatiment->setValeurMax(p.getBatiment(position).bouclierMax);
             bouclierBatiment->setLargeur(p.getBatiment(position).bouclier);
             bouclierBatiment->setValeurMontree(
                     p.getBatiment(position).bouclier);
@@ -250,7 +261,6 @@ void AffichageDetails::actualiser(float) {
                 bouclierBatiment->rendreInvisible();
             break;
     }
-
 
     // On change le message
     infosCase.setString(texte);
