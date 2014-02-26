@@ -120,6 +120,7 @@ public:
     //Multiple fonctions de test
     void creerVaisseauTest(TypeVaisseau type = TypeVaisseau::Chasseur);
     void creerVaisseauConstructeurTest();
+    void creerVaisseauBombardier();
 
     void creerBatimentEnergieTest();
     void creerBatimentBase();
