@@ -93,7 +93,7 @@ void CelluleServeur::creerVaisseauTest(TypeVaisseau type) {
 }
 
 void CelluleServeur::creerVaisseau(TypeVaisseau type) {
-    switch(type) {
+    switch (type) {
         case TypeVaisseau::Constructeur:
             vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 2, 20, 2, 25, 2, 10, 10, type));
             break;
@@ -127,6 +127,29 @@ void CelluleServeur::creerBatimentBase() {
 
 void CelluleServeur::creerBatimentEnergieTest() {
     batiment.reset(new BatimentEnergieServeur(100, 50, 0.1f, 2, 0, 0, 10, 10, 10, 10));
+}
+
+void CelluleServeur::creerBatiment(TypeBatiment type) {
+    switch (type) {
+        case TypeBatiment::Base:
+            batiment.reset(new BatimentServeur(800, 70, 0.3f, 5, 0, 0, 0, 4, 10, type));
+            break;
+
+        case TypeBatiment::Mine:
+        default:
+            batiment.reset(new BatimentEnergieServeur(200, 40, 0.1f, 2, 0, 0, 0, 10, 10, 10));
+            break;
+
+        case TypeBatiment::ChantierSpatial:
+            batiment.reset(new BatimentServeur(400, 60, 0.2f, 5, 0, 0, 0, 4, 10, type));
+            // TODO EQUILIBRAGE
+            break;
+
+        case TypeBatiment::Raffinerie:
+            batiment.reset(new BatimentServeur(300, 40, 0.1f, 5, 0, 0, 0, 4, 10, type));
+            // TODO EQUILIBRAGE
+            break;
+    }
 }
 
 void CelluleServeur::creerEvenementTest(TypeEvenement type) {

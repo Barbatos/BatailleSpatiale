@@ -125,6 +125,7 @@ public:
 
     void creerBatimentEnergieTest();
     void creerBatimentBase();
+    void creerBatiment(TypeBatiment type);
 
     void creerEvenementTest(TypeEvenement type = TypeEvenement::Epave);
 

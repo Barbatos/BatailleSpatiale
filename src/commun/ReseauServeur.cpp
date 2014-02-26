@@ -515,7 +515,7 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
         plateau.cellule[4][4].creerVaisseau(TypeVaisseau::Croiseur);
         joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
-        plateau.cellule[4][1].creerBatimentEnergieTest();
+        plateau.cellule[4][1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
     }
     else {
@@ -528,21 +528,20 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
         plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
-        plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
+        plateau.cellule[posX - 4][posY - 1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
 
         plateau.cellule[5][4].creerVaisseau(TypeVaisseau::Chasseur);
         joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
     }
 
-    plateau.cellule[posX][posY].creerBatimentBase();
+    plateau.cellule[posX][posY].creerBatiment(TypeBatiment::Base);
     joueur.ajouterBatiment(plateau.cellule[posX][posY].getBatiment());
 
     if((nbJoueurs > 1) && !partieSolo) {
         demarrerPartieMulti();
     }
-    else if ((nbJoueurs > 1)
- && partieSolo) {
+    else if ((nbJoueurs > 1) && partieSolo) {
         demarrerPartieSolo();
     }
 }
