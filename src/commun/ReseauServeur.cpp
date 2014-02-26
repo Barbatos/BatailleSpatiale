@@ -509,11 +509,11 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         posX = 2;
         posY = 2;
         
-        plateau.cellule[3][3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        plateau.cellule[3][3].creerVaisseau(TypeVaisseau::Destructeur);
         joueur.ajouterVaisseau(plateau.cellule[3][3].getVaisseau());
-        plateau.cellule[4][3].creerVaisseauTest(TypeVaisseau::Constructeur);
+        plateau.cellule[4][3].creerVaisseau(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[4][3].getVaisseau());
-        plateau.cellule[4][4].creerVaisseauTest();
+        plateau.cellule[4][4].creerVaisseau(TypeVaisseau::Croiseur);
         joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
         plateau.cellule[4][1].creerBatimentEnergieTest();
         joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
@@ -522,16 +522,16 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
 
-        plateau.cellule[posX -  3][posY - 3].creerVaisseauTest(TypeVaisseau::Destructeur);
+        plateau.cellule[posX -  3][posY - 3].creerVaisseau(TypeVaisseau::Destructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 3][posY - 3].getVaisseau());
-        plateau.cellule[posX - 4][posY - 3].creerVaisseauTest(TypeVaisseau::Constructeur);
+        plateau.cellule[posX - 4][posY - 3].creerVaisseau(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
-        plateau.cellule[posX - 4][posY - 4].creerVaisseauTest();
+        plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
         plateau.cellule[posX - 4][posY - 1].creerBatimentEnergieTest();
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
 
-        plateau.cellule[5][4].creerVaisseauTest();
+        plateau.cellule[5][4].creerVaisseau(TypeVaisseau::Chasseur);
         joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
     }
 

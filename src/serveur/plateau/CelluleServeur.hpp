@@ -3,6 +3,7 @@
 #include "../../commun/enum/TypeCellule.hpp"
 #include "evenement/EvenementServeur.hpp"
 #include "../../commun/enum/TypeBatiment.hpp"
+#include "../../commun/enum/TypeVaisseau.hpp"
 #include "../structures/batiments/BatimentServeur.hpp"
 #include "../structures/vaisseaux/VaisseauServeur.hpp"
 #include "../structures/Structure.hpp"
@@ -120,6 +121,7 @@ public:
     //Multiple fonctions de test
     void creerVaisseauTest(TypeVaisseau type = TypeVaisseau::Chasseur);
     void creerVaisseauConstructeurTest();
+    void creerVaisseau(TypeVaisseau type);
 
     void creerBatimentEnergieTest();
     void creerBatimentBase();

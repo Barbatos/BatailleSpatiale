@@ -92,6 +92,31 @@ void CelluleServeur::creerVaisseauTest(TypeVaisseau type) {
     vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 3, 40, 3, 25, 3, 10, 10, type));
 }
 
+void CelluleServeur::creerVaisseau(TypeVaisseau type) {
+    switch(type) {
+        case TypeVaisseau::Constructeur:
+            vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 2, 20, 2, 25, 2, 10, 10, type));
+            break;
+
+        case TypeVaisseau::Chasseur:
+            vaisseau.reset(new VaisseauServeur(110, 22, 0.1f, 3, 45, 3, 25, 3, 10, 10, type));
+            break;
+
+        case TypeVaisseau::Croiseur:
+            vaisseau.reset(new VaisseauServeur(140, 15, 0.2f, 3, 55, 3, 30, 3, 10, 10, type));
+            break;
+
+        case TypeVaisseau::Destructeur:
+            vaisseau.reset(new VaisseauServeur(200, 35, 0.2f, 2, 70, 2, 50, 2, 25, 30, type));
+            break;
+
+        case TypeVaisseau::Leger:
+        default:
+            vaisseau.reset(new VaisseauServeur(80, 20, 0.2f, 3, 40, 3, 25, 3, 10, 10, type));
+            break;
+    }
+}
+
 void CelluleServeur::creerVaisseauConstructeurTest() {
     vaisseau.reset(new VaisseauServeur(40, 10, 0.1f, 2, 20, 2, 25, 2, 10, 10, TypeVaisseau::Constructeur));
 }
