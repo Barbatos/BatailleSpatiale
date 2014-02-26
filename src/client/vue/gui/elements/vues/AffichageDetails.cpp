@@ -251,6 +251,7 @@ void AffichageDetails::actualiser(float) {
             break;
     }
 
+
     // On change le message
     infosCase.setString(texte);
 }

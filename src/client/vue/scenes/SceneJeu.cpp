@@ -18,6 +18,7 @@
 
 SceneJeu::SceneJeu(Jeu& jeu) :
         Scene(jeu), vue(sf::FloatRect(0, 0, 0, 0)) {
+
     // On change le viewport de la vue
     vue.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
 
@@ -386,6 +387,7 @@ void SceneJeu::surMessage(Message message) {
                         vue.move(0, 5);
                     break;
                 case FinTour: {
+
                     if (!lireJeu().lireReseau()->getBloquerJeu()) {
                         jeu.lireReseau()->demanderFinTour();
                     }

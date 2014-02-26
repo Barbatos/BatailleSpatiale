@@ -340,7 +340,9 @@ void ReseauClient::parseJoueurCourant(sf::Packet paquet) {
 void ReseauClient::parseJoueursAdverses(sf::Packet paquet) {
     sf::Int32 tailleListe;
     string j;
-    vector<string> joueursAdverses;
+    //vector<string> joueursAdverses;
+
+    vector<string> joueursAdverses = joueur.getJoueursAdverses();
 
     paquet >> tailleListe;
 

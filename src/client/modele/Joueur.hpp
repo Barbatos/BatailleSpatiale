@@ -37,6 +37,8 @@ public:
     sf::Int32 getEnergie(void);
     sf::Int32 getMateriaux(void);
 
+    std::vector<std::string>& getJoueursAdverses();
+
 private:
     void setPseudo(string _pseudo);
 
@@ -52,6 +54,8 @@ private:
     sf::Int32 energie;
 
     sf::Int32 materiaux;
+
+    std::vector<std::string> joueursAdverses;
 
     friend sf::Packet& operator >>(sf::Packet& paquet, Joueur& joueur);
     friend class ReseauClient;

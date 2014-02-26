@@ -58,6 +58,9 @@ public:
     void setEstVisible(bool estVisible = true);
     bool getEstVisible() const;
     
+    void setIdPossesseur(int id);
+    sf::Int32 getIdPossesseur() const;
+
     /**
      * \brief Indique le type de la cellule
      * Si un vaisseau ou un batiment est present, alors elle retourne un type correspondant.
@@ -82,6 +85,8 @@ private:
     VaisseauPtr vaisseau;
     TypeCellule type;
     CelluleBits bits;
+
+    sf::Int32 idPossesseur;
 
 };
 

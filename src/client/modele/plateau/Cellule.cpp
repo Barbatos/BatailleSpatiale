@@ -2,7 +2,7 @@
 #include <memory>
 
 Cellule::Cellule()
-                : type(TypeCellule::Vide) {
+                : type(TypeCellule::Vide), idPossesseur(-1) {
 
 }
 
@@ -177,6 +177,14 @@ sf::Packet& operator >>(sf::Packet& paquet, Cellule& cellule) {
     }
 
     return paquet;
+}
+
+void Cellule::setIdPossesseur(int _id) {
+	this->idPossesseur = _id;
+}
+
+sf::Int32 Cellule::getIdPossesseur() const{
+	return idPossesseur;
 }
 
 TypeCellule Cellule::statutEmplacement() const {
