@@ -95,11 +95,9 @@ void BoutonConstruction::clicSouris(bool clicDroit) {
 
         switch (type) {
             case TypeCellule::Vaisseau:
-            	std::cout << "je veux vaisseau" << std::endl;
                 message.construction.vaisseau = vaisseau;
                 break;
             case TypeCellule::Batiment:
-            	std::cout << "je veux Batiment" << std::endl;
                 message.construction.batiment = batiment;
                 break;
             default:

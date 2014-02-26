@@ -279,7 +279,9 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
         // Si on a sélectionné un vaisseau
         if (p.getCellule(position).statutEmplacement()
-                == TypeCellule::Vaisseau) {
+                == TypeCellule::Vaisseau
+                || p.getCellule(position).statutEmplacement()
+                == TypeCellule::Batiment) {
 
         	//On affiche les portées en fonction des cases cochées
             afficherPortee(position);
@@ -339,6 +341,11 @@ void SceneJeu::construireCase(Message::MessageConstruction message) {
 	 {
 		 r->demanderConstructionBatiment(message.batiment,destination);
 	 }
+
+	 destination = Position(-1,-1);
+	 deplacement->ecrireVisible(false);
+	 constructions->ecrireBatimentsVisibles(false);
+	 constructions->ecrireVaisseauxVisibles(false);
 }
 
 void SceneJeu::surMessage(Message message) {
@@ -448,7 +455,8 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
 
     if( (porteeDeplacement->contient(sf::Mouse::getPosition())
     		|| porteeAttaque->contient(sf::Mouse::getPosition())
-    		|| porteeConstruction->contient(sf::Mouse::getPosition())) )
+    		|| porteeConstruction->contient(sf::Mouse::getPosition()))
+    		&& details->lirePosition().x != -1)
     {
     	afficherPortee(details->lirePosition());
     	return;
