@@ -531,13 +531,13 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[posX - 3][posY - 3].getVaisseau());
         plateau.cellule[posX - 4][posY - 3].creerVaisseau(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
-        plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
-        joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
+        //plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
+        //joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
         plateau.cellule[posX - 4][posY - 1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
 
-        plateau.cellule[5][4].creerVaisseau(TypeVaisseau::Chasseur);
-        joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
+        //plateau.cellule[5][4].creerVaisseau(TypeVaisseau::Chasseur);
+        //joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
     }
 
     plateau.cellule[posX][posY].creerBatiment(TypeBatiment::Base);
@@ -574,6 +574,11 @@ void ReseauServeur::demarrerPartieSolo() {
 }
 
 void ReseauServeur::jouerIA() {
+    std::string message;
+    std::list<Position> listePos;
+    std::list<NoeudServeur> zoneAttaquable;
+    std::list<NoeudServeur> zoneParcourable;
+    std::list<Position> structuresAttaquables;
 
     // Ce n'est pas une partie solo, pas d'IA
     if(!partieSolo) {
@@ -587,7 +592,7 @@ void ReseauServeur::jouerIA() {
     }
 
     // Si on n'a pas assez d'énergie, on construit une mine
-    if (joueurs[1].getEnergie() < 50) {
+    if (joueurs[1].getEnergie() < 30) {
         Position p = Position(-1, -1);
 
         // On essaye de trouver un vaisseau constructeur
@@ -605,6 +610,10 @@ void ReseauServeur::jouerIA() {
                 joueurs[1].ajouterBatiment(plateau.cellule[posConstruction.x][posConstruction.y].getBatiment());
                 joueurs[1].setCommandement(joueurs[1].getCommandement() - 1);
 
+                message = "Le joueur " + joueurs[1].getPseudo() + " a cree un nouveau batiment";
+                cout << message << endl;
+                envoiATous(message);
+
                 joueurSuivant();
                 return;
             }
@@ -612,78 +621,95 @@ void ReseauServeur::jouerIA() {
     }
 
     // On teste pour chaque vaisseau s'il y a un vaisseau ennemi à proximité, si oui on attaque
-    if (1==1) {
-        std::list<Position> listePos;
-        std::list<NoeudServeur> zoneAttaquable;
-        std::list<NoeudServeur> zoneParcourable;
-        std::list<Position> structuresAttaquables;
+    // On récupère notre liste de vaisseaux d'attaque
+    listePos = plateau.getVaisseauxAttaque(joueurs[1].getId());
 
-        // On récupère notre liste de vaisseaux d'attaque
-        listePos = plateau.getVaisseauxAttaque(joueurs[1].getId());
+    if ( listePos.size() >= 1) {
 
-        if ( listePos.size() >= 1) {
+        // Pour chaque vaisseau, on va essayer d'attaquer un vaisseau ennemi si possible
+        for (std::list<Position>::iterator posVaisseau = listePos.begin(); posVaisseau != listePos.end(); ++posVaisseau) {
+            
+            // On cherche la zone attaquable du vaisseau
+            zoneAttaquable = plateau.getZoneAttaquable(*posVaisseau);
+            if ( zoneAttaquable.size() >= 1) {
 
-            // Pour chaque vaisseau, on va essayer d'attaquer un vaisseau ennemi si possible
-            for (std::list<Position>::iterator posVaisseau = listePos.begin(); posVaisseau != listePos.end(); ++posVaisseau) {
-                
-                // On cherche la zone attaquable du vaisseau
-                zoneAttaquable = plateau.getZoneAttaquable(*posVaisseau);
-                if ( zoneAttaquable.size() >= 1) {
+                // On cherche les structures ennemies qu'il est possible d'attaquer dans cette zone
+                structuresAttaquables = plateau.getStructuresAttaquables(joueurs[1].getId(), zoneAttaquable);
+                if ( structuresAttaquables.size() >= 1) {
+                    Position structChoisie = Position(-1, -1);
+                    std::list<Position>::iterator posStruct;
 
-                    // On cherche les structures ennemies qu'il est possible d'attaquer dans cette zone
-                    structuresAttaquables = plateau.getStructuresAttaquables(joueurs[1].getId(), zoneAttaquable);
-                    if ( structuresAttaquables.size() >= 1) {
-                        Position structChoisie = Position(-1, -1);
-                        std::list<Position>::iterator posStruct;
+                    // On parcours cette liste histoire de voir ce qu'on a de beau
+                    for (posStruct = structuresAttaquables.begin(); posStruct != structuresAttaquables.end(); ++posStruct) {
+                        
+                        structChoisie = *posStruct;
 
-                        // On parcours cette liste histoire de voir ce qu'on a de beau
-                        for (posStruct = structuresAttaquables.begin(); posStruct != structuresAttaquables.end(); ++posStruct) {
-                            
-                            structChoisie = *posStruct;
-
-                            // Si on a la base ennemie en ligne de mire, on l'attaque en priorité
-                            if (plateau.cellule[structChoisie.x][structChoisie.y].typeBatiment() == TypeBatiment::Base) {
-                                break;
-                            }
-                        }
-
-                        // On attaque cette structure
-                        if ( (structChoisie != Position(-1, -1)) && (joueurs[1].getCommandement() >= 1) ) {
-                            attaquerVaisseau(joueurs[1], *posVaisseau, structChoisie); 
-                            joueurSuivant();
-                            return;
-                        }
-                    }
-                }
-
-                // Sinon, on essaye de déplacer le vaisseau vers la base ennemie
-                zoneParcourable = plateau.getZoneParcourable(*posVaisseau, joueurs[1].getEnergie());
-
-                cout << "herp" << endl;
-
-                if ( zoneParcourable.size() >= 1) {
-                    Position bestPos = Position(1000, 1000);
-
-                    cout << "derp" << endl;
-
-                    for (std::list<NoeudServeur>::iterator ps = zoneParcourable.begin(); ps != zoneParcourable.end(); ++ps) {
-                        if ( (ps->getPosition().x < bestPos.x) || (ps->getPosition().y < bestPos.y) )  {
-                            bestPos = ps->getPosition();
-                            cout << "a: " << ps->getPosition().x << ", " << ps->getPosition().y << endl;
+                        // Si on a la base ennemie en ligne de mire, on l'attaque en priorité
+                        if (plateau.cellule[structChoisie.x][structChoisie.y].typeBatiment() == TypeBatiment::Base) {
+                            break;
                         }
                     }
 
-                    cout << "b: " << bestPos.x << ", " << bestPos.y << endl;
-
-                    if ( (bestPos != Position(1000, 1000)) && plateau.cellule[bestPos.x][bestPos.y].estAccessible() ) {
-                        cout << "yay" << endl;
-                        deplacerVaisseau(joueurs[1], *posVaisseau, bestPos);
+                    // On attaque cette structure
+                    if ( (structChoisie != Position(-1, -1)) && (joueurs[1].getCommandement() >= 1) ) {
+                        attaquerVaisseau(joueurs[1], *posVaisseau, structChoisie); 
                         joueurSuivant();
                         return;
                     }
                 }
             }
+
+            // Sinon, on essaye de déplacer le vaisseau vers la base ennemie
+            zoneParcourable = plateau.getZoneParcourable(*posVaisseau, joueurs[1].getEnergie());
+
+            if ( zoneParcourable.size() >= 1) {
+                Position bestPos = Position(1000, 1000);
+
+                for (std::list<NoeudServeur>::iterator ps = zoneParcourable.begin(); ps != zoneParcourable.end(); ++ps) {
+                    if ( (ps->getPosition().x < bestPos.x) || (ps->getPosition().y < bestPos.y) )  {
+                        bestPos = ps->getPosition();
+                    }
+                }
+
+                if ( (bestPos != Position(1000, 1000)) && plateau.cellule[bestPos.x][bestPos.y].estAccessible() ) {
+                    deplacerVaisseau(joueurs[1], *posVaisseau, bestPos);
+                    joueurSuivant();
+                    return;
+                }
+            }
         }
+    }
+
+    // Ou alors, l'IA s'emmerde vraiment à mourir et décide de créer des vaisseaux...
+    listePos = plateau.getZoneConstructibleVaisseau(joueurs[1].getId());
+
+    if (listePos.size() >= 1) {
+        Position posConstruction;
+
+        posConstruction = listePos.front();
+        sf::Uint16 type = (sf::Uint16)(rand() % 2);
+        TypeVaisseau typeV;
+
+        switch (type) {
+            case 0:
+                typeV = TypeVaisseau::Chasseur;
+                break;
+
+            case 1:
+            default:
+                typeV = TypeVaisseau::Croiseur;
+                break;
+        }
+
+        plateau.cellule[posConstruction.x][posConstruction.y].creerVaisseau(typeV);
+        joueurs[1].ajouterVaisseau(plateau.cellule[posConstruction.x][posConstruction.y].getVaisseau());
+        joueurs[1].setCommandement(joueurs[1].getCommandement() - 1);
+
+        cout << message << endl;
+        envoiATous(message);
+
+        joueurSuivant();
+        return;
     }
 
     joueurSuivant();
@@ -739,7 +765,7 @@ void ReseauServeur::construireVaisseau(JoueurServeur& joueur, sf::Packet paquet)
 
     type = static_cast<TypeVaisseau>(typeVaisseau);
 
-    plateau.cellule[p.x][p.y].creerVaisseauTest(type);
+    plateau.cellule[p.x][p.y].creerVaisseau(type);
     joueur.ajouterVaisseau(plateau.cellule[p.x][p.y].getVaisseau());
 
     envoiPlateauATous();
