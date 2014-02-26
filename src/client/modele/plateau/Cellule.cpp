@@ -1,8 +1,8 @@
 #include "Cellule.hpp"
 #include <memory>
 
-Cellule::Cellule()
-                : type(TypeCellule::Vide) {
+Cellule::Cellule() :
+        type(TypeCellule::Vide) {
 
 }
 
@@ -10,7 +10,7 @@ bool Cellule::possedeEvenement() {
     return evenement != 0;
 }
 
-const DetailEvenement& Cellule::getEvenement() {
+const DetailEvenement& Cellule::getEvenement() const {
     return evenement->getDetail();
 }
 
@@ -26,7 +26,7 @@ bool Cellule::possedeBatiment() {
     return batiment != 0;
 }
 
-const DetailBatiment& Cellule::getBatiment() {
+const DetailBatiment& Cellule::getBatiment() const {
     return batiment->getDetail();
 }
 
@@ -42,7 +42,7 @@ bool Cellule::possedeVaisseau() {
     return vaisseau != 0;
 }
 
-const DetailVaisseau& Cellule::getVaisseau() {
+const DetailVaisseau& Cellule::getVaisseau() const {
     return vaisseau->getDetail();
 }
 
@@ -94,7 +94,7 @@ bool Cellule::getEstConstructibleVaisseau() const {
     return bits.estConstructibleVaisseau;
 }
 
-void Cellule::setEstConstructibleVaisseau(bool estConstructible) { 
+void Cellule::setEstConstructibleVaisseau(bool estConstructible) {
     bits.estConstructibleVaisseau = estConstructible;
 }
 
@@ -110,7 +110,7 @@ bool Cellule::getEstAttaquee() const {
     return bits.estAttaquee;
 }
 
-void Cellule::setEstAttaquee(bool estAttaquee){
+void Cellule::setEstAttaquee(bool estAttaquee) {
     bits.estAttaquee = estAttaquee;
 }
 
@@ -118,7 +118,7 @@ bool Cellule::getEstDetruite() const {
     return bits.estDetruite;
 }
 
-void Cellule::setEstDetruite(bool estDetruite){
+void Cellule::setEstDetruite(bool estDetruite) {
     bits.estDetruite = estDetruite;
 }
 

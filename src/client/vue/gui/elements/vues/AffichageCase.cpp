@@ -8,8 +8,8 @@
 #include "AffichageCase.hpp"
 
 #include <client/Jeu.hpp>
-#include <iostream>
 #include <client/vue/gui/elements/vues/AffichageCase.hpp>
+#include <structs.hpp>
 
 AffichageCase::AffichageCase(Gui* gui, int id, float x, float y, float taille,
         Position position, sf::View* vuePlateau) :
@@ -49,13 +49,18 @@ void AffichageCase::actualiser(float) {
     // On créé une variable string pour stocker le chemin vers l'image
     std::string fichier = "";
 
+    // On créé une variable temporaire pour l'id du joueur
+    int idJoueur = -1;
+
     // On change l'image selon ce type
     switch (cellule) {
         case TypeCellule::Vaisseau:
             fichier = Utile::lireFichier(p.getVaisseau(position));
+            idJoueur = p.getCellule(position).getVaisseau().idJoueur;
             break;
         case TypeCellule::Batiment:
             fichier = Utile::lireFichier(p.getBatiment(position));
+            idJoueur = p.getCellule(position).getBatiment().idJoueur;
             break;
         case TypeCellule::Evenement:
             fichier = Utile::lireFichier(p.getEvenement(position));
@@ -70,7 +75,12 @@ void AffichageCase::actualiser(float) {
         // On met l'image du vaisseau correspondant
         image = lireGui()->lireScene()->lireJeu().lireRessources().lireImage(
                 fichier);
-        image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
+
+        if (idJoueur == 1)
+            image.setTextureRect(sf::IntRect(2400, 0, 480, 480));
+        else
+            image.setTextureRect(sf::IntRect(960, 0, 480, 480));
+
         Utile::redimensionnerImage(image, lireTaille().x * 1.3,
                 lireTaille().y * 1.3, false);
         image.setPosition(lirePosition().x - lireTaille().x * 1.3 / 2,

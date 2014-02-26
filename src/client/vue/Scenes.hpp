@@ -24,5 +24,6 @@
 #include "scenes/SceneListeServeurs.hpp"
 #include "scenes/SceneChargementJeu.hpp"
 #include "scenes/SceneChargementJeuMulti.hpp"
+#include "scenes/SceneFinDeJeu.hpp"
 
 #endif /* SCENES_HPP */

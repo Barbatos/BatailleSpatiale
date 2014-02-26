@@ -101,6 +101,8 @@ public:
 
 	void rendreVisible();
 
+	void setValeurMax(int max);
+
 	void afficher();
 	void actualiser(float);
 	bool contient(sf::Vector2i);

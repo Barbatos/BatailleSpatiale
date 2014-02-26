@@ -16,8 +16,8 @@
 #define TEMPS_FRAME 1000/FPS
 
 Jeu::Jeu() :
-        modele(), controleur(modele), scene(nullptr), ressources(), horloge(), reseau(
-                nullptr), joueur(NULL) {
+        modele(), controleur(modele), sceneDemandee(Scene::SceneMenuPrincipal), scene(
+                nullptr), ressources(), horloge(), reseau(nullptr), joueur(NULL) {
 
     gestionnaire = new GestionnaireSons(&ressources);
 
@@ -27,14 +27,14 @@ Jeu::Jeu() :
 
     notification.ecrirePolice(ressources.lirePolice("grand9k.ttf"));
 
-    changer(Scene::SceneMenuPrincipal);
-
     joueur = new Joueur();
 
     reseau = ReseauPtr(new ReseauClient(modele, *joueur));
     reseauActif = false;
 
     reseau->demanderListeServeurs();
+
+    changerScene();
 }
 
 Jeu::~Jeu() {
@@ -51,11 +51,11 @@ Jeu::~Jeu() {
     delete joueur;
 }
 
-void Jeu::changer(Scene::Type nouvelleScene) {
+void Jeu::changerScene() {
     if (scene != nullptr)
         scene.release();
 
-    switch (nouvelleScene) {
+    switch (sceneDemandee) {
         case Scene::SceneMenuPrincipal:
             scene = Scene::Ptr(new SceneMenuPrincipal(*this));
             break;
@@ -89,10 +89,19 @@ void Jeu::changer(Scene::Type nouvelleScene) {
         case Scene::SceneChargementJeuMulti:
             scene = Scene::Ptr(new SceneChargementJeuMulti(*this));
             break;
+        case Scene::SceneFinDeJeu:
+            scene = Scene::Ptr(new SceneFinDeJeu(*this));
+            break;
         default:
             scene = Scene::Ptr(new SceneMenuPrincipal(*this));
             break;
     }
+
+    sceneDemandee = Scene::Aucune;
+}
+
+void Jeu::changer(Scene::Type nouvelleScene) {
+    sceneDemandee = nouvelleScene;
 }
 
 void Jeu::threadReseau() {
@@ -104,7 +113,7 @@ void Jeu::threadReseau() {
 }
 
 void Jeu::lancerServeurGUI(unsigned int port, bool partieSolo) {
-    string nom = "Serveur GUI"; // TODO : proposer champ nom à la création d'un serveur
+    string nom = "Serveur GUI";
 
     plateauServeur = PlateauServeurPtr(new PlateauServeur(20, 20));
     plateauServeur->initialisationTest();
@@ -125,7 +134,7 @@ void Jeu::lancer() {
 
         if(gestionnaire->lirePhaseDeJeu())
         {
-        	gestionnaire->controlerIntensite();
+            gestionnaire->controlerIntensite();
         }
 
         while (affichage.pollEvent(evenement)) {
@@ -138,6 +147,9 @@ void Jeu::lancer() {
         while (scene->lireGui().obtenirMessage(&message)) {
             scene->surMessage(message);
         }
+
+        if(sceneDemandee != Scene::Aucune)
+        changerScene();
 
         affichage.clear();
 

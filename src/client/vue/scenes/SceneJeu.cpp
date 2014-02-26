@@ -18,6 +18,7 @@
 
 SceneJeu::SceneJeu(Jeu& jeu) :
         Scene(jeu), vue(sf::FloatRect(0, 0, 0, 0)) {
+
     // On change le viewport de la vue
     vue.setViewport(sf::FloatRect(0.01f, 0.01f, 0.98f, 0.68f));
 
@@ -161,6 +162,8 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
     // On récupère le plateau
     Plateau & p = lireJeu().lirePlateau();
+    // On récupère le réseau et les deux positions
+    ReseauClient* r = lireJeu().lireReseau().get();
 
     // Si c'est un message du plateau, on réinitialise tout
     if (message.x == -1 && message.y == -1) {
@@ -174,8 +177,6 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         return;
     }
 
-    // On récupère le réseau et les deux positions
-    ReseauClient* r = lireJeu().lireReseau().get();
     Position selection = details->lirePosition();
     Position position = Position(message.x, message.y);
 
@@ -217,18 +218,16 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
             switch (p.getCellule(position).statutEmplacement()) {
                 case TypeCellule::Vide:
 
-                	//Si la case selectionnée est une case constructible pour un bâtiment
-                	if(p.getCellule(position).getEstConstructibleBatiment())
-                	{
-                		constructions->ecrireBatimentsVisibles(true);
-                		constructions->ecrireVaisseauxVisibles(false);
-                	}
-                	//Sinon si c'est une case constructible pour un vaisseau
-                	else if(p.getCellule(position).getEstConstructibleVaisseau())
-                	{
-                		constructions->ecrireBatimentsVisibles(false);
-                		constructions->ecrireVaisseauxVisibles(true);
-                	}
+                    //Si la case selectionnée est une case constructible pour un bâtiment
+                    if (p.getCellule(position).getEstConstructibleBatiment()) {
+                        constructions->ecrireBatimentsVisibles(true);
+                        constructions->ecrireVaisseauxVisibles(false);
+                    }
+                    //Sinon si c'est une case constructible pour un vaisseau
+                    else if (p.getCellule(position).getEstConstructibleVaisseau()) {
+                        constructions->ecrireBatimentsVisibles(false);
+                        constructions->ecrireVaisseauxVisibles(true);
+                    }
 
                     // Si la destination est une case vide
 
@@ -266,6 +265,14 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
 
             r->setDestination(destination);
         }
+        else if (p.getCellule(selection).statutEmplacement()
+                == TypeCellule::Batiment) {
+            constructions->ecrireVaisseauxVisibles(true);
+
+            destination = position;
+
+            r->setDestination(destination);
+        }
     }
 
     // Si c'est un clic gauche
@@ -277,13 +284,15 @@ void SceneJeu::appuiCase(Message::MessageCellule message) {
         // On sélectionne la position
         details->selectionner(position);
 
-        // Si on a sélectionné un vaisseau
-        if (p.getCellule(position).statutEmplacement()
-                == TypeCellule::Vaisseau
-                || p.getCellule(position).statutEmplacement()
-                == TypeCellule::Batiment) {
+        if (p.getCellule(position).statutEmplacement() == TypeCellule::Batiment)
+            r->getZoneConstructibleVaisseau();
 
-        	//On affiche les portées en fonction des cases cochées
+        // Si on a sélectionné un vaisseau
+        if (p.getCellule(position).statutEmplacement() == TypeCellule::Vaisseau
+                || p.getCellule(position).statutEmplacement()
+                        == TypeCellule::Batiment) {
+
+            //On affiche les portées en fonction des cases cochées
             afficherPortee(position);
         }
     }
@@ -331,21 +340,19 @@ void SceneJeu::effectuerAction() {
 
 void SceneJeu::construireCase(Message::MessageConstruction message) {
 
-	 ReseauClient* r = lireJeu().lireReseau().get();
+    ReseauClient* r = lireJeu().lireReseau().get();
 
-	 if(message.type == TypeCellule::Vaisseau)
-	 {
-		 r->demanderConstructionVaisseau(message.vaisseau,destination);
-	 }
-	 else if(message.type == TypeCellule::Batiment)
-	 {
-		 r->demanderConstructionBatiment(message.batiment,destination);
-	 }
+    if (message.type == TypeCellule::Vaisseau) {
+        r->demanderConstructionVaisseau(message.vaisseau, destination);
+    }
+    else if (message.type == TypeCellule::Batiment) {
+        r->demanderConstructionBatiment(message.batiment, destination);
+    }
 
-	 destination = Position(-1,-1);
-	 deplacement->ecrireVisible(false);
-	 constructions->ecrireBatimentsVisibles(false);
-	 constructions->ecrireVaisseauxVisibles(false);
+    destination = Position(-1, -1);
+    deplacement->ecrireVisible(false);
+    constructions->ecrireBatimentsVisibles(false);
+    constructions->ecrireVaisseauxVisibles(false);
 }
 
 void SceneJeu::surMessage(Message message) {
@@ -380,6 +387,7 @@ void SceneJeu::surMessage(Message message) {
                         vue.move(0, 5);
                     break;
                 case FinTour: {
+
                     if (!lireJeu().lireReseau()->getBloquerJeu()) {
                         jeu.lireReseau()->demanderFinTour();
                     }
@@ -400,7 +408,7 @@ void SceneJeu::surMessage(Message message) {
         }
         case Message::Construction:
         {
-        	construireCase(message.construction);
+            construireCase(message.construction);
         }
         break;
         default:
@@ -410,18 +418,18 @@ void SceneJeu::surMessage(Message message) {
 
 void SceneJeu::afficherPortee(Position position) {
 
-	lireJeu().lirePlateau().viderZones();
-	ReseauClient* r = lireJeu().lireReseau().get();
+    lireJeu().lirePlateau().viderZones();
+    ReseauClient* r = lireJeu().lireReseau().get();
 
-	// On demande au réseau la zone parcourable, attaquable et constructible
-	if (porteeDeplacement->estCoche())
-	r->getZoneParcourable(position);
+    // On demande au réseau la zone parcourable, attaquable et constructible
+    if (porteeDeplacement->estCoche())
+        r->getZoneParcourable(position);
 
-	if (porteeConstruction->estCoche())
-	r->getZoneConstructibleBatiment(position);
+    if (porteeConstruction->estCoche())
+        r->getZoneConstructibleBatiment(position);
 
-	if (porteeAttaque->estCoche())
-	r->getZoneAttaquable(position);
+    if (porteeAttaque->estCoche())
+        r->getZoneAttaquable(position);
 }
 
 // Héritées d'ElementSouris
@@ -454,12 +462,12 @@ void SceneJeu::relachementSouris(sf::Mouse::Button bouton) {
     return;
 
     if( (porteeDeplacement->contient(sf::Mouse::getPosition())
-    		|| porteeAttaque->contient(sf::Mouse::getPosition())
-    		|| porteeConstruction->contient(sf::Mouse::getPosition()))
-    		&& details->lirePosition().x != -1)
+                    || porteeAttaque->contient(sf::Mouse::getPosition())
+                    || porteeConstruction->contient(sf::Mouse::getPosition()))
+            && details->lirePosition().x != -1)
     {
-    	afficherPortee(details->lirePosition());
-    	return;
+        afficherPortee(details->lirePosition());
+        return;
     }
 
     Message::MessageCellule message;
