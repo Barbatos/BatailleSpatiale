@@ -517,6 +517,9 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         joueur.ajouterVaisseau(plateau.cellule[4][4].getVaisseau());
         plateau.cellule[4][1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
+
+        plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].creerVaisseau(TypeVaisseau::Chasseur);
+        joueur.ajouterVaisseau(plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
