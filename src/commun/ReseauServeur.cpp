@@ -627,11 +627,13 @@ void ReseauServeur::construireVaisseau(JoueurServeur& joueur, sf::Packet paquet)
 void ReseauServeur::construireBatiment(JoueurServeur& joueur, sf::Packet paquet) {
     sf::Uint16 typeBatiment = static_cast<sf::Uint16>(TypeBatiment::Inexistant);
     Position p;
+    TypeBatiment type;
 
     paquet >> typeBatiment >> p;
 
-    // Charles: FIXME
-    plateau.cellule[p.x][p.y].creerBatimentEnergieTest();
+    type = static_cast<TypeBatiment>(typeBatiment);
+
+    plateau.cellule[p.x][p.y].creerBatiment(type);
     joueur.ajouterBatiment(plateau.cellule[p.x][p.y].getBatiment());
 
     envoiPlateauATous();
