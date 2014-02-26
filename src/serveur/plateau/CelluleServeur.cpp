@@ -140,7 +140,7 @@ void CelluleServeur::creerBatimentEnergieTest() {
 void CelluleServeur::creerBatiment(TypeBatiment type) {
     switch (type) {
         case TypeBatiment::Base:
-            batiment.reset(new BatimentServeur(800, 70, 0.3f, 5, 0, 0, 0, 4, 10, type));
+            batiment.reset(new BatimentServeur(800, 70, 0.3f, 5, 0, 0, 5, 4, 10, type));
             break;
 
         case TypeBatiment::Mine:
