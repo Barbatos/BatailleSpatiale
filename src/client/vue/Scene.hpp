@@ -54,6 +54,7 @@ class Scene {
          * Toutes les scènes possibles de l'interface
          */
         enum Type {
+            Aucune, //!< Aucune scène
             SceneMenuPrincipal, //!< Scène du Menu Principal
             SceneMenuSolo, //!< Scène du Menu de création d'une partie Solo
             SceneMenuMulti, //!< Scène du Menu de création d'une partie Multi
@@ -64,7 +65,8 @@ class Scene {
             SceneLancerServeur, //!< Scène du lancement d'un serveur de jeu
             SceneListeServeurs, //!< Scène affichant la liste des serveurs du master serveur
             SceneChargementJeu, //!< Scène lors de l'attente du chargement du réseau en solo
-            SceneChargementJeuMulti //!< Scène lors de l'attente du chargement du réseau en multijoueur
+            SceneChargementJeuMulti, //!< Scène lors de l'attente du chargement du réseau en multijoueur
+            SceneFinDeJeu //!< Scène affichée lorsqu'une partie est terminée
         };
 
         /**
