@@ -124,6 +124,56 @@ Position PlateauServeur::getVaisseauConstructeur(sf::Int32 idJoueur) {
     return p;
 }
 
+std::list<Position> PlateauServeur::getVaisseauxAttaque(sf::Int32 idJoueur) {
+    std::list<Position> listeVaisseaux;
+
+    for (sf::Int32 x = 0; x < tailleX; ++x) {
+        for (sf::Int32 y = 0; y < tailleY; ++y) {
+            if(cellule[x][y].possedeVaisseau() 
+                && ((cellule[x][y].getVaisseau()->getType() == TypeVaisseau::Chasseur) || (cellule[x][y].getVaisseau()->getType() == TypeVaisseau::Croiseur))
+                && (cellule[x][y].getVaisseau()->getIdJoueur() == idJoueur)) {
+                listeVaisseaux.push_back(Position(x, y));
+            }
+        }
+    }
+
+    return listeVaisseaux;
+}
+
+std::list<Position> PlateauServeur::getStructuresEnnemies(sf::Int32 idJoueur) {
+    std::list<Position> listeStructures;
+
+    for (sf::Int32 x = 0; x < tailleX; ++x) {
+        for (sf::Int32 y = 0; y < tailleY; ++y) {
+            if( (cellule[x][y].possedeVaisseau() && (cellule[x][y].getVaisseau()->getIdJoueur() != idJoueur))
+                ||  (cellule[x][y].possedeBatiment() && (cellule[x][y].getBatiment()->getIdJoueur() != idJoueur)) ) {
+                listeStructures.push_back(Position(x, y));
+            }
+        }
+    }
+
+    return listeStructures;
+}
+
+std::list<Position> PlateauServeur::getStructuresAttaquables(sf::Int32 idJoueur, std::list<NoeudServeur>& listeNoeuds) {
+    std::list<Position> structuresEnnemies;
+    std::list<Position> structuresAttaquables;
+    std::list<NoeudServeur>::iterator noeudIterator;
+    std::list<Position>::iterator posIterator;
+
+    structuresEnnemies = getStructuresEnnemies(idJoueur);
+
+    for (noeudIterator = listeNoeuds.begin(); noeudIterator != listeNoeuds.end(); noeudIterator++) {
+        for (posIterator = structuresEnnemies.begin(); posIterator != structuresEnnemies.end(); posIterator++) {
+            if(noeudIterator->getPosition() == *posIterator) {
+                structuresAttaquables.push_back(*posIterator);
+            }
+        }
+    }
+
+    return structuresAttaquables;
+}
+
 void PlateauServeur::getZoneVisiblePosition (
     std::list<NoeudServeur>& zoneVisible, Position p) {
     //On créé une liste attaquable

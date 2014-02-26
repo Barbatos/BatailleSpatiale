@@ -214,6 +214,12 @@ public:
     void effectuerTour();
 
     Position getVaisseauConstructeur(sf::Int32 idJoueur);
+
+    std::list<Position> getVaisseauxAttaque(sf::Int32 idJoueur);
+
+    std::list<Position> getStructuresAttaquables(sf::Int32 idJoueur, std::list<NoeudServeur>& listeNoeuds);
+
+    std::list<Position> getStructuresEnnemies(sf::Int32 idJoueur);
     
 
 private:
