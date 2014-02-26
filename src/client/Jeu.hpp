@@ -26,149 +26,170 @@ typedef std::unique_ptr<ReseauClient> ReseauPtr;
  * Contient tout les éléments du jeu : Modèle, Contrôleur, Vue (Scene) et Affichage, ainsi que les Ressources du jeu
  */
 class Jeu {
-private:
-	/**
-	 * \brief Modèle
-	 *
-	 * Le modèle contenant les différentes données du jeu
-	 *
-	 * \see Modèle
-	 */
-	Plateau modele;
+    private:
+        /**
+         * \brief Modèle
+         *
+         * Le modèle contenant les différentes données du jeu
+         *
+         * \see Modèle
+         */
+        Plateau modele;
 
-	/**
-	 * \brief Contrôleur
-	 *
-	 * Le contrôleur faisant le lien entre la vue et le modèle
-	 *
-	 * \see Contrôleur
-	 */
-	Controleur controleur;
+        /**
+         * \brief Contrôleur
+         *
+         * Le contrôleur faisant le lien entre la vue et le modèle
+         *
+         * \see Contrôleur
+         */
+        Controleur controleur;
 
-	/**
-	 * \brief Scene
-	 *
-	 * La scène actuellement jouée à l'écran
-	 *
-	 * \see Scene
-	 */
-	Scene::Ptr scene;
+        /**
+         * \brief Le type de la scène demandée
+         *
+         * \see Scene
+         */
+        Scene::Type sceneDemandee;
 
-	/**
-	 * \brief Ressources
-	 *
-	 * Contient toutes les ressources du jeu
-	 *
-	 * \see Ressources
-	 */
-	Ressources ressources;
+        /**
+         * \brief Scene
+         *
+         * La scène actuellement jouée à l'écran
+         *
+         * \see Scene
+         */
+        Scene::Ptr scene;
 
-	/**
-	 * \brief Horloge
-	 *
-	 * L'horloge permettant de gérer le temps dans l'application
-	 *
-	 * \see sf::Clock
-	 */
-	sf::Clock horloge;
+        /**
+         * \brief Ressources
+         *
+         * Contient toutes les ressources du jeu
+         *
+         * \see Ressources
+         */
+        Ressources ressources;
 
-	/**
-	 * \brief Réseau
-	 *
-	 * La connexion réseau à un serveur
-	 *
-	 * \see ReseauClient
-	 */
-	ReseauPtr reseau;
+        /**
+         * \brief Horloge
+         *
+         * L'horloge permettant de gérer le temps dans l'application
+         *
+         * \see sf::Clock
+         */
+        sf::Clock horloge;
 
-	/**
-	 * \brief le joueur venant du réseau
-	 */
-	Joueur* joueur;
+        /**
+         * \brief Réseau
+         *
+         * La connexion réseau à un serveur
+         *
+         * \see ReseauClient
+         */
+        ReseauPtr reseau;
 
-	/**
-	 * \brief le gestionnaire de sons de la partie
-	 */
-	GestionnaireSons* gestionnaire;
+        /**
+         * \brief le joueur venant du réseau
+         */
+        Joueur* joueur;
 
-	bool reseauActif;
+        /**
+         * \brief le gestionnaire de sons de la partie
+         */
+        GestionnaireSons* gestionnaire;
 
-	ReseauServeurPtr serveur;
+        /**
+         * \brief Si le réseau est actif ou non
+         */
+        bool reseauActif;
 
-	PlateauServeurPtr plateauServeur;
+        /**
+         * \brief Le réseau serveur
+         */
+        ReseauServeurPtr serveur;
 
-public:
-	/**
-	 * \brief Constructeur
-	 *
-	 * Créé une nouvelle instance du Jeu
-	 */
-	Jeu();
+        /**
+         * \brief Le plateau serveur
+         */
+        PlateauServeurPtr plateauServeur;
 
-	/**
-	 * \brief Destructeur
-	 *
-	 * Détruit une instance précédemment créé du jeu
-	 */
-	virtual ~Jeu();
+        /**
+         * \brief Change la scène si une nouvelle scène a été demandée
+         */
+        void changerScene();
 
-	/**
-	 * \brief Remplace la scène actuelle par celle passée en paramètre
-	 *
-	 * Change la scène actuelle par la nouvelle passée en paramètre
-	 *
-	 * \param nouvelleScene la nouvelle scène
-	 */
-	void changer(Scene::Type nouvelleScene);
+    public:
+        /**
+         * \brief Constructeur
+         *
+         * Créé une nouvelle instance du Jeu
+         */
+        Jeu();
 
-	/**
-	 * \brief Lance le jeu
-	 *
-	 * Lance l'instance du jeu qui a été créé
-	 */
-	void lancer();
+        /**
+         * \brief Destructeur
+         *
+         * Détruit une instance précédemment créé du jeu
+         */
+        virtual ~Jeu();
 
-	/**
-	 * \brief Quitter le jeu
-	 *
-	 * Quitte le jeu proprement
-	 */
-	void quitter();
+        /**
+         * \brief Remplace la scène actuelle par celle passée en paramètre
+         *
+         * Change la scène actuelle par la nouvelle passée en paramètre
+         *
+         * \param nouvelleScene la nouvelle scène
+         */
+        void changer(Scene::Type nouvelleScene);
 
-	void threadReseau();
+        /**
+         * \brief Lance le jeu
+         *
+         * Lance l'instance du jeu qui a été créé
+         */
+        void lancer();
 
-	void lancerServeurGUI(unsigned int port, bool partieSolo);
+        /**
+         * \brief Quitter le jeu
+         *
+         * Quitte le jeu proprement
+         */
+        void quitter();
 
-	/**
-	 * \brief Récupère le modèle
-	 *
-	 * Permet d'accéderau modèle actuel
-	 *
-	 * \return le modèle actuel
-	 */
-	Plateau& lirePlateau();
-	/**
-	 * \brief Récupère le contrôleur
-	 *
-	 * Permet d'accéder au contrôleur actuel
-	 *
-	 * \return le contrôleur actuel
-	 */
-	Controleur& lireControleur();
+        void threadReseau();
 
-	/**
-	 * \brief Récupère les ressources
-	 *
-	 * Permet d'accéder aux différentes ressources du jeu
-	 *
-	 * \return les ressources du jeu
-	 */
-	Ressources& lireRessources();
+        void lancerServeurGUI(unsigned int port, bool partieSolo);
 
-	GestionnaireSons* lireGestionnaire();
+        /**
+         * \brief Récupère le modèle
+         *
+         * Permet d'accéderau modèle actuel
+         *
+         * \return le modèle actuel
+         */
+        Plateau& lirePlateau();
+        /**
+         * \brief Récupère le contrôleur
+         *
+         * Permet d'accéder au contrôleur actuel
+         *
+         * \return le contrôleur actuel
+         */
+        Controleur& lireControleur();
 
-	ReseauPtr& lireReseau();
-	Joueur* lireJoueur();
+        /**
+         * \brief Récupère les ressources
+         *
+         * Permet d'accéder aux différentes ressources du jeu
+         *
+         * \return les ressources du jeu
+         */
+        Ressources& lireRessources();
+
+        GestionnaireSons* lireGestionnaire();
+
+        ReseauPtr& lireReseau();
+        Joueur* lireJoueur();
 };
 
 #endif /* JEU_HPP */

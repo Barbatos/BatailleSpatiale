@@ -69,23 +69,31 @@ void ReseauClient::ConnexionServeur(string ip, unsigned short port,
 void ReseauClient::ConnexionMasterServeur(void) {
     unsigned short portMaster = 1600;
     sf::IpAddress masterServer("barbatos.fr");
-    sf::Time timeout = sf::seconds(0.2);
+    sf::Time timeout = sf::seconds(0.25);
     int nbEssais = 0;
+    bool masterActif = false;
 
-    while (socketMaster.connect(masterServer, portMaster, timeout)
-            != sf::Socket::Done) {
-        if (nbEssais >= 5) {
-            notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au Master Serveur", 5000);
-            return;
+    while (masterActif == false) {
+        if (socketMaster.connect(masterServer, portMaster, timeout) != sf::Socket::Done) {
+            socketMaster.disconnect();
+
+            if (nbEssais >= 5) {
+                notification.ajouterMessage(L"[RESEAU]", L"Abandon de la tentative de connexion au Master Serveur", 5000);
+                return;
+            }
+
+            std::wstringstream stream;
+            stream << L"Impossible de se connecter au serveur sur le port" << portMaster << L", essai sur le port " << (portMaster + 1);
+
+            notification.ajouterMessage(L"[RESEAU]", stream.str(), 5000);
+
+            portMaster++;
+            nbEssais++;
+
+            continue;
         }
 
-        std::wstringstream stream;
-        stream << L"Impossible de se connecter au serveur sur le port" << portMaster << L", essai sur le port " << (portMaster + 1);
-
-        notification.ajouterMessage(L"[RESEAU]", stream.str(), 5000);
-
-        portMaster++;
-        nbEssais++;
+        masterActif = true;
     }
 
     socketMaster.setBlocking(false);
