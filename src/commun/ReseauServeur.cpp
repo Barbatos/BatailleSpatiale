@@ -328,6 +328,7 @@ void ReseauServeur::deplacerVaisseau(JoueurServeur& joueur, Position posDepart, 
         p2 << posArrivee.y;
 
         message = "Deplacement d'un vaisseau (" + p1.str() + "," + p2.str() + ") par le joueur " + joueur.getPseudo();
+        cout << message << endl;
         envoiATous(message);
         envoiPlateauATous();
     } else {
@@ -364,6 +365,7 @@ void ReseauServeur::attaquerVaisseau(JoueurServeur& joueur, Position posAttaquan
         p2 << posCible.y;
 
         message = "Attaque d'un vaisseau (" + p1.str() + "," + p2.str() + ") par le joueur " + joueur.getPseudo();
+        cout << message << endl;
         envoiATous(message);
 
         envoiPlateauATous();
@@ -613,6 +615,7 @@ void ReseauServeur::jouerIA() {
     if (1==1) {
         std::list<Position> listePos;
         std::list<NoeudServeur> zoneAttaquable;
+        std::list<NoeudServeur> zoneParcourable;
         std::list<Position> structuresAttaquables;
 
         // On récupère notre liste de vaisseaux d'attaque
@@ -647,13 +650,41 @@ void ReseauServeur::jouerIA() {
                         // On attaque cette structure
                         if ( (structChoisie != Position(-1, -1)) && (joueurs[1].getCommandement() >= 1) ) {
                             attaquerVaisseau(joueurs[1], *posVaisseau, structChoisie); 
+                            joueurSuivant();
+                            return;
                         }
+                    }
+                }
+
+                // Sinon, on essaye de déplacer le vaisseau vers la base ennemie
+                zoneParcourable = plateau.getZoneParcourable(*posVaisseau, joueurs[1].getEnergie());
+
+                cout << "herp" << endl;
+
+                if ( zoneParcourable.size() >= 1) {
+                    Position bestPos = Position(1000, 1000);
+
+                    cout << "derp" << endl;
+
+                    for (std::list<NoeudServeur>::iterator ps = zoneParcourable.begin(); ps != zoneParcourable.end(); ++ps) {
+                        if ( (ps->getPosition().x < bestPos.x) || (ps->getPosition().y < bestPos.y) )  {
+                            bestPos = ps->getPosition();
+                            cout << "a: " << ps->getPosition().x << ", " << ps->getPosition().y << endl;
+                        }
+                    }
+
+                    cout << "b: " << bestPos.x << ", " << bestPos.y << endl;
+
+                    if ( (bestPos != Position(1000, 1000)) && plateau.cellule[bestPos.x][bestPos.y].estAccessible() ) {
+                        cout << "yay" << endl;
+                        deplacerVaisseau(joueurs[1], *posVaisseau, bestPos);
+                        joueurSuivant();
+                        return;
                     }
                 }
             }
         }
     }
-    // Si pas de vaisseau ennemi dans le coin et qu'on a un vaisseau léger, on avance vers la base ennemie
 
     joueurSuivant();
 }
