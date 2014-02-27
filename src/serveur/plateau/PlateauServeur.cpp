@@ -18,7 +18,19 @@ void PlateauServeur::initialisationTest() {
     cellule[6][5].setType(TypeCellule::Inexistant);
     cellule[4][7].setType(TypeCellule::Inexistant);
     cellule[7][4].setType(TypeCellule::Inexistant);
-    cellule[8][3].setType(TypeCellule::Inexistant);
+    cellule[20-5][20-6].setType(TypeCellule::Inexistant);
+    cellule[20-6][20-6].setType(TypeCellule::Inexistant);
+    cellule[20-6][20-5].setType(TypeCellule::Inexistant);
+    cellule[20-4][20-7].setType(TypeCellule::Inexistant);
+    cellule[20-7][20-4].setType(TypeCellule::Inexistant);
+    cellule[15][17].setType(TypeCellule::Inexistant);
+    cellule[14][12].setType(TypeCellule::Inexistant);
+    cellule[17][9].setType(TypeCellule::Inexistant);
+    cellule[12][11].setType(TypeCellule::Inexistant);
+    cellule[8][14].setType(TypeCellule::Inexistant);
+    cellule[8][8].setType(TypeCellule::Inexistant);
+    cellule[9][9].setType(TypeCellule::Inexistant);
+    cellule[10][10].setType(TypeCellule::Inexistant);
 }
 
 bool PlateauServeur::possedeBatiment(Position p) {

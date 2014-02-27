@@ -506,7 +506,6 @@ void ReseauServeur::envoiZoneVisible(JoueurServeur& joueur) {
 void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
     sf::Int32 posX;
     sf::Int32 posY;
-
     if(nbJoueurs == 1) {
         posX = 2;
         posY = 2;
@@ -520,24 +519,25 @@ void ReseauServeur::creerBase(JoueurServeur& joueur, int nbJoueurs) {
         plateau.cellule[4][1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[4][1].getBatiment());
 
-        plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].creerVaisseau(TypeVaisseau::Chasseur);
-        joueur.ajouterVaisseau(plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].getVaisseau());
+        //plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].creerVaisseau(TypeVaisseau::Chasseur);
+        //joueur.ajouterVaisseau(plateau.cellule[plateau.getTailleX() - 7][plateau.getTailleY() - 6].getVaisseau());
     }
     else {
         posX = plateau.getTailleX() - 2;
         posY = plateau.getTailleY() - 2;
-
+        
         plateau.cellule[posX -  3][posY - 3].creerVaisseau(TypeVaisseau::Destructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 3][posY - 3].getVaisseau());
         plateau.cellule[posX - 4][posY - 3].creerVaisseau(TypeVaisseau::Constructeur);
         joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 3].getVaisseau());
-        //plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
-        //joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
+        plateau.cellule[posX - 4][posY - 4].creerVaisseau(TypeVaisseau::Croiseur);
+        joueur.ajouterVaisseau(plateau.cellule[posX - 4][posY - 4].getVaisseau());
         plateau.cellule[posX - 4][posY - 1].creerBatiment(TypeBatiment::Mine);
         joueur.ajouterBatiment(plateau.cellule[posX - 4][posY - 1].getBatiment());
 
         //plateau.cellule[5][4].creerVaisseau(TypeVaisseau::Chasseur);
         //joueur.ajouterVaisseau(plateau.cellule[5][4].getVaisseau());
+        
     }
 
     plateau.cellule[posX][posY].creerBatiment(TypeBatiment::Base);
@@ -580,7 +580,7 @@ void ReseauServeur::jouerIA() {
     std::list<NoeudServeur> zoneParcourable;
     std::list<Position> structuresAttaquables;
 
-    // Ce n'est pas une partie solo, pas d'IA
+    // Ce n'est pas une partie solo, pas d'IAll
     if(!partieSolo) {
         return;
     }
